@@ -1,0 +1,619 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<?xml-stylesheet type='text/xsl' href='http://xml2rfc.tools.ietf.org/authoring/rfc2629.xslt' ?>
+<!DOCTYPE rfc PUBLIC "-//IETF//DTD RFC 2629//EN"
+"http://xml2rfc.tools.ietf.org/authoring/rfc2629.dtd">
+<!--
+  NOTE:  This XML file is input used to produce the authoritative copy of an
+  OpenID Foundation specification.  The authoritative copy is the HTML output.
+  This XML source file is not authoritative.  The statement ipr="none" is
+  present only to satisfy the document compilation tool and is not indicative
+  of the IPR status of this specification.  The IPR for this specification is
+  described in the "Notices" section.  This is a public OpenID Foundation
+  document and not a private document, as the private="..." declaration could
+  be taken to indicate.
+-->
+<rfc category="std" docName="igov-profile-draft-00" ipr="none">
+  <?rfc toc="yes" ?>
+
+  <?rfc tocdepth="5" ?>
+
+  <?rfc symrefs="yes" ?>
+
+  <?rfc sortrefs="yes"?>
+
+  <?rfc strict="yes" ?>
+
+  <?rfc iprnotified="no" ?>
+
+  <?rfc private="Final" ?>
+
+  <front>
+    <title abbrev="igov-profile">International Government Assurance Profile
+    (iGov)</title>
+
+    <author fullname="Adam Cooper" initials="A." surname="Cooper">
+      <organization/>
+    </author>
+
+    <date day="6" month="April" year="2016"/>
+
+    <workgroup>OpenID iGov Working Group</workgroup>
+
+    <abstract>
+      <t/>
+    </abstract>
+
+    <note title="Requirements Language">
+      <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+      "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+      "OPTIONAL" in this document are to be interpreted as described in <xref
+      target="RFC2119">RFC 2119</xref>.</t>
+    </note>
+  </front>
+
+  <middle>
+    <section title="Types of eID Scheme">
+      <t>The eID schemes used for access to government systems varies
+      considerably between nations and can be crudely categorised by the
+      origin of eID issuance (e.g. public or private sector), and the model of
+      eID federation (direct or broker / hub model). Overlaid are the legal
+      requirements for eID largely derived from more general law such as Data
+      Protection / Privacy regulations and acts under national and / or
+      international law. There are some specific eID laws although the most
+      widespread currently is the eIDAS Regulation applying to all 28 EU
+      Member States. These variances should be reflected in the flexibility of
+      the iGov profile in order to support the widest possible range of
+      government eID solutions.</t>
+    </section>
+
+    <section title="Federation Models to be Considered for iGov Profile">
+      <t/>
+
+      <section title="Direct RP / IDP Relationship">
+        <t>In this model the RP and IDP(s) are known to each other directly
+        and the user is able to select IDP (where multiple choices are
+        available) directly when interacting with the RP service. This is
+        often the case where there are a small number of national eID IDPs and
+        those providers are relatively static.</t>
+
+        <t>This model assumes that the Relying Party and the Identity Provider
+        have a direct relationship and do not require a broker or federation
+        hub to route authentication requests.</t>
+
+        <section title="Use Cases">
+          <texttable title="Use Cases">
+            <ttcol>Use Case</ttcol>
+
+            <ttcol>Description</ttcol>
+
+            <c>The user selects an IDP for sign-in at the RP</c>
+
+            <c>The user selects an identity provider as presented by the RP
+            (the method of presentation is implementation specific). The RP
+            must generate an authentication request to sent to the IDP and
+            send this request in accordance with the messaging requirements of
+            the relevant profile.</c>
+
+            <c>RP selects an IDP for sign-in (without user intervention)</c>
+
+            <c>This is a special case of &ldquo;user selects an IDP for
+            sign-in&rdquo; where the RP has prior knowledge of the
+            requirements for authentication e.g. only a specific identity
+            provider meets the requirements for authentication such as level
+            of assurance.</c>
+
+            <c>The user authenticates at the IDP</c>
+
+            <c>The user provides relevant credentials to the IDP to facilitate
+            sign-in (i.e. those issued following a successful registration
+            process with the IDP). The IDP must provide a status code
+            describing the nature of any failure to the RP when the
+            authentication is not successful at the IDP. This may be the
+            result of a user cancel action, failure to authenticate, or other
+            error state as described by the scheme rules for the
+            federation.</c>
+
+            <c>The IDP asserts the identity of the user to the RP</c>
+
+            <c>The IDP must either assert an ID Token to the RP or an error
+            status as described in the profile.</c>
+
+            <c>The RP identifies the user by consuming information in the
+            identity assertion</c>
+
+            <c>The RP must be able to consume an ID Token from an IDP and to
+            check the integrity of that token as prescribed in the profile.
+            The RP must also retrieve claims for the individual referred to by
+            the ID Token (i.e. from the UserInfo Endpoint). The RP is then
+            responsible for matching the claims in the response to the known
+            &lsquo;accounts&rsquo; held within its systems. In the case of a
+            positive match this should result in the identification of a local
+            identifier (relevant to the RP) for the user.</c>
+          </texttable>
+        </section>
+      </section>
+
+      <section title="Broker (or Hub) Model">
+        <t>There are a variety of examples nationally where an identity broker
+        or federation hub has been deployed such as the UK, Sweden and Denmark
+        as well the US (Connect.Gov). It is clear that this model will persist
+        and that other nations are considering the implementation of similar
+        models.</t>
+
+        <t>In this case a Broker or federation Hub is used to route requests
+        for authentication from Relying Parties to the required Identity
+        Provider. The method used to choose an identity provider is
+        implementation specific and can be user and/or Relying Party
+        driven.</t>
+
+        <section title="Use Cases">
+          <texttable title="Use Cases">
+            <ttcol>Use Case</ttcol>
+
+            <ttcol>Description</ttcol>
+
+            <c>The RP requests authentication from the Broker</c>
+
+            <c>The RP sends an authentication request to the Broker including
+            any specific authentication requirements.</c>
+
+            <c>The user selects an IDP for sign-in at the Broker</c>
+
+            <c>The user selects an identity provider as presented by the
+            Broker (the method of presentation is implementation
+            specific).</c>
+
+            <c>The Broker requests authentication from the (chosen) IDP</c>
+
+            <c>The Broker must generate an authentication request to send to
+            the IDP and send this request in accordance with the messaging
+            requirements of the relevant profile. This request must mirror any
+            specific requirement of the RP as indicated in the RP
+            authentication request.</c>
+
+            <c>The user authenticates at the IDP</c>
+
+            <c>The user provides relevant credentials to the IDP to facilitate
+            sign-in (i.e. those issued following a successful registration
+            process with the IDP). The IDP must provide a status code
+            describing the nature of any failure to the RP when the
+            authentication is not successful at the IDP. This may be the
+            result of a user cancel action, failure to authenticate, or other
+            error state as described by the scheme rules for the
+            federation.</c>
+
+            <c>The IDP asserts the identity of the user to the Broker</c>
+
+            <c>The IDP must either assert an ID Token to the Broker or an
+            error status as described in the profile.</c>
+
+            <c>The Broker relays the assertion of identity to the RP</c>
+
+            <c>The Broker should relay the IDP assertion (ID Token) to the RP
+            in response to the originating RP authentication request.</c>
+
+            <c>The RP identifies the user by consuming information in the
+            identity assertion</c>
+
+            <c>The RP must be able to consume an ID Token from an IDP and to
+            check the integrity of that token as prescribed in the profile.
+            The RP may also retrieve claims for the individual referred to by
+            the ID Token and / or perform matching (see optional use cases
+            below).</c>
+          </texttable>
+        </section>
+      </section>
+
+      <section title="Optional (General) Use Cases">
+        <texttable title="Use Cases">
+          <ttcol>Use Case</ttcol>
+
+          <ttcol>Description</ttcol>
+
+          <c>The RP performs matching to identify a local identifier or
+          account for the user</c>
+
+          <c>The RP may also retrieve claims for the individual referred to by
+          the ID Token (i.e. from the UserInfo Endpoint). The RP is then
+          responsible for matching the claims in the response to the known
+          &lsquo;accounts&rsquo; held within its systems. In the case of a
+          positive match this should result in the identification of a local
+          identifier (relevant to the RP) for the user (see Claims
+          Requirements below).</c>
+
+          <c>RP requests additional attributes during authentication
+          request</c>
+
+          <c>Support for domain specific attributes (claims) is of great
+          importance to EU member states. An outline of how this could be
+          implemented should be included in the profile.</c>
+
+          <c>RP specifies a level of assurance when requesting
+          authentication</c>
+
+          <c>The RP specifies requirements for authentication in particular
+          the required level of assurance acceptable for sign-in to the
+          service.</c>
+
+          <c>The IDP asserts transaction monitoring and / or additional
+          authentication context information alongside identity assertion</c>
+
+          <c>Transaction monitoring and authentication context information may
+          be of great importance to protect the RP (service) from attack or
+          alert the RP to potential fraud.</c>
+        </texttable>
+      </section>
+    </section>
+
+    <section title="Claims Requirements (UserInfo)">
+      <t>In the interests of data minimisation balanced with the requirement
+      to successfully identity the individual signing in to a service claims
+      have been split into mandatory and optional user info (identity) claims.
+      It is expected that these claims would be made available via a UserInfo
+      endpoint.</t>
+
+      <section title="Mandatory UserInfo / Identity Claims">
+        <texttable title="Mandatory UserInfo / Identity Claims">
+          <ttcol>Claim</ttcol>
+
+          <ttcol>Description</ttcol>
+
+          <c>unique_identifier</c>
+
+          <c>This uniquely identifies the identity asserted in the country of
+          origin but does not necessarily reveal any discernible
+          correspondence with the subject's actual identifier (for example,
+          username, fiscal number etc)</c>
+
+          <c>given_name</c>
+
+          <c>The current given name / forename of the individual</c>
+
+          <c>family_name</c>
+
+          <c>The current family name (surname) of the individual</c>
+
+          <c>middle_name</c>
+
+          <c>Any middle name(s) associated with the individual</c>
+
+          <c>birthdate</c>
+
+          <c>Date of Birth includes a date using the following format: YYYY +
+          &ldquo;-&ldquo; + MM + &ldquo;-&ldquo; + DD (as defined for
+          xsd:date)</c>
+        </texttable>
+      </section>
+
+      <section title="Optional UserInfo / Identity Claims">
+        <texttable title="Optional UserInfo / Identity Claims">
+          <ttcol>Claim</ttcol>
+
+          <ttcol>Description</ttcol>
+
+          <c>address</c>
+
+          <c>Free format address data base64 encoded</c>
+
+          <c>postal_code</c>
+
+          <c>Postal code of the individual&rsquo;s current address where
+          available</c>
+
+          <c>email</c>
+
+          <c>Current and active email address of the subject</c>
+
+          <c>email_verified</c>
+
+          <c>Verified email address (see email above)</c>
+
+          <c>gender</c>
+
+          <c>Gender of the individual where the identity provider has gained
+          consent. Values for Gender attributes MUST be one of the following:
+          &middot; Male &middot; Female &middot; Not Specified</c>
+
+          <c>birth_place</c>
+
+          <c>Place of birth as recorded on official documentation such as
+          passport or birth certificate.</c>
+        </texttable>
+      </section>
+
+      <section title="The Need to Support Identity Matching">
+        <t>Matching of the identity assertion based on claims to a local
+        identifier or &lsquo;account&rsquo; related to the individual identity
+        at a level of assurance is a requirement where the government in
+        question is not able to provide a single identifier for all citizens
+        based on an authoritative register of citizens.</t>
+
+        <t>The requirement for matching is also of importance where a
+        cross-border or cross-jurisdiction authentication is required and
+        therefore the availability of a single identifier (e.g. social
+        security number) cannot be guaranteed for the individual wishing to
+        authenticate.</t>
+
+        <t>In general, matching an asserted set of claims for an identity to
+        relying party held records for know individuals requires a minimum set
+        of data elements to be provided. Research in the UK and across the EU
+        under the eIDAS Regulation has identified the minimum set of citizen
+        attributes required to affect a successful match. Due to regional and
+        national law this set of attribute may vary although the key elements
+        are: name, date of birth, current address (including postal code),
+        gender (were consent given).</t>
+      </section>
+    </section>
+
+    <section title="Levels of Assurance">
+      <t>Identity Providers must include an Authentication Context describing
+      the level of assurance achieved for the asserted identity. These values
+      will be described as URIs in the same format as the SAML Authentication
+      Context Class Reference construct.</t>
+
+      <t>It is recommended that both FICAM and eIDAS levels of assurance are
+      supported in the authentication context by default.</t>
+
+      <t>Current NIST Levels of Assurance:</t>
+
+      <texttable title="NIST Levels of Assurance">
+        <ttcol>NIST LoA</ttcol>
+
+        <c>http://idmanagement.gov/ns/assurance/loa/1</c>
+
+        <c>http://idmanagement.gov/ns/assurance/loa/2</c>
+
+        <c>http://idmanagement.gov/ns/assurance/loa/3</c>
+      </texttable>
+
+      <t>Current eIDAS Levels of Assurance:</t>
+
+      <texttable title="eIDAS Levels of Assurance">
+        <ttcol>eIDAS LoA</ttcol>
+
+        <c>http://eidas.europa.eu/LoA/low</c>
+
+        <c>http://eidas.europa.eu/LoA/substantial</c>
+
+        <c>http://eidas.europa.eu/LoA/high</c>
+      </texttable>
+
+      <t>There is no requirement for authentication methods to be described in
+      the Authentication Context as standards for levels of assurance should
+      be outcome based. This also removes the requirement for RPs and IDPs to
+      have a shared understanding of the authentication method values.</t>
+    </section>
+
+    <section title="Technical Requirements ">
+      <t>Technical considerations for the messaging flow to protect the
+      consuming services and individual users from attack.</t>
+
+      <texttable title="HTTP Response Headers and Values">
+        <ttcol>Requirement</ttcol>
+
+        <ttcol>Description</ttcol>
+
+        <c>Message Integrity</c>
+
+        <c>Method of proving the integrity of a message often accomplished
+        through the addition of a digital signature to the response message or
+        a specific element of the payload such as claims.</c>
+
+        <c>Message Confidentiality</c>
+
+        <c>Method of preventing the interception and reading of messages in
+        transit either at the user agent (e.g. browser) or in transit between
+        trusted &lsquo;nodes&rsquo; in the federation such as RP, SP and
+        Broker (Hub).</c>
+
+        <c>Replay Protection</c>
+
+        <c>Prevent the replay of authentication requests and responses. For
+        example, SSL encryption when sending messages between entities
+        specifically to prevent the interception and replay of claims.
+        Consider the use of a digital signature mechanism to sign messages as
+        well as setting a validity period for the message.</c>
+      </texttable>
+    </section>
+  </middle>
+
+  <back>
+    <references title="Normative References">
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2119"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2246"?>
+
+      <?rfc include='http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.3986'?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5246"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5322"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5646"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5785"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6125"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6749"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6750"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6819"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7033"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7515"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7516"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7517"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7519"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7523"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7591"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7009"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7662"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7518"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7159"?>
+
+      <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-oauth-pop-architecture.xml"?>
+
+      <reference anchor="BCP195"
+                 target="http://www.rfc-editor.org/info/bcp195">
+        <front>
+          <title>Recommendations for Secure Use of Transport Layer Security
+          (TLS) and Datagram Transport Layer Security (DTLS)</title>
+
+          <author fullname="Y. Sheffer" initials="Y." surname="Sheffer">
+            <organization/>
+          </author>
+
+          <author fullname="R. Holz" initials="R." surname="Holz">
+            <organization/>
+          </author>
+
+          <author fullname="P. Saint-Andre" initials="P."
+                  surname="Saint-Andre">
+            <organization/>
+          </author>
+
+          <date month="May" year="2015"/>
+
+          <abstract>
+            <t>Transport Layer Security (TLS) and Datagram Transport Layer
+            Security (DTLS) are widely used to protect data exchanged over
+            application protocols such as HTTP, SMTP, IMAP, POP, SIP, and
+            XMPP. Over the last few years, several serious attacks on TLS have
+            emerged, including attacks on its most commonly used cipher suites
+            and their modes of operation. This document provides
+            recommendations for improving the security of deployed services
+            that use TLS and DTLS. The recommendations are applicable to the
+            majority of use cases.</t>
+          </abstract>
+        </front>
+
+        <seriesInfo name="BCP" value="195"/>
+
+        <seriesInfo name="RFC" value="7525"/>
+
+        <seriesInfo name="DOI" value="10.17487/RFC7525"/>
+
+        <format octets="60283" type="ASCII"/>
+      </reference>
+
+      <reference anchor="OpenID.Core"
+                 target="http://openid.net/specs/openid-connect-core-1_0.html">
+        <front>
+          <title>OpenID Connect Core 1.0</title>
+
+          <author fullname="Nat Sakimura" initials="N." surname="Sakimura">
+            <organization abbrev="NRI">Nomura Research Institute,
+            Ltd.</organization>
+          </author>
+
+          <author fullname="John Bradley" initials="J." surname="Bradley">
+            <organization abbrev="Ping Identity">Ping Identity</organization>
+          </author>
+
+          <author fullname="Michael B. Jones" initials="M.B." surname="Jones">
+            <organization abbrev="Microsoft">Microsoft</organization>
+          </author>
+
+          <author fullname="Breno de Medeiros" initials="B."
+                  surname="de Medeiros">
+            <organization abbrev="Google">Google</organization>
+          </author>
+
+          <author fullname="Chuck Mortimore" initials="C." surname="Mortimore">
+            <organization abbrev="Salesforce">Salesforce</organization>
+          </author>
+
+          <date day="3" month="August" year="2015"/>
+        </front>
+      </reference>
+
+      <reference anchor="OpenID.Discovery"
+                 target="http://openid.net/specs/openid-connect-discovery-1_0.html">
+        <front>
+          <title>OpenID Connect Discovery 1.0</title>
+
+          <author fullname="Nat Sakimura" initials="N." surname="Sakimura">
+            <organization abbrev="NRI">Nomura Research Institute,
+            Ltd.</organization>
+          </author>
+
+          <author fullname="John Bradley" initials="J." surname="Bradley">
+            <organization abbrev="Ping Identity">Ping Identity</organization>
+          </author>
+
+          <author fullname="Michael B. Jones" initials="M.B." surname="Jones">
+            <organization abbrev="Microsoft">Microsoft</organization>
+          </author>
+
+          <author fullname="Edmund Jay" initials="E." surname="Jay">
+            <organization abbrev="Illumila">Illumila</organization>
+          </author>
+
+          <date day="3" month="August" year="2015"/>
+        </front>
+      </reference>
+    </references>
+
+    <section anchor="Acknowledgements" title="Acknowledgements">
+      <t>The OpenID Community would like to thank the following people for
+      their contributions to this specification: </t>
+    </section>
+
+    <section anchor="Notices" title="Notices">
+      <t>Copyright (c) 2015 The OpenID Foundation.</t>
+
+      <t>The OpenID Foundation (OIDF) grants to any Contributor, developer,
+      implementer, or other interested party a non-exclusive, royalty free,
+      worldwide copyright license to reproduce, prepare derivative works from,
+      distribute, perform and display, this Implementers Draft or Final
+      Specification solely for the purposes of (i) developing specifications,
+      and (ii) implementing Implementers Drafts and Final Specifications based
+      on such documents, provided that attribution be made to the OIDF as the
+      source of the material, but that such attribution does not indicate an
+      endorsement by the OIDF.</t>
+
+      <t>The technology described in this specification was made available
+      from contributions from various sources, including members of the OpenID
+      Foundation and others. Although the OpenID Foundation has taken steps to
+      help ensure that the technology is available for distribution, it takes
+      no position regarding the validity or scope of any intellectual property
+      or other rights that might be claimed to pertain to the implementation
+      or use of the technology described in this specification or the extent
+      to which any license under such rights might or might not be available;
+      neither does it represent that it has made any independent effort to
+      identify any such rights. The OpenID Foundation and the contributors to
+      this specification make no (and hereby expressly disclaim any)
+      warranties (express, implied, or otherwise), including implied
+      warranties of merchantability, non-infringement, fitness for a
+      particular purpose, or title, related to this specification, and the
+      entire risk as to implementing this specification is assumed by the
+      implementer. The OpenID Intellectual Property Rights policy requires
+      contributors to offer a patent promise not to assert certain patent
+      claims against other contributors and against implementers. The OpenID
+      Foundation invites any interested party to bring to its attention any
+      copyrights, patents, patent applications, or other proprietary rights
+      that may cover technology that may be required to practice this
+      specification.</t>
+    </section>
+
+    <section anchor="History" title="Document History">
+      <t>-2016-04-06</t>
+
+      <t><list style="symbols">
+          <t>Initial document import</t>
+        </list></t>
+    </section>
+  </back>
+</rfc>
