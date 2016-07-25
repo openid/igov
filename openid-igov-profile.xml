@@ -1,0 +1,807 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<?xml-stylesheet type='text/xsl' href='http://xml2rfc.tools.ietf.org/authoring/rfc2629.xslt' ?>
+<!DOCTYPE rfc PUBLIC "-//IETF//DTD RFC 2629//EN"
+"http://xml2rfc.tools.ietf.org/authoring/rfc2629.dtd">
+<!--
+  NOTE:  This XML file is input used to produce the authoritative copy of an
+  OpenID Foundation specification.  The authoritative copy is the HTML output.
+  This XML source file is not authoritative.  The statement ipr="none" is
+  present only to satisfy the document compilation tool and is not indicative
+  of the IPR status of this specification.  The IPR for this specification is
+  described in the "Notices" section.  This is a public OpenID Foundation
+  document and not a private document, as the private="..." declaration could
+  be taken to indicate.
+-->
+<rfc category="std" docName="openid-igov-profile" ipr="none">
+  <?rfc toc="yes" ?>
+
+  <?rfc tocdepth="5" ?>
+
+  <?rfc symrefs="yes" ?>
+
+  <?rfc sortrefs="yes"?>
+
+  <?rfc strict="yes" ?>
+
+  <?rfc iprnotified="no" ?>
+
+  <?rfc private="Final" ?>
+
+  <front>
+    <title abbrev="openid-igov-profile">International Government Assurance Profile (iGov) for
+    OpenID Connect 1.0</title>
+
+    <author fullname="Michael Varley" initials="M.V." role="editor"
+            surname="Varley">
+      <address>
+        <email>mike.varley@securekey.com</email>
+      </address>
+    </author>
+
+    <date day="18" month="July" year="2016"/>
+
+    <workgroup>OpenID iGov Working Group</workgroup>
+
+    <abstract>
+      <t>The OpenID Connect protocol defines an identity federation system
+      that allows a relying party to request and receive authentication and
+      profile information about an end user.</t>
+
+      <t>This specification profiles the OpenID Connect protocol to increase
+      baseline security, provide greater interoperability, and structure
+      deployments in a manner specifically applicable to (but not limited to)
+      government and public service domains.</t>
+    </abstract>
+  </front>
+
+  <middle>
+    <section anchor="Introduction" title="Introduction">
+      <t>Government regulations for permitting users (citizens and non-citizens) 
+        online access to government resources vary greatly from region to region. 
+        There is a strong desire to leverage federated authentication and identity 
+        services for public access to government resources online to reduce 'password
+        fatigue', increase overall account security, reduce cost, and provide reliable
+        identity assurances from established and trusted sources when applicable.</t>
+
+      <t>This specification aims to define an OpenID Connect profile that provides 
+        governments with a foundation for securing federated access to public services 
+        online.</t>  
+
+      <section anchor="rnc" title="Requirements Notation and Conventions">
+        <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+        "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+        "OPTIONAL" in this document are to be interpreted as described in
+        <xref target="RFC2119">RFC 2119</xref>.</t>
+
+        <t>All uses of <xref target="RFC7515">JSON Web Signature (JWS)</xref>
+        and <xref target="RFC7516">JSON Web Encryption (JWE)</xref> data
+        structures in this specification utilize the JWS Compact Serialization
+        or the JWE Compact Serialization; the JWS JSON Serialization and the
+        JWE JSON Serialization are not used.</t>
+      </section>
+
+      <section anchor="Terminology" title="Terminology">
+        <t>This specification uses the terms "Access Token", "Authorization
+        Code", "Authorization Endpoint", "Authorization Grant", "Authorization
+        Server", "Client", "Client Authentication", "Client Identifier",
+        "Client Secret", "Grant Type", "Protected Resource", "Redirection
+        URI", "Refresh Token", "Resource Owner", "Resource Server", "Response
+        Type", and "Token Endpoint" defined by <xref target="RFC6749">OAuth
+        2.0</xref>, the terms "Claim Name", "Claim Value", and "JSON Web Token
+        (JWT)" defined by <xref target="RFC7519">JSON Web Token (JWT)</xref>,
+        and the terms defined by <xref target="OpenID.Core">OpenID Connect
+        Core 1.0</xref>.</t>
+      </section>
+
+      <section title="Conformance">
+        <t> ** Given the wide range of government domains (local, regional, national) 
+          and interactions, what kind of conformance statement can we have here? **</t>
+      </section>
+    </section>
+
+    <section anchor="AuthRequest" title="Authorization Request">
+
+      <t>The following describes the supported OpenID Connect Authorization Code Flow
+      parameters for use with iGov compatible IdPs.</t>
+
+      <t>Request Parameters: <list style="hanging">
+        <t hangText="client_id">REQUIRED. OAuth 2.0 Client Identifier valid at the Authorization Server.</t>
+
+        <t hangText="response_type">REQUIRED. MUST be set to  <spanx style="verb">code</spanx>.</t>
+
+        <t hangText="acr_values">REQUIRED. Lists the acceptable LoAs for this authentication. See (below)</t>
+
+        <t hangText="scope">REQUIRED.  Indicates the attributes being requested. (See below)</t>
+
+        <t hangText="redirect_uri">REQUIRED. Indicates a valid endpoint where the client will receive the authentication response. See (core section 3.1.2.1)</t>
+
+        <t hangText="state"> REQUIRED. Unguessable random string generated by the RP, used to protect against CSRF attacks. Must contain a sufficient amount of entropy to avoid guessing. Returned to the RP in the authentication response.</t>
+
+        <t hangText="prompt"> REQUIRED. This value must be set to  <spanx style="verb">select_account</spanx>.</t>
+
+        <t hangText="nonce">OPTIONAL. Unguessable random string generated by the client, used to protect against CSRF attacks. Must contain a sufficient amount of entropy to avoid guessing. Returned to the client in the ID Token.</t>
+
+        <t hangText="authMode">OPTIONAL. (VESTIGE FROM CONNECT.GOV) Allows the client to specify the user experience as either a full-page redirect or an embedded widget.</t>
+
+        </list></t>
+
+      <t>A sample request may look like:</t>
+
+      <figure>
+        <artwork><![CDATA[
+https://idp.government.gov/oidc/authorization?
+  response_type=code
+  &client_id=827937609728-m2mvqffo9bsefh4di90saus4n0diar2h
+  &scope=d+openid
+  &redirect_uri=https%3A%2F%2Frp.fed1.gov%2Foidc%2FloginResponse
+  &state=2ca3359dfbfd0
+  &prompt=select_account
+  &acr_values=http%3A%2F%2Fidmanagement.gov%2Fns%2Fassurance%2Floa%2F1
++http%3A%2F%2Fidmanagement.gov%2Fns%2Fassurance%2Floa%2F2
++http%3A%2F%2Fidmanagement.gov%2Fns%2Fassurance%2Floa%2F3 
++http%3A%2F%2Fidmanagement.gov%2Fns%2Fa]]>
+</artwork>
+      </figure>    
+    </section>
+
+    <section anchor="AuthorizationResponse" title="Authorization Response">
+      <t> The following data will be sent as an Authorization Response to the Authorization Code Flow as desribed above. The authentication response is sent via HTTP redirect to the redirect URI specified in the request.</t>
+
+      <t>The following fields MUST be included in the response:<list style="hanging">
+
+        <t hangText="state"> REQUIRED. The value of the state parameter passed in in the authentication request. This value MUST match exactly.</t>
+
+        <t hangText="code"> REQUIRED. The authorization code, a random string issued by the IdP to be used in the request to the token endpoint.</t>
+
+      </list></t>
+
+      <t> The following is an example response:</t>
+      <figure>
+        <artwork><![CDATA[
+https://int-rp.fed1.securekey.com/skrp1/web/oidc/loginResponse?
+    state=2ca3359dfbfd0
+   &code=gOIFJ1hV6Rb1sxUdFhZGACWwR1sMhYbJJcQbVJN0wHA
+]]></artwork>
+      </figure>
+    </section>
+    
+    <section anchor="TokenRequest" title="Token Request">
+      <t>To retrieve the access and ID tokens, the client sends a token request to the token endpoint using HTTP POST with parameters in the form encoded body.</t>
+
+      <t>Clients must authenticate to the Token Endpoint using the <spanx style="verb">private_key_jwt</spanx> method as described in (Core spec section 9).</t>
+
+      <t> The following parameters are specified:<list style="hanging">
+          <t hangText="grant_type">REQUIRED. MUST be set to <spanx style="verb">authorization_code</spanx>.</t>
+
+          <t hangText="code">REQUIRED. The value of the code parameter returned in the authorization response.</t>
+
+          <t hangText="client_assertion_type">REQUIRED. MUST be set to
+          <spanx style="verb">urn:ietf:params:oauth:client-assertion-type:jwt-bearer</spanx>.</t>
+
+          <t hangText="client_assertion"> REQUIRED. The value of the signed client authentication JWT generated as described below. The RP must generate a new assertion JWT for each call to the token endpoint.</t>
+      </list></t>
+
+      <t>The signed client authentication token MUST contain the following parameters:<list style="hanging">
+        
+        <t hangText="iss">REQUIRED. The client ID.</t>
+        
+        <t hangText="sub">REQUIRED. The client ID.</t>
+
+        <t hangText="aud">REQUIRED. The URL of the token endpoint.</t>
+      
+        <t hangText="jti">REQUIRED. An unguessable random string generated by the client.</t>
+
+        <t hangText="exp">REQUIRED. An integer timestamp (in Unix Epoch format) of the expiration of this assertion. This should be a very small time in the future, such as five minutes from issuance.</t>
+      </list></t>
+
+      <t>The client signs this JWT with its own private key and sends it to the server as described above in the client_assertion field. Since the client has registered its public key, the server will be able to verify the signature of the JWT and therefore authenticate the client.</t>
+
+      <t>For example (with line wraps within values for display purposes only):</t>
+
+      <figure><artwork><![CDATA[
+  POST /token HTTP/1.1
+  Host: server.example.com
+  Content-Type: application/x-www-form-urlencoded
+
+  grant_type=authorization_code&
+    code=i1WsRn1uB1&
+    client_id=s6BhdRkqt3&
+    client_assertion_type=
+    urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer&
+    client_assertion=PHNhbWxwOl ... ZT
+        ]]></artwork>
+      </figure>
+
+      <section anchor="IDToken" title="ID Tokens">
+        <t>The token response includes an access token (which can be used to make a UserInfo request) and ID token (a signed and optionally encrypted JSON Web Token). ID Token values have the following meanings:<list
+            style="hanging">
+            <t hangText="iss">The "issuer" field is the Uniform Resource Locater
+            (URL) of the expected issuer. MUST be verified by the client.</t>
+
+            <t hangText="aud">The "audience" field contains the client ID of the
+            client. MUST be verified by the client.</t>
+
+            <t hangText="sub">The identifier of the user. SHOULD be a pairwize annonymous identifier, and be unique per client to prevent linkability and traceability between clients.</t>
+
+            <t hangText="acr">The LoA the user was authenticated at. MUST be a member of the <spanx style="verb">acr_values</spanx> list from the authentication request.</t>
+
+            <t hangText="nonce">The nonce value that was provided in the authentication request. Included if provided in authentication request.</t>
+
+            <t hangText="jti">A unique identifier for the token, which can be used to prevent reuse of the token.</t>
+
+            <t hangText="exp, iat, nbf">The "expiration", "issued at", and "not
+            before" timestamps for the token are dates (integer number of
+            seconds since from 1970-01-01T00:00:00Z UTC) within acceptable
+            ranges</t>
+          </list></t>
+
+        <t>All ID Tokens MUST be signed by the OpenID Provider's private
+        signature key. All clients MUST validate the signature of an ID Token
+        before accepting it using the public key of the issuing server, which is
+        published in <xref target="RFC7517">JSON Web Key (JWK)</xref> format. ID
+        Tokens MAY be encrypted using the appropriate key of the requesting
+        client.</t>
+
+        <t>The ID Token MUST expire and SHOULD have an active lifetime no longer
+        than five minutes.</t>
+
+        <t>This example ID token has been signed using the server's RSA key:</t>
+
+        <figure>
+          <artwork><![CDATA[eyJhbGciOiJSUzI1NiJ9.eyJhdXRoX3RpbWUiOjE0
+  MTg2OTg3ODIsImV4cCI6MTQxODY5OTQxMiwic3ViI
+  joiNldaUVBwblF4ViIsIm5vbmNlIjoiMTg4NjM3Yj
+  NhZjE0YSIsImF1ZCI6WyJjMWJjODRlNC00N2VlLTR
+  iNjQtYmI1Mi01Y2RhNmM4MWY3ODgiXSwiaXNzIjoi
+  aHR0cHM6XC9cL2lkcC1wLmV4YW1wbGUuY29tXC8iL
+  CJpYXQiOjE0MTg2OTg4MTJ9mQc0rtL56dnJ7_zO_f
+  x8-qObsQhXcn-qN-FC3JIDBuNmP8i11LRA_sgh_om
+  RRfQAUhZD5qTRPAKbLuCD451lf7ALAUwoGg8zAASI
+  5QNGXoBVVn7buxPd2SElbSnHxu0o8ZsUZZwNpircW
+  NUlYLje6APJf0kre9ztTj-5J1hRKFbbHodR2I1m5q
+  8zQR0ql-FoFlOfPhvfurXxCRGqP1xpvLLBUi0JAw3
+  F8hZt_i1RUYWMqLQZV4VU3eVNeIPAD38qD1fxTXGV
+  Ed2XDJpmlcxjrWxzJ8fGfJrbsiHCzmCjflhv34O22
+  zb0lJpC0d0VScqxXjNTa2-ULyCoehLcezmssg]]></artwork>
+        </figure>
+
+        <t>Its claims are as follows:</t>
+
+        <figure>
+          <artwork><![CDATA[ {
+     "auth_time": 1418698782,
+     "exp": 1418699412,
+     "sub": "6WZQPpnQxV",
+     "nonce": "188637b3af14a",
+     "aud": [
+        "c1bc84e4-47ee-4b64-bb52-5cda6c81f788"
+     ],
+     "iss": "https:\\/\\/idp-p.example.com\\/",
+     "iat": 1418698812
+  }
+  ]]></artwork>
+        </figure>
+      </section>
+    </section>
+
+    <section anchor="UserInfoEndpoint" title="UserInfo Endpoint">
+      <t>Servers MAY support the UserInfo Endpoint and, at a minimum, the
+      <spanx style="verb">sub</spanx> (subject) claims.</t>
+
+      <t>In an example transaction, the client sends a request to the UserInfo
+      Endpoint like the following:</t>
+
+      <figure>
+        <artwork><![CDATA[GET /userinfo HTTP/1.1
+Authorization: Bearer eyJhbGciOiJSUzI1NiJ9.eyJleHAiOjE0MTg3MDI0MTIsIm
+F1ZCI6WyJjMWJjODRlNC00N2VlLTRiNjQtYmI1Mi01Y2RhNmM4MWY3ODgiXSwiaXNzIjo
+iaHR0cHM6XC9cL2lkcC1wLmV4YW1wbGUuY29tXC8iLCJqdGkiOiJkM2Y3YjQ4Zi1iYzgx
+LTQwZWMtYTE0MC05NzRhZjc0YzRkZTMiLCJpYXQiOjE0MTg2OTg4MTJ9i.HMz_tzZ90_b
+0QZS-AXtQtvclZ7M4uDAs1WxCFxpgBfBanolW37X8h1ECrUJexbXMD6rrj_uuWEqPD738
+oWRo0rOnoKJAgbF1GhXPAYnN5pZRygWSD1a6RcmN85SxUig0H0e7drmdmRkPQgbl2wMhu
+-6h2Oqw-ize4dKmykN9UX_2drXrooSxpRZqFVYX8PkCvCCBuFy2O-HPRov_SwtJMk5qjU
+WMyn2I4Nu2s-R20aCA-7T5dunr0iWCkLQnVnaXMfA22RlRiU87nl21zappYb1_EHF9ePy
+q3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKaHtSZ6PQICoA
+Accept: text/plain, application/json, application/*+json, */*
+Host: idp-p.example.com
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
+]]></artwork>
+      </figure>
+
+      <t>And receives a document in response like the following:</t>
+
+      <figure>
+        <artwork><![CDATA[HTTP/1.1 200 OK
+Date: Tue, 16 Dec 2014 03:00:12 GMT
+Access-Control-Allow-Origin: *
+Content-Type: application/json;charset=ISO-8859-1
+Content-Language: en-US
+Content-Length: 333
+Connection: close
+
+{
+   "sub": "6WZQPpnQxV",
+   "iss": "https://idp-p.example.com"
+   "given_name": "Stephen",
+   "family_name": "Emeritus",
+}
+]]></artwork>
+      </figure>
+
+      <t>Servers MUST support the generation of <xref
+      target="RFC7519">JWT</xref> encoded responses from the UserInfo Endpoint
+      in addition to unsigned JSON objects. Signed responses MUST be signed by
+      the OpenID Provider's key, and encrypted responses MUST be encrypted
+      with the authorized client's key. The OpenID Provider MUST support the
+      RS256 signature method (the Rivest, Shamir, and Adleman (RSA) signature
+      algorithm with a 256-bit hash) and MAY use other asymmetric signature
+      and encryption methods listed in the JSON Web Algorithms (<xref
+      target="RFC7518">JWA</xref>) specification.</t>
+    </section>
+
+    <section anchor="RequestObjects" title="Request Objects">
+      <t>Clients MAY optionally send requests to the authorization endpoint as
+      signed or encrypted request objects using the <spanx style="verb">request</spanx>
+      parameter as defined by <xref target="OpenID.Core">OpenID
+      Connect</xref>. Servers MUST accept requests containing a request object
+      signed by the client's private key. Servers MUST validate the signature
+      on such requests against the client's registered public key. Clients
+      must register their keys during client registration as described in the
+      HEART <xref target="HEART.OAuth2">OAuth 2.0</xref> profile. Servers MUST
+      accept request objects encrypted with the server's public key.</t>
+
+      <t>Servers MAY accept request objects by reference using the <spanx
+      style="verb">request_uri</spanx> parameter.</t>
+    </section>
+
+    <section anchor="AuthenticationContext" title="Authentication Context">
+      <t>OpenID Providers MUST provide <spanx style="verb">acr</spanx>
+      (authentication context class reference, equivalent to the Security
+      Assertion Markup Language (SAML) element of the same name) and <spanx
+      style="verb">amr</spanx> (authentication methods reference) values in ID
+      tokens.</t>
+
+      <t>It is recommended that both FICAM and eIDAS levels of assurance are
+      supported in the authentication context by default.</t>
+
+      <t>Current NIST Levels of Assurance:</t>
+
+      <texttable title="NIST Levels of Assurance">
+        <ttcol>NIST LoA</ttcol>
+
+        <c>http://idmanagement.gov/ns/assurance/loa/1</c>
+
+        <c>http://idmanagement.gov/ns/assurance/loa/2</c>
+
+        <c>http://idmanagement.gov/ns/assurance/loa/3</c>
+      </texttable>
+
+      <t>Current eIDAS Levels of Assurance:</t>
+
+      <texttable title="eIDAS Levels of Assurance">
+        <ttcol>eIDAS LoA</ttcol>
+
+        <c>http://eidas.europa.eu/LoA/low</c>
+
+        <c>http://eidas.europa.eu/LoA/substantial</c>
+
+        <c>http://eidas.europa.eu/LoA/high</c>
+      </texttable>
+
+      <t>There is no requirement for authentication methods to be described in
+      the Authentication Context as standards for levels of assurance should
+      be outcome based. This also removes the requirement for RPs and IDPs to
+      have a shared understanding of the authentication method values.</t>
+
+      <t>Note that OpenID Connect cannot provide LOA 4 identity assertions due
+      to the way that the FICAM LOA values are currently defined.<xref target="RFC7800">Proof-of-Possession Key Semantics for JWTs</xref> may provide a mechanism to verify user keys.</t>
+
+      <t>The <spanx style="verb">amr</spanx> value is an array of strings
+      describing the set of mechanisms used to authenticate the user to the
+      OpenID Provider. Providers that require multi-factor authentication will
+      typically provide multiple values (for example, memorized password plus
+      hardware-token-generated one-time password). The specific values MUST be
+      agreed upon and understood between the OpenID Provider and any Relying
+      Parties.</t>
+
+      <t>In the future, this profile will likely reference and make use of the
+      draft <xref target="I-D.richer-vectors-of-trust">Vectors of Trust</xref>
+      standard.</t>
+    </section>
+
+    <section anchor="Discovery" title="Discovery">
+      <t>All OpenID Connect servers are uniquely identified by a URL known as
+      the <spanx style="verb">issuer</spanx>. This URL serves as the prefix of
+      a service discovery endpoint as specified in the <xref
+      target="OpenID.Discovery">OpenID Connect Discovery standard</xref>. The
+      discovery document MUST contain at minimum the following fields:</t>
+
+      <t><list style="hanging">
+          <t hangText="issuer">The fully qualified issuer URL of the
+          server</t>
+
+          <t hangText="authorization_endpoint">The fully qualified URL of the
+          server's authorization endpoint defined by <xref
+          target="RFC6749"/></t>
+
+          <t hangText="token_endpoint">The fully qualified URL of the server's
+          token endpoint defined by <xref target="RFC6749"/></t>
+
+          <t hangText="introspection_endpoint">The fully qualified URL of the
+          server's introspection endpoint defined by <xref
+          target="RFC7662">OAuth Token Introspection</xref></t>
+
+          <t hangText="revocation_endpoint">The fully qualified URL of the
+          server's revocation endpoint defined by <xref target="RFC7009">OAuth
+          Token Revocation</xref></t>
+
+          <t hangText="jwks_uri">The fully qualified URI of the server's
+          public key in <xref target="RFC7517">JWK Set</xref> format</t>
+        </list></t>
+
+      <t>The following example shows the JSON document found at a discovery
+      endpoint for an authorization server:</t>
+
+      <figure>
+        <artwork><![CDATA[{
+  "request_parameter_supported": true,
+  "id_token_encryption_alg_values_supported": [
+    "RSA-OAEP", "RSA1_5", "RSA-OAEP-256"
+  ],
+  "registration_endpoint": "https://idp-p.example.com/register",
+  "userinfo_signing_alg_values_supported": [
+    "HS256", "HS384", "HS512", "RS256", "RS384", "RS512"
+  ],
+  "token_endpoint": "https://idp-p.example.com/token",
+  "request_uri_parameter_supported": false,
+  "request_object_encryption_enc_values_supported": [
+    "A192CBC-HS384", "A192GCM", "A256CBC+HS512",
+    "A128CBC+HS256", "A256CBC-HS512",
+    "A128CBC-HS256", "A128GCM", "A256GCM"
+  ],
+  "token_endpoint_auth_methods_supported": [
+    "private_key_jwt",
+  ],
+  "userinfo_encryption_alg_values_supported": [
+    "RSA-OAEP", "RSA1_5",
+    "RSA-OAEP-256"
+  ],
+  "subject_types_supported": [
+    "public", "pairwise"
+  ],
+  "id_token_encryption_enc_values_supported": [
+    "A192CBC-HS384", "A192GCM", "A256CBC+HS512",
+    "A128CBC+HS256", "A256CBC-HS512", "A128CBC-HS256",
+    "A128GCM", "A256GCM"
+  ],
+  "claims_parameter_supported": false,
+  "jwks_uri": "https://idp-p.example.com/jwk",
+  "id_token_signing_alg_values_supported": [
+    "HS256", "HS384", "HS512", "RS256", "RS384", "RS512", "none"
+  ],
+  "authorization_endpoint": "https://idp-p.example.com/authorize",
+  "require_request_uri_registration": false,
+  "introspection_endpoint": "https://idp-p.example.com/introspect",
+  "request_object_encryption_alg_values_supported": [
+    "RSA-OAEP", ?RSA1_5", "RSA-OAEP-256"
+  ],
+  "service_documentation": "https://idp-p.example.com/about",
+  "response_types_supported": [
+    "code", "token"
+  ],
+  "token_endpoint_auth_signing_alg_values_supported": [
+    "HS256", "HS384", "HS512", "RS256", "RS384", "RS512"
+  ],
+  "revocation_endpoint": "https://idp-p.example.com/revoke",
+  "request_object_signing_alg_values_supported": [
+    "HS256", "HS384", "HS512", "RS256", "RS384", "RS512"
+  ],
+  "claim_types_supported": [
+    "normal"
+  ],
+  "grant_types_supported": [
+    "authorization_code",
+    "urn:ietf:params:oauth:grant-type:jwt-bearer",
+  ],
+  "scopes_supported": [
+  ],
+  "userinfo_endpoint": "https://idp-p.example.com/userinfo",
+  "userinfo_encryption_enc_values_supported": [
+    "A192CBC-HS384", "A192GCM", "A256CBC+HS512","A128CBC+HS256",
+    "A256CBC-HS512", "A128CBC-HS256", "A128GCM", "A256GCM"
+  ],
+  "op_tos_uri": "https://idp-p.example.com/about",
+  "issuer": "https://idp-p.example.com/",
+  "op_policy_uri": "https://idp-p.example.com/about",
+  "claims_supported": [
+    "sub", "name", "preferred_username", "given_name", "family_name",
+    "middle_name", "nickname", "profile", "picture", "website",
+    "gender", "zone_info", "locale", "updated_time", "birthdate",
+    "email", "email_verified", "phone_number", "address"
+  ]
+}
+]]></artwork>
+      </figure>
+
+      <t>Clients and protected resources SHOULD cache this discovery
+      information. It is RECOMMENDED that servers provide cache information
+      through HTTP headers and make the cache valid for at least one week.</t>
+
+      <t>The server MUST provide its public key in <xref target="RFC7517">JWK
+      Set</xref> format, such as the following 2048-bit RSA key:</t>
+
+      <figure>
+        <artwork><![CDATA[{
+  "keys": [
+    {
+      "alg": "RS256",
+      "e": "AQAB",
+      "n": "o80vbR0ZfMhjZWfqwPUGNkcIeUcweFyzB2S2T-hje83IOVct8gVg9FxvHPK1ReEW3-p7-A8GNcLAuFP_8jPhiL6LyJC3F10aV9KPQFF-w6Eq6VtpEgYSfzvFegNiPtpMWd7C43EDwjQ-GrXMVCLrBYxZC-P1ShyxVBOzeR_5MTC0JGiDTecr_2YT6o_3aE2SIJu4iNPgGh9MnyxdBo0Uf0TmrqEIabquXA1-V8iUihwfI8qjf3EujkYi7gXXelIo4_gipQYNjr4DBNlE0__RI0kDU-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEqfCaPDNp00J6AbY6w",
+      "kty": "RSA",
+      "kid": "rsa1"
+    }
+  ]
+}
+]]></artwork>
+      </figure>
+
+      <t>Clients and protected resources SHOULD cache this key. It is
+      RECOMMENDED that servers provide cache information through HTTP headers
+      and make the cache valid for at least one week.</t>
+    </section>
+
+    <section anchor= "ScopeProfiles" title="Scope Profiles (UserInfo Attributes">
+      <t>In the interests of data minimisation balanced with the requirement
+      to successfully identity the individual signing in to a service the default OpenID Connect profiles may not be appropriate.</t>
+
+      <t>Matching of the identity assertion based on claims to a local
+        identifier or &lsquo;account&rsquo; related to the individual identity
+        at a level of assurance is a requirement where the government in
+        question is not able to provide a single identifier for all citizens
+        based on an authoritative register of citizens.</t>
+
+      <t>The requirement for matching is also of importance where a
+        cross-border or cross-jurisdiction authentication is required and
+        therefore the availability of a single identifier (e.g. social
+        security number) cannot be guaranteed for the individual wishing to
+        authenticate.</t>
+
+      <t>In general, matching an asserted set of claims for an identity to
+        relying party held records for know individuals requires a minimum set
+        of data elements to be provided. Research in the UK and across the EU
+        under the eIDAS Regulation has identified the minimum set of citizen
+        attributes required to affect a successful match. Due to regional and
+        national law this set of attribute may vary although the key elements
+        are: name, date of birth, current address (including postal code),
+        gender (were consent given).</t>
+    </section>
+
+    <section title="Security Considerations">
+      <t>All transactions MUST be protected in transit by TLS as described in
+      <xref target="BCP195">BCP195</xref>.</t>
+
+      <t>All clients MUST conform to applicable recommendations found in the
+      Security Considerations sections of <xref target="RFC6749"/> and those
+      found in the <xref target="RFC6819">OAuth 2.0 Threat Model and Security
+      Considerations document</xref>.</t>
+    </section>
+  </middle>
+
+  <back>
+    <references title="Normative References">
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2119"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2246"?>
+
+      <?rfc include='http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.3986'?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5246"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5322"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5646"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5785"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6125"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6749"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6750"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6819"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7033"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7515"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7516"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7517"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7519"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7518"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7009"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7662"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7800"?>
+
+      <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-oauth-pop-architecture.xml"?>
+
+      <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml-ids/reference.I-D.richer-vectors-of-trust.xml"?>
+
+      <reference anchor="BCP195"
+                 target="http://www.rfc-editor.org/info/bcp195">
+        <front>
+          <title>Recommendations for Secure Use of Transport Layer Security
+          (TLS) and Datagram Transport Layer Security (DTLS)</title>
+
+          <author fullname="Y. Sheffer" initials="Y." surname="Sheffer">
+            <organization/>
+          </author>
+
+          <author fullname="R. Holz" initials="R." surname="Holz">
+            <organization/>
+          </author>
+
+          <author fullname="P. Saint-Andre" initials="P."
+                  surname="Saint-Andre">
+            <organization/>
+          </author>
+
+          <date month="May" year="2015"/>
+
+          <abstract>
+            <t>Transport Layer Security (TLS) and Datagram Transport Layer
+            Security (DTLS) are widely used to protect data exchanged over
+            application protocols such as HTTP, SMTP, IMAP, POP, SIP, and
+            XMPP. Over the last few years, several serious attacks on TLS have
+            emerged, including attacks on its most commonly used cipher suites
+            and their modes of operation. This document provides
+            recommendations for improving the security of deployed services
+            that use TLS and DTLS. The recommendations are applicable to the
+            majority of use cases.</t>
+          </abstract>
+        </front>
+
+        <seriesInfo name="BCP" value="195"/>
+
+        <seriesInfo name="RFC" value="7525"/>
+
+        <seriesInfo name="DOI" value="10.17487/RFC7525"/>
+
+        <format octets="60283" type="ASCII"/>
+      </reference>
+
+      <reference anchor="OpenID.Core"
+                 target="http://openid.net/specs/openid-connect-core-1_0.html">
+        <front>
+          <title>OpenID Connect Core 1.0</title>
+
+          <author fullname="Nat Sakimura" initials="N." surname="Sakimura">
+            <organization abbrev="NRI">Nomura Research Institute,
+            Ltd.</organization>
+          </author>
+
+          <author fullname="John Bradley" initials="J." surname="Bradley">
+            <organization abbrev="Ping Identity">Ping Identity</organization>
+          </author>
+
+          <author fullname="Michael B. Jones" initials="M.B." surname="Jones">
+            <organization abbrev="Microsoft">Microsoft</organization>
+          </author>
+
+          <author fullname="Breno de Medeiros" initials="B."
+                  surname="de Medeiros">
+            <organization abbrev="Google">Google</organization>
+          </author>
+
+          <author fullname="Chuck Mortimore" initials="C." surname="Mortimore">
+            <organization abbrev="Salesforce">Salesforce</organization>
+          </author>
+
+          <date day="3" month="August" year="2015"/>
+        </front>
+      </reference>
+
+      <reference anchor="OpenID.Discovery"
+                 target="http://openid.net/specs/openid-connect-discovery-1_0.html">
+        <front>
+          <title>OpenID Connect Discovery 1.0</title>
+
+          <author fullname="Nat Sakimura" initials="N." surname="Sakimura">
+            <organization abbrev="NRI">Nomura Research Institute,
+            Ltd.</organization>
+          </author>
+
+          <author fullname="John Bradley" initials="J." surname="Bradley">
+            <organization abbrev="Ping Identity">Ping Identity</organization>
+          </author>
+
+          <author fullname="Michael B. Jones" initials="M.B." surname="Jones">
+            <organization abbrev="Microsoft">Microsoft</organization>
+          </author>
+
+          <author fullname="Edmund Jay" initials="E." surname="Jay">
+            <organization abbrev="Illumila">Illumila</organization>
+          </author>
+
+          <date day="3" month="August" year="2015"/>
+        </front>
+      </reference>
+
+      <reference anchor="HEART.OAuth2"
+                 target="http://openid.net/specs/openid-heart-oauth2-1_0.html">
+        <front>
+          <title>Health Relationship Trust Profile for OAuth 2.0</title>
+
+          <author fullname="Justin Richer" initials="J." role="editor"
+                  surname="Richer">
+            <address>
+              <email>openid@justin.richer.org</email>
+
+              <uri>http://justin.richer.org/</uri>
+            </address>
+          </author>
+
+          <date day="15" month="February" year="2016"/>
+        </front>
+      </reference>
+    </references>
+
+    <section anchor="Acknowledgements" title="Acknowledgements">
+      <t>The OpenID Community would like to thank the following people for
+      their contributions to this specification: Justin Ritcher, Paul Grassi, 
+      John Bradley, Adam Cooper, ... </t>
+    </section>
+
+    <section anchor="Notices" title="Notices">
+      <t>Copyright (c) 2015 The OpenID Foundation.</t>
+
+      <t>The OpenID Foundation (OIDF) grants to any Contributor, developer,
+      implementer, or other interested party a non-exclusive, royalty free,
+      worldwide copyright license to reproduce, prepare derivative works from,
+      distribute, perform and display, this Implementers Draft or Final
+      Specification solely for the purposes of (i) developing specifications,
+      and (ii) implementing Implementers Drafts and Final Specifications based
+      on such documents, provided that attribution be made to the OIDF as the
+      source of the material, but that such attribution does not indicate an
+      endorsement by the OIDF.</t>
+
+      <t>The technology described in this specification was made available
+      from contributions from various sources, including members of the OpenID
+      Foundation and others. Although the OpenID Foundation has taken steps to
+      help ensure that the technology is available for distribution, it takes
+      no position regarding the validity or scope of any intellectual property
+      or other rights that might be claimed to pertain to the implementation
+      or use of the technology described in this specification or the extent
+      to which any license under such rights might or might not be available;
+      neither does it represent that it has made any independent effort to
+      identify any such rights. The OpenID Foundation and the contributors to
+      this specification make no (and hereby expressly disclaim any)
+      warranties (express, implied, or otherwise), including implied
+      warranties of merchantability, non-infringement, fitness for a
+      particular purpose, or title, related to this specification, and the
+      entire risk as to implementing this specification is assumed by the
+      implementer. The OpenID Intellectual Property Rights policy requires
+      contributors to offer a patent promise not to assert certain patent
+      claims against other contributors and against implementers. The OpenID
+      Foundation invites any interested party to bring to its attention any
+      copyrights, patents, patent applications, or other proprietary rights
+      that may cover technology that may be required to practice this
+      specification.</t>
+    </section>
+
+    <section anchor="History" title="Document History">
+      <t>-2016-07-25</t>
+
+      <t><list style="symbols">
+          <t>Imported content from OpenID HEART 1.0 profile and Connect.Gov integration guide v 1.4</t>
+        </list></t>
+    </section>
+  </back>
+</rfc>
