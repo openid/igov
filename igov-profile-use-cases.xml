@@ -57,7 +57,8 @@
            discussion assertions of identity data, then userinfo for claims. Should we
          exclude claims from authentication requests? In addition, phase 1 of the
        iGov work will not be to support exotic privacy requirements, but shouldn't
-     we have use cases for them? </t>
+     we have use cases for them? Typically identity claims in idToken and attributes in userinfo endpoint.  Many optimize with attributes coming back in IDToken.</t>
+     Fix indirect to be proxy/hub. Broker is more of a biz model then a technology.
     </note>
 
     <section title="Types of eID Scheme">
@@ -219,6 +220,53 @@
         </section>
       </section>
 
+      <section title="Direct Relationship - Dynamic Discovery">
+        <t>This is primarily a gov-to-gov use case, promoting federated identity
+        to promote home agency credential reuse at other agencies.</t>
+
+        <t>In the USG, the PIV card was intended to be usable at all agencies. For
+        example, a NIST employee could use her card at GSA for both logical and physical
+      access, all based on interoperable PKI.  This has not really materialized, and USG
+    is discovering that other non-PIV, non-PKI credentials have utility for a broad
+  range of users that will never get a PIV.  This use case promote the original intent
+of HSPD-12 and PIV - issue once, use everywhere.</t>
+
+        <section title="Use Cases">
+          <texttable title="Use Cases">
+            <ttcol>Use Case</ttcol>
+
+            <ttcol>Description</ttcol>
+
+
+
+            <c>Agency1 user accesses an RP at Agency2</c>
+
+            <c>Typically, the user from Agency1 only conducts day-to-day business
+            within her agency.  This is the first attemt to perform a job function
+          at an application hosted by another agency - Agency2</c>
+
+            <c>Agency1, as an IDP, is unknown to Agency2</c>
+
+            <c>Agency2 initiates a discovery process to determine the IDP the user is
+            associated with.  This is perhaps a closed community, so Agency1 is trusted.</c>
+
+            <c>The user authenticates at Agency1</c>
+
+            <c>The user provides relevant credentials to the IDP to facilitate
+            sign-in (i.e. those issued following a successful registration
+            process with the IDP). The IDP must provide a status code
+            describing the nature of any failure to the RP when the
+            authentication is not successful at the IDP. This may be the
+            result of a user cancel action, failure to authenticate, or other
+            error state as described by the scheme rules for the
+            federation. At this point, Agency1 is "permanently" known to Agency2. Normal flow
+          from other use case continues.</c>
+
+            
+          </texttable>
+        </section>
+      </section>
+
       <section title="Optional (General) Use Cases">
         <texttable title="Use Cases">
           <ttcol>Use Case</ttcol>
@@ -266,6 +314,9 @@
       have been split into mandatory and optional user info (identity) claims.
       It is expected that these claims would be made available via a UserInfo
       endpoint.</t>
+
+      <!--We may not even have mandatory claims
+      This is more about pseudonymity than mandatory attributes. Follow up with Adam.-->
 
       <section title="Mandatory UserInfo / Identity Claims">
         <texttable title="Mandatory UserInfo / Identity Claims at assurance level XXX???">
@@ -337,6 +388,7 @@
       </section>
 
       <section title="Privacy Use Cases">
+        <!-- Capture what we can -->
         <texttable title="Privacy Use Cases">
           <ttcol>Use Case</ttcol>
 
@@ -378,6 +430,10 @@
     </section>
 
     <section title="Levels of Assurance">
+      <!-- Leverage IANA Registry -->
+      <!-- Do we include VOT. Does it come in acr? How do we map? Do we need new claims-->
+      <!-- Do we even bother? Should be in here. Some way to accomplish in OIDC.
+    Maybe support one way or the other rather than force feeding VOT.-->
       <t>Identity Providers must include an Authentication Context describing
       the level of assurance achieved for the asserted identity. These values
       will be described as URIs in the same format as the SAML Authentication
