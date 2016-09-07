@@ -52,14 +52,14 @@
   </front>
 
   <middle>
-    <note title="USG-NIST Note">
+    <section title="USG-NIST Note">
            <t>Should we separate authentication from claims here?  Each use case
            discussion assertions of identity data, then userinfo for claims. Should we
          exclude claims from authentication requests? In addition, phase 1 of the
        iGov work will not be to support exotic privacy requirements, but shouldn't
-     we have use cases for them? Typically identity claims in idToken and attributes in userinfo endpoint.  Many optimize with attributes coming back in IDToken.</t>
-     Fix indirect to be proxy/hub. Broker is more of a biz model then a technology.
-    </note>
+     we have use cases for them? Typically identity claims in idToken and attributes in userinfo endpoint.  Many optimize with attributes coming back in IDToken.
+     Fix indirect to be proxy/hub. Broker is more of a biz model then a technology.</t>
+    </section>
 
     <section title="Types of eID Scheme">
       <t>The eID schemes used for access to government systems varies
@@ -703,6 +703,11 @@ of HSPD-12 and PIV - issue once, use everywhere.</t>
 
       <t><list style="symbols">
           <t>Initial document import</t>
+        </list></t>
+        <t>-2016-09-06</t>
+
+      <t><list style="symbols">
+          <t>Fix some xlm2rfc formatting</t>
         </list></t>
     </section>
   </back>
