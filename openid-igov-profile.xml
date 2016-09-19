@@ -1,19 +1,16 @@
-<?xml version="1.0" encoding="US-ASCII"?>
-<?xml-stylesheet type='text/xsl' href='http://xml2rfc.tools.ietf.org/authoring/rfc2629.xslt' ?>
-<!DOCTYPE rfc PUBLIC "-//IETF//DTD RFC 2629//EN"
-"http://xml2rfc.tools.ietf.org/authoring/rfc2629.dtd">
-<!--
-  NOTE:  This XML file is input used to produce the authoritative copy of an
-  OpenID Foundation specification.  The authoritative copy is the HTML output.
-  This XML source file is not authoritative.  The statement ipr="none" is
-  present only to satisfy the document compilation tool and is not indicative
-  of the IPR status of this specification.  The IPR for this specification is
-  described in the "Notices" section.  This is a public OpenID Foundation
-  document and not a private document, as the private="..." declaration could
-  be taken to indicate.
--->
-<rfc category="std" docName="openid-igov-profile" ipr="none">
-  <?rfc toc="yes" ?>
+<?xml version="1.0" encoding="US-ASCII"?> <?xml-stylesheet type='text/xsl'
+href='http://xml2rfc.tools.ietf.org/authoring/rfc2629.xslt' ?> <!DOCTYPE rfc
+PUBLIC "-//IETF//DTD RFC 2629//EN"
+"http://xml2rfc.tools.ietf.org/authoring/rfc2629.dtd"> <!--   NOTE:  This XML
+file is input used to produce the authoritative copy of an   OpenID Foundation
+specification.  The authoritative copy is the HTML output.   This XML source
+file is not authoritative.  The statement ipr="none" is   present only to
+satisfy the document compilation tool and is not indicative   of the IPR status
+of this specification.  The IPR for this specification is   described in the
+"Notices" section.  This is a public OpenID Foundation   document and not a
+private document, as the private="..." declaration could   be taken to indicate.
+--> <rfc category="std" docName="openid-igov-profile" ipr="none">   <?rfc
+toc="yes" ?>
 
   <?rfc tocdepth="5" ?>
 
@@ -286,7 +283,12 @@ https://int-rp.fed1.securekey.com/skrp1/web/oidc/loginResponse?
 
     <section anchor="UserInfoEndpoint" title="UserInfo Endpoint">
       <t>Servers MUST support the UserInfo Endpoint and, at a minimum, the
-      <spanx style="verb">sub</spanx> (subject) claim.</t>
+          <spanx style="verb">sub</spanx> (subject) claim.</t> 
+      
+      <t>Support for a UserInfo Endpoint is important for maximum client
+      implementation interoperability even if no additional user information is returned.
+      Clients are not required to call the UserInfo Endpoint, but should not
+      receive an error if they do.</t>
 
       <t>In an example transaction, the client sends a request to the UserInfo
       Endpoint like the following:</t>
@@ -438,13 +440,68 @@ Connection: close
 
           <t hangText="jwks_uri">The fully qualified URI of the server's
           public key in <xref target="RFC7517">JWK Set</xref> format</t>
+
+          <t hangText="scopes_supported">The list of iGov scopes the server
+          supports</t>
+
+          <t hangText="claims_supported">The list of claims available in the
+          supported scopes. See below</t>  
+
         </list></t>
 
-      <t>The following example shows the JSON document found at a discovery
-      endpoint for an authorization server:</t>
+        <section anchor="VerifiableData" title="Verifiable Claims">
+          <t>Some user data is particularly sensitive to exposure - Providers
+              may have regulatory rules not to share the claim explicitly, and some
+              federaitons may involve intermediaries that reprocess, repackage,
+              or translate the claims before they are delivered to the client.</t>
+          
+          <t>Providers may be able to provide a "verifiable" claim rather than
+              the claim directly. Verifiable claims are cryptographically
+              processed claims that can be verified by the client if they have
+              the same claim data available and re-run the cryptographic
+              process. The cryptographic algorithm SHOULD be a "proof-of-work"
+              algoritm to present a sufficient deterant to brute force attacks
+              on data sets which will have minimal entropy (such a 9 digit
+              number).</t>
 
-      <figure>
-        <artwork><![CDATA[{
+          <t>Verifiable claims SHOULD be reserved for static data that has 
+            little or no formatting, for example: account numbers, phone
+            numbers, document numbers, and so on. Data such as name or address
+            are not appropriate for "verification" as the data format is highly
+            variable.</t> 
+          
+          <t>For example: A client collects a <spanx
+            style="verb">national_id_no</spanx> from a Provider, who has
+            hashed the value using PBKDF2 with 1000 iterations. The
+            client then must request the <spanx style="verb">national_id_no</spanx> 
+            directly from the user, and run the PBKDF2 algorithm with the same
+            parameters. If the values match, then the user entered the same <spanx
+            style="verb">national_id_no</spanx> that the Provider had on
+            file.</t>
+
+        <t>Verifiable claims are declared in the Discovery claim by the
+            Provider. The following additonal Discovery variables apply:</t>
+
+        <t><list style="hanging">
+                <t hangText="verifiable_claims"> The list of <spanx style="verb">supported_claims</spanx> 
+                that will be returned as verifiable claims rather than plain
+                text.</t>
+
+                <t hangText="verifiable_claims_alg_supported"> The supported algorithms
+                for processing/verifying claims. (PBKDF2? bcrypt? scrypt?).
+                Providers that include a user secret in the hash generation
+                function MUST communicate that secret to their user out-of-band
+                of the OpenID Connect flow, for example via email or SMS.</t>
+
+        </list></t>
+      </section>
+
+      <section title="Example Discovery">
+        <t>The following example shows the JSON document found at a discovery
+        endpoint for an authorization server:</t>
+
+        <figure>
+          <artwork><![CDATA[{
   "request_parameter_supported": true,
   "id_token_encryption_alg_values_supported": [
     "RSA-OAEP", "RSA1_5", "RSA-OAEP-256"
@@ -515,24 +572,26 @@ Connection: close
   "issuer": "https://idp-p.example.com/",
   "op_policy_uri": "https://idp-p.example.com/about",
   "claims_supported": [
-    "sub", "name", "preferred_username", "given_name", "family_name",
-    "middle_name", "nickname", "profile", "picture", "website",
-    "gender", "zone_info", "locale", "updated_time", "birthdate",
+    "sub", "name", "given_name", "family_name",
+    "middle_name", "nickname", "birthdate",
     "email", "email_verified", "phone_number", "address"
-  ]
+  ],
+
+  "verifiable_claims" : [ "email", "phone_number" ],
+  "verifiable_claims_alg_supported" : "bcrypt"
 }
 ]]></artwork>
-      </figure>
+        </figure>
 
-      <t>Clients and protected resources SHOULD cache this discovery
-      information. It is RECOMMENDED that servers provide cache information
-      through HTTP headers and make the cache valid for at least one week.</t>
+        <t>Clients and protected resources SHOULD cache this discovery
+        information. It is RECOMMENDED that servers provide cache information
+        through HTTP headers and make the cache valid for at least one week.</t>
 
-      <t>The server MUST provide its public key in <xref target="RFC7517">JWK
-      Set</xref> format, such as the following 2048-bit RSA key:</t>
+        <t>The server MUST provide its public key in <xref target="RFC7517">JWK
+        Set</xref> format, such as the following 2048-bit RSA key:</t>
 
-      <figure>
-        <artwork><![CDATA[{
+        <figure>
+          <artwork><![CDATA[{
   "keys": [
     {
       "alg": "RS256",
@@ -544,52 +603,158 @@ Connection: close
   ]
 }
 ]]></artwork>
-      </figure>
+        </figure>
 
-      <t>Clients and protected resources SHOULD cache this key. It is
-      RECOMMENDED that servers provide cache information through HTTP headers
-      and make the cache valid for at least one week.</t>
+        <t>Clients and protected resources SHOULD cache this key. It is
+        RECOMMENDED that servers provide cache information through HTTP headers
+        and make the cache valid for at least one week.</t>
+      </section>
     </section>
 
-    <section anchor= "ScopeProfiles" title="Scope Profiles (UserInfo Attributes">
-      <t>In the interests of data minimisation balanced with the requirement
-      to successfully identity the individual signing in to a service the default OpenID Connect profiles may not be appropriate.</t>
+    <section anchor="UserInfo" title="User Info">
+        <t>The availability, quality, and reliability of an individual's
+            identity attributes will vary greatly across jurisdictions and Provider
+            systems. The following recommendations ensure maximum
+            cross-jurisdictional interoperability, while setting Client
+            expectations on the type of data they may acquire.</t>
 
-      <t>Matching of the identity assertion based on claims to a local
-        identifier or &lsquo;account&rsquo; related to the individual identity
-        at a level of assurance is a requirement where the government in
-        question is not able to provide a single identifier for all citizens
-        based on an authoritative register of citizens.</t>
+        <section anchor="ClaimsSupported" title="Claims Supported">
 
-      <t>The requirement for matching is also of importance where a
-        cross-border or cross-jurisdiction authentication is required and
-        therefore the availability of a single identifier (e.g. social
-        security number) cannot be guaranteed for the individual wishing to
-        authenticate.</t>
+            <t>Discovery mandates the inclusion of the <spanx
+                    style="verb">claims_supported</spanx> field that defines the
+            claims a client MAY expect to receive for the supported scopes.
+            Servers MUST return claims on a best effort basis.  However, a
+            server asserting it can provide a user claim does not imply that
+            this data is available for all its users: clients MUST be
+            prepared to receive partial data. Servers MAY return claims outside of
+            the <spanx style="verb">claims_supported</spanx> list, but they MUST
+            still ensure that the extra claims to not violate the privacy
+            policies set out by the federation.</t>
 
-      <t>This standard will define a set of common <spanx
-            style="verb">scope</spanx> values that aim to provide maximum
-        cross-jurisdictional identity matching while not being perscriptive on
-        the exact attributes shared, as every jurisdiction will likely have
-        varius levels of information available, and different policies for
-        sharing personal data even if it is on file.</t>
+        </section>
 
-      <t><list style="hanging">
-        <t hangText="basic">Basic identity information that provides a baseline
-        profile: <spanx style="verb">name, current address, date of birth, and 
-            (optional) gender.</spanx></t>
+        <section anchor= "ScopeProfiles" title="Scope Profiles">
+          <t>In the interests of data minimisation balanced with the requirement to
+            successfully identity the individual signing in to a service the
+            default OpenID Connect profiles may not be appropriate.</t>
 
-        <t hangText="document">The identity document type and "number" the OP is
-        capable of providing. This could be passport, driver's license, national
-        ID card, health insurance no., and so on. The response should include:
-        <spanx style="verb">type, number</spanx>.</t>
+          <t>Matching of the identity assertion based on claims to a local
+            identifier or &lsquo;account&rsquo; related to the individual identity
+            at a level of assurance is a requirement where the government in
+            question is not able to provide a single identifier for all citizens
+            based on an authoritative register of citizens.</t>
 
-        <t hangText="biometric">Biometric data related to the subject for
-        verification at the client side. This can include simple
-        descriptions for eye and hair color, height, or may include a
-        photograph or some verifiable fingerprint/iris scan data.</t> 
-    
-      </list></t>
+          <t>The requirement for matching is also of importance where a
+            cross-border or cross-jurisdiction authentication is required and
+            therefore the availability of a single identifier (e.g. social
+            security number) cannot be guaranteed for the individual wishing to
+            authenticate.</t>
+
+          <t>This standard will define a set of common <spanx
+                style="verb">scope</spanx> values that aim to provide maximum
+            cross-jurisdictional identity matching while not being perscriptive on
+            the exact attributes shared, as every jurisdiction will likely have
+            varius levels of information available, and different policies for
+            sharing personal data even if it is on file.</t>
+
+          <t><list style="hanging">
+            <t hangText="profile">The <xref target="OpenID.Core">OpenID Connect Core</xref> 
+            defined profile provides baseline identity information, such as
+            <spanx style="verb">name, current address, date of birth, etc...</spanx> 
+            It is left to the Provider and the federation to set any limitations on
+            this profile data - see Privacy Considerations.</t>
+
+            <t hangText="document">The identity document type(s) and associated "number" the Provider is
+            capable of providing. Mutliple document types MAY be returned. This
+            could be passport, driver's license, national ID card, health
+            insurance no., and so on. The response should include:
+            <spanx style="verb">type, number</spanx>.</t>
+
+            <t hangText="biometric">Biometric data related to the subject for
+            verification at the client side. This can include simple
+            descriptions for eye and hair color, height, or may include a
+            photograph or some verifiable fingerprint/iris scan data.</t> 
+        
+          </list></t>
+      </section>
+
+      <section anchor="ClaimsMetadata" title="Claims Metadata">
+          <t>Generally claims in OpenID Connect are self asserted, or the
+          information about the claim is communicated out of band from the
+          protocol. For example, a DMV providing a claim to a user's
+          Driver's License number is considered an authoritative source of
+          that attribute.</t>
+
+          <t>To support maximum interoperability and trust across (potentially)
+          unassociated jurisdictions, the information regarding the claim type
+          MUST be communicated within the protocol, so clients may properly
+          interpret the claims they have been given. This is referred to as
+          Claims Metadata.</t>
+
+          <t>The following defines the types of claims metadata that iGov
+              supports:<list style="hanging">
+                  
+            <t hangText="locale">The locale format of the claim, indicating
+                where the attribute originates from, represented as a
+                space-separated list of BCP47 [RFC5646] language tag values: for
+                example "en-US" or "ja" or "fr-CA" and so on.</t>
+
+            <t hangText="encoding"> How the claim is encoded: <spanx
+                    style="verb">raw, jwt, hashed</spanx> (hashed attributes are
+            meant to allow the client to verify a value of a user's attribute
+            without the server revealing what it has on file.)</t>
+          </list></t>
+
+          <section anchor="CLOA" title="Claim Level of Assurance">
+              <t>In addition to the <spanx style="verb">scope</spanx> of the data
+              provided, the UserInfo data must return some concept of the
+              quality level of the attribute. This quality level is refered to as
+              attribute meta data, and follows the guidelines in <xref
+                  target="I-D.richer-vectors-of-trust">Vectors of Trust</xref>.</t>
+              <t>The following must be considered when evaluating the quality of an
+                  attribute:</t>
+              <t><list style="hanging">
+                <t hangText="vot"> The attribute Vector of Trust.</t>
+
+                <t hangText="vtm"> The Trustmark Provider URL for the <spanx style="verb">vot</spanx> claim.</t>
+              </list></t>
+          </section>
+  
+      </section>
+      <section title="Example UserInfo with Metadata">
+      <figure>
+        <artwork><![CDATA[{
+TODO example with metadata
+}
+  ]]></artwork>
+      </figure>
+  </section>
+  </section>
+
+    <section anchor="PrivacyConsiderations" title="Privacy Considerations">
+        <t>This section covers recommendations and guidelines for protecting a
+        user's right to privacy in circumstances where this is required.</t>
+        
+        <t>Government policies that protect an individual's right to privacy
+        across jurisdictional boundires vary from geography to geography. Some
+        geographies are looking to establish a global registry of basic citizen
+        identity for digital use cases, and other geographies (particularly those with the
+        most enlightened democracy and handsomest of Prime Ministers) aim
+        to supply only the bare minimum of an authentication assurances,
+        ensuring participant systems cannot link or trace a citizen's actions
+        across the federation. Most will fall somewhere in between these two
+        extremes.</t>  
+        
+        <t>This specification supports this wide range of scenarios
+        and therefore the following are NOT REQUIRED by Providers to implement, but HIGHLY
+        RECOMMENDED for Providers that implement some level of user privacy.</t>
+
+        <t><list style="symbols">
+           <t> <spanx style="verb">sub</spanx> fields MUST be "pairwise" as
+              defined in <xref target="OpenID.Core">OpenID Connect
+              Core</xref> section 8.</t>
+        </list></t>
+
     </section>
 
     <section title="Security Considerations">
