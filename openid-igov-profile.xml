@@ -191,6 +191,8 @@ toc="yes" ?>
 						</t>
 					</list>
 				</t>
+				
+				</section>
 
 				<section title="Request Objects">
 					<t>
@@ -218,7 +220,7 @@ toc="yes" ?>
 
 			</section>
 
-			<section title="Identity Provider Profile">
+			<section title="OpenID Provider Profile">
 				<t />
 				<section title="ID Tokens">
 
