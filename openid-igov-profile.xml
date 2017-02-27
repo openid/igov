@@ -272,7 +272,7 @@ toc="yes" ?>
 				</t>
 			</section>
 			
-			<section name="Discovery">
+			<section title="Discovery">
 			<t>Clients and protected resources SHOULD cache OpenID provider metadata once an OP has been discovered and used by the client.</t>
         
 			</section>
