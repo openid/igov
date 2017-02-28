@@ -12,7 +12,7 @@
   document and not a private document, as the private="..." declaration could
   be taken to indicate.
 -->
-<rfc category="std" docName="openid-heart-oauth2-1_0" ipr="none">
+<rfc category="std" docName="openid-igov-oauth2" ipr="none">
   <?rfc toc="yes" ?>
 
   <?rfc tocdepth="5" ?>
@@ -28,7 +28,7 @@
   <?rfc private="Final" ?>
 
   <front>
-    <title abbrev="HEART OAuth 2.0">Health Relationship Trust Profile for
+    <title abbrev="iGov OAuth 2.0">iGov Profile for
     OAuth 2.0</title>
 
     <author fullname="Justin Richer" initials="J." role="editor"
@@ -42,7 +42,7 @@
 
     <date day="10" month="February" year="2017"/>
 
-    <workgroup>OpenID Heart Working Group</workgroup>
+    <workgroup>OpenID iGov Working Group</workgroup>
 
     <abstract>
       <t>The OAuth 2.0 protocol framework defines a mechanism to allow a
@@ -134,26 +134,26 @@
             <t>Protected resource to authorization server</t>
           </list></t>
 
-        <t>When a HEART-compliant component is interacting with other
-        HEART-compliant components, in any valid combination, all components
+        <t>When an iGov-compliant component is interacting with other
+        iGov-compliant components, in any valid combination, all components
         MUST fully conform to the features and requirements of this
-        specification. All interaction with non-HEART components is outside
+        specification. All interaction with non-iGov components is outside
         the scope of this specification.</t>
 
-        <t>A HEART-compliant OAuth 2.0 authorization server MUST support all
+        <t>An iGov-compliant OAuth 2.0 authorization server MUST support all
         features as described in this specification. A general-purpose
         authorization server MAY support additional features for use with
-        non-HEART clients and protected resources.</t>
+        non-iGov clients and protected resources.</t>
 
-        <t>A HEART-compliant OAuth 2.0 client MUST use all functions as
+        <t>An iGov-compliant OAuth 2.0 client MUST use all functions as
         described in this specification. A general-purpose client library MAY
-        support additional features for use with non-HEART authorization
+        support additional features for use with non-iGov authorization
         servers and protected resources.</t>
 
-        <t>A HEART-compliant OAuth 2.0 protected resource MUST use all
+        <t>An iGov-compliant OAuth 2.0 protected resource MUST use all
         functions as described in this specification. A general-purpose
         protected resource library MAY support additional features for use
-        with non-HEART authorization servers and clients.</t>
+        with non-iGov authorization servers and clients.</t>
       </section>
     </section>
 
@@ -702,7 +702,7 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 
           <t>If the authorization server is also an OpenID Connect Provider,
           it MUST provide a discovery endpoint meeting the requirements listed
-          in Section 6 of the HEART OpenID Connect profile.</t>
+          in Section 6 of the iGov OpenID Connect profile.</t>
 
           <t>The following example shows the JSON document found at a
           discovery endpoint for an authorization server:</t>
@@ -722,11 +722,7 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
     "A128CBC-HS256", "A128GCM", "A256GCM"
   ],
   "token_endpoint_auth_methods_supported": [
-    "client_secret_post",
-    "client_secret_basic",
-    "client_secret_jwt",
     "private_key_jwt",
-    "none"
   ],
   "jwks_uri": "https://idp-p.example.com/jwk",
   "authorization_endpoint": "https://idp-p.example.com/authorize",
@@ -823,7 +819,7 @@ U-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEqfCaPDNp00J6AbY6w",
           <t>An authorization server MUST support the Proof Key for Code
           Exchange (PKCE) extension to the authorization code flow, including
           support for the S256 code challenge method. The authorization server
-          MUST NOT allow a HEART client to use the plain code challenge
+          MUST NOT allow an iGov client to use the plain code challenge
           method.</t>
         </section>
 
@@ -835,13 +831,13 @@ U-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEqfCaPDNp00J6AbY6w",
       </section>
 
       <section title="Connections with protected resources">
-        <t>Unlike the core OAuth protocol, the HEART profile intends to allow
+        <t>Unlike the core OAuth protocol, the iGov profile intends to allow
         compliant protected resources to connect to compliant authorization
         servers.</t>
 
         <section anchor="JWTBearerTokens" title="JWT Bearer Tokens">
           <t>In order to facilitate interoperability with multiple protected
-          resources, all HEART-compliant authorization servers issue
+          resources, all iGov-compliant authorization servers issue
           cryptographically signed tokens in the JSON Web Token (JWT) format.
           The information carried in the JWT is intended to allow a protected
           resource to quickly test the integrity of the token without

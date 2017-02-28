@@ -651,11 +651,7 @@ Connection: close
     "A128CBC-HS256", "A128GCM", "A256GCM"
   ],
   "token_endpoint_auth_methods_supported": [
-    "client_secret_post",
-    "client_secret_basic",
-    "client_secret_jwt",
     "private_key_jwt",
-    "none"
   ],
   "userinfo_encryption_alg_values_supported": [
     "RSA-OAEP", "RSA1_5",
@@ -696,13 +692,9 @@ Connection: close
   ],
   "grant_types_supported": [
     "authorization_code",
-    "implicit",
-    "urn:ietf:params:oauth:grant-type:jwt-bearer",
-    "client_credentials",
-    "urn:ietf:params:oauth:grant_type:redelegate"
   ],
   "scopes_supported": [
-    "profile", "openid", "email", "address", "phone", "offline_access"
+    "profile", "openid"
   ],
   "userinfo_endpoint": "https://idp-p.example.com/userinfo",
   "userinfo_encryption_enc_values_supported": [
@@ -713,10 +705,7 @@ Connection: close
   "issuer": "https://idp-p.example.com/",
   "op_policy_uri": "https://idp-p.example.com/about",
   "claims_supported": [
-    "sub", "name", "preferred_username", "given_name", "family_name",
-    "middle_name", "nickname", "profile", "picture", "website",
-    "gender", "zone_info", "locale", "updated_time", "birthdate",
-    "email", "email_verified", "phone_number", "address"
+    "sub", "name", "vot", "acr"
   ]
 }
 ]]></artwork>
@@ -1100,9 +1089,6 @@ TODO example with metadata
 			</t>
 		</section>
 		
-		<section title="Privacy Considerations">
-			
-		</section>
 	</middle>
 
 	<back>
