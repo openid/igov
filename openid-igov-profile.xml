@@ -62,6 +62,8 @@ toc="yes" ?>
 				to)
 				government and public service domains.
 			</t>
+			
+			<t>This profile builds on top of, and inherits all properties of, the <xref target="iGov.OAuth2">OAUTH profile for iGov</xref></t>.
 		</abstract>
 	</front>
 
@@ -1254,7 +1256,30 @@ TODO example with metadata
 					<date day="15" month="February" year="2016" />
 				</front>
 			</reference>
+			
+			<!--<reference anchor="iGov.OAuth2"
+				target="http://openid.net/specs/openid-heart-oauth2-1_0.html">
+				<front>
+					<title>iGov Profile for OAuth 2.0</title>
+
+					<author fullname="Justin Richer" initials="J." role="editor"
+						surname="Richer">
+						<address>
+							<email>openid@justin.richer.org</email>
+
+							<uri>http://justin.richer.org/</uri>
+						</address>
+					</author>
+
+					<date day="10" month="February" year="2017" />
+				</front>
+			</reference>-->
+			
+			
 		</references>
+		
+		
+		
 
 		<section anchor="Acknowledgements" title="Acknowledgements">
 			<t>The OpenID Community would like to thank the following people for
