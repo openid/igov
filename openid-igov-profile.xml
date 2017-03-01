@@ -63,7 +63,7 @@ toc="yes" ?>
 				government and public service domains.
 			</t>
 			
-			<t>This profile builds on top of, and inherits all properties of, the <xref target="iGov.OAuth2">OAUTH profile for iGov</xref></t>.
+			<t>This profile builds on top of, and inherits all properties of, the <xref target="iGov.OAuth2">OAUTH profile for iGov</xref>.</t>
 		</abstract>
 	</front>
 
