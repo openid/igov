@@ -1257,7 +1257,8 @@ TODO example with metadata
 				</front>
 			</reference>
 			
-			<!--<reference anchor="iGov.OAuth2"
+			<!-- TODO - Get this updated once we have some actual URL's -->
+			<reference anchor="iGov.OAuth2"
 				target="http://openid.net/specs/openid-heart-oauth2-1_0.html">
 				<front>
 					<title>iGov Profile for OAuth 2.0</title>
@@ -1273,7 +1274,7 @@ TODO example with metadata
 
 					<date day="10" month="February" year="2017" />
 				</front>
-			</reference>-->
+			</reference>
 			
 			
 		</references>
