@@ -108,7 +108,7 @@
 				This OAuth profile is intended to be shared broadly, and has been
 				greatly informed
 				by the
-				<xref target="HEART.OAuth21">HEART OAuth2 Profile</xref>
+				<xref target="HEART.OAuth2">HEART OAuth2 Profile</xref>
 				.
 				.
 			</t>
@@ -525,8 +525,7 @@ xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 								</t>
 							</list>
 						</t>
-						-->
-
+						
 						<t>Native applications using dynamic registration SHOULD generate
 							a unique public and private key pair on the device and register
 							that public key value with the authorization server.
@@ -763,6 +762,7 @@ H2_VQ_Ww1JOLn9vRn-H48FDj7TxlIT74XdTZgTv31w_GRPAOfyxEw_ZUmxhz5Z-gTlQ",
 			<section title="Connection to the Protected Resource">
 				<section anchor="RequestsToProtectedResource" title="Requests to the Protected Resource">
 					<t>
+					<!-- Can we specify when this is a SHALL? -->
 						Clients SHOULD send bearer tokens passed in the Authentication
 						header as defined by
 						<xref target="RFC6750" />
@@ -824,8 +824,6 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 					<t>
 						The authorization server MUST support the
 						<spanx style="verb">authorization_code</spanx>
-						,
-						<spanx style="verb">implicit</spanx>
 						, and
 						<spanx style="verb">client_credentials</spanx>
 						grant types as described in
@@ -860,8 +858,7 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 						and clients MAY register using the
 						<xref target="RFC7591">Dynamic
 							Client Registration Protocol</xref>
-						for authorization code or
-						implicit grant types. Clients MUST NOT
+						for authorization code grant types. Clients MUST NOT
 						dynamically register for the
 						client credentials grant type.
 						Authorization servers MAY limit the
@@ -872,6 +869,7 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 					<t>
 						Authorization servers MUST signal to end users that a client was
 						dynamically registered on the authorization screen. Authorization
+						<!--  Should we make this a MUST? -->
 						servers MAY accept signed software statements as described in
 						<xref target="RFC7591" />
 						issued to client software developers from a
@@ -990,7 +988,7 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 					<t>If the authorization server is also an OpenID Connect Provider,
 						it MUST provide a discovery endpoint meeting the requirements
 						listed
-						in Section 6 of the iGov OpenID Connect profile.
+						in Section 3.6 of the iGov OpenID Connect profile.
 					</t>
 
 					<t>The following example shows the JSON document found at a
@@ -1287,7 +1285,7 @@ pXDaLyyY-4HT9XHT9V73fKF8rLWJu9grrA]]></artwork>
 					<t>
 						Refresh tokens SHOULD be signed with
 						<xref target="RFC7515">JWS</xref>
-						using the same public key and contain
+						using the same private key and contain
 						the same set of claims as the
 						access tokens.
 					</t>
@@ -1697,7 +1695,7 @@ Connection: close
 
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7159"?>
       
-      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7159"?>
+
       
       
 
@@ -1828,25 +1826,7 @@ Connection: close
 				</front>
 			</reference>
 
-			<reference anchor="RFC7636" target="https://tools.ietf.org/html/rfc7636">
-				<front>
-					<title>Proof Key for Code Exchange by OAuth Public Clients</title>
 
-					<author initials="N." surname="Sakimura" role="editor">
-						<organization>Nomura Research Institute</organization>
-					</author>
-
-					<author initials="J." surname="Bradley">
-						<organization>Ping Identity</organization>
-					</author>
-
-					<author initials="N." surname="Agarwal">
-						<organization>Google</organization>
-					</author>
-
-					<date day="15" month="February" year="2016" />
-				</front>
-			</reference>
 
 
 
