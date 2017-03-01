@@ -525,7 +525,7 @@ xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 								</t>
 							</list>
 						</t>
-						
+
 						<t>Native applications using dynamic registration SHOULD generate
 							a unique public and private key pair on the device and register
 							that public key value with the authorization server.
@@ -547,15 +547,16 @@ xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 						<t>Dynamically registered native applications MAY use PKCE.</t>
 
 						<!-- What security parameters allow for it? -->
-						<t>This client type MAY request and be issued a refresh token.<!-- if
-							the security parameters of the access request allow for it.-->
+						<t>
+							This client type MAY request and be issued a refresh token.<!-- if 
+								the security parameters of the access request allow for it. -->
 						</t>
-						
+
 					</section>
 
 					<section anchor="BrowserClient"
 						title="Browser-embedded Client with User Delegation">
-						
+
 						<t>This client type applies to clients that act on behalf of a
 							particular resource owner and require delegation of that
 							user&rsquo;s authority to access the protected resource.
@@ -582,11 +583,9 @@ xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 						</t>
 
 						<t>This client type MUST NOT be used by any iGov use case.</t>
-						<!-- <t>This client type MUST NOT request or be issued a refresh token.
-							Access tokens issued to this type of client MUST be short lived
-							and SHOULD expire when the user's authenticated session with the
-							client expires.
-						</t>-->
+						<!-- <t>This client type MUST NOT request or be issued a refresh token. 
+							Access tokens issued to this type of client MUST be short lived and SHOULD 
+							expire when the user's authenticated session with the client expires. </t> -->
 					</section>
 
 					<section anchor="DirectClient" title="Direct Access Client">
@@ -626,9 +625,12 @@ xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 
 					<section anchor="RedirectURI" title="Redirect URI">
 						<t>Clients using the authorization code grant type
-							MUST register their full redirect URIs. The Authorization Server
-							MUST validate the redirect URI given by the client at the
-							authorization endpoint using strict string comparison.
+							MUST register
+							their full redirect URIs. The Authorization Server
+							MUST validate
+							the redirect URI given by the client at the
+							authorization endpoint
+							using strict string comparison.
 						</t>
 
 						<t>A client MUST protect the values passed back to its redirect
@@ -664,11 +666,13 @@ xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 				</section>
 
 				<section title="Client keys">
-				<!-- How does this work with PKCE? -->
+					<!-- How does this work with PKCE? -->
 					<t>
 						Clients using the authorization code grant type or direct
-						access clients using the client credentials grant type MUST have a
-						public and private key pair for use in authentication to the token
+						access
+						clients using the client credentials grant type MUST have a
+						public
+						and private key pair for use in authentication to the token
 						endpoint. These clients MUST register their public keys in their
 						client registration metadata by either sending the public key
 						directly in the
@@ -762,7 +766,7 @@ H2_VQ_Ww1JOLn9vRn-H48FDj7TxlIT74XdTZgTv31w_GRPAOfyxEw_ZUmxhz5Z-gTlQ",
 			<section title="Connection to the Protected Resource">
 				<section anchor="RequestsToProtectedResource" title="Requests to the Protected Resource">
 					<t>
-					<!-- Can we specify when this is a SHALL? -->
+						<!-- Can we specify when this is a SHALL? -->
 						Clients SHOULD send bearer tokens passed in the Authentication
 						header as defined by
 						<xref target="RFC6750" />
@@ -817,6 +821,7 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 				its OAuth endpoints using TLS.
 			</t>
 
+
 			<section title="Connections with clients">
 				<t />
 
@@ -859,17 +864,20 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 						<xref target="RFC7591">Dynamic
 							Client Registration Protocol</xref>
 						for authorization code grant types. Clients MUST NOT
-						dynamically register for the
+						dynamically
+						register for the
 						client credentials grant type.
-						Authorization servers MAY limit the
+						Authorization
+						servers MAY limit the
 						scopes available to dynamically
-						registered clients.
+						registered
+						clients.
 					</t>
 
 					<t>
 						Authorization servers MUST signal to end users that a client was
 						dynamically registered on the authorization screen. Authorization
-						<!--  Should we make this a MUST? -->
+						<!-- Should we make this a MUST? -->
 						servers MAY accept signed software statements as described in
 						<xref target="RFC7591" />
 						issued to client software developers from a
@@ -1286,7 +1294,8 @@ pXDaLyyY-4HT9XHT9V73fKF8rLWJu9grrA]]></artwork>
 						Refresh tokens SHOULD be signed with
 						<xref target="RFC7515">JWS</xref>
 						using the same private key and contain
-						the same set of claims as the
+						the same set of claims as
+						the
 						access tokens.
 					</t>
 
@@ -1438,6 +1447,34 @@ Connection: close
 				</section>
 			</section>
 
+			<section title="Response to Authorization Requests">
+				<t> The following data will be sent as an Authorization Response to
+					the Authorization Code Flow as desribed above. The authentication
+					response is sent via HTTP redirect to the redirect URI specified in
+					the request.</t>
+
+				<t>
+					The following fields MUST be included in the response:
+					<list style="hanging">
+
+						<t hangText="state"> The value of the state parameter passed in in the
+							authentication request. This value MUST match exactly.</t>
+
+						<t hangText="code"> The authorization code, a random string issued by
+							the IdP to be used in the request to the token endpoint.</t>
+
+					</list>
+				</t>
+
+				<t> The following is an example response:</t>
+				<figure>
+					<artwork><![CDATA[
+https://int-rp.fed1.securekey.com/skrp1/web/oidc/loginResponse?
+    state=2ca3359dfbfd0
+   &code=gOIFJ1hV6Rb1sxUdFhZGACWwR1sMhYbJJcQbVJN0wHA
+]]></artwork>
+				</figure>
+			</section>
 			<section anchor="TokenLifetimes" title="Token Lifetimes">
 				<t>This profile provides RECOMMENDED lifetimes for different types
 					of
