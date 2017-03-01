@@ -50,8 +50,8 @@
 				<email>mike.varley@securekey.com</email>
 			</address>
 		</author>
-		
-		<date day="28" month="February" year="2017"/>
+
+		<date day="28" month="February" year="2017" />
 
 		<workgroup>OpenID iGov Working Group</workgroup>
 
@@ -78,10 +78,13 @@
 				interfaces (APIs), particularly Representational State Transfer
 				(RESTful) APIs. The OAuth 2.0 specifications accommodate a wide
 				range of
-				implementations with varying security and usability considerations,
-				across different types of software clients. The OAuth 2.0 client,
+				implementations with varying security and usability
+				considerations,
+				across different types of software clients. The OAuth
+				2.0 client,
 				protected resource, and
-				authorization server profiles defined in this document serve two
+				authorization server profiles
+				defined in this document serve two
 				purposes:
 			</t>
 
@@ -89,7 +92,8 @@
 				<list style="numbers">
 					<t>Define a mandatory baseline set of security controls suitable
 						for
-						a wide range of government use cases, while maintaining reasonable
+						a wide range of government use cases, while maintaining
+						reasonable
 						ease of
 						implementation and functionality
 					</t>
@@ -103,7 +107,9 @@
 			<t>
 				This OAuth profile is intended to be shared broadly, and has been
 				greatly informed
-				by the <xref target="HEART.OAuth21">HEART OAuth2 Profile</xref>.
+				by the
+				<xref target="HEART.OAuth21">HEART OAuth2 Profile</xref>
+				.
 				.
 			</t>
 
@@ -112,7 +118,8 @@
 					The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
 					"SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY",
 					and
-					"OPTIONAL" in this document are to be interpreted as described in
+					"OPTIONAL" in this document are to be interpreted as described
+					in
 					<xref target="RFC2119">RFC 2119</xref>
 					.
 				</t>
@@ -123,8 +130,10 @@
 					and
 					<xref target="RFC7516">JSON Web Encryption (JWE)</xref>
 					data
-					structures in this specification utilize the JWS Compact Serialization
-					or the JWE Compact Serialization; the JWS JSON Serialization and the
+					structures in this specification utilize the JWS Compact
+					Serialization
+					or the JWE Compact Serialization; the JWS JSON
+					Serialization and the
 					JWE JSON Serialization are not used.
 				</t>
 			</section>
@@ -134,14 +143,18 @@
 					This specification uses the terms "Access Token", "Authorization
 					Code", "Authorization Endpoint", "Authorization Grant",
 					"Authorization
-					Server", "Client", "Client Authentication", "Client Identifier",
-					"Client Secret", "Grant Type", "Protected Resource", "Redirection
-					URI", "Refresh Token", "Resource Owner", "Resource Server", "Response
+					Server", "Client", "Client Authentication", "Client
+					Identifier",
+					"Client Secret", "Grant Type", "Protected Resource",
+					"Redirection
+					URI", "Refresh Token", "Resource Owner", "Resource
+					Server", "Response
 					Type", and "Token Endpoint" defined by
 					<xref target="RFC6749">OAuth
 						2.0</xref>
 					, the terms "Claim Name", "Claim Value", and "JSON Web Token
-					(JWT)" defined by
+					(JWT)"
+					defined by
 					<xref target="RFC7519">JSON Web Token (JWT)</xref>
 					,
 					and the terms defined by
@@ -215,14 +228,18 @@
 						Full clients and browser-embedded clients making a request to the
 						authorization endpoint MUST use an unpredictable value for the
 						state
-						parameter with at least 128 bits of entropy. Clients MUST validate
+						parameter with at least 128 bits of entropy. Clients MUST
+						validate
 						the value of the
 						<spanx style="verb">state</spanx>
 						parameter upon
-						return to the redirect URI and MUST ensure that the state value is
-						securely tied to the user&rsquo;s current session (e.g., by
+						return to the redirect URI and MUST ensure that the
+						state value is
+						securely tied to the user&rsquo;s current session
+						(e.g., by
 						relating
-						the state value to a session identifier issued by the client
+						the state value to a session identifier issued by
+						the client
 						software to the browser).
 					</t>
 
@@ -236,7 +253,8 @@
 
 					<t>The following is a sample response from a web-based client to
 						the
-						end user&rsquo;s browser for the purpose of redirecting the end user
+						end user&rsquo;s browser for the purpose of redirecting the end
+						user
 						to the authorization server's authorization endpoint:
 					</t>
 
@@ -273,7 +291,8 @@ Connection: keep-alive]]></artwork>
 						authenticate to the authorization server's token endpoint using a
 						JWT assertion as defined by the
 						<xref target="RFC7523">JWT Profile
-							for OAuth 2.0 Client Authentication and Authorization Grants</xref>
+							for OAuth 2.0 Client Authentication
+							and Authorization Grants</xref>
 						using only the
 						<spanx style="verb">private_key_jwt</spanx>
 						method defined
@@ -302,18 +321,24 @@ Connection: keep-alive]]></artwork>
 							</t>
 
 							<t hangText="exp">the expiration time, after which the token
-								MUST be considered invalid
+								MUST be
+								considered invalid
 							</t>
 
 							<t hangText="jti">a unique identifier generated by the client
-								for this authentication. This identifier MUST contain at least
-								128 bits of entropy and MUST NOT be re-used by any subsequent
-								authentication token.
+								for this
+								authentication. This identifier MUST contain at least
+								128 bits of
+								entropy and MUST NOT be re-used by any subsequent
+								authentication
+								token.
 							</t>
 						</list>
 						The following sample claim set illustrates the use of the
-						required claims for a client authentication JWT as defined in this
-						profile; additional claims MAY be included in the claim set.
+						required
+						claims for a client authentication JWT as defined in this
+						profile;
+						additional claims MAY be included in the claim set.
 					</t>
 
 					<figure>
@@ -333,11 +358,15 @@ Connection: keep-alive]]></artwork>
 						private key. See
 						<xref target="ClientRegistration" />
 						for mechanisms
-						by which the client can make its public key known to the server. The
-						authorization server MUST support the RS256 signature method (the
-						Rivest, Shamir, and Adleman (RSA) signature algorithm with a
+						by which the client can make its public key known to
+						the server. The
+						authorization server MUST support the RS256
+						signature method (the
+						Rivest, Shamir, and Adleman (RSA) signature
+						algorithm with a
 						256-bit
-						hash) and MAY use other asymmetric signature methods listed in the
+						hash) and MAY use other asymmetric
+						signature methods listed in the
 						JSON Web Algorithms (
 						<xref target="RFC7518">JWA</xref>
 						)
@@ -395,15 +424,20 @@ xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 				<section anchor="ClientTypes" title="Client Types">
 					<t>
 						The following profile descriptions give patterns of deployment
-						for use in different types of client applications based on the OAuth
+						for
+						use in different types of client applications based on the OAuth
 						grant type. The resource owner password credentials grant type
 						defined in
 						<xref target="RFC6749" />
 						is intentionally omitted from
-						this discussion, and MUST NOT be used under these profiles.
-						Additional grant types, such as assertions, chained tokens, or other
-						mechanisms, are out of scope of this profile and must be covered
-						separately by appropriate profile documents.
+						this discussion, and MUST NOT be used
+						under these profiles.
+						Additional grant types, such as assertions,
+						chained tokens, or other
+						mechanisms, are out of scope of this
+						profile and must be covered
+						separately by appropriate profile
+						documents.
 					</t>
 
 					<section anchor="FullClient" title="Full Client with User Delegation">
@@ -420,10 +454,12 @@ xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 							by sending the resource owner to the authorization endpoint to
 							obtain authorization. The user MUST authenticate to the
 							authorization endpoint. The user&rsquo;s web browser is then
-							redirected back to a URI hosted by the client service, from which the
+							redirected back to a URI hosted by the client service, from which
+							the
 							client can obtain an authorization code passed as a query
 							parameter. The client then presents that authorization code along
-							with its own credentials (private_key_jwt) to the authorization server's token
+							with its own credentials (private_key_jwt) to the authorization
+							server's token
 							endpoint to obtain an access token.
 						</t>
 
@@ -441,15 +477,23 @@ xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 
 					<section title="Native Client with User Delegation">
 						<t>This client type applies to clients that act on behalf of a
-							particular resource owner, such as an app on a mobile platform, and require delegation of that user's
-							authority to access the protected resource. Furthermore, these
-							clients are capable of interacting with a separate web browser
-							application to facilitate the resource owner's interaction with
-							the authentication endpoint of the authorization server. In
-							particular, this client type runs natively on the resource
+							particular resource owner, such as an app on a mobile platform,
+							and require delegation of that user's
+							authority to access the
+							protected resource. Furthermore, these
+							clients are capable of
+							interacting with a separate web browser
+							application to facilitate
+							the resource owner's interaction with
+							the authentication endpoint
+							of the authorization server. In
+							particular, this client type runs
+							natively on the resource
 							owner's
-							device, often leading to many identical instances of a piece of
-							software operating in different environments and running
+							device, often leading to many
+							identical instances of a piece of
+							software operating in different
+							environments and running
 							simultaneously for different end users.
 						</t>
 
@@ -464,19 +508,25 @@ xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 							token.
 						</t>
 
-                
+
 						<t>Native clients MUST either:</t>
 
-            <t><list style="symbols">
-                <t>use dynamic client registration to obtain a separate client
-                id for each instance, or</t>
+						<t>
+							<list style="symbols">
+								<t>use dynamic client registration to obtain a separate client
+									id for each instance, or
+								</t>
 
-                <t>use a common client id and use PKCE to protect calls to the
-                token endpoint.</t>
-              </list></t>-->
+								<t>
+									use a common client id and use
+									<xref target="RFC7636">PKCE</xref>
+									to protect calls to the
+									token endpoint.
+								</t>
+							</list>
+						</t>
+						-->
 
-
-<!-- NOTE for Paul - Should this be put someplace else since I killed dynamic from this?
 						<t>Native applications using dynamic registration SHOULD generate
 							a unique public and private key pair on the device and register
 							that public key value with the authorization server.
@@ -497,13 +547,16 @@ xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 
 						<t>Dynamically registered native applications MAY use PKCE.</t>
 
-						<t>This client type MAY request and be issued a refresh token if
-							the security parameters of the access request allow for it.
-						</t> -->
+						<!-- What security parameters allow for it? -->
+						<t>This client type MAY request and be issued a refresh token.<!-- if
+							the security parameters of the access request allow for it.-->
+						</t>
+						
 					</section>
 
 					<section anchor="BrowserClient"
 						title="Browser-embedded Client with User Delegation">
+						
 						<t>This client type applies to clients that act on behalf of a
 							particular resource owner and require delegation of that
 							user&rsquo;s authority to access the protected resource.
@@ -520,17 +573,21 @@ xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 							authenticates to the server and the token is made available
 							directly to the browser, this flow is appropriate only for
 							clients
-							embedded within a web browser, such as a JavaScript client with no
-							back-end server component. Wherever possible, it is preferable to
-							use the authorization code flow due to its superior security
+							embedded within a web browser, such as a JavaScript client
+							with no
+							back-end server component. Wherever possible, it is
+							preferable to
+							use the authorization code flow due to its superior
+							security
 							properties.
 						</t>
 
-						<t>This client type MUST NOT request or be issued a refresh token.
+						<t>This client type MUST NOT be used by any iGov use case.</t>
+						<!-- <t>This client type MUST NOT request or be issued a refresh token.
 							Access tokens issued to this type of client MUST be short lived
 							and SHOULD expire when the user's authenticated session with the
 							client expires.
-						</t>
+						</t>-->
 					</section>
 
 					<section anchor="DirectClient" title="Direct Access Client">
@@ -561,13 +618,15 @@ xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 					<t>All clients MUST register with the authorization server. For
 						client software that may be installed on multiple client
 						instances,
-						such as native applications or web application software, each client
-						instance MUST receive a unique client identifier from the
+						such as native applications or web application software,
+						each client
+						instance MUST receive a unique client identifier from
+						the
 						authorization server.
 					</t>
 
 					<section anchor="RedirectURI" title="Redirect URI">
-						<t>Clients using the authorization code or implicit grant types
+						<t>Clients using the authorization code grant type
 							MUST register their full redirect URIs. The Authorization Server
 							MUST validate the redirect URI given by the client at the
 							authorization endpoint using strict string comparison.
@@ -606,8 +665,9 @@ xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 				</section>
 
 				<section title="Client keys">
+				<!-- How does this work with PKCE? -->
 					<t>
-						Fully clients using the authorization code grant type or direct
+						Clients using the authorization code grant type or direct
 						access clients using the client credentials grant type MUST have a
 						public and private key pair for use in authentication to the token
 						endpoint. These clients MUST register their public keys in their
@@ -618,7 +678,8 @@ xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 						registering a
 						<spanx style="verb">jwks_uri</spanx>
 						that MUST be
-						reachable by the authorization server. It is RECOMMENDED that
+						reachable by the authorization server. It is
+						RECOMMENDED that
 						clients use a
 						<spanx style="verb">jwks_uri</spanx>
 						if possible as
@@ -636,8 +697,10 @@ xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 						<xref target="RFC7517">JSON Web Key Set
 							(JWK Set)</xref>
 						format. The authorization server MUST validate the
-						content of the client's registered jwks_uri document and verify that
-						it contains a JWK Set. The following example is of a 2048-bit RSA
+						content of the
+						client's registered jwks_uri document and verify that
+						it contains a
+						JWK Set. The following example is of a 2048-bit RSA
 						key:
 					</t>
 
@@ -707,7 +770,8 @@ H2_VQ_Ww1JOLn9vRn-H48FDj7TxlIT74XdTZgTv31w_GRPAOfyxEw_ZUmxhz5Z-gTlQ",
 						form-parameter or query-parameter methods in
 						<xref target="RFC6750" />
 						. Authorized requests MUST be made over TLS, and
-						clients MUST validate the protected resource server's
+						clients MUST
+						validate the protected resource server's
 						certificate.
 					</t>
 
@@ -767,13 +831,17 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 						grant types as described in
 						<xref target="ClientProfiles" />
 						. The
-						authorization server MUST limit each registered client (identified
-						by a client ID) to a single grant type only, since a single piece of
-						software will be functioning at runtime in only one of the modes
+						authorization server MUST limit each registered client
+						(identified
+						by a client ID) to a single grant type only, since a
+						single piece of
+						software will be functioning at runtime in only one
+						of the modes
 						described in
 						<xref target="ClientProfiles" />
 						. Clients that have
-						multiple modes of operation MUST have a separate client ID for each
+						multiple modes of operation MUST have a
+						separate client ID for each
 						mode.
 					</t>
 				</section>
@@ -793,9 +861,12 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 						<xref target="RFC7591">Dynamic
 							Client Registration Protocol</xref>
 						for authorization code or
-						implicit grant types. Clients MUST NOT dynamically register for the
-						client credentials grant type. Authorization servers MAY limit the
-						scopes available to dynamically registered clients.
+						implicit grant types. Clients MUST NOT
+						dynamically register for the
+						client credentials grant type.
+						Authorization servers MAY limit the
+						scopes available to dynamically
+						registered clients.
 					</t>
 
 					<t>
@@ -804,10 +875,14 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 						servers MAY accept signed software statements as described in
 						<xref target="RFC7591" />
 						issued to client software developers from a
-						trusted registration entity. The software statement can be used to
-						tie together many instances of the same client software that will be
-						run, dynamically registered, and authorized separately at runtime.
-						The software statement MUST include the following client metadata
+						trusted registration
+						entity. The software statement can be used to
+						tie together many
+						instances of the same client software that will be
+						run, dynamically
+						registered, and authorized separately at runtime.
+						The software
+						statement MUST include the following client metadata
 						parameters:
 					</t>
 
@@ -815,7 +890,8 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 						<list style="hanging">
 							<t hangText="redirect_uris">
 								array of redirect URIs used by the
-								client; subject to the requirements listed in
+								client; subject to the
+								requirements listed in
 								<xref target="RedirectURI" />
 							</t>
 
@@ -823,15 +899,18 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 								"authorization_code&rdquo; or "implicit&rdquo;</t>
 
 							<t hangText="jwks_uri or jwks">client's public key in JWK Set
-								format; if jwks_uri is used it MUST be reachable by the
-								Authorization Server and point to the client's public key
+								format; if jwks_uri
+								is used it MUST be reachable by the
+								Authorization Server and
+								point to the client's public key
 								set
 							</t>
 
 							<t hangText="client_name">human-readable name of the client</t>
 
 							<t hangText="client_uri">URL of a web page containing further
-								information about the client
+								information
+								about the client
 							</t>
 						</list>
 					</t>
@@ -854,7 +933,8 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 							</t>
 
 							<t>What kind of access the client is requesting (including
-								scope, target resource, etc.)
+								scope,
+								target resource, etc.)
 							</t>
 						</list>
 					</t>
@@ -872,7 +952,8 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 
 							<t hangText="authorization_endpoint">
 								The fully qualified URL of
-								the server's authorization endpoint defined by
+								the server's authorization endpoint
+								defined by
 								<xref target="RFC6749">OAuth 2.0</xref>
 							</t>
 
@@ -885,13 +966,15 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 
 							<t hangText="introspection_endpoint">
 								The fully qualified URL of
-								the server's introspection endpoint defined by
+								the server's introspection endpoint
+								defined by
 								<xref target="RFC7662">OAuth Token Introspection</xref>
 							</t>
 
 							<t hangText="revocation_endpoint">
 								The fully qualified URL of the
-								server's revocation endpoint defined by
+								server's revocation endpoint
+								defined by
 								<xref target="RFC7009">OAuth 2.0 Token Revocation</xref>
 							</t>
 
@@ -1037,8 +1120,10 @@ U-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEqfCaPDNp00J6AbY6w",
 					<t>An authorization server MUST support the Proof Key for Code
 						Exchange (PKCE) extension to the authorization code flow,
 						including
-						support for the S256 code challenge method. The authorization server
-						MUST NOT allow an iGov client to use the plain code challenge
+						support for the S256 code challenge method. The
+						authorization server
+						MUST NOT allow an iGov client to use the plain
+						code challenge
 						method.
 					</t>
 				</section>
@@ -1062,14 +1147,21 @@ U-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEqfCaPDNp00J6AbY6w",
 						resources, all iGov-compliant authorization servers issue
 						cryptographically signed tokens in the JSON Web Token (JWT)
 						format.
-						The information carried in the JWT is intended to allow a protected
-						resource to quickly test the integrity of the token without
-						additional network calls, and to allow the protected resource to
-						determine which authorization server issued the token. When
+						The information carried in the JWT is intended to allow a
+						protected
+						resource to quickly test the integrity of the token
+						without
+						additional network calls, and to allow the protected
+						resource to
+						determine which authorization server issued the token.
+						When
 						combined
-						with discovery, this information is sufficient to programmatically
-						locate the token introspection service, which is in turn used for
-						conveying additional security information about the token.
+						with discovery, this information is sufficient to
+						programmatically
+						locate the token introspection service, which is
+						in turn used for
+						conveying additional security information about
+						the token.
 					</t>
 
 					<t>The server MUST issue tokens as JWTs with, at minimum, the
@@ -1083,7 +1175,8 @@ U-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEqfCaPDNp00J6AbY6w",
 							</t>
 
 							<t hangText="azp">The client id of the client to whom this token
-								was issued
+								was
+								issued
 							</t>
 
 							<t hangText="exp">The expiration time (integer number of seconds
@@ -1092,9 +1185,12 @@ U-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEqfCaPDNp00J6AbY6w",
 							</t>
 
 							<t hangText="jti">A unique JWT Token ID value with at least 128
-								bits of entropy. This value MUST NOT be re-used in another
-								token. Clients MUST check for reuse of jti values and reject all
-								tokens issued with duplicate jti values.
+								bits
+								of entropy. This value MUST NOT be re-used in another
+								token.
+								Clients MUST check for reuse of jti values and reject all
+								tokens
+								issued with duplicate jti values.
 							</t>
 						</list>
 					</t>
@@ -1107,19 +1203,27 @@ U-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEqfCaPDNp00J6AbY6w",
 					<t>
 						<list style="hanging">
 							<t hangText="sub">The identifier of the end-user that authorized
-								this client, or the client id of a client acting on its own
-								behalf (such as a bulk transfer). Since this information could
+								this
+								client, or the client id of a client acting on its own
+								behalf
+								(such as a bulk transfer). Since this information could
 								potentially leak private user information, it should be used
 								only when needed.
 							</t>
 
 							<t hangText="aud">The audience of the token, an array containing
-								the identifier(s) of protected resource(s) for which the token
-								is valid, if this information is known. The aud claim may
-								contain multiple values if the token is valid for multiple
-								protected resources. Note that at runtime, the authorization
-								server may not know the identifiers of all possible protected
-								resources at which a token may be used.
+								the
+								identifier(s) of protected resource(s) for which the token
+								is
+								valid, if this information is known. The aud claim may
+								contain
+								multiple values if the token is valid for multiple
+								protected
+								resources. Note that at runtime, the authorization
+								server may not
+								know the identifiers of all possible protected
+								resources at which
+								a token may be used.
 							</t>
 						</list>
 					</t>
@@ -1144,10 +1248,13 @@ U-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEqfCaPDNp00J6AbY6w",
 						The access tokens MUST be signed with
 						<xref target="RFC7515">JWS</xref>
 						. The authorization server MUST support
-						the RS256 signature method for tokens and MAY use other asymmetric
-						signing methods as defined in the
+						the RS256 signature method
+						for tokens and MAY use other asymmetric
+						signing methods as defined
+						in the
 						<xref target="JWS.JWE.Algs">IANA
-							JSON Web Signatures and Encryption Algorithms registry</xref>
+							JSON Web Signatures and Encryption
+							Algorithms registry</xref>
 						. The
 						JWS header MUST contain the following fields:
 					</t>
@@ -1181,7 +1288,8 @@ pXDaLyyY-4HT9XHT9V73fKF8rLWJu9grrA]]></artwork>
 						Refresh tokens SHOULD be signed with
 						<xref target="RFC7515">JWS</xref>
 						using the same public key and contain
-						the same set of claims as the access tokens.
+						the same set of claims as the
+						access tokens.
 					</t>
 
 					<t>
@@ -1189,8 +1297,10 @@ pXDaLyyY-4HT9XHT9V73fKF8rLWJu9grrA]]></artwork>
 						tokens using
 						<xref target="RFC7516">JWE</xref>
 						. Encrypted access
-						tokens MUST be encrypted using the public key of the protected
-						resource. Encrypted refresh tokens MUST be encrypted using the
+						tokens MUST be encrypted using the public key of
+						the protected
+						resource. Encrypted refresh tokens MUST be encrypted
+						using the
 						authorization server's public key.
 					</t>
 				</section>
@@ -1253,13 +1363,17 @@ F2vFdL6D_lLeHRy-H2g2OzF59eMIsM_Ccs4G47862w
 					<t>
 						<list style="hanging">
 							<t hangText="active">Boolean value indicating whether or not
-								this token is currently active at this authorization server.
-								Tokens that have been revoked, have expired, or were not issued
-								by this authorization server are considered non-active.
+								this token
+								is currently active at this authorization server.
+								Tokens that
+								have been revoked, have expired, or were not issued
+								by this
+								authorization server are considered non-active.
 							</t>
 
 							<t hangText="scope">Space-separated list of OAuth 2.0 scope
-								values represented as a single string.
+								values
+								represented as a single string.
 							</t>
 
 							<t hangText="exp">Timestamp of when this token expires (integer
@@ -1267,12 +1381,14 @@ F2vFdL6D_lLeHRy-H2g2OzF59eMIsM_Ccs4G47862w
 							</t>
 
 							<t hangText="sub">An opaque string that uniquely identifies the
-								user who authorized this token at this authorization server (if
+								user
+								who authorized this token at this authorization server (if
 								applicable)
 							</t>
 
 							<t hangText="client_id">An opaque string that uniquely
-								identifies the OAuth 2.0 client that requested this token
+								identifies the OAuth
+								2.0 client that requested this token
 							</t>
 						</list>
 					</t>
@@ -1306,15 +1422,19 @@ Connection: close
 						revocation and introspection endpoints as described in
 						<xref target="RequestsToTokenEndpoint" />
 						. Protected resources calling the
-						introspection endpoint MUST use credentials distinct from any other
-						OAuth client registered at the server.
+						introspection endpoint MUST use
+						credentials distinct from any other
+						OAuth client registered at the
+						server.
 					</t>
 
 					<t>A protected resource MAY cache the response from the
 						introspection endpoint for a period of time no greater than half
 						the
-						lifetime of the token. A protected resource MUST NOT accept a token
-						that is not active according to the response from the introspection
+						lifetime of the token. A protected resource MUST NOT accept a
+						token
+						that is not active according to the response from the
+						introspection
 						endpoint.
 					</t>
 				</section>
@@ -1323,16 +1443,20 @@ Connection: close
 			<section anchor="TokenLifetimes" title="Token Lifetimes">
 				<t>This profile provides RECOMMENDED lifetimes for different types
 					of
-					tokens issued to different types of clients. Specific applications MAY
-					issue tokens with different lifetimes. Any active token MAY be
+					tokens issued to different types of clients. Specific
+					applications MAY
+					issue tokens with different lifetimes. Any active
+					token MAY be
 					revoked
 					at any time.
 				</t>
 
 				<t>For clients using the authorization code grant type, access
 					tokens
-					SHOULD have a valid lifetime no greater than one hour, and refresh
-					tokens (if issued) SHOULD have a valid lifetime no greater than
+					SHOULD have a valid lifetime no greater than one hour, and
+					refresh
+					tokens (if issued) SHOULD have a valid lifetime no greater
+					than
 					twenty-four hours.
 				</t>
 
@@ -1349,10 +1473,14 @@ Connection: close
 			<section anchor="Scopes" title="Scopes">
 				<t>Scopes define individual pieces of authority that can be
 					requested
-					by clients, granted by resource owners, and enforced by protected
-					resources. Specific scope values will be highly dependent on the
-					specific types of resources being protected in a given interface.
-					OpenID Connect, for example, defines scope values to enable access
+					by clients, granted by resource owners, and enforced by
+					protected
+					resources. Specific scope values will be highly dependent
+					on the
+					specific types of resources being protected in a given
+					interface.
+					OpenID Connect, for example, defines scope values to
+					enable access
 					to
 					different attributes of user profiles.
 				</t>
@@ -1366,9 +1494,12 @@ Connection: close
 				<t>To facilitate general use across a wide variety of protected
 					resources, authorization servers SHOULD allow for the use of
 					arbitrary
-					scope values at runtime, such as allowing clients or protected
-					resources to use arbitrary scope strings upon registration.
-					Authorization servers MAY restrict certain scopes from use by
+					scope values at runtime, such as allowing clients or
+					protected
+					resources to use arbitrary scope strings upon
+					registration.
+					Authorization servers MAY restrict certain scopes from
+					use by
 					dynamically registered systems.
 				</t>
 			</section>
@@ -1383,7 +1514,8 @@ Connection: close
 					authorization header as described in
 					<xref target="RFC6750" />
 					. A
-					protected resource MAY also accept bearer tokens passed in the form
+					protected resource MAY also accept bearer tokens passed in the
+					form
 					parameter or query parameter methods.
 				</t>
 
@@ -1404,17 +1536,21 @@ Connection: close
 					(audience) claim, if it exists in the token, to ensure that it
 					includes the protected resource's identifier. The protected
 					resource
-					MUST ensure that the rights associated with the token are sufficient
+					MUST ensure that the rights associated with the token are
+					sufficient
 					to grant access to the resource. For example, this can be
 					accomplished
-					by querying the scopes associated with the token from the
+					by querying the scopes associated with the token from
+					the
 					authorization server's token introspection endpoint.
 				</t>
 
 				<t>A protected resource MUST limit which authorization servers it
 					will
-					acceept valid tokens from. A resource server MAY accomplish this using
-					a whitelist of trusted servers, a dynamic policy engine, or other
+					acceept valid tokens from. A resource server MAY accomplish
+					this using
+					a whitelist of trusted servers, a dynamic policy engine,
+					or other
 					means.
 				</t>
 			</section>
@@ -1424,13 +1560,19 @@ Connection: close
 			<t>The preceding portions of this OAuth profile provide a level of
 				security adequate for a wide range of use cases, while still
 				maintaining
-				relative ease of implementation and usability for developers, system
-				administrators, and end users. The following are some additional
-				security measures that can be employed for use cases where elevated
-				risks justify the use of additional controls at the expense of
-				implementation effort and usability. This section also addresses
+				relative ease of implementation and usability for
+				developers, system
+				administrators, and end users. The following are
+				some additional
+				security measures that can be employed for use cases
+				where elevated
+				risks justify the use of additional controls at the
+				expense of
+				implementation effort and usability. This section also
+				addresses
 				future
-				security capabilities, currently in the early draft stages, being added
+				security capabilities, currently in the early draft
+				stages, being added
 				to the OAuth standard suite.
 			</t>
 
@@ -1439,18 +1581,26 @@ Connection: close
 					OAuth proof of possession tokens are currently defined in a set of
 					drafts under active development in the Internet Engineering Task
 					Force
-					(IETF) OAuth Working Group. While a bearer token can be used by anyone
-					in possession of the token, a proof of possession token is bound to a
-					particular symmetric or asymmetric key issued to, or already
+					(IETF) OAuth Working Group. While a bearer token can be used
+					by anyone
+					in possession of the token, a proof of possession token is
+					bound to a
+					particular symmetric or asymmetric key issued to, or
+					already
 					possessed
-					by, the client. The association of the key to the token is also
-					communicated to the protected resource; a variety of mechanisms for
+					by, the client. The association of the key to the
+					token is also
+					communicated to the protected resource; a variety of
+					mechanisms for
 					doing this are outlined in the draft
 					<xref target="I-D.ietf-oauth-pop-architecture">OAuth 2.0 Proof-of-Possession
-						(PoP) Security Architecture</xref>
+						(PoP) Security
+						Architecture</xref>
 					. When the client presents the token
-					to the protected resource, it is also required to demonstrate
-					possession of the corresponding key (e.g., by creating a
+					to the protected resource, it
+					is also required to demonstrate
+					possession of the corresponding key
+					(e.g., by creating a
 					cryptographic
 					hash or signature of the request).
 				</t>
@@ -1461,13 +1611,18 @@ Connection: close
 					prevent a number of attacks on OAuth that entail the interception
 					of
 					access tokens by unauthorized parties. The attacker would need to
-					obtain the legitimate client's cryptographic key along with the access
-					token to gain access to protected resources. Additionally, portions
+					obtain the legitimate client's cryptographic key along with the
+					access
+					token to gain access to protected resources. Additionally,
+					portions
 					of
-					the HTTP request could be protected by the same signature used in
-					presentation of the token. Proof of possession tokens may not
+					the HTTP request could be protected by the same signature
+					used in
+					presentation of the token. Proof of possession tokens may
+					not
 					provide
-					all of the same protections as PKI authentication, but they are far
+					all of the same protections as PKI authentication, but
+					they are far
 					less challenging to implement on a distributed scale.
 				</t>
 			</section>
@@ -1487,7 +1642,8 @@ Connection: close
 				and those
 				found in the
 				<xref target="RFC6819">OAuth 2.0 Threat Model and Security
-					Considerations document</xref>
+					Considerations
+					document</xref>
 				.
 			</t>
 		</section>
@@ -1540,6 +1696,10 @@ Connection: close
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7518"?>
 
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7159"?>
+      
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7159"?>
+      
+      
 
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-oauth-pop-architecture.xml"?>
 
@@ -1568,7 +1728,8 @@ Connection: close
 							application protocols such as HTTP, SMTP, IMAP, POP, SIP, and
 							XMPP. Over the last few years, several serious attacks on TLS
 							have
-							emerged, including attacks on its most commonly used cipher suites
+							emerged, including attacks on its most commonly used cipher
+							suites
 							and their modes of operation. This document provides
 							recommendations for improving the security of deployed services
 							that use TLS and DTLS. The recommendations are applicable to the
@@ -1667,6 +1828,27 @@ Connection: close
 				</front>
 			</reference>
 
+			<reference anchor="RFC7636" target="https://tools.ietf.org/html/rfc7636">
+				<front>
+					<title>Proof Key for Code Exchange by OAuth Public Clients</title>
+
+					<author initials="N." surname="Sakimura" role="editor">
+						<organization>Nomura Research Institute</organization>
+					</author>
+
+					<author initials="J." surname="Bradley">
+						<organization>Ping Identity</organization>
+					</author>
+
+					<author initials="N." surname="Agarwal">
+						<organization>Google</organization>
+					</author>
+
+					<date day="15" month="February" year="2016" />
+				</front>
+			</reference>
+
+
 
 		</references>
 
@@ -1675,7 +1857,8 @@ Connection: close
 				their contributions to this specification: Mark Russel, Mary
 				Pulvermacher, David Hill, Dale Moberg, Adrian Gropper, Eve Maler,
 				Danny
-				van Leeuwen, John Moehrke, Aaron Seib, John Bradley, Debbie Bucci, Josh
+				van Leeuwen, John Moehrke, Aaron Seib, John Bradley, Debbie
+				Bucci, Josh
 				Mandel, and Sarah Squire.
 			</t>
 
@@ -1692,46 +1875,70 @@ Connection: close
 			<t>The OpenID Foundation (OIDF) grants to any Contributor, developer,
 				implementer, or other interested party a non-exclusive, royalty
 				free,
-				worldwide copyright license to reproduce, prepare derivative works from,
-				distribute, perform and display, this Implementers Draft or Final
+				worldwide copyright license to reproduce, prepare derivative
+				works from,
+				distribute, perform and display, this Implementers Draft
+				or Final
 				Specification solely for the purposes of (i) developing
 				specifications,
-				and (ii) implementing Implementers Drafts and Final Specifications
+				and (ii) implementing Implementers Drafts and Final
+				Specifications
 				based
-				on such documents, provided that attribution be made to the OIDF as
+				on such documents, provided that attribution be
+				made to the OIDF as
 				the
-				source of the material, but that such attribution does not indicate an
+				source of the material, but that such
+				attribution does not indicate an
 				endorsement by the OIDF.
 			</t>
 
 			<t>The technology described in this specification was made available
 				from contributions from various sources, including members of the
 				OpenID
-				Foundation and others. Although the OpenID Foundation has taken steps to
-				help ensure that the technology is available for distribution, it takes
-				no position regarding the validity or scope of any intellectual
+				Foundation and others. Although the OpenID Foundation has
+				taken steps to
+				help ensure that the technology is available for
+				distribution, it takes
+				no position regarding the validity or scope of
+				any intellectual
 				property
-				or other rights that might be claimed to pertain to the implementation
-				or use of the technology described in this specification or the
+				or other rights that might be claimed to
+				pertain to the implementation
+				or use of the technology described in
+				this specification or the
 				extent
-				to which any license under such rights might or might not be
+				to which any license under such
+				rights might or might not be
 				available;
-				neither does it represent that it has made any independent effort to
-				identify any such rights. The OpenID Foundation and the contributors
+				neither does it represent that
+				it has made any independent effort to
+				identify any such rights. The
+				OpenID Foundation and the contributors
 				to
-				this specification make no (and hereby expressly disclaim any)
-				warranties (express, implied, or otherwise), including implied
-				warranties of merchantability, non-infringement, fitness for a
-				particular purpose, or title, related to this specification, and the
-				entire risk as to implementing this specification is assumed by the
-				implementer. The OpenID Intellectual Property Rights policy requires
-				contributors to offer a patent promise not to assert certain patent
-				claims against other contributors and against implementers. The
+				this specification make no
+				(and hereby expressly disclaim any)
+				warranties (express, implied, or
+				otherwise), including implied
+				warranties of merchantability,
+				non-infringement, fitness for a
+				particular purpose, or title, related
+				to this specification, and the
+				entire risk as to implementing this
+				specification is assumed by the
+				implementer. The OpenID Intellectual
+				Property Rights policy requires
+				contributors to offer a patent
+				promise not to assert certain patent
+				claims against other
+				contributors and against implementers. The
 				OpenID
-				Foundation invites any interested party to bring to its attention any
-				copyrights, patents, patent applications, or other proprietary
+				Foundation invites
+				any interested party to bring to its attention any
+				copyrights,
+				patents, patent applications, or other proprietary
 				rights
-				that may cover technology that may be required to practice this
+				that may
+				cover technology that may be required to practice this
 				specification.
 			</t>
 		</section>

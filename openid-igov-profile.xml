@@ -35,7 +35,7 @@ toc="yes" ?>
 				<email>mike.varley@securekey.com</email>
 			</address>
 		</author>
-		<author fullname="Paul Grassi" initials="P.G" role="editor"
+		<author fullname="Paul Grassi" initials="P.G." role="editor"
 			surname="Grassi">
 			<address>
 				<email>pag3@nist.gov</email>
@@ -63,7 +63,7 @@ toc="yes" ?>
 				government and public service domains.
 			</t>
 			
-			<t>This profile builds on top of, and inherits all properties of, the <xref target="iGov.OAuth2">OAUTH profile for iGov</xref>.</t>
+			<t>This profile builds on top of, and inherits all properties of, the <xref target="iGov.OAuth2">OAUTH profile for iGov.</xref></t>
 		</abstract>
 	</front>
 
