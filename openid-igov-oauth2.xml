@@ -26,8 +26,8 @@
   <?rfc private="Final" ?>
 
 	<front>
-		<title abbrev="iGov OAuth 2.0">iGov Profile for
-			OAuth 2.0</title>
+		<title abbrev="iGov OAuth 2.0">International Government Assurance Profile (iGov)
+			for	OAuth 2.0</title>
 
 		<author fullname="Justin Richer" initials="J." role="editor"
 			surname="Richer">
