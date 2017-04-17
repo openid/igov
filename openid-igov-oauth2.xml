@@ -1675,6 +1675,8 @@ https://int-rp.fed1.securekey.com/skrp1/web/oidc/loginResponse?
 		</section>
 
 		<section title="Security Considerations">
+		
+		<!--  Need to add data from John's RFC regarding registration security -->
 			<t>
 				All transactions MUST be protected in transit by TLS as described in
 				<xref target="BCP195">BCP195</xref>

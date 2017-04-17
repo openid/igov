@@ -467,7 +467,7 @@ https://idp.government.gov/oidc/authorization?
 							timestamps for the token are dates (integer number of
 							seconds
 							since from 1970-01-01T00:00:00Z UTC) within acceptable
-							ranges. The OP MUST include.
+							ranges.  The OP MUST include.
 						</t>
 					</list>
 				</t>
