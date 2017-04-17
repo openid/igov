@@ -268,7 +268,7 @@ toc="yes" ?>
 							.
 						</t>
 						<t hangText="acr_values">OPTIONAL. Lists the acceptable LoAs for this
-							authentication. See (below)</t>
+							authentication. See (below). MUST not be set if <spanx style="verb">vtr</spanx> is specified.</t>
 					</list>
 				</t>
 
@@ -420,35 +420,46 @@ https://idp.government.gov/oidc/authorization?
 					meanings:
 					<list style="hanging">
 						<t hangText="iss">The "issuer" field is the Uniform Resource Locater
-							(URL) of the expected issuer.
+							(URL) of the expected issuer. The OP MUST include.
 						</t>
 
 						<t hangText="aud">The "audience" field contains the client ID of the
-							client.
+							client. The OP MUST include.
 						</t>
 
 						<t hangText="sub">The identifier of the user. SHOULD be a pairwize
 							annonymous identifier, and be unique per client to prevent
-							linkability and traceability between clients.
+							linkability and traceability between clients. The OP MUST include.
+						</t>
+
+						<t hangText="vot">
+							The vector value as specified in 
+							<xref target="I-D.richer-vectors-of-trust">Vectors of Trust</xref>
+							. The OP MAY include. See <xref target="vot">Vectors of Trust</xref> for more details.
+						</t>
+						
+						<t hangText="vtr">
+							The trustmark URI as specified in
+							<xref target="I-D.richer-vectors-of-trust">Vectors of Trust</xref>
+							. The OP MUST include if <spanx style="verb">vot</spanx> is provided. See <xref target="vot">Vectors of Trust</xref> for more details.
 						</t>
 
 						<t hangText="acr">
 							The LoA the user was authenticated at. MUST be a member of the
 							<spanx style="verb">acr_values</spanx>
-							list from the authentication request.
+							list from the authentication request. The OP MAY include. The OP MUST NOT include if <spanx style="verb">vot</spanx> is provided. See <xref target="AuthenticationContext">Authentication Context</xref> for more details.
 						</t>
 
-						<t hangText="vot">
-						</t>
+						
 
 						<t hangText="nonce">The nonce value that was provided in the
-							authentication request. Included if provided in authentication
+							authentication request. MUST be Included if provided in authentication
 							request.
 						</t>
 
 						<t hangText="jti">A unique identifier for the token, which can be
 							used
-							to prevent reuse of the token.
+							to prevent reuse of the token. The OP MUST include.
 						</t>
 
 						<t hangText="exp, iat, nbf">The "expiration", "issued at", and "not
@@ -456,7 +467,7 @@ https://idp.government.gov/oidc/authorization?
 							timestamps for the token are dates (integer number of
 							seconds
 							since from 1970-01-01T00:00:00Z UTC) within acceptable
-							ranges
+							ranges. The OP MUST include.
 						</t>
 					</list>
 				</t>
@@ -627,12 +638,44 @@ Connection: close
 					authorization
 					servers are required to support requests using them.
 				</t>
+				
+				<t>
+					Servers MUST check for the presence of the <spanx style="verb">vtr</spanx>
+					parameter before <spanx style="verb">acr</spanx>. If both parameters are present
+					the server will default to <spanx style="verb">vtr</spanx> as the request
+					to respond to.  <spanx style="verb">acr</spanx> MUST be ignored.
+				</t>
 
+			</section>
+			
+			
+			<section anchor="vot" title="Vectors of Trust">
+				<t>
+					OpenID Providers MAY provide the
+					<spanx style="verb">vot</spanx>
+					and contain valid values from the
+					<xref target="I-D.richer-vectors-of-trust">Vectors of Trust</xref>
+					standard.
+				</t>
+
+				<t>
+					The
+					<spanx style="verb">vtr</spanx>
+					and contain valid values from the
+					<xref target="I-D.richer-vectors-of-trust">Vectors of Trust</xref>
+					standard.
+				</t>
+
+				<t>It is out of scope of this document to determine how an
+					organization maps their digital identity practices
+					to valid VOT
+					component values.
+				</t>
 			</section>
 
 			<section anchor="AuthenticationContext" title="Authentication Context">
 				<t>
-					OpenID Providers MUST provide
+					OpenID Providers MAY provide
 					<spanx style="verb">acr</spanx>
 					(authentication context class reference, equivalent to the
 					Security
@@ -645,28 +688,7 @@ Connection: close
 
 			</section>
 
-			<section title="Vectors of Trust">
-				<t>
-					OpenID Providers MAY provide the
-					<spanx style="verb">vot</spanx>
-					values for the authenticated
-					user.
-				</t>
-
-				<t>
-					The
-					<spanx style="verb">acr</spanx>
-					MUST contain valid values from the
-					<xref target="I-D.richer-vectors-of-trust">Vectors of Trust</xref>
-					standard.
-				</t>
-
-				<t>It is out of scope of this document to determine how an
-					organization maps their digital identity practices
-					to valid VOT
-					component values.
-				</t>
-			</section>
+			
 
 			<section anchor="Discovery" title="Discovery">
 				<t>
@@ -1104,7 +1126,7 @@ Connection: close
 						of
 						the
 						quality level of the attribute. This quality level is
-						refered to
+						referred to
 						as
 						attribute meta data, and follows the guidelines in
 						<xref target="I-D.richer-vectors-of-trust">Vectors of Trust</xref>

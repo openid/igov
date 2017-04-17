@@ -64,8 +64,8 @@
 
 			<t>This specification profiles the OAuth 2.0 protocol framework to
 				increase baseline security, provide greater interoperability, and
-				structure deployments in a manner specifically applicable to
-				consumer-to-government (but not limited to) deployments.
+				structure deployments in a manner specifically applicable, but not limited to
+				consumer-to-government deployments.
 			</t>
 		</abstract>
 	</front>
@@ -106,7 +106,7 @@
 
 			<t>
 				This OAuth profile is intended to be shared broadly, and has been
-				greatly informed
+				greatly influenced
 				by the
 				<xref target="HEART.OAuth2">HEART OAuth2 Profile</xref>
 				.
@@ -250,6 +250,8 @@
 						values and MUST reject requests with invalid or missing redirect
 						URIs.
 					</t>
+					
+					
 
 					<t>The following is a sample response from a web-based client to
 						the
@@ -264,7 +266,8 @@ Cache-Control: no-cache
 Connection: close
 Content-Type: text/plain; charset=UTF-8
 Date: Wed, 07 Jan 2015 20:24:15 GMT
-Location: https://idp-p.example.com/authorize?client_id=55f9f559-2496-49d4-b6c3-351a586b7484&nonce=cd567ed4d958042f721a7cdca557c30d&response_type=code&scope=openid+email
+Location: https://idp-p.example.com/authorize?client_id=55f9f559-2496-49d4-b6c3-351a58
+6b7484&nonce=cd567ed4d958042f721a7cdca557c30d&response_type=code&scope=openid+email
 Status: 302 Found
 ]]></artwork>
 					</figure>
@@ -274,7 +277,8 @@ Status: 302 Found
 					</t>
 
 					<figure>
-						<artwork><![CDATA[GET /authorize?client_id=55f9f559-2496-49d4-b6c3-351a586b7484&nonce=cd567ed4d958042f721a7cdca557c30d&response_type=code&scope=openid+email HTTP/1.1
+						<artwork><![CDATA[GET /authorize?client_id=55f9f559-2496-49d4-b6c3-351a586b7484&nonce=cd567ed4d958042f721
+						a7cdca557c30d&response_type=code&scope=openid+email HTTP/1.1
 Host: idp-p.example.com
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/31.0 Iceweasel/31.2.0
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -556,6 +560,11 @@ xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 
 					<section anchor="BrowserClient"
 						title="Browser-embedded Client with User Delegation">
+						
+						<t>This client type MUST NOT be used by any iGov use case.</t>
+						<!-- <t>This client type MUST NOT request or be issued a refresh token. 
+							Access tokens issued to this type of client MUST be short lived and SHOULD 
+							expire when the user's authenticated session with the client expires. </t> -->
 
 						<t>This client type applies to clients that act on behalf of a
 							particular resource owner and require delegation of that
@@ -582,13 +591,15 @@ xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 							properties.
 						</t>
 
-						<t>This client type MUST NOT be used by any iGov use case.</t>
-						<!-- <t>This client type MUST NOT request or be issued a refresh token. 
-							Access tokens issued to this type of client MUST be short lived and SHOULD 
-							expire when the user's authenticated session with the client expires. </t> -->
+						
 					</section>
 
 					<section anchor="DirectClient" title="Direct Access Client">
+					
+					<t>This client type MUST NOT request or be issued a refresh
+							token.
+						</t>
+						
 						<t>This profile applies to clients that connect directly to
 							protected resources and do not act on behalf of a particular
 							resource owner, such as those clients that facilitate bulk
@@ -606,9 +617,7 @@ xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 							be considered a direct access client.
 						</t>
 
-						<t>This client type MUST NOT request or be issued a refresh
-							token.
-						</t>
+						
 					</section>
 				</section>
 
@@ -622,6 +631,8 @@ xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 						the
 						authorization server.
 					</t>
+					
+					<t>Client registration MAY be completed by either static configuration (out-of-band) or dynamically.</t>
 
 					<section anchor="RedirectURI" title="Redirect URI">
 						<t>Clients using the authorization code grant type
@@ -1415,7 +1426,7 @@ Connection: close
 
 {
    "active": true,
-   "scope": "conditions encounters patients medications allergies observations",
+   "scope": "file search visa",
    "exp": 1418702414,
    "sub": "{sub\u003d6WZQPpnQxV, iss\u003dhttps://idp-p.example.com/}",
    "client_id": "e71fb72a-974f-4001-bcb7-e67c2bc0037f",
