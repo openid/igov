@@ -265,6 +265,7 @@ toc="yes" ?>
 							OPTIONAL. MUST be set to
 							a value as described in Section 6.1 of
 							<xref target="I-D.richer-vectors-of-trust">Vectors of Trust</xref>
+							<spanx style="verb">vtr</spanx> takes precedence over <spanx style="verb">acr_values</spanx>.
 							.
 						</t>
 						<t hangText="acr_values">OPTIONAL. Lists the acceptable LoAs for this
@@ -433,12 +434,14 @@ https://idp.government.gov/oidc/authorization?
 						</t>
 
 						<t hangText="vot">
+						
 							The vector value as specified in 
 							<xref target="I-D.richer-vectors-of-trust">Vectors of Trust</xref>
 							. The OP MAY include. See <xref target="vot">Vectors of Trust</xref> for more details.
+							<spanx style="verb">vot</spanx> takes precedence over acr.
 						</t>
 						
-						<t hangText="vtr">
+						<t hangText="vtm">
 							The trustmark URI as specified in
 							<xref target="I-D.richer-vectors-of-trust">Vectors of Trust</xref>
 							. The OP MUST include if <spanx style="verb">vot</spanx> is provided. See <xref target="vot">Vectors of Trust</xref> for more details.
