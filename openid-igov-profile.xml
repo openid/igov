@@ -1404,7 +1404,7 @@ Connection: close
 
 			<!-- TODO - Get this updated once we have some actual URL's -->
 			<reference anchor="iGov.OAuth2"
-				target="http://openid.net/specs/openid-heart-oauth2-1_0.html">
+				target="https://xml2rfc.tools.ietf.org/cgi-bin/xml2rfc.cgi?Submit=Submit&format=ascii&mode=html&type=ascii&url=https://bitbucket.org/openid/igov/raw/master/openid-igov-oauth2.xml">
 				<front>
 					<title>iGov Profile for OAuth 2.0</title>
 
