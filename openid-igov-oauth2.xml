@@ -51,7 +51,7 @@
 			</address>
 		</author>
 
-		<date day="28" month="February" year="2017" />
+		<date day="22" month="May" year="2017" />
 
 		<workgroup>OpenID iGov Working Group</workgroup>
 
@@ -108,9 +108,7 @@
 				This OAuth profile is intended to be shared broadly, and has been
 				greatly influenced
 				by the
-				<xref target="HEART.OAuth2">HEART OAuth2 Profile</xref>
-				.
-				.
+				<xref target="HEART.OAuth2">HEART OAuth2 Profile</xref>.
 			</t>
 
 			<section anchor="rnc" title="Requirements Notation and Conventions">
@@ -277,8 +275,8 @@ Status: 302 Found
 					</t>
 
 					<figure>
-						<artwork><![CDATA[GET /authorize?client_id=55f9f559-2496-49d4-b6c3-351a586b7484&nonce=cd567ed4d958042f721
-						a7cdca557c30d&response_type=code&scope=openid+email HTTP/1.1
+						<artwork><![CDATA[
+GET /authorize?client_id=55f9f559-2496-49d4-b6c3-351a586b7484&nonce=cd567ed4d958042f721a7cdca557c30d&response_type=code&scope=openid+email HTTP/1.1
 Host: idp-p.example.com
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/31.0 Iceweasel/31.2.0
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -408,7 +406,9 @@ Date: Tue, 16 Dec 2014 02:59:48 GMT
 Content-Length: 884
 Host: idp-p.example.com
 
-grant_type=authorization_code&code=sedaFh&scope=openid+email
+grant_type=authorization_code
+&code=sedaFh
+&scope=openid+email
 &client_id=55f9f559-2496-49d4-b6c3-351a586b7484
 &client_assertion_type=urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer
 &client_assertion=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.ew0KICAgImlzcyI6ICI1NWY
@@ -870,7 +870,7 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 
 				<section anchor="DynamicRegistration" title="Dynamic Registration">
 					<t>
-						Authorization servers MUST support dynamic client registration,
+						Dynamic Registration allows for authorized Clients to on-board programatically without administrative intervention. This is particularly important in ecosystems with many potential Clients, including Mobile Apps acting as independent Clients. Authorization servers MUST support dynamic client registration,
 						and clients MAY register using the
 						<xref target="RFC7591">Dynamic
 							Client Registration Protocol</xref>
@@ -889,8 +889,7 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 						Authorization servers MUST signal to end users that a client was
 						dynamically registered on the authorization screen. Authorization
 						<!-- Should we make this a MUST? -->
-						servers MAY accept signed software statements as described in
-						<xref target="RFC7591" />
+						servers MAY protect their Dynamic Registration endpoints by requiring clients to present credentials that the authorization server would recognize as authorized participants. Authorization servers MAY accept signed software statements as described in <xref target="RFC7591" /> 
 						issued to client software developers from a
 						trusted registration
 						entity. The software statement can be used to
@@ -1135,7 +1134,7 @@ U-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEqfCaPDNp00J6AbY6w",
 
 				<section title="PKCE">
 					<t>An authorization server MUST support the Proof Key for Code
-						Exchange (PKCE) extension to the authorization code flow,
+						Exchange (<xref target="RFC7636">PKCE</xref>) extension to the authorization code flow,
 						including
 						support for the S256 code challenge method. The
 						authorization server
@@ -1241,6 +1240,9 @@ U-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEqfCaPDNp00J6AbY6w",
 								know the identifiers of all possible protected
 								resources at which
 								a token may be used.
+							</t>
+							<t hangText="acr">
+								Authentication Context Class Reference. String specifying an Authentication Context Class Reference value that identifies the Authentication Context Class that the authentication performed satisfied.
 							</t>
 						</list>
 					</t>
@@ -1401,12 +1403,14 @@ F2vFdL6D_lLeHRy-H2g2OzF59eMIsM_Ccs4G47862w
 							<t hangText="sub">An opaque string that uniquely identifies the
 								user
 								who authorized this token at this authorization server (if
-								applicable)
+								applicable). This string MAY be diversified per client.
 							</t>
 
 							<t hangText="client_id">An opaque string that uniquely
 								identifies the OAuth
 								2.0 client that requested this token
+							</t>
+							<t hangText="acr">OPTIONAL. Authentication Context Class Reference. String specifying an Authentication Context Class Reference value that identifies the Authentication Context Class that the authentication performed satisfied.
 							</t>
 						</list>
 					</t>
@@ -1586,7 +1590,7 @@ https://int-rp.fed1.securekey.com/skrp1/web/oidc/loginResponse?
 					sufficient
 					to grant access to the resource. For example, this can be
 					accomplished
-					by querying the scopes associated with the token from
+					by querying the scopes and acr associated with the token from
 					the
 					authorization server's token introspection endpoint.
 				</t>
@@ -1974,6 +1978,15 @@ https://int-rp.fed1.securekey.com/skrp1/web/oidc/loginResponse?
 		</section>
 
 		<section anchor="History" title="Document History">
+			<t>-2017-05-22</t>
+
+			<t>
+				<list style="symbols">
+					<t>Added optional acr to access token.
+					</t>
+				</list>
+			</t>
+
 			<t>-2017-02-08</t>
 
 			<t>

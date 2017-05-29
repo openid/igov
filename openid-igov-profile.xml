@@ -42,7 +42,7 @@ toc="yes" ?>
 			</address>
 		</author>
 
-		<date day="18" month="July" year="2016" />
+		<date day="22" month="May" year="2017" />
 
 		<workgroup>OpenID iGov Working Group</workgroup>
 
@@ -212,12 +212,14 @@ toc="yes" ?>
 			<section
 				title="Requests to the Authorization Endpoint (Authentication Request)">
 			
-				
-				
-				<t>The following describes the supported OpenID Connect
-					Authorization Code Flow
-					parameters for use with iGov compatible
-					IdPs.
+				<t>The <xref target="iGov.OAuth2">iGov OAuth2 profile</xref> specifies requirements
+				   for requests to Authorization Endpoints - for example, when to use the 
+				   <xref target="RFC7636">PKCE</xref> parameters to secure token exchange.
+				</t>
+				<t>In addition to the requirements specified in Section 2.1.1 of the
+					<xref target="iGov.OAuth2">iGov OAuth2 profile</xref>, the following 
+					describes the supported OpenID Connect Authorization Code Flow
+					parameters for use with iGov compatible	IdPs. 
 				</t>
 
 				<t>
@@ -232,7 +234,6 @@ toc="yes" ?>
 							<spanx style="verb">code</spanx>
 							.
 						</t>
-
 
 						<t hangText="scope">REQUIRED. Indicates the attributes being requested.
 							(See below)
@@ -266,10 +267,15 @@ toc="yes" ?>
 							a value as described in Section 6.1 of
 							<xref target="I-D.richer-vectors-of-trust">Vectors of Trust</xref>
 							<spanx style="verb">vtr</spanx> takes precedence over <spanx style="verb">acr_values</spanx>.
-							.
 						</t>
+
 						<t hangText="acr_values">OPTIONAL. Lists the acceptable LoAs for this
-							authentication. See (below). MUST not be set if <spanx style="verb">vtr</spanx> is specified.</t>
+							authentication. See (below). MUST not be set if <spanx style="verb">vtr</spanx> is specified.
+						</t>
+
+						<t hangText="code_challenge and code_challenge_method">OPTIONAL. If the PKCE protocol 
+							is being used by the client. See <xref target="iGov.OAuth2">OAUTH profile for iGov.</xref>
+						</t>
 					</list>
 				</t>
 
@@ -420,57 +426,54 @@ https://idp.government.gov/oidc/authorization?
 					encrypted JSON Web Token). ID Token values have the following
 					meanings:
 					<list style="hanging">
-						<t hangText="iss">The "issuer" field is the Uniform Resource Locater
-							(URL) of the expected issuer. The OP MUST include.
+						<t hangText="iss">REQUIRED. The "issuer" field is the Uniform Resource Locater
+							(URL) of the expected issuer.
 						</t>
 
-						<t hangText="aud">The "audience" field contains the client ID of the
-							client. The OP MUST include.
+						<t hangText="aud">REQUIRED. The "audience" field contains the client ID of the
+							client.
 						</t>
 
-						<t hangText="sub">The identifier of the user. SHOULD be a pairwize
+						<t hangText="sub">REQUIRED. The identifier of the user. SHOULD be a pairwize
 							annonymous identifier, and be unique per client to prevent
-							linkability and traceability between clients. The OP MUST include.
+							linkability and traceability between clients.
 						</t>
 
 						<t hangText="vot">
-						
-							The vector value as specified in 
+							OPTIONAL. The vector value as specified in 
 							<xref target="I-D.richer-vectors-of-trust">Vectors of Trust</xref>
-							. The OP MAY include. See <xref target="vot">Vectors of Trust</xref> for more details.
+							. See <xref target="vot">Vectors of Trust</xref> for more details.
 							<spanx style="verb">vot</spanx> takes precedence over acr.
 						</t>
 						
-						<t hangText="vtm">
+						<t hangText="vtm"> REQUIRED if <spanx style="verb">vot</spanx> is provided.
 							The trustmark URI as specified in
 							<xref target="I-D.richer-vectors-of-trust">Vectors of Trust</xref>
-							. The OP MUST include if <spanx style="verb">vot</spanx> is provided. See <xref target="vot">Vectors of Trust</xref> for more details.
+							. See <xref target="vot">Vectors of Trust</xref> for more details.
 						</t>
 
-						<t hangText="acr">
+						<t hangText="acr">OPTIONAL.
 							The LoA the user was authenticated at. MUST be a member of the
 							<spanx style="verb">acr_values</spanx>
-							list from the authentication request. The OP MAY include. The OP MUST NOT include if <spanx style="verb">vot</spanx> is provided. See <xref target="AuthenticationContext">Authentication Context</xref> for more details.
+							list from the authentication request.  The OP MUST NOT include if <spanx style="verb">vot</spanx> is provided. See <xref target="AuthenticationContext">Authentication Context</xref> for more details.
 						</t>
-
-						
 
 						<t hangText="nonce">The nonce value that was provided in the
 							authentication request. MUST be Included if provided in authentication
 							request.
 						</t>
 
-						<t hangText="jti">A unique identifier for the token, which can be
+						<t hangText="jti">REQUIRED. A unique identifier for the token, which can be
 							used
-							to prevent reuse of the token. The OP MUST include.
+							to prevent reuse of the token.
 						</t>
 
-						<t hangText="exp, iat, nbf">The "expiration", "issued at", and "not
+						<t hangText="exp, iat, nbf">REQUIRED. The "expiration", "issued at", and "not
 							before"
 							timestamps for the token are dates (integer number of
 							seconds
 							since from 1970-01-01T00:00:00Z UTC) within acceptable
-							ranges.  The OP MUST include.
+							ranges.
 						</t>
 					</list>
 				</t>
@@ -593,7 +596,7 @@ Connection: close
 					key, and encrypted responses MUST be encrypted
 					with the
 					authorized
-					client's key. The OpenID Provider MUST support
+					client's public key. The OpenID Provider MUST support
 					the
 					RS256
 					signature
@@ -642,17 +645,18 @@ Connection: close
 					servers are required to support requests using them.
 				</t>
 				
-				<t>
-					Servers MUST check for the presence of the <spanx style="verb">vtr</spanx>
-					parameter before <spanx style="verb">acr</spanx>. If both parameters are present
-					the server will default to <spanx style="verb">vtr</spanx> as the request
-					to respond to.  <spanx style="verb">acr</spanx> MUST be ignored.
-				</t>
 
 			</section>
 			
 			
 			<section anchor="vot" title="Vectors of Trust">
+				<t>
+					Servers MUST check for the presence of the <spanx style="verb">vtr</spanx>
+					parameter before <spanx style="verb">acr</spanx> in Requests. If both parameters are present
+					the server will default to <spanx style="verb">vtr</spanx> as the request
+					to respond to.  <spanx style="verb">acr</spanx> MUST then be ignored.
+				</t>
+
 				<t>
 					OpenID Providers MAY provide the
 					<spanx style="verb">vot</spanx>
@@ -686,7 +690,7 @@ Connection: close
 					and
 					<spanx style="verb">amr</spanx>
 					(authentication methods reference) values in ID
-					tokens.
+					tokens if vtr is not used.
 				</t>
 
 			</section>
@@ -695,16 +699,36 @@ Connection: close
 
 			<section anchor="Discovery" title="Discovery">
 				<t>
+					 <xref target="OpenID.Discovery">OpenID Connect Discovery standard</xref>
+					 provides a standard, programatic way for Clients to obtain configuration 
+					 details for communicating with Providers. Discovery is an important part of
+					 building scalable federation ecosystsems.
+				</t>
+				<t>
+					Exposing a Discovery endpoint does
+					 NOT inherently put the Provider at risk to attack. Endpoints and parameters 
+					 specified in the Discovery document SHOULD be considered public information
+					 regardless of the existence of the Doscovery document.
+				</t>
+				<t>
+					 Access to the Discovery document MAY be protected with existing web 
+					 authentication methods
+					 if required by the Provider. Credentials for the Discovery document are then 
+					 managed by the Provider. Support for these authentication methods is 
+					 outside the scope of this specification.
+				</t>
+				<t>
+					 Endpoints described in the Discovery document MUST be secured in accordance 
+					 with this specification and MAY have additonal controls the Provider wishes to 
+					 support.
+				</t>
+
+				<t>
 					All OpenID Connect servers are uniquely identified by a URL known
-					as
-					the
-					<spanx style="verb">issuer</spanx>
-					. This URL serves as the prefix of
-					a service discovery endpoint as
-					specified in the
+					as the 	<spanx style="verb">issuer</spanx>. This URL serves as the prefix of
+					a service discovery endpoint as	specified in the
 					<xref target="OpenID.Discovery">OpenID Connect Discovery standard</xref>
-					. The
-					discovery document MUST contain at minimum the following
+					. The discovery document MUST contain at minimum the following
 					fields:
 				</t>
 
@@ -869,7 +893,12 @@ Connection: close
     {
       "alg": "RS256",
       "e": "AQAB",
-      "n": "o80vbR0ZfMhjZWfqwPUGNkcIeUcweFyzB2S2T-hje83IOVct8gVg9FxvHPK1ReEW3-p7-A8GNcLAuFP_8jPhiL6LyJC3F10aV9KPQFF-w6Eq6VtpEgYSfzvFegNiPtpMWd7C43EDwjQ-GrXMVCLrBYxZC-P1ShyxVBOzeR_5MTC0JGiDTecr_2YT6o_3aE2SIJu4iNPgGh9MnyxdBo0Uf0TmrqEIabquXA1-V8iUihwfI8qjf3EujkYi7gXXelIo4_gipQYNjr4DBNlE0__RI0kDU-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEqfCaPDNp00J6AbY6w",
+      "n": "o80vbR0ZfMhjZWfqwPUGNkcIeUcweFyzB2S2T-hje83IOVct8gVg9Fx
+            vHPK1ReEW3-p7-A8GNcLAuFP_8jPhiL6LyJC3F10aV9KPQFF-w6Eq6V
+            tpEgYSfzvFegNiPtpMWd7C43EDwjQ-GrXMVCLrBYxZC-P1ShyxVBOze
+            R_5MTC0JGiDTecr_2YT6o_3aE2SIJu4iNPgGh9MnyxdBo0Uf0TmrqEI
+            abquXA1-V8iUihwfI8qjf3EujkYi7gXXelIo4_gipQYNjr4DBNl
+            E0__RI0kDU-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEqfCaPDNp00J6AbY6w",
       "kty": "RSA",
       "kid": "rsa1"
     }
@@ -878,87 +907,13 @@ Connection: close
 ]]></artwork>
 				</figure>
 
-				<section anchor="VerifiableData" title="Verifiable Claims">
-					<t>Some user data is particularly sensitive to exposure -
-						Providers
-						may have regulatory rules not to share the claim
-						explicitly, and
-						some
-						federaitons may involve intermediaries that
-						reprocess,
-						repackage,
-						or translate the claims before they are
-						delivered to the
-						client.
-					</t>
-
-					<t>Providers may be able to provide a "verifiable" claim rather
-						than
-						the claim directly. Verifiable claims are cryptographically
-						processed claims that can be verified by the client if they have
-						the same claim data available and re-run the cryptographic
-						process. The cryptographic algorithm SHOULD be a "proof-of-work"
-						algoritm to present a sufficient deterant to brute force attacks
-						on data sets which will have minimal entropy (such a 9 digit
-						number).
-					</t>
-
-					<t>Verifiable claims SHOULD be reserved for static data that has
-						little or no formatting, for example: account numbers, phone
-						numbers, document numbers, and so on. Data such as name or
-						address
-						are not appropriate for "verification" as the data format
-						is
-						highly
-						variable.
-					</t>
-
-					<t>
-						For example: A client collects a
-						<spanx style="verb">national_id_no</spanx>
-						from a Provider, who has
-						hashed the value using PBKDF2 with 1000
-						iterations. The
-						client then must request the
-						<spanx style="verb">national_id_no</spanx>
-						directly from the user, and run the PBKDF2 algorithm with the
-						same
-						parameters. If the values match, then the user entered the
-						same
-						<spanx style="verb">national_id_no</spanx>
-						that the Provider had on
-						file.
-					</t>
-
-					<t>Verifiable claims are declared in the Discovery claim by the
-						Provider. The following additonal Discovery variables apply:
-					</t>
-
-					<t>
-						<list style="hanging">
-							<t hangText="verifiable_claims">
-								The list of
-								<spanx style="verb">supported_claims</spanx>
-								that will be returned as verifiable claims rather than plain
-								text.
-							</t>
-
-							<t hangText="verifiable_claims_alg_supported"> The supported algorithms
-								for processing/verifying
-								claims. (PBKDF2? bcrypt? scrypt?).
-								Providers that include a user
-								secret in the hash generation
-								function MUST communicate that
-								secret to their user out-of-band
-								of the OpenID Connect flow, for
-								example via email or SMS.
-							</t>
-
-						</list>
-					</t>
-				</section>
-
-
+			</section>
+			<section anchor="DynamicRegistration" title="Dynamic Registration">
+				<t> If the OP is acting as an iGov OAuth Authorization Server 
+					(<xref target="iGov.OAuth2">iGov OAuth2 profile</xref>), then 
+					Dynamic Registration MUST be supported in accordance with that 
+					specification (see section 3.13).
+				</t>
 			</section>
 
 		</section>
@@ -1048,14 +1003,16 @@ Connection: close
 						<t hangText="profile">
 							The
 							<xref target="OpenID.Core">OpenID Connect Core</xref>
-							defined profile provides baseline identity information, such as
-							<spanx style="verb">name, current address, date of birth, etc...</spanx>
-							It is left to the Provider and the federation to set any
-							limitations on
-							this profile data - see Privacy Considerations.
+							defined profile provides baseline identity information. It is 
+							HIGHLY RECOMMENDED that the attributes for
+							<spanx style="verb">given_name, family_name, address, birthdate</spanx>
+							be supported by iGov Providers if possible, unless data quality 
+							requirements or privacy considerations prevent it. 
+							It is left to the Provider and the federation to set any further
+							limitations on this profile data - see Privacy Considerations below.
 						</t>
 
-						<t hangText="document">
+						<t hangText="doc">
 							The identity document type(s) and associated "number" the
 							Provider is
 							capable of providing. Mutliple document types MAY be
@@ -1064,14 +1021,19 @@ Connection: close
 							card, health
 							insurance no., and so on. The response should
 							include:
-							<spanx style="verb">type, number</spanx>
-							.
+							<list style="hanging">
+								<t hangText="type"> The document type.
+								</t>
+								<t hangText="num"> The value of the document identifier. Note that not all
+									values are technically numeric.
+								</t>
+							</list>
 						</t>
 
-						<t hangText="biometric">Biometric data related to the subject for
-							verification at the client side. This can include simple
+						<t hangText="bio">Biometric data related to the subject for
+							physical verification at the Client side. This can include simple
 							descriptions for eye and hair color, height, or may include a
-							photograph or some verifiable fingerprint/iris scan data.
+							photograph: <spanx style="verb">picture</spanx> from  <xref target="OpenID.Core">OpenID Connect Core</xref>.
 						</t>
 
 					</list>
@@ -1092,6 +1054,19 @@ Connection: close
 					Claims Metadata.
 				</t>
 
+				<t> Claims Metadata is captured in a <spanx style="verb">_claims_metadata</spanx>
+				    member of the JSON object containing the Claims.
+					<list style="hanging">
+						<t hangText="_claim_names"> As defined in 
+							<xref target="OpenID.Core">OpenID Connect Core</xref>
+							section 5.6.2. The list of claims that have metadata.
+						</t>
+						<t hangText="_claims_metadata"> A JSON Object containing the associated
+							metadata for the claims listed in <spanx style="verb">_claim_names</spanx>.
+							Metadata fields are defined below.
+						</t>
+					</list>
+				</t>
 				<t>
 					The following defines the types of claims metadata that iGov
 					supports:
@@ -1108,14 +1083,7 @@ Connection: close
 
 						<t hangText="encoding">
 							How the claim is encoded:
-							<spanx style="verb">raw, jwt, hashed</spanx>
-							(hashed attributes are
-							meant to allow the client to verify a
-							value
-							of a user's attribute
-							without the server revealing what it
-							has on
-							file.)
+							<spanx style="verb">raw, jwt</spanx>.
 						</t>
 					</list>
 				</t>
@@ -1154,9 +1122,46 @@ Connection: close
 
 			</section>
 			<section title="Example UserInfo with Metadata">
+				<t>
+					This example represents a request to a Department of Motor Vehicles
+					(DMV) OP that is returning driver's license related information. The 
+					requested scope was <spanx style="verb">profile, doc, bio</spanx>. Only
+					the driver's license related information is subject to this metadata: the 
+					<spanx style="verb">email_address</spanx> does not meet the same level of
+					assurance.  
+				</t>
 				<figure>
 					<artwork><![CDATA[{
-TODO example with metadata
+   "sub": "6WZQPpnQxV",
+   "iss": "https://dmv.a-nice-place.gov"
+   "name": "Jane Doe",
+   "given_name": "Jane",
+   "family_name": "Doe",
+   "birthdate": "0000-03-22",
+   "email": "janedoe@example.com",
+   "eye_color": "blue",
+   "document" : {
+       "type" : "driver's license",
+       "num"  : "V5648-746280-0ZTX"
+   }
+
+   "_claim_names": {
+     "name": "src1",
+     "given_name": "src1",
+     "family_name": "src1",
+     "birthdate": "src1",
+     "eye_color" : "src1",
+     "document" : "src1"
+   },
+   "_claim_metadata": {
+     "src1": {
+     	"locale" : "en-US",
+     	"encoding" : "raw",
+     	"vot" : "P2.Cc",
+     	"vtm": "https://dmv.a-nice-place.gov"
+     }
+   }
+
 }
   ]]></artwork>
 				</figure>
@@ -1268,6 +1273,8 @@ TODO example with metadata
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7518"?>
 
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7009"?>
+
+      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7636"?>
 
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7662"?>
 
@@ -1503,6 +1510,16 @@ TODO example with metadata
 		</section>
 
 		<section anchor="History" title="Document History">
+			<t>-2017-05-29</t>
+
+			<t>
+				<list style="symbols">
+					<t>Removed Verifiable Claims definition (will go in another spec). 
+					</t>
+					<t>Clarified Scope and Metadata.
+					</t>
+				</list>
+			</t>
 			<t>-2016-07-25</t>
 
 			<t>
