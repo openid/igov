@@ -898,7 +898,8 @@ Connection: close
             tpEgYSfzvFegNiPtpMWd7C43EDwjQ-GrXMVCLrBYxZC-P1ShyxVBOze
             R_5MTC0JGiDTecr_2YT6o_3aE2SIJu4iNPgGh9MnyxdBo0Uf0TmrqEI
             abquXA1-V8iUihwfI8qjf3EujkYi7gXXelIo4_gipQYNjr4DBNl
-            E0__RI0kDU-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEqfCaPDNp00J6AbY6w",
+            E0__RI0kDU-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEq
+            fCaPDNp00J6AbY6w",
       "kty": "RSA",
       "kid": "rsa1"
     }
@@ -1155,10 +1156,10 @@ Connection: close
    },
    "_claim_metadata": {
      "src1": {
-     	"locale" : "en-US",
-     	"encoding" : "raw",
-     	"vot" : "P2.Cc",
-     	"vtm": "https://dmv.a-nice-place.gov"
+        "locale" : "en-US",
+        "encoding" : "raw",
+        "vot" : "P2.Cc",
+        "vtm": "https://dmv.a-nice-place.gov"
      }
    }
 
@@ -1402,9 +1403,10 @@ Connection: close
 				</front>
 			</reference>
 
-			<!-- TODO - Get this updated once we have some actual URL's -->
+			<!-- TODO - Get this updated once we have some actual URL's 
+			"https://xml2rfc.tools.ietf.org/cgi-bin/xml2rfc.cgi?Submit=Submit&format=ascii&mode=html&type=ascii&url=https://bitbucket.org/openid/igov/raw/master/openid-igov-oauth2.xml">   -->
 			<reference anchor="iGov.OAuth2"
-				target="https://xml2rfc.tools.ietf.org/cgi-bin/xml2rfc.cgi?Submit=Submit&format=ascii&mode=html&type=ascii&url=https://bitbucket.org/openid/igov/raw/master/openid-igov-oauth2.xml">
+				target="https://xml2rfc.tools.ietf.org/cgi-bin/xml2rfc.cgi?Submit=Submit&amp;format=ascii&amp;mode=html&amp;type=ascii&amp;url=https://bitbucket.org/openid/igov/raw/master/openid-igov-oauth2.xml">
 				<front>
 					<title>iGov Profile for OAuth 2.0</title>
 
