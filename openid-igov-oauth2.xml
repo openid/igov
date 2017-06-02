@@ -1241,9 +1241,6 @@ U-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEqfCaPDNp00J6AbY6w",
 								resources at which
 								a token may be used.
 							</t>
-							<t hangText="acr">
-								Authentication Context Class Reference. String specifying an Authentication Context Class Reference value that identifies the Authentication Context Class that the authentication performed satisfied.
-							</t>
 						</list>
 					</t>
 
@@ -1392,8 +1389,7 @@ F2vFdL6D_lLeHRy-H2g2OzF59eMIsM_Ccs4G47862w
 							</t>
 
 							<t hangText="scope">Space-separated list of OAuth 2.0 scope
-								values
-								represented as a single string.
+								values represented as a single string.
 							</t>
 
 							<t hangText="exp">Timestamp of when this token expires (integer
@@ -1409,8 +1405,6 @@ F2vFdL6D_lLeHRy-H2g2OzF59eMIsM_Ccs4G47862w
 							<t hangText="client_id">An opaque string that uniquely
 								identifies the OAuth
 								2.0 client that requested this token
-							</t>
-							<t hangText="acr">OPTIONAL. Authentication Context Class Reference. String specifying an Authentication Context Class Reference value that identifies the Authentication Context Class that the authentication performed satisfied.
 							</t>
 						</list>
 					</t>
@@ -1552,6 +1546,71 @@ https://int-rp.fed1.securekey.com/skrp1/web/oidc/loginResponse?
 					use by
 					dynamically registered systems.
 				</t>
+			</section>
+			<section anchor="ProtectingResources" title="Protecting Resources">
+				<t>Protected Resources grant access to clients if they present a valid
+					<spanx style="verb">access_token</spanx> with the appropriate 
+					<spanx style="verb">scope</spanx>. Resource servers trust the 
+					authorization server to authenticate the end user appropriately
+					for the importance, risk, and value level of the protected 
+					resource scope.
+				</t>
+				<t> Protected resources that require a higher end-user authentication trust
+				    level to access certain resources MUST associate those resources with a 
+				    unique scope.   
+				</t>
+				<t>
+					Clients wishing access to these higher level resources MUST include the
+					higher level scope in their authorization request to the authorization server.  
+				</t>
+				<t> Authorization servers MUST authenitcate the end-user with the appropriate
+					trust level before providing an <spanx style="verb">authorization_code</spanx>
+					or associated <spanx style="verb">access_token</spanx> to the client.
+				</t>
+				<t> Authorization servers MUST only grant access to higher level scope resources to 
+					clients that have permission to request these scope levels. Client authorization 
+					requests containing 
+					scopes that are outside their permisson MUST be rejected.
+				</t>
+				<t>Authorization servers MAY set the expiry time (<spanx style="verb">exp</spanx>)
+				   of access_tokens associated with higher level resources to be shorter than 
+				   access_tokens for less sensitive resources. 
+				</t>
+				<t>Authorization servers MAY allow a <spanx style="verb">refresh_token</spanx>
+				 issued at a higher level to be
+					used to obtain an access_token for a lower level resource scope with an 
+					extended expiry time. The client MUST request both the higher level scope and 
+					lower level scope in the original authorization request. This allows clients to
+					continue accessing lower level resources after the higher level resource access
+					has expired -- without requiring an additonal user authentication/authorization.
+				</t>
+				<t>For example: a resource server has resources classified as "public" and "sensitive".
+					"Sensitive" resources require the user to perform a two-factor authentication, 
+					and those access grants are short-lived: 15 minutes. 
+					For a client to obtain access to both "public" and "sensitive" resources, 
+					it makes an authorization request to the authorization server with 
+					<spanx style="verb">scope=public+sensitive</spanx>. The authorization
+					server authenticates the end-user as required to meet the required trust level
+					(two-factor authentication or some approved equivalent) and issues an 
+					<spanx style="verb">access_token</spanx> for the "public" and "sensitive" scopes
+					with an expiry time of 15mins, and a <spanx style="verb">refresh_token</spanx>
+					for the "public" scope with an expiry time of 24 hrs. The client can access both 
+					"public" and "sensitive" resources for 15mins with the access_token. When the 
+					access_token expires, the client will NOT be able to access "public" or "sensitive"
+					resources any longer as the access_token has expired, and must obtain a 
+					new access_token. The client makes a 
+					access grant request (as described in <xref target="RFC6749">OAuth 2.0</xref> 
+					section 6) with the refresh_token, 
+					and the reduced scope of just "public". The token endpoint validates the refresh_token,
+					and issues a new access_token for just the "public" scopewith an expiry time set to 24hrs.
+					An access grant request for a new access_token with the "sensitive" scope would be 
+					rejected, and require the client to get the end-user to re-authenticate/authorize the
+					"sensitive" scope request.   
+				</t>
+				<t> In this manner, protected resources and authorization servers work together to meet
+					risk tolerance levels for sensitive resources and end-user authentication.
+				</t>
+
 			</section>
 		</section>
 
@@ -1978,11 +2037,11 @@ https://int-rp.fed1.securekey.com/skrp1/web/oidc/loginResponse?
 		</section>
 
 		<section anchor="History" title="Document History">
-			<t>-2017-05-22</t>
+			<t>-2017-06-01</t>
 
 			<t>
 				<list style="symbols">
-					<t>Added optional acr to access token.
+					<t>Added section on managing scopes and refresh_tokens for higher level resource access.
 					</t>
 				</list>
 			</t>
