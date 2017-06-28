@@ -2037,108 +2037,22 @@ https://int-rp.fed1.securekey.com/skrp1/web/oidc/loginResponse?
 		</section>
 
 		<section anchor="History" title="Document History">
+
 			<t>-2017-06-01</t>
 
 			<t>
 				<list style="symbols">
-					<t>Added section on managing scopes and refresh_tokens for higher level resource access.
-					</t>
+					<t>Aligned with prior version of iGov.</t>
+					<t>Added guidance text around using scopes and refresh_tokens to protect sensitive resources.</t>
+					<t>Removed ACR reference.</t>
 				</list>
 			</t>
 
-			<t>-2017-02-08</t>
+			<t>-2017-02-27</t>
 
 			<t>
 				<list style="symbols">
-					<t>Clarified that RS's need to limit which AS's they take tokens
-						from.
-					</t>
-
-					<t>Added section and requirements for native applications.</t>
-				</list>
-			</t>
-
-			<t>-2016-09-19</t>
-
-			<t>
-				<list style="symbols">
-					<t>Reorganized document against different conformance aspects.</t>
-				</list>
-			</t>
-
-			<t>-2016-08-10</t>
-
-			<t>
-				<list style="symbols">
-					<t>Added PKCE requirement for native application support.</t>
-
-					<t>Removed client TLS auth.</t>
-
-					<t>Added reference to JWS/JWE algs registry.</t>
-
-					<t>Clarified approval UX guidelines.</t>
-
-					<t>Clarified client types restrictions.</t>
-				</list>
-			</t>
-
-			<t>-2016-04-30</t>
-
-			<t>
-				<list style="symbols">
-					<t>Added conformance statements.</t>
-
-					<t>Clarified optionality of "sub" and "aud" claims in JWTs.</t>
-
-					<t>Add justification for JWT and introspection.</t>
-
-					<t>Fixed "kid" location information.</t>
-				</list>
-			</t>
-
-			<t>-2016-02-15</t>
-
-			<t>
-				<list style="symbols">
-					<t>Implementer's Draft 1</t>
-				</list>
-			</t>
-
-			<t>-2015-11-30</t>
-
-			<t>
-				<list style="symbols">
-					<t>Clarified client instances.</t>
-
-					<t>Replaced "mitre.org" with "example.com" (JWTs need to be
-						regenerated).
-					</t>
-
-					<t>Fixed specification references to new RFCs.</t>
-
-					<t>Clarified scope flexibility.</t>
-
-					<t>Clarified dynamic registration requirement.</t>
-
-					<t>Added some UX requirements and guidance.</t>
-
-					<t>Added security considerations section and TLS BCP reference.</t>
-				</list>
-			</t>
-
-			<t>-2015-04-24</t>
-
-			<t>
-				<list style="symbols">
-					<t>Fixed references to make it compile</t>
-				</list>
-			</t>
-
-			<t>-2015-04-01</t>
-
-			<t>
-				<list style="symbols">
-					<t>Imported content from Secure RESTful OAuth profile.</t>
+					<t>Imported content from HEART OAuth profile.</t>
 				</list>
 			</t>
 		</section>
