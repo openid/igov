@@ -219,6 +219,208 @@
 
 		<section anchor="ClientProfiles" title="Client Profiles">
 			<t />
+			<section anchor="ClientTypes" title="Client Types">
+				<t>
+					The following profile descriptions give patterns of deployment
+					for
+					use in different types of client applications based on the OAuth
+					grant type.
+					Additional grant types, such as assertions,
+					chained tokens, or other
+					mechanisms, are out of scope of this
+					profile and must be covered
+					separately by appropriate profile
+					documents.
+				</t>
+
+				<section anchor="FullClient" title="Full Client with User Delegation">
+					<t>This client type applies to clients that act on behalf of a
+						particular resource owner and require delegation of that
+						user&rsquo;s authority to access the protected resource.
+						Furthermore, these clients are capable of interacting with a
+						separate web browser application to facilitate the resource
+						owner's interaction with the authentication endpoint of the
+						authorization server.
+					</t>
+
+					<t>These clients MUST use the authorization code flow of OAuth 2
+						by sending the resource owner to the authorization endpoint to
+						obtain authorization. The user MUST authenticate to the
+						authorization endpoint. The user&rsquo;s web browser is then
+						redirected back to a URI hosted by the client service, from which
+						the
+						client can obtain an authorization code passed as a query
+						parameter. The client then presents that authorization code along
+						with its own credentials (private_key_jwt) to the authorization
+						server's token
+						endpoint to obtain an access token.
+					</t>
+
+					<t>
+						These clients MUST be associated with a unique public key, as
+						described in
+						<xref target="ClientRegistration" />
+						.
+					</t>
+
+					<t>This client type MAY request and be issued a refresh token if
+						the security parameters of the access request allow for it.
+					</t>
+				</section>
+
+				<section title="Native Client with User Delegation">
+					<t>This client type applies to clients that act on behalf of a
+						particular resource owner, such as an app on a mobile platform,
+						and require delegation of that user's
+						authority to access the
+						protected resource. Furthermore, these
+						clients are capable of
+						interacting with a separate web browser
+						application to facilitate
+						the resource owner's interaction with
+						the authentication endpoint
+						of the authorization server. In
+						particular, this client type runs
+						natively on the resource
+						owner's
+						device, often leading to many
+						identical instances of a piece of
+						software operating in different
+						environments and running
+						simultaneously for different end users.
+					</t>
+
+					<t>These clients MUST use the authorization code flow of OAuth 2
+						by sending the resource owner to the authorization endpoint to
+						obtain authorization. The user MUST authenticate to the
+						authorization endpoint. The user is then
+						redirected back to a URI hosted by the client, from which the
+						client can obtain an authorization code passed as a query
+						parameter. The client then presents that authorization code along
+						to the authorization server's token endpoint to obtain an access
+						token.
+					</t>
+
+
+					<t>Native clients MUST either:</t>
+
+					<t>
+						<list style="symbols">
+							<t>use dynamic client registration to obtain a separate client
+								id for each instance, or
+							</t>
+
+							<t>
+								act as a public client by using a common client id and use
+								<xref target="RFC7636">PKCE</xref> to protect calls to the
+								token endpoint.
+							</t>
+						</list>
+					</t>
+
+					<t>Native applications using dynamic registration SHOULD generate
+						a unique public and private key pair on the device and register
+						that public key value with the authorization server.
+						Alternatively, an authorization server MAY issue a public and
+						private key pair to the client as part of the registration
+						process. In such cases, the authorization server MUST discard its
+						copy of the private key. Client credentials MUST NOT be shared
+						among instances of client software.
+					</t>
+					<t>Dynamically registered native applications MAY use PKCE.</t>
+
+					<t>
+						Native applications not registering a separate public key for
+						each instance are considered Public Clients, and MUST use
+						<xref target="RFC7636">PKCE</xref>
+						with the S256 code challenge mechanism. Public Clients do not 
+						authenticate with the Token Endpoint in any other way.
+					</t>
+
+					
+
+				</section>
+
+				<section anchor="DirectClient" title="Direct Access Client">
+				
+					<t>This client type MUST NOT request or be issued a refresh
+						token.
+					</t>
+					
+					<t>This profile applies to clients that connect directly to
+						protected resources and do not act on behalf of a particular
+						resource owner, such as those clients that facilitate bulk
+						transfers.
+					</t>
+
+					<t>These clients use the client credentials flow of OAuth 2 by
+						sending a request to the token endpoint with the client's
+						credentials and obtaining an access token in the response. Since
+						this profile does not involve an authenticated user, this flow is
+						appropriate only for trusted applications, such as those that
+						would traditionally use a developer key. For example, a partner
+						system that performs bulk data transfers between two systems
+						would be considered a direct access client.
+					</t>
+
+					
+				</section>
+			</section>
+
+			<section anchor="ClientRegistration" title="Client Registration">
+				<t>All clients MUST register with the authorization server. For
+					client software that may be installed on multiple client
+					instances,
+					such as native applications or web application software,
+					each client	instance MAY receive a unique client identifier from
+					the	authorization server. Clients that share client identifiers are
+					considered public clients. 
+				</t>
+				
+				<t>Client registration MAY be completed by either static configuration 
+					(out-of-band, through an administrator, etc...) or dynamically.</t>
+
+				<section anchor="RedirectURI" title="Redirect URI">
+					<t>Clients using the authorization code grant type
+						MUST register
+						their full redirect URIs. The Authorization Server
+						MUST validate
+						the redirect URI given by the client at the
+						authorization endpoint
+						using strict string comparison.
+					</t>
+
+					<t>A client MUST protect the values passed back to its redirect
+						URI by ensuring that the redirect URI is one of the following:
+					</t>
+
+					<t>
+						<list style="symbols">
+							<t>Hosted on a website with Transport Layer Security (TLS)
+								protection (a Hypertext Transfer Protocol &ndash; Secure
+								(HTTPS) URI)
+							</t>
+
+							<t>Hosted on a client-specific non-remote-protocol URI scheme
+								(e.g., myapp://)
+							</t>
+
+							<t>Hosted on the local domain of the client (e.g.,
+								http://localhost/)
+							</t>
+
+						</list>
+					</t>
+
+					<t>Clients SHOULD NOT have multiple redirect URIs on different domains.
+					</t>
+
+					<t>Clients MUST NOT forward values passed back to their redirect
+						URIs to other arbitrary or user-provided URIs (a practice known
+						as
+						an "open redirector&rdquo;).</t>
+				</section>
+			</section>
 
 			<section title="Connection to the Authorization Server">
 				<section anchor="RequestsToAuthorizationEndpoint" title="Requests to the Authorization Endpoint">
@@ -241,15 +443,13 @@
 						software to the browser).
 					</t>
 
-					<t>Clients MUST include their full redirect URIs in the
+					<t>Clients MUST include their full redirect URI in the
 						authorization request. To prevent open redirection and other
 						injection attacks, the authorization server MUST match the entire
 						redirect URI using a direct string comparison against registered
-						values and MUST reject requests with invalid or missing redirect
-						URIs.
+						values and MUST reject requests with an invalid or missing redirect
+						URI.
 					</t>
-					
-					
 
 					<t>The following is a sample response from a web-based client to
 						the
@@ -265,31 +465,32 @@ Connection: close
 Content-Type: text/plain; charset=UTF-8
 Date: Wed, 07 Jan 2015 20:24:15 GMT
 Location: https://idp-p.example.com/authorize?client_id=55f9f559-2496-49d4-b6c3-351a58
-6b7484&nonce=cd567ed4d958042f721a7cdca557c30d&response_type=code&scope=openid+email
+6b7484&nonce=cd567ed4d958042f721a7cdca557c30d&response_type=code&scope=openid+email&redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb
 Status: 302 Found
 ]]></artwork>
 					</figure>
 
-					<t>This causes the browser to send the following request to the
-						authorization endpoint:
+					<t>This causes the browser to send the following (non-normative) request to the
+						authorization endpoint (inline wraps for display purposes only):
 					</t>
 
 					<figure>
 						<artwork><![CDATA[
-GET /authorize?client_id=55f9f559-2496-49d4-b6c3-351a586b7484&nonce=cd567ed4d958042f721a7cdca557c30d&response_type=code&scope=openid+email HTTP/1.1
+GET /authorize?
+   client_id=55f9f559-2496-49d4-b6c3-351a586b7484
+  &nonce=cd567ed4d958042f721a7cdca557c30d
+  &response_type=code
+  &scope=openid+email
+  &redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb HTTP/1.1
 Host: idp-p.example.com
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/31.0 Iceweasel/31.2.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
-Accept-Language: en-US,en;q=0.5 Accept-Encoding: gzip, deflate
-Referer: https://ehr-va.example.com/portal/signin
-Cookie: JSESSIONID=706D5B3A7B3AB3FCE8C6AA7201B8B9CF
-Connection: keep-alive]]></artwork>
+]]></artwork>
 					</figure>
 				</section>
 
 				<section anchor="RequestsToTokenEndpoint" title="Requests to the Token Endpoint">
 					<t>
-						Full clients and direct access clients as defined above MUST
+						Full clients, native clients with dynamically registered keys, 
+						and direct access clients as defined above MUST
 						authenticate to the authorization server's token endpoint using a
 						JWT assertion as defined by the
 						<xref target="RFC7523">JWT Profile
@@ -410,6 +611,7 @@ grant_type=authorization_code
 &code=sedaFh
 &scope=openid+email
 &client_id=55f9f559-2496-49d4-b6c3-351a586b7484
+&redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb
 &client_assertion_type=urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer
 &client_assertion=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.ew0KICAgImlzcyI6ICI1NWY
 5ZjU1OS0yNDk2LTQ5ZDQtYjZjMy0zNTFhNTg2Yjc0ODQiLA0KICAgInN1YiI6ICI1NWY5ZjU1OS0yN
@@ -425,259 +627,8 @@ xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 					</figure>
 				</section>
 
-				<section anchor="ClientTypes" title="Client Types">
-					<t>
-						The following profile descriptions give patterns of deployment
-						for
-						use in different types of client applications based on the OAuth
-						grant type. The resource owner password credentials grant type
-						defined in
-						<xref target="RFC6749" />
-						is intentionally omitted from
-						this discussion, and MUST NOT be used
-						under these profiles.
-						Additional grant types, such as assertions,
-						chained tokens, or other
-						mechanisms, are out of scope of this
-						profile and must be covered
-						separately by appropriate profile
-						documents.
-					</t>
 
-					<section anchor="FullClient" title="Full Client with User Delegation">
-						<t>This client type applies to clients that act on behalf of a
-							particular resource owner and require delegation of that
-							user&rsquo;s authority to access the protected resource.
-							Furthermore, these clients are capable of interacting with a
-							separate web browser application to facilitate the resource
-							owner's interaction with the authentication endpoint of the
-							authorization server.
-						</t>
-
-						<t>These clients MUST use the authorization code flow of OAuth 2
-							by sending the resource owner to the authorization endpoint to
-							obtain authorization. The user MUST authenticate to the
-							authorization endpoint. The user&rsquo;s web browser is then
-							redirected back to a URI hosted by the client service, from which
-							the
-							client can obtain an authorization code passed as a query
-							parameter. The client then presents that authorization code along
-							with its own credentials (private_key_jwt) to the authorization
-							server's token
-							endpoint to obtain an access token.
-						</t>
-
-						<t>
-							These clients MUST be associated with a unique public key, as
-							described in
-							<xref target="ClientRegistration" />
-							.
-						</t>
-
-						<t>This client type MAY request and be issued a refresh token if
-							the security parameters of the access request allow for it.
-						</t>
-					</section>
-
-					<section title="Native Client with User Delegation">
-						<t>This client type applies to clients that act on behalf of a
-							particular resource owner, such as an app on a mobile platform,
-							and require delegation of that user's
-							authority to access the
-							protected resource. Furthermore, these
-							clients are capable of
-							interacting with a separate web browser
-							application to facilitate
-							the resource owner's interaction with
-							the authentication endpoint
-							of the authorization server. In
-							particular, this client type runs
-							natively on the resource
-							owner's
-							device, often leading to many
-							identical instances of a piece of
-							software operating in different
-							environments and running
-							simultaneously for different end users.
-						</t>
-
-						<t>These clients MUST use the authorization code flow of OAuth 2
-							by sending the resource owner to the authorization endpoint to
-							obtain authorization. The user MUST authenticate to the
-							authorization endpoint. The user&rsquo;s web browser is then
-							redirected back to a URI hosted by the client, from which the
-							client can obtain an authorization code passed as a query
-							parameter. The client then presents that authorization code along
-							to the authorization server's token endpoint to obtain an access
-							token.
-						</t>
-
-
-						<t>Native clients MUST either:</t>
-
-						<t>
-							<list style="symbols">
-								<t>use dynamic client registration to obtain a separate client
-									id for each instance, or
-								</t>
-
-								<t>
-									use a common client id and use
-									<xref target="RFC7636">PKCE</xref>
-									to protect calls to the
-									token endpoint.
-								</t>
-							</list>
-						</t>
-
-						<t>Native applications using dynamic registration SHOULD generate
-							a unique public and private key pair on the device and register
-							that public key value with the authorization server.
-							Alternatively, an authorization server MAY issue a public and
-							private key pair to the client as part of the registration
-							process. In such cases, the authorization server MUST discard its
-							copy of the private key. Client credentials MUST NOT be shared
-							among instances of client software.
-						</t>
-
-						<t>
-							Native applications not registering a separate public key for
-							each instance MUST use
-							<xref target="RFC7636">PKCE</xref>
-							with the
-							S256 code challenge mechanism.
-						</t>
-
-						<t>Dynamically registered native applications MAY use PKCE.</t>
-
-						<!-- What security parameters allow for it? -->
-						<t>
-							This client type MAY request and be issued a refresh token.<!-- if 
-								the security parameters of the access request allow for it. -->
-						</t>
-
-					</section>
-
-					<section anchor="BrowserClient"
-						title="Browser-embedded Client with User Delegation">
-						
-						<t>This client type MUST NOT be used by any iGov use case.</t>
-						<!-- <t>This client type MUST NOT request or be issued a refresh token. 
-							Access tokens issued to this type of client MUST be short lived and SHOULD 
-							expire when the user's authenticated session with the client expires. </t> -->
-
-						<t>This client type applies to clients that act on behalf of a
-							particular resource owner and require delegation of that
-							user&rsquo;s authority to access the protected resource.
-							Furthermore, these clients are embedded within a web browser and
-							effectively share an active session between systems.
-						</t>
-
-						<t>These clients use the implicit flow of OAuth 2 by sending a
-							resource owner to the authorization endpoint to obtain
-							authorization. The user MUST authenticate to the authorization
-							endpoint. The user&rsquo;s web browser is then redirected back to
-							a URI hosted by the client, from which the client can directly
-							obtain an access token. Since the client itself never
-							authenticates to the server and the token is made available
-							directly to the browser, this flow is appropriate only for
-							clients
-							embedded within a web browser, such as a JavaScript client
-							with no
-							back-end server component. Wherever possible, it is
-							preferable to
-							use the authorization code flow due to its superior
-							security
-							properties.
-						</t>
-
-						
-					</section>
-
-					<section anchor="DirectClient" title="Direct Access Client">
-					
-					<t>This client type MUST NOT request or be issued a refresh
-							token.
-						</t>
-						
-						<t>This profile applies to clients that connect directly to
-							protected resources and do not act on behalf of a particular
-							resource owner, such as those clients that facilitate bulk
-							transfers.
-						</t>
-
-						<t>These clients use the client credentials flow of OAuth 2 by
-							sending a request to the token endpoint with the client's
-							credentials and obtaining an access token in the response. Since
-							this profile does not involve an authenticated user, this flow is
-							appropriate only for trusted applications, such as those that
-							would traditionally use a developer key. For example, a partner
-							system that performs bulk data transfers between two systems
-							would
-							be considered a direct access client.
-						</t>
-
-						
-					</section>
-				</section>
-
-				<section anchor="ClientRegistration" title="Client Registration">
-					<t>All clients MUST register with the authorization server. For
-						client software that may be installed on multiple client
-						instances,
-						such as native applications or web application software,
-						each client
-						instance MUST receive a unique client identifier from
-						the
-						authorization server.
-					</t>
-					
-					<t>Client registration MAY be completed by either static configuration (out-of-band) or dynamically.</t>
-
-					<section anchor="RedirectURI" title="Redirect URI">
-						<t>Clients using the authorization code grant type
-							MUST register
-							their full redirect URIs. The Authorization Server
-							MUST validate
-							the redirect URI given by the client at the
-							authorization endpoint
-							using strict string comparison.
-						</t>
-
-						<t>A client MUST protect the values passed back to its redirect
-							URI by ensuring that the redirect URI is one of the following:
-						</t>
-
-						<t>
-							<list style="symbols">
-								<t>Hosted on a website with Transport Layer Security (TLS)
-									protection (a Hypertext Transfer Protocol &ndash; Secure
-									(HTTPS) URI)
-								</t>
-
-								<t>Hosted on the local domain of the client (e.g.,
-									http://localhost/)
-								</t>
-
-								<t>Hosted on a client-specific non-remote-protocol URI scheme
-									(e.g., myapp://)
-								</t>
-							</list>
-						</t>
-
-						<t>Clients MUST NOT have URIs in more than one category and SHOULD
-							NOT have multiple redirect URIs on different domains.
-						</t>
-
-						<t>Clients MUST NOT forward values passed back to their redirect
-							URIs to other arbitrary or user-provided URIs (a practice known
-							as
-							an "open redirector&rdquo;).</t>
-					</section>
-				</section>
-
-				<section title="Client keys">
-					<!-- How does this work with PKCE? -->
+				<section title="Client Keys">
 					<t>
 						Clients using the authorization code grant type or direct
 						access
@@ -697,7 +648,8 @@ xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 						clients use a
 						<spanx style="verb">jwks_uri</spanx>
 						if possible as
-						this allows for key rotation more easily.
+						this allows for key rotation more easily. This applies to both
+						dynamic and static (out-of-band) client registration.
 					</t>
 
 					<t>
@@ -767,10 +719,6 @@ H2_VQ_Ww1JOLn9vRn-H48FDj7TxlIT74XdTZgTv31w_GRPAOfyxEw_ZUmxhz5Z-gTlQ",
 						keys, while the first example contains the public key only.
 					</t>
 
-					<t>Native client applications MAY omit their key during
-						registration
-						if they are a public client using PKCE.
-					</t>
 				</section>
 			</section>
 
@@ -840,7 +788,7 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 					<t>
 						The authorization server MUST support the
 						<spanx style="verb">authorization_code</spanx>
-						, and
+						, and MAY support the
 						<spanx style="verb">client_credentials</spanx>
 						grant types as described in
 						<xref target="ClientProfiles" />
@@ -863,7 +811,10 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 				<section title="Client authentication">
 					<t>The authorization server MUST enforce client authentication as
 						described above for the authorization code and client credentials
-						grant types. The authorization server MUST validate all redirect
+						grant types. Public client cannot authenticate to the authorization server.
+					</t> 
+
+					<t> The authorization server MUST validate all redirect
 						URIs for authorization code and implicit grant types.
 					</t>
 				</section>
@@ -885,9 +836,7 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 						clients.
 					</t>
 
-					<t>
-						Authorization servers MUST signal to end users that a client was
-						dynamically registered on the authorization screen. Authorization
+					<t>	Authorization
 						<!-- Should we make this a MUST? -->
 						servers MAY protect their Dynamic Registration endpoints by requiring clients to present credentials that the authorization server would recognize as authorized participants. Authorization servers MAY accept signed software statements as described in <xref target="RFC7591" /> 
 						issued to client software developers from a
@@ -912,7 +861,7 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 							</t>
 
 							<t hangText="grant_types">grant type used by the client; must be
-								"authorization_code&rdquo; or "implicit&rdquo;</t>
+								"authorization_code&rdquo; or "client_credentials&rdquo;</t>
 
 							<t hangText="jwks_uri or jwks">client's public key in JWK Set
 								format; if jwks_uri
@@ -940,20 +889,27 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 					<t>
 						<list style="symbols">
 							<t>Whether the client was dynamically registered, or else
-								statically registered by a trusted administrator
+								statically registered by a trusted administrator, or a public client.
 							</t>
 
 							<t>Whether the client is associated with a software statement,
 								and in which case provide information about the trusted issuer
-								of the software statement
+								of the software statement.
 							</t>
 
-							<t>What kind of access the client is requesting (including
-								scope,
-								target resource, etc.)
+							<t>What kind of access the client is requesting, including
+								scope, protected resources (if applicable beyond scopes), 
+								and access duration.
 							</t>
 						</list>
 					</t>
+					
+					<t>For example, for
+						native clients a message indicating a new App installation has been 
+						registered as a client can help users determin if this is the expected
+						behaviour. This signal helps users protect themselves fro potentially 
+						rogue clients.
+					</t> 
 				</section>
 
 				<section anchor="Discovery" title="Discovery">
@@ -962,40 +918,40 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 						<xref target="OpenID.Discovery">OpenID Connect service discovery</xref>
 						endpoint listing the components relevant to the OAuth protocol:
 						<list style="hanging">
-							<t hangText="issuer">The fully qualified issuer URL of the
+							<t hangText="issuer"> REQUIRED. The fully qualified issuer URL of the
 								server
 							</t>
 
 							<t hangText="authorization_endpoint">
-								The fully qualified URL of
+								REQUIRED. The fully qualified URL of
 								the server's authorization endpoint
 								defined by
 								<xref target="RFC6749">OAuth 2.0</xref>
 							</t>
 
 							<t hangText="token_endpoint">
-								The fully qualified URL of the
+								REQUIRED. The fully qualified URL of the
 								server's token endpoint defined by
 								<xref target="RFC6749">OAuth
 									2.0</xref>
 							</t>
 
 							<t hangText="introspection_endpoint">
-								The fully qualified URL of
+								OPTIONAL. The fully qualified URL of
 								the server's introspection endpoint
 								defined by
 								<xref target="RFC7662">OAuth Token Introspection</xref>
 							</t>
 
 							<t hangText="revocation_endpoint">
-								The fully qualified URL of the
+								OPTIONAL. The fully qualified URL of the
 								server's revocation endpoint
 								defined by
 								<xref target="RFC7009">OAuth 2.0 Token Revocation</xref>
 							</t>
 
 							<t hangText="jwks_uri">
-								The fully qualified URI of the server's
+								REQUIRED. The fully qualified URI of the server's
 								public key in
 								<xref target="RFC7517">JWK Set</xref>
 								format
@@ -1150,6 +1106,17 @@ U-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEqfCaPDNp00J6AbY6w",
 						authorization request using an exact string match.
 					</t>
 				</section>
+				<section title="RefreshTokens">
+					<t>Authorization Servers MAY issue refresh tokens to clients under the 
+						following context:
+					</t>
+					<t>Clients MUST be registered with the Authorization Server. </t>
+					<t>Clients MUST present a valid client_id. COnfidential clients MUST present a signed client_assertion with their associated keypair.</t>
+					<t>Clients using the Direct Credentials method MUST NOT be issued refresh_tokens. 
+						These clients MUST present their client credentials with a new access_token request
+						and the desired scope.
+					</t>
+				</section>
 			</section>
 
 			<section title="Connections with protected resources">
@@ -1224,7 +1191,8 @@ U-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEqfCaPDNp00J6AbY6w",
 								behalf
 								(such as a bulk transfer). Since this information could
 								potentially leak private user information, it should be used
-								only when needed.
+								only when needed. End-user identifiers SHOULD be pairwise 
+								anonymous identifiers unless the audiance requires otherwise.
 							</t>
 
 							<t hangText="aud">The audience of the token, an array containing
@@ -1466,19 +1434,22 @@ Connection: close
 					The following fields MUST be included in the response:
 					<list style="hanging">
 
-						<t hangText="state"> The value of the state parameter passed in in the
+						<t hangText="state"> REQUIRED. The value of the state parameter passed in in the
 							authentication request. This value MUST match exactly.</t>
 
-						<t hangText="code"> The authorization code, a random string issued by
+						<t hangText="code"> REQUIRED. The authorization code, a random string issued by
 							the IdP to be used in the request to the token endpoint.</t>
 
 					</list>
+				</t> 
+				<t>
+					PKCE parameters MUST be associated with the "code" as per Section 4.4 of 
+					<xref target="RFC7636">Proof Key for Code Exchange by OAuth Public Clients (PKCE)</xref> 
 				</t>
-
 				<t> The following is an example response:</t>
 				<figure>
 					<artwork><![CDATA[
-https://int-rp.fed1.securekey.com/skrp1/web/oidc/loginResponse?
+https://https://client.example.org/cb?
     state=2ca3359dfbfd0
    &code=gOIFJ1hV6Rb1sxUdFhZGACWwR1sMhYbJJcQbVJN0wHA
 ]]></artwork>
@@ -1504,7 +1475,7 @@ https://int-rp.fed1.securekey.com/skrp1/web/oidc/loginResponse?
 					twenty-four hours.
 				</t>
 
-				<t>For clients using the implicit grant type, access tokens SHOULD
+				<t>For public clients access tokens SHOULD
 					have a valid lifetime no greater than fifteen minutes.
 				</t>
 
@@ -1544,14 +1515,18 @@ https://int-rp.fed1.securekey.com/skrp1/web/oidc/loginResponse?
 					registration.
 					Authorization servers MAY restrict certain scopes from
 					use by
-					dynamically registered systems.
+					dynamically registered systems or public clients.
 				</t>
 			</section>
+			
+		</section>
+
+		<section title="Protected Resource Profile">
 			<section anchor="ProtectingResources" title="Protecting Resources">
 				<t>Protected Resources grant access to clients if they present a valid
 					<spanx style="verb">access_token</spanx> with the appropriate 
 					<spanx style="verb">scope</spanx>. Resource servers trust the 
-					authorization server to authenticate the end user appropriately
+					authorization server to authenticate the end user and client appropriately
 					for the importance, risk, and value level of the protected 
 					resource scope.
 				</t>
@@ -1612,11 +1587,6 @@ https://int-rp.fed1.securekey.com/skrp1/web/oidc/loginResponse?
 				</t>
 
 			</section>
-		</section>
-
-		<section title="Protected Resource Profile">
-			<t />
-
 			<section title="Connections with Clients">
 				<t>
 					A protected resource MUST accept bearer tokens passed in the
@@ -1656,7 +1626,7 @@ https://int-rp.fed1.securekey.com/skrp1/web/oidc/loginResponse?
 
 				<t>A protected resource MUST limit which authorization servers it
 					will
-					acceept valid tokens from. A resource server MAY accomplish
+					accept valid tokens from. A resource server MAY accomplish
 					this using
 					a whitelist of trusted servers, a dynamic policy engine,
 					or other
@@ -1745,6 +1715,14 @@ https://int-rp.fed1.securekey.com/skrp1/web/oidc/loginResponse?
 				<xref target="BCP195">BCP195</xref>
 				.
 			</t>
+
+			<t> Authorization Servers SHOULD take into account device postures when dealing
+				with native apps if possible. Device postures include characteristics such as
+				a user's lock screen setting, or if the app has 'root access' (meaning the 
+				device OS may be compromised to gain additional privilages not intended by the 
+				vendor), or if there is a device attestation for the app for its validity. 
+				Specific policies or capabilities are outside the scope of this specification.
+			</t>  
 
 			<t>
 				All clients MUST conform to applicable recommendations found in the
