@@ -422,7 +422,7 @@ https://idp.government.gov/oidc/authorization?
 							client.
 						</t>
 
-						<t hangText="sub">REQUIRED. The identifier of the user. HIGHLY RECOMMENDED to be a pairwize
+						<t hangText="sub">REQUIRED. The identifier of the user. REQIRED to be a pairwize
 							annonymous identifier and be unique per client to prevent
 							linkability and traceability between clients. 
 							See the Privacy Considerations below.
@@ -447,8 +447,7 @@ https://idp.government.gov/oidc/authorization?
 							list from the authentication request.  The OpenID Provider MUST NOT include this field if <spanx style="verb">vot</spanx> is provided. See <xref target="AuthenticationContext">Authentication Context</xref> for more details.
 						</t>
 
-						<t hangText="nonce">REQUIRED if if provided in the authentication
-							request, and MUST match the nonce value that was provided in the
+						<t hangText="nonce">REQUIRED. MUST match the nonce value that was provided in the
 							authentication request.
 						</t>
 
@@ -456,7 +455,7 @@ https://idp.government.gov/oidc/authorization?
 							used to prevent reuse of the token.
 						</t>
 
-						<t hangText="auth_time">REQUIRED ????. The 
+						<t hangText="auth_time">REQUIRED. The 
 							timestamps for when the user was authenticated (integer number of
 							seconds	since from 1970-01-01T00:00:00Z UTC) within acceptable
 							ranges.
@@ -508,7 +507,7 @@ https://idp.government.gov/oidc/authorization?
         ],
         "iss": "https://idp-p.example.com/",
         "acr":"LOA1",
-        "vot":"i1.a1",
+        "vot":"P1.C1",
         "vtm":"https://ipd-p.example.com/vtm.json"
         "iat": 1418698812
         }
@@ -622,11 +621,17 @@ Connection: close
 			
 			
 			<section anchor="vot" title="Vectors of Trust">
-				<t>
-					OpenID Providers MUST check for the presence of the <spanx style="verb">vtr</spanx>
-					parameter in the request. If present the <spanx style="verb">vtr</spanx> MUST be processed accordingly. The <spanx style="verb">vtr</spanx> MAY contain valid values from the
-					<xref target="I-D.richer-vectors-of-trust">Vectors of Trust</xref>
-					standard. OpenID Providers MUST respond with a  <spanx style="verb">vot</spanx> claim field describing the context of the authentication and MAY contain valid values from the <xref target="I-D.richer-vectors-of-trust">Vectors of Trust</xref> standard.
+				<t>If the <spanx style="verb">vtr</spanx> (Vectors of Trust Request) value is present in the
+				 authorization request as defined in the 
+				 <xref target="I-D.richer-vectors-of-trust">Vectors of Trust</xref> standard, the OpenID 
+				 Provider SHOULD respond with a valid <spanx style="verb">vot</spanx> value as defined 
+				 in [section 3.1]. Both the <spanx style="verb">vtr</spanx> and <spanx style="verb">vot</spanx>
+				 MUST contain values in accordance with the <xref target="I-D.richer-vectors-of-trust">Vectors 
+				 of Trust</xref> standard. These values MAY be those defined in the 
+				 <xref target="I-D.richer-vectors-of-trust">Vectors of Trust</xref> standard directly or 
+				 MAY be from a compatible standard. The OpenID Provider MAY require the user to 
+				 re-authenticate, provide a second factor, or perform another action in order to fulfill 
+				 the state requested in the vtr. 
 				</t>
 				<t>
 					For backwards compatibility clients MAY send an <spanx style="verb">acr_values</spanx> parameter. If both the  <spanx style="verb">vtr</spanx> and 
@@ -1146,46 +1151,19 @@ Connection: close
 		</section>
 
 		<section anchor="PrivacyConsiderations" title="Privacy Considerations">
-			<t>This section covers recommendations and guidelines for protecting
-				a
-				user's right to privacy in circumstances where this is required.
-			</t>
-
-			<t>Government policies that protect an individual's right to privacy
-				across jurisdictional boundaries vary from geography to geography.
-				Some
-				geographies are looking to establish a global registry of basic
-				citizen
-				identity for digital use cases, and other geographies aim
-				to
-				supply only the bare minimum of an authentication assurances,
-				ensuring participant systems cannot link or trace a citizen's
-				actions
-				across the federation. Most will fall somewhere in between
-				these two
-				extremes.
-			</t>
-
-			<t>This specification supports this wide range of scenarios
-				and
-				therefore the following are NOT REQUIRED by OpenID Providers to
-				implement,
-				but HIGHLY
-				RECOMMENDED for Providers that implement some level of
-				user privacy.
-			</t>
-
-			<t>
-				<list style="symbols">
-					<t>
-						<spanx style="verb">sub</spanx>
-						fields MUST be "pairwise" as
-						defined in
-						<xref target="OpenID.Core">OpenID Connect
-							Core</xref>
-						section 8.
-					</t>
-				</list>
+			<t>Pairwise identifiers specified in 
+				<xref target="OpenID.Core">OpenID Connect Core</xref>
+				section 8 allow an OpenID Provider to represent a single user with a 
+				different subject identifier for every RP the user connects to. This 
+				technique can help mitigate correlation of a user between multiple Clients 
+				by preventing the Clients from using the subject identifier 
+				(the <spanx style="verb">sub</spanx> claim in the ID token) to track a user 
+				between different sites and applications. Use of pairwise identifiers 
+				does not prevent Clients from correlating data based on other identifying 
+				attributes such as names, email addresses, document numbers, or other 
+				attributes. However, since not all transactions require access to these 
+				attributes, but a subject identifier is always required, a pairwise identifier 
+				will aid in protecting the privacy of end users as they navigate the system. 
 			</t>
 
 		</section>
