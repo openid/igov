@@ -422,10 +422,9 @@ https://idp.government.gov/oidc/authorization?
 							client.
 						</t>
 
-						<t hangText="sub">REQUIRED. The identifier of the user. REQIRED to be a pairwize
-							annonymous identifier and be unique per client to prevent
-							linkability and traceability between clients. 
-							See the Privacy Considerations below.
+						<t hangText="sub">REQUIRED. The identifier of the user. OpenID Providers MUST support a pairwise
+                            identifier in accordance with <xref target="OpenID.Core">OpenID Connect</xref> 
+                            section 8.1. See Pairwise Identifiers below on when it may be useful to relax this requirement.
 						</t>
 
 						<t hangText="vot">
@@ -455,17 +454,14 @@ https://idp.government.gov/oidc/authorization?
 							used to prevent reuse of the token.
 						</t>
 
-						<t hangText="auth_time">REQUIRED. The 
-							timestamps for when the user was authenticated (integer number of
-							seconds	since from 1970-01-01T00:00:00Z UTC) within acceptable
-							ranges.
+						<t hangText="auth_time">RECOMMENDED. This SHOULD be included if the provider can assert an
+						 end- user's authentication intent was demonstrated. For example, a login event where 
+						 the user took some action to authenticate. 
 						</t>
 
 						<t hangText="exp, iat, nbf">REQUIRED. The "expiration", "issued at", and "not
-							before"
-							timestamps for the token are dates (integer number of
-							seconds
-							since from 1970-01-01T00:00:00Z UTC) within acceptable
+							before" timestamps for the token are dates (integer number of
+							seconds	since from 1970-01-01T00:00:00Z UTC) within acceptable
 							ranges.
 						</t>
 
@@ -513,6 +509,33 @@ https://idp.government.gov/oidc/authorization?
         }
         ]]></artwork>
 				</figure>
+			</section>
+
+			<section anchor="PairwiseSubject" title="Pairwise Identifiers">
+				<t>
+					Pairwise  identifiers specified in 
+					<xref target="OpenID.Core">OpenID Connect Core</xref>
+					section 8 help protect an end user's privacy by allowing an OpenID Provider 
+					to represent a single user with a 
+					different subject identifier (<spanx style="verb">sub</spanx>) for every client the user
+					connects to. This technique can help mitigate correlation of a user between multiple clients 
+					by preventing the clients from using the subject identifier 
+					(the <spanx style="verb">sub</spanx> claim) to track a user 
+					between different sites and applications. Use of pairwise identifiers 
+					does not prevent clients from correlating data based on other identifying 
+					attributes such as names, phone numbers, email addresses, document numbers, or other 
+					attributes. However, since not all transactions require access to these 
+					attributes, but a subject identifier is always required, a pairwise identifier 
+					will aid in protecting the privacy of end users as they navigate the system. 
+				</t>
+				<t> 
+					OpenID Providers MUST support pairwaise identifiers for cases where clients
+                    require this functionality. OpenID Providers MAY support public identifiers i
+                    for frameworks where public identifiers are required, or for cases where public 
+                    identifiers are shared as attributes and the framework does not have a requirement for subject
+					anonymity. 
+				</t>
+
 			</section>
 
 			<section anchor="UserInfoEndpoint" title="UserInfo Endpoint">
@@ -822,7 +845,7 @@ Connection: close
     "authorization_code",
   ],
   "scopes_supported": [
-    "profile", "openid"
+    "profile", "openid", "doc"
   ],
   "userinfo_endpoint": "https://idp-p.example.com/userinfo",
   "userinfo_encryption_enc_values_supported": [
@@ -975,197 +998,115 @@ Connection: close
 							<spanx style="verb">given_name, family_name, address, birthdate</spanx>
 							be supported by iGov Providers if possible, unless data quality 
 							requirements or privacy considerations prevent it. 
-							It is left to the Provider and the federation to set any further
+							It is left to the OpenID Provider and the trust framework to set any further
 							limitations on this profile data - see Privacy Considerations below.
 						</t>
 
 						<t hangText="doc">
 							The identity document type(s) and associated "number" the
-							Provider is
-							capable of providing. Mutliple document types MAY be
-							returned. This
-							could be passport, driver's license, national ID
-							card, health
-							insurance no., and so on. The response should
-							include:
-							<list style="hanging">
-								<t hangText="type"> The document type.
-								</t>
-								<t hangText="num"> The value of the document identifier. Note that not all
-									values are technically numeric.
-								</t>
-								<t hangText="issued"> The date the document was issued. Timestamp format.
-								</t>
-								<t hangText="expires"> The date the document expires (or expired). Timestamp format.
-								</t>
-								<t hangText="issuer_location"> The location/address of the issuing agency.
-								</t>
-							</list>
-						</t>
-
-						<t hangText="bio">Biometric data related to the subject for
-							physical verification at the Client side. This can include simple
-							descriptions for eye and hair color, height, or may include a
-							photograph: <spanx style="verb">picture</spanx> from  <xref target="OpenID.Core">OpenID Connect Core</xref>. Null or missing values means the data is not available for the user.
-							<list style="hanging">
-								<t hangText="eye_color"> The individuals approximate distinctive eye color: "blue", "brown", "green", "other".</t>
-								<t hangText="height"> The individuals approximate height in centimetres.
-								</t>
-								<t hangText="picture"> as defined in the  <xref target="OpenID.Core">OpenID Connect Core</xref></t>
-								<t hangText="picture_match_url"> a URL to send a picture image to obtain a match score. The API of this URL is outside the scope of this specification, as this will be dependant on the technology vendor.</t>
-							</list>
-						</t>
-
+							Provider is capable of providing. Mutliple document types MAY be
+							returned. This could be passport, driver's license, national ID
+                            card, health insurance no., and so on. See the Claims below for the
+                            document claims available.
+                        </t>
 					</list>
 				</t>
 			</section>
+            
+            <section anchor="ClaimsRequest" title="Claims Request">
+                <t>
+                    OpenID.Core section 5.5 defines a method for a client to request specific claims in 
+                    the UserInfo object. OpenID Providers MUST support this claims parameter in the interest
+                    of data minimization - that is, the Provider only returns information on the subject the 
+                    client specifically asks for, and does not volunteer additonal information about the subject.
+                </t>
+                <t> 
+                    Clients requesting the <spanx style="verb">profile</spanx> scope MAY provide a claims request
+                    parameter. If the claims request is omitted, the OpenID Provider SHOULD provide a default claims 
+                    set that it has available for the subject, in accordance with any policies set out by the trust 
+                    framework the Provider supports.
+                </t>
+                <t>
+                    Client requesting the <spanx style="verb">doc</spanx> scope MUST provide a claims request
+                    parameter indicating the document type (or types) and fields they wish to receive, or they will 
+                    receive none.  The OpenID Provider MUST NOT return any doc related claims not included
+                    in the claims request. Client requests that include the <spanx style="verb">doc</spanx> scope 
+                    but no claims request MUST NOT be rejected by the OpenID Provider, but simply 
+                    no <spanx style="verb">doc</spanx> related claims are 
+                    returned in the UserInfo object.
+                </t>
+            </section>
+	
+            <section anchor="ClaimsResponse" title="Claims Response">
+                <t>Response to a UserInfo request MUST match the scope and 
+                    claims requested to avoid having a OpenID Provider over-expose a user's identity 
+                    information.
+                </t>
+                <t>The document <spanx style="verb">doc</spanx> claims response include:
+				    <list style="hanging">
+						<t hangText="type"> The document type.
+						</t>
+						<t hangText="num"> The value of the document identifier. Note that not all
+							values are technically numeric.
+						</t>
+						<t hangText="issued"> The date the document was issued. Timestamp format.
+						</t>
+						<t hangText="expires"> The date the document expires (or expired). Timestamp format.
+						</t>
+						<t hangText="issuer_location"> The location/address of the issuing agency.
+						</t>
+					</list>
+                </t>
+                <t>
+                    Claims response MAY also make use of the aggegated and/or distributed claims structure 
+                    to refer to the original source of the subject's claims.
+                </t>
+            </section>
 
 			<section anchor="ClaimsMetadata" title="Claims Metadata">
-
-
-				<t>To support maximum interoperability and trust across
-					(potentially)
-					unassociated jurisdictions, the information regarding
-					the claim type
-					MUST be communicated within the protocol, so clients
-					may properly
-					interpret the claims they have been given. This is
-					referred to as
-					Claims Metadata.
+                <t>
+                    Claims Metadata (such as locale or the confidence level the OpenID Provider has in 
+                    the claim for the user) can be expressed as attributes within the UserInfo object, 
+                    but are outside the scope of this document. These types of claims are best described
+                    by the trust framework the clients and OpenID Providers operate within.
 				</t>
 
-				<t> Claims Metadata is captured in a <spanx style="verb">_claims_metadata</spanx>
-				    member of the JSON object containing the Claims.
-					<list style="hanging">
-						<t hangText="_claim_names"> As defined in 
-							<xref target="OpenID.Core">OpenID Connect Core</xref>
-							section 5.6.2. The list of claims that have metadata.
-						</t>
-						<t hangText="_claims_metadata"> A JSON Object containing the associated
-							metadata for the claims listed in <spanx style="verb">_claim_names</spanx>.
-							Metadata fields are defined below.
-						</t>
-					</list>
-				</t>
-				<t>
-					The following defines the types of claims metadata that iGov
-					supports:
-					<list style="hanging">
-
-						<t hangText="locale">The locale format of the claim, indicating
-							where the
-							attribute originates from, represented as a
-							space-separated list
-							of BCP47 [RFC5646] language tag values: for
-							example "en-US" or
-							"ja" or "fr-CA" and so on.
-						</t>
-
-						<t hangText="encoding">
-							How the claim is encoded:
-							<spanx style="verb">raw, jwt</spanx>.
-						</t>
-					</list>
-				</t>
-
-				<section anchor="CLOA" title="Claim Level of Assurance">
-					<t>
-						In addition to the
-						<spanx style="verb">scope</spanx>
-						of the data
-						provided, the UserInfo data must return some concept
-						of
-						the
-						quality level of the attribute. This quality level is
-						referred to
-						as
-						attribute meta data, and follows the guidelines in
-						<xref target="I-D.richer-vectors-of-trust">Vectors of Trust</xref>
-						.
-					</t>
-					<t>The following must be considered when evaluating the quality of
-						an
-						attribute:
-					</t>
-					<t>
-						<list style="hanging">
-							<t hangText="vot"> The attribute Vector of Trust.</t>
-
-							<t hangText="vtm">
-								The Trustmark Provider URL for the
-								<spanx style="verb">vot</spanx>
-								claim.
-							</t>
-						</list>
-					</t>
-				</section>
-
-			</section>
-			<section title="Example UserInfo with Metadata">
-				<t>
-					This example represents a request to a Department of Motor Vehicles
-					(DMV) OpenID Provider that is returning driver's license related information. The 
-					requested scope was <spanx style="verb">profile, doc, bio</spanx>. Only
-					the driver's license related information is subject to this metadata: the 
-					<spanx style="verb">email_address</spanx> does not meet the same level of
-					assurance.  
-				</t>
-				<figure>
-					<artwork><![CDATA[{
-   "sub": "6WZQPpnQxV",
-   "iss": "https://dmv.a-nice-place.gov"
-   "name": "Jane Doe",
-   "given_name": "Jane",
-   "family_name": "Doe",
-   "birthdate": "0000-03-22",
-   "email": "janedoe@example.com",
-   "eye_color": "blue",
-   "document" : {
-       "type" : "DL",
-       "num"  : "V5648-746280-0ZTX",
-       "issued" : "2017-06-18",
-       "expires" : "2022-06-18"
-   }
-
-   "_claim_names": {
-     "name": "src1",
-     "given_name": "src1",
-     "family_name": "src1",
-     "birthdate": "src1",
-     "eye_color" : "src1",
-     "document" : "src1"
-   },
-   "_claim_metadata": {
-     "src1": {
-        "locale" : "en-US",
-        "encoding" : "raw",
-        "vot" : "P2.Cc",
-        "vtm": "https://dmv.a-nice-place.gov"
-     }
-   }
-
-}
-  ]]></artwork>
-				</figure>
 			</section>
 		</section>
 
 		<section anchor="PrivacyConsiderations" title="Privacy Considerations">
-			<t>Pairwise identifiers specified in 
-				<xref target="OpenID.Core">OpenID Connect Core</xref>
-				section 8 allow an OpenID Provider to represent a single user with a 
-				different subject identifier for every RP the user connects to. This 
-				technique can help mitigate correlation of a user between multiple Clients 
-				by preventing the Clients from using the subject identifier 
-				(the <spanx style="verb">sub</spanx> claim in the ID token) to track a user 
-				between different sites and applications. Use of pairwise identifiers 
-				does not prevent Clients from correlating data based on other identifying 
-				attributes such as names, email addresses, document numbers, or other 
-				attributes. However, since not all transactions require access to these 
-				attributes, but a subject identifier is always required, a pairwise identifier 
-				will aid in protecting the privacy of end users as they navigate the system. 
-			</t>
-
+            <t>
+                Data minimization is an essential concept in trust frameworks and federations 
+                exchanging user identity information for government applications. The design of
+                this specification takes into consideration mechanisms to protect the user's 
+                government identity information and activity from unintentional exposure.
+            </t>
+            <t> 
+                Pairwise anonymous identifiers MUST be supported by the OpenID Providers for
+                frameworks where subjects should not be traceable across clients by their 
+                subject ID. This prevents a situation where a user may inadvertently be assigned 
+                a universal government identifier.
+            </t>
+            <t>
+                Request claims MUST be supported by the OpenID Providers to ensure that only the
+                data the client explicitly requests is provided in the UserInfo response. This prevents
+                situations where a client may only require a partial set of claims, but receives
+                (and is therefore exposed to) a full set of claims. For example, if a client only
+                needs a single government document type and number, the OpenID Provider MUST NOT
+                send the client the full document information, possibly from multiple documents.
+            </t>
+            <t>
+                Despite the mechanisms enforced by this specification, the operational circumstances
+                of a federation may allow these controls to be relaxed. For example, if a framework
+                always requires clients to request a national ID number, then the pairwise anonymous 
+                identifer requirement may be relaxed. In cases where all clients are entitled to all
+                government document claims associated to a subject at an OpenID Provider, the claims 
+                request requirement may be relaxed.
+            </t>
+            <t>
+                The reasons for relaxing the controls that support data minimalization are outside
+                the scope of this specification.
+            </t>
 		</section>
 
 		<section title="Security Considerations">
