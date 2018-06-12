@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="US-ASCII"?>
-<!DOCTYPE rfc PUBLIC "-//IETF//DTD RFC 2629//EN"
-"http://xml2rfc.tools.ietf.org/authoring/rfc2629.dtd">
+<!DOCTYPE rfc PUBLIC "-//IETF//DTD RFC 2629//EN" "http://xml2rfc.tools.ietf.org/authoring/rfc2629.dtd">
 <?xml-stylesheet type='text/xsl' href='http://xml2rfc.tools.ietf.org/authoring/rfc2629.xslt' ?>
 <!-- NOTE: This XML file is input used to produce the authoritative copy 
 	of an OpenID Foundation specification. The authoritative copy is the HTML 
@@ -29,29 +28,26 @@
 		<title abbrev="iGov OAuth 2.0">International Government Assurance Profile (iGov)
 			for	OAuth 2.0</title>
 
-		<author fullname="Justin Richer" initials="J." role="editor"
-			surname="Richer">
+		<author fullname="Justin Richer" initials="J." role="editor" surname="Richer">
 			<address>
 				<email>openid@justin.richer.org</email>
 
 				<uri>http://justin.richer.org/</uri>
 			</address>
 		</author>
-		<author fullname="Paul Grassi" initials="P." role="editor"
-			surname="Grassi">
+		<author fullname="Paul Grassi" initials="P." role="editor" surname="Grassi">
 			<address>
-				<email>pag3@nist.gov</email>
+				<email>pgrassi@easydynamics.com</email>
 
 			</address>
 		</author>
-		<author fullname="Michael Varley" initials="M.V." role="editor"
-			surname="Varley">
+		<author fullname="Michael Varley" initials="M.V." role="editor" surname="Varley">
 			<address>
 				<email>mike.varley@securekey.com</email>
 			</address>
 		</author>
 
-		<date day="22" month="May" year="2017" />
+		<date day="7" month="May" year="2018"/>
 
 		<workgroup>OpenID iGov Working Group</workgroup>
 
@@ -218,7 +214,7 @@
 		</section>
 
 		<section anchor="ClientProfiles" title="Client Profiles">
-			<t />
+			<t/>
 			<section anchor="ClientTypes" title="Client Types">
 				<t>
 					The following profile descriptions give patterns of deployment
@@ -259,7 +255,7 @@
 					<t>
 						These clients MUST be associated with a unique public key, as
 						described in
-						<xref target="ClientRegistration" />
+						<xref target="ClientRegistration"/>
 						.
 					</t>
 
@@ -559,7 +555,7 @@ Host: idp-p.example.com
 					<t>
 						The JWT assertion MUST be signed by the client using the client's
 						private key. See
-						<xref target="ClientRegistration" />
+						<xref target="ClientRegistration"/>
 						for mechanisms
 						by which the client can make its public key known to
 						the server. The
@@ -728,10 +724,10 @@ H2_VQ_Ww1JOLn9vRn-H48FDj7TxlIT74XdTZgTv31w_GRPAOfyxEw_ZUmxhz5Z-gTlQ",
 						<!-- Can we specify when this is a SHALL? -->
 						Clients SHOULD send bearer tokens passed in the Authentication
 						header as defined by
-						<xref target="RFC6750" />
+						<xref target="RFC6750"/>
 						. Clients MAY use the
 						form-parameter or query-parameter methods in
-						<xref target="RFC6750" />
+						<xref target="RFC6750"/>
 						. Authorized requests MUST be made over TLS, and
 						clients MUST
 						validate the protected resource server's
@@ -767,7 +763,7 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 			<t>
 				All servers MUST conform to applicable recommendations found in the
 				Security Considerations sections of
-				<xref target="RFC6749" />
+				<xref target="RFC6749"/>
 				and those
 				found in the
 				<xref target="RFC6819">OAuth Threat Model
@@ -782,7 +778,7 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 
 
 			<section title="Connections with clients">
-				<t />
+				<t/>
 
 				<section title="Grant types">
 					<t>
@@ -791,7 +787,7 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 						, and MAY support the
 						<spanx style="verb">client_credentials</spanx>
 						grant types as described in
-						<xref target="ClientProfiles" />
+						<xref target="ClientProfiles"/>
 						. The
 						authorization server MUST limit each registered client
 						(identified
@@ -800,7 +796,7 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 						software will be functioning at runtime in only one
 						of the modes
 						described in
-						<xref target="ClientProfiles" />
+						<xref target="ClientProfiles"/>
 						. Clients that have
 						multiple modes of operation MUST have a
 						separate client ID for each
@@ -838,7 +834,7 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 
 					<t>	Authorization
 						<!-- Should we make this a MUST? -->
-						servers MAY protect their Dynamic Registration endpoints by requiring clients to present credentials that the authorization server would recognize as authorized participants. Authorization servers MAY accept signed software statements as described in <xref target="RFC7591" /> 
+						servers MAY protect their Dynamic Registration endpoints by requiring clients to present credentials that the authorization server would recognize as authorized participants. Authorization servers MAY accept signed software statements as described in <xref target="RFC7591"/> 
 						issued to client software developers from a
 						trusted registration
 						entity. The software statement can be used to
@@ -857,7 +853,7 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 								array of redirect URIs used by the
 								client; subject to the
 								requirements listed in
-								<xref target="RedirectURI" />
+								<xref target="RedirectURI"/>
 							</t>
 
 							<t hangText="grant_types">grant type used by the client; must be
@@ -1336,7 +1332,7 @@ F2vFdL6D_lLeHRy-H2g2OzF59eMIsM_Ccs4G47862w
 
 					<t>
 						The client assertion parameter is structured as described in
-						<xref target="RequestsToTokenEndpoint" />
+						<xref target="RequestsToTokenEndpoint"/>
 						.
 					</t>
 
@@ -1404,7 +1400,7 @@ Connection: close
 					<t>
 						The authorization server MUST require authentication for both the
 						revocation and introspection endpoints as described in
-						<xref target="RequestsToTokenEndpoint" />
+						<xref target="RequestsToTokenEndpoint"/>
 						. Protected resources calling the
 						introspection endpoint MUST use
 						credentials distinct from any other
@@ -1591,7 +1587,7 @@ https://https://client.example.org/cb?
 				<t>
 					A protected resource MUST accept bearer tokens passed in the
 					authorization header as described in
-					<xref target="RFC6750" />
+					<xref target="RFC6750"/>
 					. A
 					protected resource MAY also accept bearer tokens passed in the
 					form
@@ -1727,7 +1723,7 @@ https://https://client.example.org/cb?
 			<t>
 				All clients MUST conform to applicable recommendations found in the
 				Security Considerations sections of
-				<xref target="RFC6749" />
+				<xref target="RFC6749"/>
 				and those
 				found in the
 				<xref target="RFC6819">OAuth 2.0 Threat Model and Security
@@ -1798,18 +1794,18 @@ https://https://client.example.org/cb?
 						(TLS) and Datagram Transport Layer Security (DTLS)</title>
 
 					<author fullname="Y. Sheffer" initials="Y." surname="Sheffer">
-						<organization />
+						<organization/>
 					</author>
 
 					<author fullname="R. Holz" initials="R." surname="Holz">
-						<organization />
+						<organization/>
 					</author>
 
 					<author fullname="P. Saint-Andre" initials="P." surname="Saint-Andre">
-						<organization />
+						<organization/>
 					</author>
 
-					<date month="May" year="2015" />
+					<date month="May" year="2015"/>
 
 					<abstract>
 						<t>Transport Layer Security (TLS) and Datagram Transport Layer
@@ -1827,17 +1823,16 @@ https://https://client.example.org/cb?
 					</abstract>
 				</front>
 
-				<seriesInfo name="BCP" value="195" />
+				<seriesInfo name="BCP" value="195"/>
 
-				<seriesInfo name="RFC" value="7525" />
+				<seriesInfo name="RFC" value="7525"/>
 
-				<seriesInfo name="DOI" value="10.17487/RFC7525" />
+				<seriesInfo name="DOI" value="10.17487/RFC7525"/>
 
-				<format octets="60283" type="ASCII" />
+				<format octets="60283" type="ASCII"/>
 			</reference>
 
-			<reference anchor="OpenID.Core"
-				target="http://openid.net/specs/openid-connect-core-1_0.html">
+			<reference anchor="OpenID.Core" target="http://openid.net/specs/openid-connect-core-1_0.html">
 				<front>
 					<title>OpenID Connect Core 1.0</title>
 
@@ -1862,12 +1857,11 @@ https://https://client.example.org/cb?
 						<organization abbrev="Salesforce">Salesforce</organization>
 					</author>
 
-					<date day="3" month="August" year="2015" />
+					<date day="3" month="August" year="2015"/>
 				</front>
 			</reference>
 
-			<reference anchor="OpenID.Discovery"
-				target="http://openid.net/specs/openid-connect-discovery-1_0.html">
+			<reference anchor="OpenID.Discovery" target="http://openid.net/specs/openid-connect-discovery-1_0.html">
 				<front>
 					<title>OpenID Connect Discovery 1.0</title>
 
@@ -1888,7 +1882,7 @@ https://https://client.example.org/cb?
 						<organization abbrev="Illumila">IllumilaJSON</organization>
 					</author>
 
-					<date day="3" month="August" year="2015" />
+					<date day="3" month="August" year="2015"/>
 				</front>
 			</reference>
 
@@ -1899,21 +1893,20 @@ https://https://client.example.org/cb?
 					<title>JSON Web Signature and Encryption Algorithms registry</title>
 
 					<author>
-						<organization />
+						<organization/>
 					</author>
 
-					<date day="8" month="August" year="2016" />
+					<date day="8" month="August" year="2016"/>
 				</front>
 			</reference>
 
-			<reference anchor="HEART.OAuth2"
-				target="http://openid.net/specs/openid-heart-oauth2-1_0-ID1.html">
+			<reference anchor="HEART.OAuth2" target="http://openid.net/specs/openid-heart-oauth2-1_0-ID1.html">
 				<front>
 					<title>Health Relationship Trust Profile for OAuth 2.0</title>
 
-					<author fullname="Justin Richer" initials="J." surname="Richer" />
+					<author fullname="Justin Richer" initials="J." surname="Richer"/>
 
-					<date day="15" month="February" year="2016" />
+					<date day="15" month="February" year="2016"/>
 				</front>
 			</reference>
 
@@ -2026,7 +2019,7 @@ https://https://client.example.org/cb?
 				</list>
 			</t>
 
-			<t>-2017-02-27</t>
+			<t>-2018-05-07</t>
 
 			<t>
 				<list style="symbols">
