@@ -26,7 +26,7 @@
 
 	<front>
 		<title abbrev="iGov OAuth 2.0">International Government Assurance Profile (iGov)
-			for	OAuth 2.0</title>
+			for	OAuth 2.0 - draft 01</title>
 
 		<author fullname="Justin Richer" initials="J." role="editor" surname="Richer">
 			<address>
@@ -47,7 +47,7 @@
 			</address>
 		</author>
 
-		<date day="7" month="May" year="2018"/>
+		<date day="7" month="September" year="2018"/>
 
 		<workgroup>OpenID iGov Working Group</workgroup>
 
