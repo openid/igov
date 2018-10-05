@@ -10,7 +10,7 @@ href='http://xml2rfc.tools.ietf.org/authoring/rfc2629.xslt' ?>
 	described in the "Notices" section. This is a public OpenID Foundation document 
 	and not a private document, as the private="..." declaration could be taken 
 	to indicate. -->
-<rfc category="std" docName="openid-igov-profile" ipr="none">   <?rfc toc="yes" ?>
+<rfc category="std" docName="openid-igov-openid-connect-1_0" ipr="none">   <?rfc toc="yes" ?>
 
   <?rfc tocdepth="5" ?>
 
@@ -27,7 +27,7 @@ href='http://xml2rfc.tools.ietf.org/authoring/rfc2629.xslt' ?>
 	<front>
 		<title abbrev="openid-igov-profile">International Government Assurance Profile (iGov)
 			for
-			OpenID Connect 1.0 - draft 01</title>
+			OpenID Connect 1.0 - Draft 03</title>
 
 		<author fullname="Michael Varley" initials="M.V." role="editor" surname="Varley">
 			<address>
@@ -40,7 +40,7 @@ href='http://xml2rfc.tools.ietf.org/authoring/rfc2629.xslt' ?>
 			</address>
 		</author>
 
-		<date day="07" month="September" year="2018"/>
+		<date day="05" month="October" year="2018"/>
 
 		<workgroup>OpenID iGov Working Group</workgroup>
 
@@ -1287,13 +1287,13 @@ Connection: close
 						</address>
 					</author>
 
-					<date day="15" month="February" year="2016"/>
+					<date day="25" month="April" year="2017"/>
 				</front>
 			</reference>
 
 			<!-- TODO - Get this updated once we have some actual URL's 
 			"https://xml2rfc.tools.ietf.org/cgi-bin/xml2rfc.cgi?Submit=Submit&format=ascii&mode=html&type=ascii&url=https://bitbucket.org/openid/igov/raw/master/openid-igov-oauth2.xml">   -->
-			<reference anchor="iGov.OAuth2" target="https://xml2rfc.tools.ietf.org/cgi-bin/xml2rfc.cgi?Submit=Submit&amp;format=ascii&amp;mode=html&amp;type=ascii&amp;url=https://bitbucket.org/openid/igov/raw/master/openid-igov-oauth2.xml">
+			<reference anchor="iGov.OAuth2" target="http://openid.net/specs/openid-igov-oauth2-1_0.html">
 				<front>
 					<title>iGov Profile for OAuth 2.0</title>
 
@@ -1305,7 +1305,7 @@ Connection: close
 						</address>
 					</author>
 
-					<date day="10" month="February" year="2017"/>
+					<date day="05" month="October" year="2018"/>
 				</front>
 			</reference>
 
