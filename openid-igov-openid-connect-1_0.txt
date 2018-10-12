@@ -5,12 +5,12 @@
                                                           M. Varley, Ed.
 
                                                           P. Grassi, Ed.
-                                                      September 07, 2018
+                                                        October 05, 2018
 
 
 International Government Assurance Profile (iGov) for OpenID Connect 1.0
-                               - draft 01
-                          openid-igov-profile
+                               - Draft 03
+                     openid-igov-openid-connect-1_0
 
 Abstract
 
@@ -53,9 +53,9 @@ Table of Contents
 
 
 
-Varley & Grassi          Expires March 11, 2019                 [Page 1]
+Varley & Grassi           Expires April 8, 2019                 [Page 1]
 
-                           openid-igov-profile            September 2018
+                           openid-igov-profile              October 2018
 
 
      4.2.  Scope Profiles  . . . . . . . . . . . . . . . . . . . . .  15
@@ -109,9 +109,9 @@ Varley & Grassi          Expires March 11, 2019                 [Page 1]
 
 
 
-Varley & Grassi          Expires March 11, 2019                 [Page 2]
+Varley & Grassi           Expires April 8, 2019                 [Page 2]
 
-                           openid-igov-profile            September 2018
+                           openid-igov-profile              October 2018
 
 
    Token (JWT)" defined by JSON Web Token (JWT) [RFC7519] , and the
@@ -165,9 +165,9 @@ Varley & Grassi          Expires March 11, 2019                 [Page 2]
 
 
 
-Varley & Grassi          Expires March 11, 2019                 [Page 3]
+Varley & Grassi           Expires April 8, 2019                 [Page 3]
 
-                           openid-igov-profile            September 2018
+                           openid-igov-profile              October 2018
 
 
    In addition to the requirements specified in Section 2.1.1 of the
@@ -221,9 +221,9 @@ Varley & Grassi          Expires March 11, 2019                 [Page 3]
 
 
 
-Varley & Grassi          Expires March 11, 2019                 [Page 4]
+Varley & Grassi           Expires April 8, 2019                 [Page 4]
 
-                           openid-igov-profile            September 2018
+                           openid-igov-profile              October 2018
 
 
   https://idp.government.gov/oidc/authorization?
@@ -277,9 +277,9 @@ Varley & Grassi          Expires March 11, 2019                 [Page 4]
 
 
 
-Varley & Grassi          Expires March 11, 2019                 [Page 5]
+Varley & Grassi           Expires April 8, 2019                 [Page 5]
 
-                           openid-igov-profile            September 2018
+                           openid-igov-profile              October 2018
 
 
 2.4.  Request Objects
@@ -333,9 +333,9 @@ Varley & Grassi          Expires March 11, 2019                 [Page 5]
 
 
 
-Varley & Grassi          Expires March 11, 2019                 [Page 6]
+Varley & Grassi           Expires April 8, 2019                 [Page 6]
 
-                           openid-igov-profile            September 2018
+                           openid-igov-profile              October 2018
 
 
    vtm  REQUIRED if "vot" is provided.  The trustmark URI as specified
@@ -389,9 +389,9 @@ Varley & Grassi          Expires March 11, 2019                 [Page 6]
 
 
 
-Varley & Grassi          Expires March 11, 2019                 [Page 7]
+Varley & Grassi           Expires April 8, 2019                 [Page 7]
 
-                           openid-igov-profile            September 2018
+                           openid-igov-profile              October 2018
 
 
     {
@@ -445,9 +445,9 @@ Varley & Grassi          Expires March 11, 2019                 [Page 7]
 
 
 
-Varley & Grassi          Expires March 11, 2019                 [Page 8]
+Varley & Grassi           Expires April 8, 2019                 [Page 8]
 
-                           openid-igov-profile            September 2018
+                           openid-igov-profile              October 2018
 
 
    information is returned.  Clients are not required to call the
@@ -501,9 +501,9 @@ Varley & Grassi          Expires March 11, 2019                 [Page 8]
 
 
 
-Varley & Grassi          Expires March 11, 2019                 [Page 9]
+Varley & Grassi           Expires April 8, 2019                 [Page 9]
 
-                           openid-igov-profile            September 2018
+                           openid-igov-profile              October 2018
 
 
 3.4.  Request Objects
@@ -557,9 +557,9 @@ Varley & Grassi          Expires March 11, 2019                 [Page 9]
 
 
 
-Varley & Grassi          Expires March 11, 2019                [Page 10]
+Varley & Grassi           Expires April 8, 2019                [Page 10]
 
-                           openid-igov-profile            September 2018
+                           openid-igov-profile              October 2018
 
 
 3.7.  Discovery
@@ -613,9 +613,9 @@ Varley & Grassi          Expires March 11, 2019                [Page 10]
 
 
 
-Varley & Grassi          Expires March 11, 2019                [Page 11]
+Varley & Grassi           Expires April 8, 2019                [Page 11]
 
-                           openid-igov-profile            September 2018
+                           openid-igov-profile              October 2018
 
 
    scopes_supported  REQUIRED.  The list of scopes, including iGov
@@ -669,9 +669,9 @@ Varley & Grassi          Expires March 11, 2019                [Page 11]
 
 
 
-Varley & Grassi          Expires March 11, 2019                [Page 12]
+Varley & Grassi           Expires April 8, 2019                [Page 12]
 
-                           openid-igov-profile            September 2018
+                           openid-igov-profile              October 2018
 
 
      ],
@@ -725,9 +725,9 @@ Varley & Grassi          Expires March 11, 2019                [Page 12]
 
 
 
-Varley & Grassi          Expires March 11, 2019                [Page 13]
+Varley & Grassi           Expires April 8, 2019                [Page 13]
 
-                           openid-igov-profile            September 2018
+                           openid-igov-profile              October 2018
 
 
    {
@@ -781,9 +781,9 @@ Varley & Grassi          Expires March 11, 2019                [Page 13]
 
 
 
-Varley & Grassi          Expires March 11, 2019                [Page 14]
+Varley & Grassi           Expires April 8, 2019                [Page 14]
 
-                           openid-igov-profile            September 2018
+                           openid-igov-profile              October 2018
 
 
 4.2.  Scope Profiles
@@ -837,9 +837,9 @@ Varley & Grassi          Expires March 11, 2019                [Page 14]
 
 
 
-Varley & Grassi          Expires March 11, 2019                [Page 15]
+Varley & Grassi           Expires April 8, 2019                [Page 15]
 
-                           openid-igov-profile            September 2018
+                           openid-igov-profile              October 2018
 
 
    Clients requesting the "profile" scope MAY provide a claims request
@@ -893,9 +893,9 @@ Varley & Grassi          Expires March 11, 2019                [Page 15]
 
 
 
-Varley & Grassi          Expires March 11, 2019                [Page 16]
+Varley & Grassi           Expires April 8, 2019                [Page 16]
 
-                           openid-igov-profile            September 2018
+                           openid-igov-profile              October 2018
 
 
 5.  Privacy Considerations
@@ -949,9 +949,9 @@ Varley & Grassi          Expires March 11, 2019                [Page 16]
 
 
 
-Varley & Grassi          Expires March 11, 2019                [Page 17]
+Varley & Grassi           Expires April 8, 2019                [Page 17]
 
-                           openid-igov-profile            September 2018
+                           openid-igov-profile              October 2018
 
 
 7.  Normative References
@@ -964,7 +964,7 @@ Varley & Grassi          Expires March 11, 2019                [Page 17]
 
    [HEART.OAuth2]
               Richer, J., Ed., "Health Relationship Trust Profile for
-              OAuth 2.0", February 2016,
+              OAuth 2.0", April 2017,
               <http://openid.net/specs/openid-heart-oauth2-1_0.html>.
 
    [I-D.ietf-oauth-pop-architecture]
@@ -979,11 +979,9 @@ Varley & Grassi          Expires March 11, 2019                [Page 17]
               2018.
 
    [iGov.OAuth2]
-              Richer, J., Ed., "iGov Profile for OAuth 2.0", February
-              2017, <https://xml2rfc.tools.ietf.org/cgi-bin/xml2rfc.cgi?
-              Submit=Submit&format=ascii&mode=html&type=ascii&url=https:
-              //bitbucket.org/openid/igov/raw/master/
-              openid-igov-oauth2.xml>.
+              Richer, J., Ed., "iGov Profile for OAuth 2.0", October
+              2018,
+              <http://openid.net/specs/openid-igov-oauth2-1_0.html>.
 
    [OpenID.Core]
               Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., and
@@ -1001,18 +999,16 @@ Varley & Grassi          Expires March 11, 2019                [Page 17]
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
-
-
-
-
-Varley & Grassi          Expires March 11, 2019                [Page 18]
-
-                           openid-igov-profile            September 2018
-
-
    [RFC2246]  Dierks, T. and C. Allen, "The TLS Protocol Version 1.0",
               RFC 2246, DOI 10.17487/RFC2246, January 1999,
               <https://www.rfc-editor.org/info/rfc2246>.
+
+
+
+Varley & Grassi           Expires April 8, 2019                [Page 18]
+
+                           openid-igov-profile              October 2018
+
 
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66,
@@ -1058,17 +1054,17 @@ Varley & Grassi          Expires March 11, 2019                [Page 18]
               DOI 10.17487/RFC6819, January 2013,
               <https://www.rfc-editor.org/info/rfc6819>.
 
-
-
-
-Varley & Grassi          Expires March 11, 2019                [Page 19]
-
-                           openid-igov-profile            September 2018
-
-
    [RFC7009]  Lodderstedt, T., Ed., Dronia, S., and M. Scurtescu, "OAuth
               2.0 Token Revocation", RFC 7009, DOI 10.17487/RFC7009,
               August 2013, <https://www.rfc-editor.org/info/rfc7009>.
+
+
+
+
+Varley & Grassi           Expires April 8, 2019                [Page 19]
+
+                           openid-igov-profile              October 2018
+
 
    [RFC7033]  Jones, P., Salgueiro, G., Jones, M., and J. Smarr,
               "WebFinger", RFC 7033, DOI 10.17487/RFC7033, September
@@ -1117,9 +1113,13 @@ Appendix A.  Acknowledgements
 
 
 
-Varley & Grassi          Expires March 11, 2019                [Page 20]
+
+
+
+
+Varley & Grassi           Expires April 8, 2019                [Page 20]
 
-                           openid-igov-profile            September 2018
+                           openid-igov-profile              October 2018
 
 
 Appendix B.  Notices
@@ -1173,9 +1173,9 @@ Appendix C.  Document History
 
 
 
-Varley & Grassi          Expires March 11, 2019                [Page 21]
+Varley & Grassi           Expires April 8, 2019                [Page 21]
 
-                           openid-igov-profile            September 2018
+                           openid-igov-profile              October 2018
 
 
    o  Imported content from OpenID HEART 1.0 profile and Connect.Gov
@@ -1229,4 +1229,4 @@ Authors' Addresses
 
 
 
-Varley & Grassi          Expires March 11, 2019                [Page 22]
+Varley & Grassi           Expires April 8, 2019                [Page 22]

@@ -7,12 +7,12 @@
                                                           P. Grassi, Ed.
 
                                                           M. Varley, Ed.
-                                                       September 7, 2018
+                                                         October 5, 2018
 
 
-International Government Assurance Profile (iGov) for OAuth 2.0 - draft
-                                   01
-                           openid-igov-oauth2
+International Government Assurance Profile (iGov) for OAuth 2.0 - Draft
+                                   03
+                         openid-igov-oauth2-1_0
 
 Abstract
 
@@ -53,9 +53,9 @@ Table of Contents
 
 
 
-Richer, et al.           Expires March 11, 2019                 [Page 1]
+Richer, et al.            Expires April 8, 2019                 [Page 1]
 
-                             iGov OAuth 2.0               September 2018
+                             iGov OAuth 2.0                 October 2018
 
 
        3.1.5.  Discovery . . . . . . . . . . . . . . . . . . . . . .  13
@@ -109,9 +109,9 @@ Richer, et al.           Expires March 11, 2019                 [Page 1]
 
 
 
-Richer, et al.           Expires March 11, 2019                 [Page 2]
+Richer, et al.            Expires April 8, 2019                 [Page 2]
 
-                             iGov OAuth 2.0               September 2018
+                             iGov OAuth 2.0                 October 2018
 
 
 1.1.  Requirements Notation and Conventions
@@ -165,9 +165,9 @@ Richer, et al.           Expires March 11, 2019                 [Page 2]
 
 
 
-Richer, et al.           Expires March 11, 2019                 [Page 3]
+Richer, et al.            Expires April 8, 2019                 [Page 3]
 
-                             iGov OAuth 2.0               September 2018
+                             iGov OAuth 2.0                 October 2018
 
 
    An iGov-compliant OAuth 2.0 authorization server MUST support all
@@ -221,9 +221,9 @@ Richer, et al.           Expires March 11, 2019                 [Page 3]
 
 
 
-Richer, et al.           Expires March 11, 2019                 [Page 4]
+Richer, et al.            Expires April 8, 2019                 [Page 4]
 
-                             iGov OAuth 2.0               September 2018
+                             iGov OAuth 2.0                 October 2018
 
 
    This client type MAY request and be issued a refresh token if the
@@ -277,9 +277,9 @@ Richer, et al.           Expires March 11, 2019                 [Page 4]
 
 
 
-Richer, et al.           Expires March 11, 2019                 [Page 5]
+Richer, et al.            Expires April 8, 2019                 [Page 5]
 
-                             iGov OAuth 2.0               September 2018
+                             iGov OAuth 2.0                 October 2018
 
 
 2.1.3.  Direct Access Client
@@ -333,9 +333,9 @@ Richer, et al.           Expires March 11, 2019                 [Page 5]
 
 
 
-Richer, et al.           Expires March 11, 2019                 [Page 6]
+Richer, et al.            Expires April 8, 2019                 [Page 6]
 
-                             iGov OAuth 2.0               September 2018
+                             iGov OAuth 2.0                 October 2018
 
 
    Clients MUST NOT forward values passed back to their redirect URIs to
@@ -389,9 +389,9 @@ Status: 302 Found
 
 
 
-Richer, et al.           Expires March 11, 2019                 [Page 7]
+Richer, et al.            Expires April 8, 2019                 [Page 7]
 
-                             iGov OAuth 2.0               September 2018
+                             iGov OAuth 2.0                 October 2018
 
 
 2.3.2.  Requests to the Token Endpoint
@@ -445,9 +445,9 @@ Richer, et al.           Expires March 11, 2019                 [Page 7]
 
 
 
-Richer, et al.           Expires March 11, 2019                 [Page 8]
+Richer, et al.            Expires April 8, 2019                 [Page 8]
 
-                             iGov OAuth 2.0               September 2018
+                             iGov OAuth 2.0                 October 2018
 
 
    The following sample JWT contains the above claims and has been
@@ -501,9 +501,9 @@ xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 
 
 
-Richer, et al.           Expires March 11, 2019                 [Page 9]
+Richer, et al.            Expires April 8, 2019                 [Page 9]
 
-                             iGov OAuth 2.0               September 2018
+                             iGov OAuth 2.0                 October 2018
 
 
    These clients MUST register their public keys in their client
@@ -557,9 +557,9 @@ cNt1H2_VQ_Ww1JOLn9vRn-H48FDj7TxlIT74XdTZgTv31w_GRPAOfyxEw_ZUmxhz5Z-gTlQ",
 
 
 
-Richer, et al.           Expires March 11, 2019                [Page 10]
+Richer, et al.            Expires April 8, 2019                [Page 10]
 
-                             iGov OAuth 2.0               September 2018
+                             iGov OAuth 2.0                 October 2018
 
 
  {
@@ -613,9 +613,9 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 
 
 
-Richer, et al.           Expires March 11, 2019                [Page 11]
+Richer, et al.            Expires April 8, 2019                [Page 11]
 
-                             iGov OAuth 2.0               September 2018
+                             iGov OAuth 2.0                 October 2018
 
 
 3.  Authorization Server Profile
@@ -669,9 +669,9 @@ Richer, et al.           Expires March 11, 2019                [Page 11]
 
 
 
-Richer, et al.           Expires March 11, 2019                [Page 12]
+Richer, et al.            Expires April 8, 2019                [Page 12]
 
-                             iGov OAuth 2.0               September 2018
+                             iGov OAuth 2.0                 October 2018
 
 
    described in [RFC7591] issued to client software developers from a
@@ -725,9 +725,9 @@ Richer, et al.           Expires March 11, 2019                [Page 12]
 
 
 
-Richer, et al.           Expires March 11, 2019                [Page 13]
+Richer, et al.            Expires April 8, 2019                [Page 13]
 
-                             iGov OAuth 2.0               September 2018
+                             iGov OAuth 2.0                 October 2018
 
 
    issuer  REQUIRED.  The fully qualified issuer URL of the server
@@ -781,9 +781,9 @@ Richer, et al.           Expires March 11, 2019                [Page 13]
 
 
 
-Richer, et al.           Expires March 11, 2019                [Page 14]
+Richer, et al.            Expires April 8, 2019                [Page 14]
 
-                             iGov OAuth 2.0               September 2018
+                             iGov OAuth 2.0                 October 2018
 
 
   {
@@ -837,9 +837,9 @@ Richer, et al.           Expires March 11, 2019                [Page 14]
 
 
 
-Richer, et al.           Expires March 11, 2019                [Page 15]
+Richer, et al.            Expires April 8, 2019                [Page 15]
 
-                             iGov OAuth 2.0               September 2018
+                             iGov OAuth 2.0                 October 2018
 
 
    Clients and protected resources SHOULD cache this discovery
@@ -893,9 +893,9 @@ U-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEqfCaPDNp00J6AbY6w",
 
 
 
-Richer, et al.           Expires March 11, 2019                [Page 16]
+Richer, et al.            Expires April 8, 2019                [Page 16]
 
-                             iGov OAuth 2.0               September 2018
+                             iGov OAuth 2.0                 October 2018
 
 
 3.1.7.  PKCE
@@ -949,9 +949,9 @@ Richer, et al.           Expires March 11, 2019                [Page 16]
 
 
 
-Richer, et al.           Expires March 11, 2019                [Page 17]
+Richer, et al.            Expires April 8, 2019                [Page 17]
 
-                             iGov OAuth 2.0               September 2018
+                             iGov OAuth 2.0                 October 2018
 
 
    iss  The issuer URL of the server that issued the token
@@ -1005,9 +1005,9 @@ Richer, et al.           Expires March 11, 2019                [Page 17]
 
 
 
-Richer, et al.           Expires March 11, 2019                [Page 18]
+Richer, et al.            Expires April 8, 2019                [Page 18]
 
-                             iGov OAuth 2.0               September 2018
+                             iGov OAuth 2.0                 October 2018
 
 
    kid  The key ID of the key pair used to sign this token
@@ -1061,9 +1061,9 @@ Richer, et al.           Expires March 11, 2019                [Page 18]
 
 
 
-Richer, et al.           Expires March 11, 2019                [Page 19]
+Richer, et al.            Expires April 8, 2019                [Page 19]
 
-                             iGov OAuth 2.0               September 2018
+                             iGov OAuth 2.0                 October 2018
 
 
 POST /introspect HTTP/1.1
@@ -1117,9 +1117,9 @@ F2vFdL6D_lLeHRy-H2g2OzF59eMIsM_Ccs4G47862w
 
 
 
-Richer, et al.           Expires March 11, 2019                [Page 20]
+Richer, et al.            Expires April 8, 2019                [Page 20]
 
-                             iGov OAuth 2.0               September 2018
+                             iGov OAuth 2.0                 October 2018
 
 
    exp  Timestamp of when this token expires (integer number of seconds
@@ -1173,9 +1173,9 @@ Richer, et al.           Expires March 11, 2019                [Page 20]
 
 
 
-Richer, et al.           Expires March 11, 2019                [Page 21]
+Richer, et al.            Expires April 8, 2019                [Page 21]
 
-                             iGov OAuth 2.0               September 2018
+                             iGov OAuth 2.0                 October 2018
 
 
    state  REQUIRED.  The value of the state parameter passed in in the
@@ -1229,9 +1229,9 @@ Richer, et al.           Expires March 11, 2019                [Page 21]
 
 
 
-Richer, et al.           Expires March 11, 2019                [Page 22]
+Richer, et al.            Expires April 8, 2019                [Page 22]
 
-                             iGov OAuth 2.0               September 2018
+                             iGov OAuth 2.0                 October 2018
 
 
    To facilitate general use across a wide variety of protected
@@ -1285,9 +1285,9 @@ Richer, et al.           Expires March 11, 2019                [Page 22]
 
 
 
-Richer, et al.           Expires March 11, 2019                [Page 23]
+Richer, et al.            Expires April 8, 2019                [Page 23]
 
-                             iGov OAuth 2.0               September 2018
+                             iGov OAuth 2.0                 October 2018
 
 
    For example: a resource server has resources classified as "public"
@@ -1341,9 +1341,9 @@ Richer, et al.           Expires March 11, 2019                [Page 23]
 
 
 
-Richer, et al.           Expires March 11, 2019                [Page 24]
+Richer, et al.            Expires April 8, 2019                [Page 24]
 
-                             iGov OAuth 2.0               September 2018
+                             iGov OAuth 2.0                 October 2018
 
 
    scopes and acr associated with the token from the authorization
@@ -1397,9 +1397,9 @@ Richer, et al.           Expires March 11, 2019                [Page 24]
 
 
 
-Richer, et al.           Expires March 11, 2019                [Page 25]
+Richer, et al.            Expires April 8, 2019                [Page 25]
 
-                             iGov OAuth 2.0               September 2018
+                             iGov OAuth 2.0                 October 2018
 
 
 6.  Security Considerations
@@ -1430,7 +1430,7 @@ Richer, et al.           Expires March 11, 2019                [Page 25]
 
    [HEART.OAuth2]
               Richer, J., "Health Relationship Trust Profile for OAuth
-              2.0", February 2016, <http://openid.net/specs/
+              2.0", April 2017, <http://openid.net/specs/
               openid-heart-oauth2-1_0-ID1.html>.
 
    [I-D.ietf-oauth-pop-architecture]
@@ -1453,9 +1453,9 @@ Richer, et al.           Expires March 11, 2019                [Page 25]
 
 
 
-Richer, et al.           Expires March 11, 2019                [Page 26]
+Richer, et al.            Expires April 8, 2019                [Page 26]
 
-                             iGov OAuth 2.0               September 2018
+                             iGov OAuth 2.0                 October 2018
 
 
    [OpenID.Discovery]
@@ -1509,9 +1509,9 @@ Richer, et al.           Expires March 11, 2019                [Page 26]
 
 
 
-Richer, et al.           Expires March 11, 2019                [Page 27]
+Richer, et al.            Expires April 8, 2019                [Page 27]
 
-                             iGov OAuth 2.0               September 2018
+                             iGov OAuth 2.0                 October 2018
 
 
    [RFC6750]  Jones, M. and D. Hardt, "The OAuth 2.0 Authorization
@@ -1565,9 +1565,9 @@ Richer, et al.           Expires March 11, 2019                [Page 27]
 
 
 
-Richer, et al.           Expires March 11, 2019                [Page 28]
+Richer, et al.            Expires April 8, 2019                [Page 28]
 
-                             iGov OAuth 2.0               September 2018
+                             iGov OAuth 2.0                 October 2018
 
 
    [RFC7591]  Richer, J., Ed., Jones, M., Bradley, J., Machulak, M., and
@@ -1621,9 +1621,9 @@ Appendix B.  Notices
 
 
 
-Richer, et al.           Expires March 11, 2019                [Page 29]
+Richer, et al.            Expires April 8, 2019                [Page 29]
 
-                             iGov OAuth 2.0               September 2018
+                             iGov OAuth 2.0                 October 2018
 
 
    rights might or might not be available; neither does it represent
@@ -1677,4 +1677,4 @@ Authors' Addresses
 
 
 
-Richer, et al.           Expires March 11, 2019                [Page 30]
+Richer, et al.            Expires April 8, 2019                [Page 30]
