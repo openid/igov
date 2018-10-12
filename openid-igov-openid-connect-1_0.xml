@@ -27,7 +27,7 @@ href='http://xml2rfc.tools.ietf.org/authoring/rfc2629.xslt' ?>
 	<front>
 		<title abbrev="openid-igov-profile">International Government Assurance Profile (iGov)
 			for
-			OpenID Connect 1.0 - Draft 02</title>
+			OpenID Connect 1.0 - Draft 03</title>
 
 		<author fullname="Michael Varley" initials="M.V." role="editor" surname="Varley">
 			<address>
