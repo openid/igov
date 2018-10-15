@@ -256,7 +256,7 @@ href='http://xml2rfc.tools.ietf.org/authoring/rfc2629.xslt' ?>
 						<t hangText="vtr">
 							OPTIONAL. MUST be set to
 							a value as described in Section 6.1 of
-							<xref target="I-D.richer-vectors-of-trust">Vectors of Trust</xref>
+							<xref target="RFC8485">Vectors of Trust</xref>
 							<spanx style="verb">vtr</spanx> takes precedence over <spanx style="verb">acr_values</spanx>.
 						</t>
 
@@ -426,14 +426,14 @@ https://idp.government.gov/oidc/authorization?
 
 						<t hangText="vot">
 							OPTIONAL. The vector value as specified in 
-							<xref target="I-D.richer-vectors-of-trust">Vectors of Trust</xref>
+							<xref target="RFC8485">Vectors of Trust</xref>
 							. See <xref target="vot">Vectors of Trust</xref> for more details.
 							<spanx style="verb">vot</spanx> takes precedence over acr.
 						</t>
 						
 						<t hangText="vtm"> REQUIRED if <spanx style="verb">vot</spanx> is provided.
 							The trustmark URI as specified in
-							<xref target="I-D.richer-vectors-of-trust">Vectors of Trust</xref>
+							<xref target="RFC8485">Vectors of Trust</xref>
 							. See <xref target="vot">Vectors of Trust</xref> for more details.
 						</t>
 
@@ -643,12 +643,12 @@ Connection: close
 			<section anchor="vot" title="Vectors of Trust">
 				<t>If the <spanx style="verb">vtr</spanx> (Vectors of Trust Request) value is present in the
 				 authorization request as defined in the 
-				 <xref target="I-D.richer-vectors-of-trust">Vectors of Trust</xref> standard, the OpenID 
+				 <xref target="RFC8485">Vectors of Trust</xref> standard, the OpenID 
 				 Provider SHOULD respond with a valid <spanx style="verb">vot</spanx> value as defined 
 				 in [section 3.1]. Both the <spanx style="verb">vtr</spanx> and <spanx style="verb">vot</spanx>
-				 MUST contain values in accordance with the <xref target="I-D.richer-vectors-of-trust">Vectors 
+				 MUST contain values in accordance with the <xref target="RFC8485">Vectors 
 				 of Trust</xref> standard. These values MAY be those defined in the 
-				 <xref target="I-D.richer-vectors-of-trust">Vectors of Trust</xref> standard directly or 
+				 <xref target="RFC8485">Vectors of Trust</xref> standard directly or 
 				 MAY be from a compatible standard. The OpenID Provider MAY require the user to 
 				 re-authenticate, provide a second factor, or perform another action in order to fulfill 
 				 the state requested in the vtr. 
@@ -1172,10 +1172,11 @@ Connection: close
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7662"?>
 
       <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7800"?>
+	  
+	  <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8485"?>
 
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-oauth-pop-architecture.xml"?>
 
-      <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml-ids/reference.I-D.richer-vectors-of-trust.xml"?>
 
 			<reference anchor="BCP195" target="http://www.rfc-editor.org/info/bcp195">
 				<front>

@@ -200,8 +200,8 @@ Varley & Grassi           Expires April 8, 2019                 [Page 3]
       the ID Token.
 
    vtr  OPTIONAL.  MUST be set to a value as described in Section 6.1 of
-      Vectors of Trust [I-D.richer-vectors-of-trust] "vtr" takes
-      precedence over "acr_values".
+      Vectors of Trust [RFC8485] "vtr" takes precedence over
+      "acr_values".
 
    acr_values  OPTIONAL.  Lists the acceptable LoAs for this
       authentication.  See (below).  MUST not be set if "vtr" is
@@ -328,8 +328,8 @@ Varley & Grassi           Expires April 8, 2019                 [Page 5]
       it may be useful to relax this requirement.
 
    vot  OPTIONAL.  The vector value as specified in Vectors of Trust
-      [I-D.richer-vectors-of-trust] . See Vectors of Trust (Section 3.5)
-      for more details.  "vot" takes precedence over acr.
+      [RFC8485] . See Vectors of Trust (Section 3.5) for more details.
+      "vot" takes precedence over acr.
 
 
 
@@ -339,8 +339,8 @@ Varley & Grassi           Expires April 8, 2019                 [Page 6]
 
 
    vtm  REQUIRED if "vot" is provided.  The trustmark URI as specified
-      in Vectors of Trust [I-D.richer-vectors-of-trust] . See Vectors of
-      Trust (Section 3.5) for more details.
+      in Vectors of Trust [RFC8485] . See Vectors of Trust (Section 3.5)
+      for more details.
 
    acr  OPTIONAL.  The LoA the user was authenticated at.  MUST be a
       member of the "acr_values" list from the authentication request.
@@ -526,16 +526,15 @@ Varley & Grassi           Expires April 8, 2019                 [Page 9]
 3.5.  Vectors of Trust
 
    If the "vtr" (Vectors of Trust Request) value is present in the
-   authorization request as defined in the Vectors of Trust
-   [I-D.richer-vectors-of-trust] standard, the OpenID Provider SHOULD
-   respond with a valid "vot" value as defined in [section 3.1].  Both
-   the "vtr" and "vot" MUST contain values in accordance with the
-   Vectors of Trust [I-D.richer-vectors-of-trust] standard.  These
-   values MAY be those defined in the Vectors of Trust
-   [I-D.richer-vectors-of-trust] standard directly or MAY be from a
-   compatible standard.  The OpenID Provider MAY require the user to re-
-   authenticate, provide a second factor, or perform another action in
-   order to fulfill the state requested in the vtr.
+   authorization request as defined in the Vectors of Trust [RFC8485]
+   standard, the OpenID Provider SHOULD respond with a valid "vot" value
+   as defined in [section 3.1].  Both the "vtr" and "vot" MUST contain
+   values in accordance with the Vectors of Trust [RFC8485] standard.
+   These values MAY be those defined in the Vectors of Trust [RFC8485]
+   standard directly or MAY be from a compatible standard.  The OpenID
+   Provider MAY require the user to re-authenticate, provide a second
+   factor, or perform another action in order to fulfill the state
+   requested in the vtr.
 
    For backwards compatibility clients MAY send an "acr_values"
    parameter.  If both the "vtr" and "acr_values" are in the request,
@@ -550,6 +549,7 @@ Varley & Grassi           Expires April 8, 2019                 [Page 9]
    reference, equivalent to the Security Assertion Markup Language
    (SAML) element of the same name) and "amr" (authentication methods
    reference) values in ID tokens only if vtr is not used.
+
 
 
 
@@ -973,11 +973,6 @@ Varley & Grassi           Expires April 8, 2019                [Page 17]
               Architecture", draft-ietf-oauth-pop-architecture-08 (work
               in progress), July 2016.
 
-   [I-D.richer-vectors-of-trust]
-              Richer, J. and L. Johansson, "Vectors of Trust", draft-
-              richer-vectors-of-trust-15 (work in progress), August
-              2018.
-
    [iGov.OAuth2]
               Richer, J., Ed., "iGov Profile for OAuth 2.0", October
               2018,
@@ -1003,17 +998,17 @@ Varley & Grassi           Expires April 8, 2019                [Page 17]
               RFC 2246, DOI 10.17487/RFC2246, January 1999,
               <https://www.rfc-editor.org/info/rfc2246>.
 
+   [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
+              Resource Identifier (URI): Generic Syntax", STD 66,
+              RFC 3986, DOI 10.17487/RFC3986, January 2005,
+              <https://www.rfc-editor.org/info/rfc3986>.
+
 
 
 Varley & Grassi           Expires April 8, 2019                [Page 18]
 
                            openid-igov-profile              October 2018
 
-
-   [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
-              Resource Identifier (URI): Generic Syntax", STD 66,
-              RFC 3986, DOI 10.17487/RFC3986, January 2005,
-              <https://www.rfc-editor.org/info/rfc3986>.
 
    [RFC5246]  Dierks, T. and E. Rescorla, "The Transport Layer Security
               (TLS) Protocol Version 1.2", RFC 5246,
@@ -1058,6 +1053,11 @@ Varley & Grassi           Expires April 8, 2019                [Page 18]
               2.0 Token Revocation", RFC 7009, DOI 10.17487/RFC7009,
               August 2013, <https://www.rfc-editor.org/info/rfc7009>.
 
+   [RFC7033]  Jones, P., Salgueiro, G., Jones, M., and J. Smarr,
+              "WebFinger", RFC 7033, DOI 10.17487/RFC7033, September
+              2013, <https://www.rfc-editor.org/info/rfc7033>.
+
+
 
 
 
@@ -1065,10 +1065,6 @@ Varley & Grassi           Expires April 8, 2019                [Page 19]
 
                            openid-igov-profile              October 2018
 
-
-   [RFC7033]  Jones, P., Salgueiro, G., Jones, M., and J. Smarr,
-              "WebFinger", RFC 7033, DOI 10.17487/RFC7033, September
-              2013, <https://www.rfc-editor.org/info/rfc7033>.
 
    [RFC7515]  Jones, M., Bradley, J., and N. Sakimura, "JSON Web
               Signature (JWS)", RFC 7515, DOI 10.17487/RFC7515, May
@@ -1103,6 +1099,10 @@ Varley & Grassi           Expires April 8, 2019                [Page 19]
               Possession Key Semantics for JSON Web Tokens (JWTs)",
               RFC 7800, DOI 10.17487/RFC7800, April 2016,
               <https://www.rfc-editor.org/info/rfc7800>.
+
+   [RFC8485]  Richer, J., Ed. and L. Johansson, "Vectors of Trust",
+              RFC 8485, DOI 10.17487/RFC8485, October 2018,
+              <https://www.rfc-editor.org/info/rfc8485>.
 
 Appendix A.  Acknowledgements
 
