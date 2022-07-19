@@ -526,8 +526,8 @@ https://idp.government.gov/oidc/authorization?
 					will aid in protecting the privacy of end users as they navigate the system. 
 				</t>
 				<t> 
-					OpenID Providers MUST support pairwaise identifiers for cases where clients
-                    require this functionality. OpenID Providers MAY support public identifiers i
+					OpenID Providers MUST support pairwise identifiers for cases where clients
+                    require this functionality. OpenID Providers MAY support public identifiers
                     for frameworks where public identifiers are required, or for cases where public 
                     identifiers are shared as attributes and the framework does not have a requirement for subject
 					anonymity. 
