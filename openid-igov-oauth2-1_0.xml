@@ -728,10 +728,8 @@ H2_VQ_Ww1JOLn9vRn-H48FDj7TxlIT74XdTZgTv31w_GRPAOfyxEw_ZUmxhz5Z-gTlQ",
 						. Clients MAY use the
 						form-parameter or query-parameter methods in
 						<xref target="RFC6750"/>
-						. Authorized requests MUST be made over TLS, and
-						clients MUST
-						validate the protected resource server's
-						certificate.
+						. All network connections MUST be made using TLS 1.2 or above.
+						Each originator of a TLS connection must verify the destination's certificate.
 					</t>
 
 					<t>An example of an OAuth-protected call to the OpenID Connect
