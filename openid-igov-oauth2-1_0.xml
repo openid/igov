@@ -730,6 +730,14 @@ H2_VQ_Ww1JOLn9vRn-H48FDj7TxlIT74XdTZgTv31w_GRPAOfyxEw_ZUmxhz5Z-gTlQ",
 						<xref target="RFC6750"/>
 						. All network connections MUST be made using TLS 1.2 or above.
 						Each originator of a TLS connection must verify the destination's certificate.
+						For TLS versions below 1.3, only the following 4 cipher suites shall be permitted: 
+						TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
+						TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+						TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
+						TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+						For the authorization_endpoint, the authorization server MAY allow additional cipher suites that are permitted by the latest version of BCP195, if necessary to allow sufficient interoperability with users' web browsers or are required by local regulations. NOTE: Permitted cipher suites are those that BCP195 does not explicity say MUST NOT use.
+						When using the TLS_DHE_RSA_WITH_AES_128_GCM_SHA256 or TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 cipher suites, key lengths of at least 2048 bits are required.
+
 					</t>
 
 					<t>An example of an OAuth-protected call to the OpenID Connect
