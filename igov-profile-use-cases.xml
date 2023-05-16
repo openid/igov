@@ -107,8 +107,8 @@
 
             <c>RP selects an IDP for sign-in (without user intervention)</c>
 
-            <c>This is a special case of &ldquo;user selects an IDP for
-            sign-in&rdquo; where the RP has prior knowledge of the
+            <c>This is a special case of "user selects an IDP for
+            sign-in" where the RP has prior knowledge of the
             requirements for authentication e.g. only a specific identity
             provider meets the requirements for authentication such as level
             of assurance.</c>
@@ -140,7 +140,7 @@
             The RP must also retrieve claims for the individual referred to by
             the ID Token (i.e. from the UserInfo Endpoint). The RP is then
             responsible for matching the claims in the response to the known
-            &lsquo;accounts&rsquo; held within its systems. In the case of a
+            'accounts' held within its systems. In the case of a
             positive match this should result in the identification of a local
             identifier (relevant to the RP) for the user.</c>
           </texttable>
@@ -279,7 +279,7 @@ of HSPD-12 and PIV - issue once, use everywhere.</t>
           <c>The RP may also retrieve claims for the individual referred to by
           the ID Token (i.e. from the UserInfo Endpoint). The RP is then
           responsible for matching the claims in the response to the known
-          &lsquo;accounts&rsquo; held within its systems. In the case of a
+          'accounts' held within its systems. In the case of a
           positive match this should result in the identification of a local
           identifier (relevant to the RP) for the user (see Claims
           Requirements below).</c>
@@ -346,7 +346,7 @@ of HSPD-12 and PIV - issue once, use everywhere.</t>
           <c>birthdate</c>
 
           <c>Date of Birth includes a date using the following format: YYYY +
-          &ldquo;-&ldquo; + MM + &ldquo;-&ldquo; + DD (as defined for
+          "-" + MM + "-" + DD (as defined for
           xsd:date)</c>
         </texttable>
       </section>
@@ -363,7 +363,7 @@ of HSPD-12 and PIV - issue once, use everywhere.</t>
 
           <c>postal_code</c>
 
-          <c>Postal code of the individual&rsquo;s current address where
+          <c>Postal code of the individual's current address where
           available</c>
 
           <c>email</c>
@@ -378,7 +378,7 @@ of HSPD-12 and PIV - issue once, use everywhere.</t>
 
           <c>Gender of the individual where the identity provider has gained
           consent. Values for Gender attributes MUST be one of the following:
-          &middot; Male &middot; Female &middot; Not Specified</c>
+          Male, Female, Not Specified</c>
 
           <c>birth_place</c>
 
@@ -407,7 +407,7 @@ of HSPD-12 and PIV - issue once, use everywhere.</t>
 
       <section title="The Need to Support Identity Matching">
         <t>Matching of the identity assertion based on claims to a local
-        identifier or &lsquo;account&rsquo; related to the individual identity
+        identifier or 'account' related to the individual identity
         at a level of assurance is a requirement where the government in
         question is not able to provide a single identifier for all citizens
         based on an authoritative register of citizens.</t>
@@ -493,7 +493,7 @@ of HSPD-12 and PIV - issue once, use everywhere.</t>
 
         <c>Method of preventing the interception and reading of messages in
         transit either at the user agent (e.g. browser) or in transit between
-        trusted &lsquo;nodes&rsquo; in the federation such as RP, SP and
+        trusted 'nodes' in the federation such as RP, SP and
         Broker (Hub).</c>
 
         <c>Replay Protection</c>

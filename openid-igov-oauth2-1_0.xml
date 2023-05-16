@@ -232,7 +232,7 @@
 				<section anchor="FullClient" title="Full Client with User Delegation">
 					<t>This client type applies to clients that act on behalf of a
 						particular resource owner and require delegation of that
-						user&rsquo;s authority to access the protected resource.
+						user's authority to access the protected resource.
 						Furthermore, these clients are capable of interacting with a
 						separate web browser application to facilitate the resource
 						owner's interaction with the authentication endpoint of the
@@ -242,7 +242,7 @@
 					<t>These clients MUST use the authorization code flow of OAuth 2
 						by sending the resource owner to the authorization endpoint to
 						obtain authorization. The user MUST authenticate to the
-						authorization endpoint. The user&rsquo;s web browser is then
+						authorization endpoint. The user's web browser is then
 						redirected back to a URI hosted by the client service, from which
 						the
 						client can obtain an authorization code passed as a query
@@ -393,7 +393,7 @@
 					<t>
 						<list style="symbols">
 							<t>Hosted on a website with Transport Layer Security (TLS)
-								protection (a Hypertext Transfer Protocol &ndash; Secure
+								protection (a Hypertext Transfer Protocol - Secure
 								(HTTPS) URI)
 							</t>
 
@@ -414,7 +414,7 @@
 					<t>Clients MUST NOT forward values passed back to their redirect
 						URIs to other arbitrary or user-provided URIs (a practice known
 						as
-						an "open redirector&rdquo;).</t>
+						an "open redirector").</t>
 				</section>
 			</section>
 
@@ -431,7 +431,7 @@
 						parameter upon
 						return to the redirect URI and MUST ensure that the
 						state value is
-						securely tied to the user&rsquo;s current session
+						securely tied to the user's current session
 						(e.g., by
 						relating
 						the state value to a session identifier issued by
@@ -449,7 +449,7 @@
 
 					<t>The following is a sample response from a web-based client to
 						the
-						end user&rsquo;s browser for the purpose of redirecting the end
+						end user's browser for the purpose of redirecting the end
 						user
 						to the authorization server's authorization endpoint:
 					</t>
@@ -857,7 +857,7 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 							</t>
 
 							<t hangText="grant_types">grant type used by the client; must be
-								"authorization_code&rdquo; or "client_credentials&rdquo;</t>
+								"authorization_code" or "client_credentials"</t>
 
 							<t hangText="jwks_uri or jwks">client's public key in JWK Set
 								format; if jwks_uri
