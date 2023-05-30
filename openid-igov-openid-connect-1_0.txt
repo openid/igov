@@ -2,10 +2,10 @@
 
 
 
-                                                          M. Varley, Ed.
-
-                                                          P. Grassi, Ed.
-                                                        October 05, 2018
+OpenID iGov Working Group                               M.V. Varley, Ed.
+                                                                        
+                                                        P.G. Grassi, Ed.
+                                                          5 October 2018
 
 
 International Government Assurance Profile (iGov) for OpenID Connect 1.0
@@ -45,29 +45,29 @@ Table of Contents
      3.3.  UserInfo Endpoint . . . . . . . . . . . . . . . . . . . .   8
      3.4.  Request Objects . . . . . . . . . . . . . . . . . . . . .  10
      3.5.  Vectors of Trust  . . . . . . . . . . . . . . . . . . . .  10
-     3.6.  Authentication Context  . . . . . . . . . . . . . . . . .  10
+     3.6.  Authentication Context  . . . . . . . . . . . . . . . . .  11
      3.7.  Discovery . . . . . . . . . . . . . . . . . . . . . . . .  11
      3.8.  Dynamic Registration  . . . . . . . . . . . . . . . . . .  14
    4.  User Info . . . . . . . . . . . . . . . . . . . . . . . . . .  14
-     4.1.  Claims Supported  . . . . . . . . . . . . . . . . . . . .  14
+     4.1.  Claims Supported  . . . . . . . . . . . . . . . . . . . .  15
 
 
 
-Varley & Grassi           Expires April 8, 2019                 [Page 1]
+Varley & Grassi              Standards Track                    [Page 1]
 
                            openid-igov-profile              October 2018
 
 
      4.2.  Scope Profiles  . . . . . . . . . . . . . . . . . . . . .  15
-     4.3.  Claims Request  . . . . . . . . . . . . . . . . . . . . .  15
+     4.3.  Claims Request  . . . . . . . . . . . . . . . . . . . . .  16
      4.4.  Claims Response . . . . . . . . . . . . . . . . . . . . .  16
-     4.5.  Claims Metadata . . . . . . . . . . . . . . . . . . . . .  16
+     4.5.  Claims Metadata . . . . . . . . . . . . . . . . . . . . .  17
    5.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  17
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  17
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  18
    7.  Normative References  . . . . . . . . . . . . . . . . . . . .  18
-   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  20
+   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  21
    Appendix B.  Notices  . . . . . . . . . . . . . . . . . . . . . .  21
-   Appendix C.  Document History . . . . . . . . . . . . . . . . . .  21
+   Appendix C.  Document History . . . . . . . . . . . . . . . . . .  22
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  22
 
 1.  Introduction
@@ -109,7 +109,7 @@ Varley & Grassi           Expires April 8, 2019                 [Page 1]
 
 
 
-Varley & Grassi           Expires April 8, 2019                 [Page 2]
+Varley & Grassi              Standards Track                    [Page 2]
 
                            openid-igov-profile              October 2018
 
@@ -121,15 +121,15 @@ Varley & Grassi           Expires April 8, 2019                 [Page 2]
 
    This specification defines requirements for the following components:
 
-   o  OpenID Connect 1.0 relying parties (also known as OpenID Clients)
+   *  OpenID Connect 1.0 relying parties (also known as OpenID Clients)
 
-   o  OpenID Connect 1.0 identity providers (also known as OpenID
+   *  OpenID Connect 1.0 identity providers (also known as OpenID
       Providers)
 
    The specification also defines features for interaction between these
    components:
 
-   o  Relying party to identity provider
+   *  Relying party to identity provider
 
    When an iGov-compliant component is interacting with other iGov-
    compliant components, in any valid combination, all components MUST
@@ -155,6 +155,7 @@ Varley & Grassi           Expires April 8, 2019                 [Page 2]
 
 2.  Relying Party Profile
 
+
 2.1.  Requests to the Authorization Endpoint (Authentication Request)
 
    The iGov OAuth2 profile [iGov.OAuth2] specifies requirements for
@@ -164,8 +165,7 @@ Varley & Grassi           Expires April 8, 2019                 [Page 2]
 
 
 
-
-Varley & Grassi           Expires April 8, 2019                 [Page 3]
+Varley & Grassi              Standards Track                    [Page 3]
 
                            openid-igov-profile              October 2018
 
@@ -180,7 +180,7 @@ Varley & Grassi           Expires April 8, 2019                 [Page 3]
    client_id  REQUIRED.  OAuth 2.0 Client Identifier valid at the
       Authorization Server.
 
-   response_type  REQUIRED.  MUST be set to "code" .
+   response_type  REQUIRED.  MUST be set to code .
 
    scope  REQUIRED.  Indicates the attributes being requested.  (See
       below)
@@ -200,11 +200,10 @@ Varley & Grassi           Expires April 8, 2019                 [Page 3]
       the ID Token.
 
    vtr  OPTIONAL.  MUST be set to a value as described in Section 6.1 of
-      Vectors of Trust [RFC8485] "vtr" takes precedence over
-      "acr_values".
+      Vectors of Trust [RFC8485] vtr takes precedence over acr_values.
 
    acr_values  OPTIONAL.  Lists the acceptable LoAs for this
-      authentication.  See (below).  MUST not be set if "vtr" is
+      authentication.  See (below).  MUST not be set if vtr is
       specified.
 
    code_challenge and code_challenge_method  OPTIONAL.  If the PKCE
@@ -221,7 +220,8 @@ Varley & Grassi           Expires April 8, 2019                 [Page 3]
 
 
 
-Varley & Grassi           Expires April 8, 2019                 [Page 4]
+
+Varley & Grassi              Standards Track                    [Page 4]
 
                            openid-igov-profile              October 2018
 
@@ -245,13 +245,13 @@ Varley & Grassi           Expires April 8, 2019                 [Page 4]
 
    The following parameters are specified:
 
-   grant_type  MUST be set to "authorization_code" .
+   grant_type  MUST be set to authorization_code .
 
    code  The value of the code parameter returned in the authorization
       response.
 
-   client_assertion_type  MUST be set to "urn:ietf:params:oauth:client-
-      assertion-type:jwt-bearer" .
+   client_assertion_type  MUST be set to urn:ietf:params:oauth:client-
+      assertion-type:jwt-bearer .
 
    client_assertion  The value of the signed client authentication JWT
       generated as described below.  The RP must generate a new
@@ -277,7 +277,7 @@ Varley & Grassi           Expires April 8, 2019                 [Page 4]
 
 
 
-Varley & Grassi           Expires April 8, 2019                 [Page 5]
+Varley & Grassi              Standards Track                    [Page 5]
 
                            openid-igov-profile              October 2018
 
@@ -285,7 +285,7 @@ Varley & Grassi           Expires April 8, 2019                 [Page 5]
 2.4.  Request Objects
 
    Clients MAY optionally send requests to the authorization endpoint
-   using the "request" parameter as defined by OpenID Connect
+   using the request parameter as defined by OpenID Connect
    [OpenID.Core] .  Clients MAY send requests to the authorization
    endpoint by reference using the request_uri parameter.
 
@@ -299,6 +299,7 @@ Varley & Grassi           Expires April 8, 2019                 [Page 5]
    once an OP has been discovered and used by the client.
 
 3.  OpenID Provider Profile
+
 
 3.1.  ID Tokens
 
@@ -328,23 +329,25 @@ Varley & Grassi           Expires April 8, 2019                 [Page 5]
       it may be useful to relax this requirement.
 
    vot  OPTIONAL.  The vector value as specified in Vectors of Trust
-      [RFC8485] . See Vectors of Trust (Section 3.5) for more details.
-      "vot" takes precedence over acr.
 
 
 
-Varley & Grassi           Expires April 8, 2019                 [Page 6]
+
+Varley & Grassi              Standards Track                    [Page 6]
 
                            openid-igov-profile              October 2018
 
 
-   vtm  REQUIRED if "vot" is provided.  The trustmark URI as specified
-      in Vectors of Trust [RFC8485] . See Vectors of Trust (Section 3.5)
+      [RFC8485] . See Vectors of Trust (Section 3.5) for more details.
+      vot takes precedence over acr.
+
+   vtm  REQUIRED if vot is provided.  The trustmark URI as specified in
+      Vectors of Trust [RFC8485] . See Vectors of Trust (Section 3.5)
       for more details.
 
    acr  OPTIONAL.  The LoA the user was authenticated at.  MUST be a
-      member of the "acr_values" list from the authentication request.
-      The OpenID Provider MUST NOT include this field if "vot" is
+      member of the acr_values list from the authentication request.
+      The OpenID Provider MUST NOT include this field if vot is
       provided.  See Authentication Context (Section 3.6) for more
       details.
 
@@ -386,10 +389,7 @@ Varley & Grassi           Expires April 8, 2019                 [Page 6]
 
 
 
-
-
-
-Varley & Grassi           Expires April 8, 2019                 [Page 7]
+Varley & Grassi              Standards Track                    [Page 7]
 
                            openid-igov-profile              October 2018
 
@@ -414,10 +414,10 @@ Varley & Grassi           Expires April 8, 2019                 [Page 7]
    Pairwise identifiers specified in OpenID Connect Core [OpenID.Core]
    section 8 help protect an end user's privacy by allowing an OpenID
    Provider to represent a single user with a different subject
-   identifier ("sub") for every client the user connects to.  This
+   identifier (sub) for every client the user connects to.  This
    technique can help mitigate correlation of a user between multiple
    clients by preventing the clients from using the subject identifier
-   (the "sub" claim) to track a user between different sites and
+   (the sub claim) to track a user between different sites and
    applications.  Use of pairwise identifiers does not prevent clients
    from correlating data based on other identifying attributes such as
    names, phone numbers, email addresses, document numbers, or other
@@ -426,9 +426,9 @@ Varley & Grassi           Expires April 8, 2019                 [Page 7]
    pairwise identifier will aid in protecting the privacy of end users
    as they navigate the system.
 
-   OpenID Providers MUST support pairwaise identifiers for cases where
+   OpenID Providers MUST support pairwise identifiers for cases where
    clients require this functionality.  OpenID Providers MAY support
-   public identifiers i for frameworks where public identifiers are
+   public identifiers for frameworks where public identifiers are
    required, or for cases where public identifiers are shared as
    attributes and the framework does not have a requirement for subject
    anonymity.
@@ -436,20 +436,22 @@ Varley & Grassi           Expires April 8, 2019                 [Page 7]
 3.3.  UserInfo Endpoint
 
    OpenID Providers MUST support the UserInfo Endpoint and, at a
-   minimum, the "sub" (subject) claim.  It is expected that the "sub"
-   claim will remain pseudonymous in use cases where obtaining personal
+   minimum, the sub (subject) claim.  It is expected that the sub claim
+   will remain pseudonymous in use cases where obtaining personal
    information is not needed.
 
-   Support for a UserInfo Endpoint is important for maximum client
-   implementation interoperability even if no additional user
 
 
 
-Varley & Grassi           Expires April 8, 2019                 [Page 8]
+
+
+Varley & Grassi              Standards Track                    [Page 8]
 
                            openid-igov-profile              October 2018
 
 
+   Support for a UserInfo Endpoint is important for maximum client
+   implementation interoperability even if no additional user
    information is returned.  Clients are not required to call the
    UserInfo Endpoint, but should not receive an error if they do.
 
@@ -488,6 +490,22 @@ Varley & Grassi           Expires April 8, 2019                 [Page 8]
       "family_name": "Emeritus",
    }
 
+
+
+
+
+
+
+
+
+
+
+
+Varley & Grassi              Standards Track                    [Page 9]
+
+                           openid-igov-profile              October 2018
+
+
    OpenID Providers MUST support the generation of JWT [RFC7519] encoded
    responses from the UserInfo Endpoint in addition to unsigned JSON
    objects.  Signed responses MUST be signed by the OpenID Provider's
@@ -498,14 +516,6 @@ Varley & Grassi           Expires April 8, 2019                 [Page 8]
    and encryption methods listed in the JSON Web Algorithms (JWA
    [RFC7518]) specification.
 
-
-
-
-Varley & Grassi           Expires April 8, 2019                 [Page 9]
-
-                           openid-igov-profile              October 2018
-
-
 3.4.  Request Objects
 
    OpenID Providers MUST accept requests containing a request object
@@ -515,7 +525,7 @@ Varley & Grassi           Expires April 8, 2019                 [Page 9]
    with the server's public key.
 
    OpenID Providers MAY accept request objects by reference using the
-   "request_uri" parameter.
+   request_uri parameter.
 
    Both of these methods allow for clients to create a request that is
    protected from tampering through the browser, allowing for a higher
@@ -525,10 +535,10 @@ Varley & Grassi           Expires April 8, 2019                 [Page 9]
 
 3.5.  Vectors of Trust
 
-   If the "vtr" (Vectors of Trust Request) value is present in the
+   If the vtr (Vectors of Trust Request) value is present in the
    authorization request as defined in the Vectors of Trust [RFC8485]
-   standard, the OpenID Provider SHOULD respond with a valid "vot" value
-   as defined in [section 3.1].  Both the "vtr" and "vot" MUST contain
+   standard, the OpenID Provider SHOULD respond with a valid vot value
+   as defined in [section 3.1].  Both the vtr and vot MUST contain
    values in accordance with the Vectors of Trust [RFC8485] standard.
    These values MAY be those defined in the Vectors of Trust [RFC8485]
    standard directly or MAY be from a compatible standard.  The OpenID
@@ -536,31 +546,28 @@ Varley & Grassi           Expires April 8, 2019                 [Page 9]
    factor, or perform another action in order to fulfill the state
    requested in the vtr.
 
-   For backwards compatibility clients MAY send an "acr_values"
-   parameter.  If both the "vtr" and "acr_values" are in the request,
-   the "vtr" MUST take precedence and the "acr_values" MUST be ignored.
+   For backwards compatibility clients MAY send an acr_values parameter.
+   If both the vtr and acr_values are in the request, the vtr MUST take
+   precedence and the acr_values MUST be ignored.
 
    It is out of scope of this document to determine how an organization
    maps their digital identity practices to valid VOT component values.
 
-3.6.  Authentication Context
-
-   OpenID Providers MAY provide "acr" (authentication context class
-   reference, equivalent to the Security Assertion Markup Language
-   (SAML) element of the same name) and "amr" (authentication methods
-   reference) values in ID tokens only if vtr is not used.
 
 
 
 
-
-
-
-
-Varley & Grassi           Expires April 8, 2019                [Page 10]
+Varley & Grassi              Standards Track                   [Page 10]
 
                            openid-igov-profile              October 2018
 
+
+3.6.  Authentication Context
+
+   OpenID Providers MAY provide acr (authentication context class
+   reference, equivalent to the Security Assertion Markup Language
+   (SAML) element of the same name) and amr (authentication methods
+   reference) values in ID tokens only if vtr is not used.
 
 3.7.  Discovery
 
@@ -585,7 +592,7 @@ Varley & Grassi           Expires April 8, 2019                [Page 10]
    the Provider wishes to support.
 
    All OpenID Providers are uniquely identified by a URL known as the
-   "issuer".  This URL serves as the prefix of a service discovery
+   issuer.  This URL serves as the prefix of a service discovery
    endpoint as specified in the OpenID Connect Discovery standard
    [OpenID.Discovery].  The discovery document MUST contain at minimum
    the following fields:
@@ -603,20 +610,21 @@ Varley & Grassi           Expires April 8, 2019                [Page 10]
       server's introspection endpoint defined by OAuth Token
       Introspection [RFC7662].
 
+
+
+
+Varley & Grassi              Standards Track                   [Page 11]
+
+                           openid-igov-profile              October 2018
+
+
    revocation_endpoint  OPTIONAL.  The fully qualified URL of the
       server's revocation endpoint defined by OAuth Token Revocation
       [RFC7009].
 
    jwks_uri  REQUIRED.  The fully qualified URI of the server's public
       key in JWK Set [RFC7517] format.  For verifying the signatures on
-      the "id_token".
-
-
-
-Varley & Grassi           Expires April 8, 2019                [Page 11]
-
-                           openid-igov-profile              October 2018
-
+      the id_token.
 
    scopes_supported  REQUIRED.  The list of scopes, including iGov
       scopes, the server supports.
@@ -626,72 +634,26 @@ Varley & Grassi           Expires April 8, 2019                [Page 11]
 
    vot  OPTIONAL.  The vectors supported.
 
-   acr_values  OPTIONAL.  The acrs supported.
+   acr_values_supported  OPTIONAL.  The acrs supported.
 
    The following example shows the JSON document found at a discovery
    endpoint for an authorization server:
 
    {
-     "request_parameter_supported": true,
-     "id_token_encryption_alg_values_supported": [
-       "RSA-OAEP", "RSA1_5", "RSA-OAEP-256"
-     ],
+     "issuer": "https://idp-p.example.com/",
      "registration_endpoint": "https://idp-p.example.com/register",
-     "userinfo_signing_alg_values_supported": [
-       "HS256", "HS384", "HS512", "RS256", "RS384", "RS512"
-     ],
-     "token_endpoint": "https://idp-p.example.com/token",
+     "require_request_uri_registration": false,
+     "request_parameter_supported": true,
      "request_uri_parameter_supported": false,
      "request_object_encryption_enc_values_supported": [
        "A192CBC-HS384", "A192GCM", "A256CBC+HS512",
        "A128CBC+HS256", "A256CBC-HS512",
        "A128CBC-HS256", "A128GCM", "A256GCM"
      ],
-     "token_endpoint_auth_methods_supported": [
-       "private_key_jwt",
-     ],
-     "userinfo_encryption_alg_values_supported": [
-       "RSA-OAEP", "RSA1_5",
-       "RSA-OAEP-256"
-     ],
-     "subject_types_supported": [
-       "public", "pairwise"
-     ],
-     "id_token_encryption_enc_values_supported": [
-       "A192CBC-HS384", "A192GCM", "A256CBC+HS512",
-       "A128CBC+HS256", "A256CBC-HS512", "A128CBC-HS256",
-       "A128GCM", "A256GCM"
-     ],
-     "claims_parameter_supported": false,
-     "jwks_uri": "https://idp-p.example.com/jwk",
-     "id_token_signing_alg_values_supported": [
-       "HS256", "HS384", "HS512", "RS256", "RS384", "RS512", "none"
-
-
-
-Varley & Grassi           Expires April 8, 2019                [Page 12]
-
-                           openid-igov-profile              October 2018
-
-
-     ],
-     "authorization_endpoint": "https://idp-p.example.com/authorize",
-     "require_request_uri_registration": false,
-     "introspection_endpoint": "https://idp-p.example.com/introspect",
-     "request_object_encryption_alg_values_supported": [
-       "RSA-OAEP", ?RSA1_5", "RSA-OAEP-256"
-     ],
-     "service_documentation": "https://idp-p.example.com/about",
-     "response_types_supported": [
-       "code", "token"
-     ],
-     "token_endpoint_auth_signing_alg_values_supported": [
-       "HS256", "HS384", "HS512", "RS256", "RS384", "RS512"
-     ],
-     "revocation_endpoint": "https://idp-p.example.com/revoke",
      "request_object_signing_alg_values_supported": [
-       "HS256", "HS384", "HS512", "RS256", "RS384", "RS512"
+       "RS256", "RS384", "RS512"
      ],
+     "claims_parameter_supported": true,
      "claim_types_supported": [
        "normal"
      ],
@@ -701,19 +663,74 @@ Varley & Grassi           Expires April 8, 2019                [Page 12]
      "scopes_supported": [
        "profile", "openid", "doc"
      ],
+     "code_challenge_methods_supported":["S256"],
+     "authorization_endpoint": "https://idp-p.example.com/authorize",
+     "request_object_encryption_alg_values_supported": [
+
+
+
+Varley & Grassi              Standards Track                   [Page 12]
+
+                           openid-igov-profile              October 2018
+
+
+       "RSA-OAEP", "RSA-OAEP-256"
+     ],
+     "response_types_supported": [
+       "code"
+     ],
+     "subject_types_supported": [
+       "public", "pairwise"
+     ],
+     "token_endpoint": "https://idp-p.example.com/token",
+     "token_endpoint_auth_methods_supported": [
+       "private_key_jwt",
+     ],
+     "token_endpoint_auth_signing_alg_values_supported": [
+       "RS256", "RS384", "RS512"
+     ],
+     "id_token_signing_alg_values_supported": [
+       "RS256", "RS384", "RS512"
+     ],
+     "id_token_encryption_enc_values_supported": [
+       "A192CBC-HS384", "A192GCM", "A256CBC+HS512",
+       "A128CBC+HS256", "A256CBC-HS512", "A128CBC-HS256",
+       "A128GCM", "A256GCM"
+     ],
+     "id_token_encryption_alg_values_supported": [
+       "RSA-OAEP", "RSA-OAEP-256"
+     ],
      "userinfo_endpoint": "https://idp-p.example.com/userinfo",
+     "userinfo_signing_alg_values_supported": ["RS256"],
      "userinfo_encryption_enc_values_supported": [
        "A192CBC-HS384", "A192GCM", "A256CBC+HS512","A128CBC+HS256",
        "A256CBC-HS512", "A128CBC-HS256", "A128GCM", "A256GCM"
      ],
+     "userinfo_encryption_alg_values_supported": [
+       "RSA-OAEP", "RSA-OAEP-256"
+     ],
+     "userinfo_signing_alg_values_supported": [
+       "RS256", "RS384", "RS512"
+     ],
+     "jwks_uri": "https://idp-p.example.com/jwks.jose",
+     "introspection_endpoint": "https://idp-p.example.com/introspect",
+     "revocation_endpoint": "https://idp-p.example.com/revoke",
+     "introspection_endpoint": "https://idp-p.example.com/introspect",
      "op_tos_uri": "https://idp-p.example.com/about",
-     "issuer": "https://idp-p.example.com/",
      "op_policy_uri": "https://idp-p.example.com/about",
+     "service_documentation": "https://idp-p.example.com/about",
      "claims_supported": [
        "sub", "name", "vot", "acr"
      ],
-     "vot": "???"
-     "acr" " ??? "
+
+
+
+Varley & Grassi              Standards Track                   [Page 13]
+
+                           openid-igov-profile              October 2018
+
+
+     "acr_values_supported": ["gold", "silver", "bronze"],
    }
 
    It is RECOMMENDED that servers provide cache information through HTTP
@@ -721,14 +738,6 @@ Varley & Grassi           Expires April 8, 2019                [Page 12]
 
    The server MUST provide its public key in JWK Set [RFC7517] format,
    such as the following 2048-bit RSA key:
-
-
-
-
-Varley & Grassi           Expires April 8, 2019                [Page 13]
-
-                           openid-igov-profile              October 2018
-
 
    {
      "keys": [
@@ -762,29 +771,32 @@ Varley & Grassi           Expires April 8, 2019                [Page 13]
    cross-jurisdictional interoperability, while setting Client
    expectations on the type of data they may acquire.
 
+
+
+
+
+
+
+
+
+
+
+Varley & Grassi              Standards Track                   [Page 14]
+
+                           openid-igov-profile              October 2018
+
+
 4.1.  Claims Supported
 
-   Discovery mandates the inclusion of the "claims_supported" field that
+   Discovery mandates the inclusion of the claims_supported field that
    defines the claims a client MAY expect to receive for the supported
    scopes.  OpenID Providers MUST return claims on a best effort basis.
    However, a Provider asserting it can provide a user claim does not
    imply that this data is available for all its users: clients MUST be
    prepared to receive partial data.  Providers MAY return claims
-   outside of the "claims_supported" list, but they MUST still ensure
-   that the extra claims to not violate the privacy policies set out by
-   the federation.
-
-
-
-
-
-
-
-
-Varley & Grassi           Expires April 8, 2019                [Page 14]
-
-                           openid-igov-profile              October 2018
-
+   outside of the claims_supported list, but they MUST still ensure that
+   the extra claims to not violate the privacy policies set out by the
+   federation.
 
 4.2.  Scope Profiles
 
@@ -803,7 +815,7 @@ Varley & Grassi           Expires April 8, 2019                [Page 14]
    the availability of a single identifier (e.g. social security number)
    cannot be guaranteed for the individual wishing to authenticate.
 
-   This standard defines a set of common "scope" values that aim to
+   This standard defines a set of common scope values that aim to
    provide maximum cross-jurisdictional identity matching while not
    being perscriptive on the exact attributes shared, as every
    jurisdiction will likely have varius levels of information available,
@@ -812,14 +824,24 @@ Varley & Grassi           Expires April 8, 2019                [Page 14]
 
    profile  The OpenID Connect Core [OpenID.Core] defined profile
       provides baseline identity information.  It is HIGHLY RECOMMENDED
-      that the attributes for "given_name, family_name, address,
-      birthdate" be supported by iGov Providers if possible, unless data
+      that the attributes for given_name, family_name, address,
+      birthdate be supported by iGov Providers if possible, unless data
       quality requirements or privacy considerations prevent it.  It is
       left to the OpenID Provider and the trust framework to set any
       further limitations on this profile data - see Privacy
       Considerations below.
 
    doc  The identity document type(s) and associated "number" the
+
+
+
+
+
+Varley & Grassi              Standards Track                   [Page 15]
+
+                           openid-igov-profile              October 2018
+
+
       Provider is capable of providing.  Mutliple document types MAY be
       returned.  This could be passport, driver's license, national ID
       card, health insurance no., and so on.  See the Claims below for
@@ -834,27 +856,19 @@ Varley & Grassi           Expires April 8, 2019                [Page 14]
    client specifically asks for, and does not volunteer additonal
    information about the subject.
 
-
-
-
-Varley & Grassi           Expires April 8, 2019                [Page 15]
-
-                           openid-igov-profile              October 2018
-
-
-   Clients requesting the "profile" scope MAY provide a claims request
+   Clients requesting the profile scope MAY provide a claims request
    parameter.  If the claims request is omitted, the OpenID Provider
    SHOULD provide a default claims set that it has available for the
    subject, in accordance with any policies set out by the trust
    framework the Provider supports.
 
-   Client requesting the "doc" scope MUST provide a claims request
+   Client requesting the doc scope MUST provide a claims request
    parameter indicating the document type (or types) and fields they
    wish to receive, or they will receive none.  The OpenID Provider MUST
    NOT return any doc related claims not included in the claims request.
-   Client requests that include the "doc" scope but no claims request
-   MUST NOT be rejected by the OpenID Provider, but simply no "doc"
-   related claims are returned in the UserInfo object.
+   Client requests that include the doc scope but no claims request MUST
+   NOT be rejected by the OpenID Provider, but simply no doc related
+   claims are returned in the UserInfo object.
 
 4.4.  Claims Response
 
@@ -862,7 +876,7 @@ Varley & Grassi           Expires April 8, 2019                [Page 15]
    requested to avoid having a OpenID Provider over-expose a user's
    identity information.
 
-   The document "doc" claims response include:
+   The document doc claims response include:
 
    type  The document type.
 
@@ -876,6 +890,14 @@ Varley & Grassi           Expires April 8, 2019                [Page 15]
 
    issuer_location  The location/address of the issuing agency.
 
+
+
+
+Varley & Grassi              Standards Track                   [Page 16]
+
+                           openid-igov-profile              October 2018
+
+
    Claims response MAY also make use of the aggegated and/or distributed
    claims structure to refer to the original source of the subject's
    claims.
@@ -887,16 +909,6 @@ Varley & Grassi           Expires April 8, 2019                [Page 15]
    attributes within the UserInfo object, but are outside the scope of
    this document.  These types of claims are best described by the trust
    framework the clients and OpenID Providers operate within.
-
-
-
-
-
-
-Varley & Grassi           Expires April 8, 2019                [Page 16]
-
-                           openid-igov-profile              October 2018
-
 
 5.  Privacy Considerations
 
@@ -932,6 +944,16 @@ Varley & Grassi           Expires April 8, 2019                [Page 16]
    The reasons for relaxing the controls that support data
    minimalization are outside the scope of this specification.
 
+
+
+
+
+
+Varley & Grassi              Standards Track                   [Page 17]
+
+                           openid-igov-profile              October 2018
+
+
 6.  Security Considerations
 
    All transactions MUST be protected in transit by TLS as described in
@@ -941,18 +963,6 @@ Varley & Grassi           Expires April 8, 2019                [Page 16]
    Security Considerations sections of [RFC6749] and those found in the
    OAuth 2.0 Threat Model and Security Considerations document [RFC6819]
    .
-
-
-
-
-
-
-
-
-Varley & Grassi           Expires April 8, 2019                [Page 17]
-
-                           openid-igov-profile              October 2018
-
 
 7.  Normative References
 
@@ -964,30 +974,41 @@ Varley & Grassi           Expires April 8, 2019                [Page 17]
 
    [HEART.OAuth2]
               Richer, J., Ed., "Health Relationship Trust Profile for
-              OAuth 2.0", April 2017,
+              OAuth 2.0", 25 April 2017,
               <http://openid.net/specs/openid-heart-oauth2-1_0.html>.
 
    [I-D.ietf-oauth-pop-architecture]
               Hunt, P., Richer, J., Mills, W., Mishra, P., and H.
               Tschofenig, "OAuth 2.0 Proof-of-Possession (PoP) Security
-              Architecture", draft-ietf-oauth-pop-architecture-08 (work
-              in progress), July 2016.
+              Architecture", Work in Progress, Internet-Draft, draft-
+              ietf-oauth-pop-architecture-08, 8 July 2016,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-oauth-
+              pop-architecture-08>.
 
    [iGov.OAuth2]
-              Richer, J., Ed., "iGov Profile for OAuth 2.0", October
+              Richer, J., Ed., "iGov Profile for OAuth 2.0", 5 October
               2018,
               <http://openid.net/specs/openid-igov-oauth2-1_0.html>.
 
    [OpenID.Core]
-              Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., and
-              C. Mortimore, "OpenID Connect Core 1.0", August 2015,
+              Sakimura, N., Bradley, J., Jones, M.B., de Medeiros, B.,
+              and C. Mortimore, "OpenID Connect Core 1.0", 3 August
+              2015,
               <http://openid.net/specs/openid-connect-core-1_0.html>.
 
    [OpenID.Discovery]
-              Sakimura, N., Bradley, J., Jones, M., and E. Jay, "OpenID
-              Connect Discovery 1.0", August 2015,
-              <http://openid.net/specs/
-              openid-connect-discovery-1_0.html>.
+              Sakimura, N., Bradley, J., Jones, M.B., and E. Jay,
+              "OpenID Connect Discovery 1.0", 3 August 2015,
+              <http://openid.net/specs/openid-connect-discovery-
+              1_0.html>.
+
+
+
+
+Varley & Grassi              Standards Track                   [Page 18]
+
+                           openid-igov-profile              October 2018
+
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1002,13 +1023,6 @@ Varley & Grassi           Expires April 8, 2019                [Page 17]
               Resource Identifier (URI): Generic Syntax", STD 66,
               RFC 3986, DOI 10.17487/RFC3986, January 2005,
               <https://www.rfc-editor.org/info/rfc3986>.
-
-
-
-Varley & Grassi           Expires April 8, 2019                [Page 18]
-
-                           openid-igov-profile              October 2018
-
 
    [RFC5246]  Dierks, T. and E. Rescorla, "The Transport Layer Security
               (TLS) Protocol Version 1.2", RFC 5246,
@@ -1044,6 +1058,14 @@ Varley & Grassi           Expires April 8, 2019                [Page 18]
               DOI 10.17487/RFC6750, October 2012,
               <https://www.rfc-editor.org/info/rfc6750>.
 
+
+
+
+Varley & Grassi              Standards Track                   [Page 19]
+
+                           openid-igov-profile              October 2018
+
+
    [RFC6819]  Lodderstedt, T., Ed., McGloin, M., and P. Hunt, "OAuth 2.0
               Threat Model and Security Considerations", RFC 6819,
               DOI 10.17487/RFC6819, January 2013,
@@ -1056,15 +1078,6 @@ Varley & Grassi           Expires April 8, 2019                [Page 18]
    [RFC7033]  Jones, P., Salgueiro, G., Jones, M., and J. Smarr,
               "WebFinger", RFC 7033, DOI 10.17487/RFC7033, September
               2013, <https://www.rfc-editor.org/info/rfc7033>.
-
-
-
-
-
-Varley & Grassi           Expires April 8, 2019                [Page 19]
-
-                           openid-igov-profile              October 2018
-
 
    [RFC7515]  Jones, M., Bradley, J., and N. Sakimura, "JSON Web
               Signature (JWS)", RFC 7515, DOI 10.17487/RFC7515, May
@@ -1100,6 +1113,15 @@ Varley & Grassi           Expires April 8, 2019                [Page 19]
               RFC 7800, DOI 10.17487/RFC7800, April 2016,
               <https://www.rfc-editor.org/info/rfc7800>.
 
+
+
+
+
+Varley & Grassi              Standards Track                   [Page 20]
+
+                           openid-igov-profile              October 2018
+
+
    [RFC8485]  Richer, J., Ed. and L. Johansson, "Vectors of Trust",
               RFC 8485, DOI 10.17487/RFC8485, October 2018,
               <https://www.rfc-editor.org/info/rfc8485>.
@@ -1109,18 +1131,6 @@ Appendix A.  Acknowledgements
    The OpenID Community would like to thank the following people for
    their contributions to this specification: Justin Ritcher, Paul
    Grassi, John Bradley, Adam Cooper, ...
-
-
-
-
-
-
-
-
-Varley & Grassi           Expires April 8, 2019                [Page 20]
-
-                           openid-igov-profile              October 2018
-
 
 Appendix B.  Notices
 
@@ -1159,37 +1169,35 @@ Appendix B.  Notices
    patents, patent applications, or other proprietary rights that may
    cover technology that may be required to practice this specification.
 
-Appendix C.  Document History
-
-   -2018-05-07
-
-   o  Removed Verifiable Claims definition (will go in another spec).
-
-   o  Clarified Scope and Metadata.
-
-   -2016-07-25
 
 
 
 
-
-Varley & Grassi           Expires April 8, 2019                [Page 21]
+Varley & Grassi              Standards Track                   [Page 21]
 
                            openid-igov-profile              October 2018
 
 
-   o  Imported content from OpenID HEART 1.0 profile and Connect.Gov
+Appendix C.  Document History
+
+   -2018-05-07
+
+   *  Removed Verifiable Claims definition (will go in another spec).
+
+   *  Clarified Scope and Metadata.
+
+   -2016-07-25
+
+   *  Imported content from OpenID HEART 1.0 profile and Connect.Gov
       integration guide v 1.4
 
 Authors' Addresses
 
    Michael Varley (editor)
-
    Email: mike.varley@securekey.com
 
 
    Paul Grassi (editor)
-
    Email: pgrassi@easydynamics.com
 
 
@@ -1221,12 +1229,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-
-
-
-Varley & Grassi           Expires April 8, 2019                [Page 22]
+Varley & Grassi              Standards Track                   [Page 22]

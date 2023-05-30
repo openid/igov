@@ -2,12 +2,12 @@
 
 
 
-                                                          J. Richer, Ed.
-
+OpenID iGov Working Group                                 J. Richer, Ed.
+                                                                        
                                                           P. Grassi, Ed.
-
-                                                          M. Varley, Ed.
-                                                         October 5, 2018
+                                                                        
+                                                        M.V. Varley, Ed.
+                                                          5 October 2018
 
 
 International Government Assurance Profile (iGov) for OAuth 2.0 - Draft
@@ -41,7 +41,7 @@ Table of Contents
      2.3.  Connection to the Authorization Server  . . . . . . . . .   7
        2.3.1.  Requests to the Authorization Endpoint  . . . . . . .   7
        2.3.2.  Requests to the Token Endpoint  . . . . . . . . . . .   8
-       2.3.3.  Client Keys . . . . . . . . . . . . . . . . . . . . .   9
+       2.3.3.  Client Keys . . . . . . . . . . . . . . . . . . . . .  10
      2.4.  Connection to the Protected Resource  . . . . . . . . . .  11
        2.4.1.  Requests to the Protected Resource  . . . . . . . . .  11
    3.  Authorization Server Profile  . . . . . . . . . . . . . . . .  12
@@ -53,15 +53,15 @@ Table of Contents
 
 
 
-Richer, et al.            Expires April 8, 2019                 [Page 1]
+Richer, et al.               Standards Track                    [Page 1]
 
                              iGov OAuth 2.0                 October 2018
 
 
-       3.1.5.  Discovery . . . . . . . . . . . . . . . . . . . . . .  13
+       3.1.5.  Discovery . . . . . . . . . . . . . . . . . . . . . .  14
        3.1.6.  Revocation  . . . . . . . . . . . . . . . . . . . . .  16
-       3.1.7.  PKCE  . . . . . . . . . . . . . . . . . . . . . . . .  17
-       3.1.8.  Redirect URIs . . . . . . . . . . . . . . . . . . . .  17
+       3.1.7.  PKCE  . . . . . . . . . . . . . . . . . . . . . . . .  16
+       3.1.8.  Redirect URIs . . . . . . . . . . . . . . . . . . . .  16
        3.1.9.  RefreshTokens . . . . . . . . . . . . . . . . . . . .  17
      3.2.  Connections with protected resources  . . . . . . . . . .  17
        3.2.1.  JWT Bearer Tokens . . . . . . . . . . . . . . . . . .  17
@@ -109,7 +109,7 @@ Richer, et al.            Expires April 8, 2019                 [Page 1]
 
 
 
-Richer, et al.            Expires April 8, 2019                 [Page 2]
+Richer, et al.               Standards Track                    [Page 2]
 
                              iGov OAuth 2.0                 October 2018
 
@@ -143,18 +143,18 @@ Richer, et al.            Expires April 8, 2019                 [Page 2]
 
    This specification defines requirements for the following components:
 
-   o  OAuth 2.0 clients.
+   *  OAuth 2.0 clients.
 
-   o  OAuth 2.0 authorization servers.
+   *  OAuth 2.0 authorization servers.
 
-   o  OAuth 2.0 protected resources.
+   *  OAuth 2.0 protected resources.
 
    The specification also defines features for interaction between these
    components:
 
-   o  Client to authorization server.
+   *  Client to authorization server.
 
-   o  Protected resource to authorization server.
+   *  Protected resource to authorization server.
 
    When an iGov-compliant component is interacting with other iGov-
    compliant components, in any valid combination, all components MUST
@@ -165,7 +165,7 @@ Richer, et al.            Expires April 8, 2019                 [Page 2]
 
 
 
-Richer, et al.            Expires April 8, 2019                 [Page 3]
+Richer, et al.               Standards Track                    [Page 3]
 
                              iGov OAuth 2.0                 October 2018
 
@@ -186,6 +186,7 @@ Richer, et al.            Expires April 8, 2019                 [Page 3]
    iGov authorization servers and clients.
 
 2.  Client Profiles
+
 
 2.1.  Client Types
 
@@ -220,8 +221,7 @@ Richer, et al.            Expires April 8, 2019                 [Page 3]
 
 
 
-
-Richer, et al.            Expires April 8, 2019                 [Page 4]
+Richer, et al.               Standards Track                    [Page 4]
 
                              iGov OAuth 2.0                 October 2018
 
@@ -253,10 +253,10 @@ Richer, et al.            Expires April 8, 2019                 [Page 4]
 
    Native clients MUST either:
 
-   o  use dynamic client registration to obtain a separate client id for
+   *  use dynamic client registration to obtain a separate client id for
       each instance, or
 
-   o  act as a public client by using a common client id and use PKCE
+   *  act as a public client by using a common client id and use PKCE
       [RFC7636] to protect calls to the token endpoint.
 
    Native applications using dynamic registration SHOULD generate a
@@ -277,7 +277,7 @@ Richer, et al.            Expires April 8, 2019                 [Page 4]
 
 
 
-Richer, et al.            Expires April 8, 2019                 [Page 5]
+Richer, et al.               Standards Track                    [Page 5]
 
                              iGov OAuth 2.0                 October 2018
 
@@ -320,20 +320,20 @@ Richer, et al.            Expires April 8, 2019                 [Page 5]
    A client MUST protect the values passed back to its redirect URI by
    ensuring that the redirect URI is one of the following:
 
-   o  Hosted on a website with Transport Layer Security (TLS) protection
+   *  Hosted on a website with Transport Layer Security (TLS) protection
       (a Hypertext Transfer Protocol - Secure (HTTPS) URI)
 
-   o  Hosted on a client-specific non-remote-protocol URI scheme (e.g.,
+   *  Hosted on a client-specific non-remote-protocol URI scheme (e.g.,
       myapp://)
 
-   o  Hosted on the local domain of the client (e.g., http://localhost/)
+   *  Hosted on the local domain of the client (e.g., http://localhost/)
 
    Clients SHOULD NOT have multiple redirect URIs on different domains.
 
 
 
 
-Richer, et al.            Expires April 8, 2019                 [Page 6]
+Richer, et al.               Standards Track                    [Page 6]
 
                              iGov OAuth 2.0                 October 2018
 
@@ -349,8 +349,8 @@ Richer, et al.            Expires April 8, 2019                 [Page 6]
    Full clients and browser-embedded clients making a request to the
    authorization endpoint MUST use an unpredictable value for the state
    parameter with at least 128 bits of entropy.  Clients MUST validate
-   the value of the "state" parameter upon return to the redirect URI
-   and MUST ensure that the state value is securely tied to the user's
+   the value of the state parameter upon return to the redirect URI and
+   MUST ensure that the state value is securely tied to the user's
    current session (e.g., by relating the state value to a session
    identifier issued by the client software to the browser).
 
@@ -389,7 +389,7 @@ Status: 302 Found
 
 
 
-Richer, et al.            Expires April 8, 2019                 [Page 7]
+Richer, et al.               Standards Track                    [Page 7]
 
                              iGov OAuth 2.0                 October 2018
 
@@ -400,9 +400,9 @@ Richer, et al.            Expires April 8, 2019                 [Page 7]
    direct access clients as defined above MUST authenticate to the
    authorization server's token endpoint using a JWT assertion as
    defined by the JWT Profile for OAuth 2.0 Client Authentication and
-   Authorization Grants [RFC7523] using only the "private_key_jwt"
-   method defined in OpenID Connect Core [OpenID.Core] . The assertion
-   MUST use the claims as follows:
+   Authorization Grants [RFC7523] using only the private_key_jwt method
+   defined in OpenID Connect Core [OpenID.Core] . The assertion MUST use
+   the claims as follows:
 
    iss  the client ID of the client creating the token
 
@@ -445,7 +445,7 @@ Richer, et al.            Expires April 8, 2019                 [Page 7]
 
 
 
-Richer, et al.            Expires April 8, 2019                 [Page 8]
+Richer, et al.               Standards Track                    [Page 8]
 
                              iGov OAuth 2.0                 October 2018
 
@@ -493,32 +493,37 @@ IgT7-Lhf6BbwQNlMQubNeOPRFDqQoLWqe7UxuI06dKX3SEQRMqcxYSIAfP7CQZ4WLuKXb6oEbaqz6g
 L4l6p83G7wKGDeLETOTHszt-ZjKR38v4F_MnSrx8e0iIqgZwurW0RtetEWvynOCJXk-p166T7qZR45
 xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 
+
+
+
+
+
+
+
+
+Richer, et al.               Standards Track                    [Page 9]
+
+                             iGov OAuth 2.0                 October 2018
+
+
 2.3.3.  Client Keys
 
    Clients using the authorization code grant type or direct access
    clients using the client credentials grant type MUST have a public
    and private key pair for use in authentication to the token endpoint.
-
-
-
-Richer, et al.            Expires April 8, 2019                 [Page 9]
-
-                             iGov OAuth 2.0                 October 2018
-
-
    These clients MUST register their public keys in their client
    registration metadata by either sending the public key directly in
-   the "jwks" field or by registering a "jwks_uri" that MUST be
-   reachable by the authorization server.  It is RECOMMENDED that
-   clients use a "jwks_uri" if possible as this allows for key rotation
-   more easily.  This applies to both dynamic and static (out-of-band)
-   client registration.
+   the jwks field or by registering a jwks_uri that MUST be reachable by
+   the authorization server.  It is RECOMMENDED that clients use a
+   jwks_uri if possible as this allows for key rotation more easily.
+   This applies to both dynamic and static (out-of-band) client
+   registration.
 
-   The "jwks" field or the content available from the "jwks_uri" of a
-   client MUST contain a public key in JSON Web Key Set (JWK Set)
-   [RFC7517] format.  The authorization server MUST validate the content
-   of the client's registered jwks_uri document and verify that it
-   contains a JWK Set. The following example is of a 2048-bit RSA key:
+   The jwks field or the content available from the jwks_uri of a client
+   MUST contain a public key in JSON Web Key Set (JWK Set) [RFC7517]
+   format.  The authorization server MUST validate the content of the
+   client's registered jwks_uri document and verify that it contains a
+   JWK Set. The following example is of a 2048-bit RSA key:
 
 {
    "keys": [
@@ -552,12 +557,7 @@ cNt1H2_VQ_Ww1JOLn9vRn-H48FDj7TxlIT74XdTZgTv31w_GRPAOfyxEw_ZUmxhz5Z-gTlQ",
 
 
 
-
-
-
-
-
-Richer, et al.            Expires April 8, 2019                [Page 10]
+Richer, et al.               Standards Track                   [Page 10]
 
                              iGov OAuth 2.0                 October 2018
 
@@ -613,7 +613,7 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 
 
 
-Richer, et al.            Expires April 8, 2019                [Page 11]
+Richer, et al.               Standards Track                   [Page 11]
 
                              iGov OAuth 2.0                 October 2018
 
@@ -629,10 +629,11 @@ Richer, et al.            Expires April 8, 2019                [Page 11]
 
 3.1.  Connections with clients
 
+
 3.1.1.  Grant types
 
-   The authorization server MUST support the "authorization_code" , and
-   MAY support the "client_credentials" grant types as described in
+   The authorization server MUST support the authorization_code , and
+   MAY support the client_credentials grant types as described in
    Section 2 . The authorization server MUST limit each registered
    client (identified by a client ID) to a single grant type only, since
    a single piece of software will be functioning at runtime in only one
@@ -665,15 +666,15 @@ Richer, et al.            Expires April 8, 2019                [Page 11]
    Authorization servers MAY protect their Dynamic Registration
    endpoints by requiring clients to present credentials that the
    authorization server would recognize as authorized participants.
-   Authorization servers MAY accept signed software statements as
 
 
 
-Richer, et al.            Expires April 8, 2019                [Page 12]
+Richer, et al.               Standards Track                   [Page 12]
 
                              iGov OAuth 2.0                 October 2018
 
 
+   Authorization servers MAY accept signed software statements as
    described in [RFC7591] issued to client software developers from a
    trusted registration entity.  The software statement can be used to
    tie together many instances of the same client software that will be
@@ -701,14 +702,14 @@ Richer, et al.            Expires April 8, 2019                [Page 12]
    When prompting the end user with an interactive approval page, the
    authorization server MUST indicate to the user:
 
-   o  Whether the client was dynamically registered, or else statically
+   *  Whether the client was dynamically registered, or else statically
       registered by a trusted administrator, or a public client.
 
-   o  Whether the client is associated with a software statement, and in
+   *  Whether the client is associated with a software statement, and in
       which case provide information about the trusted issuer of the
       software statement.
 
-   o  What kind of access the client is requesting, including scope,
+   *  What kind of access the client is requesting, including scope,
       protected resources (if applicable beyond scopes), and access
       duration.
 
@@ -717,18 +718,23 @@ Richer, et al.            Expires April 8, 2019                [Page 12]
    if this is the expected behaviour.  This signal helps users protect
    themselves fro potentially rogue clients.
 
+
+
+
+
+
+
+
+Richer, et al.               Standards Track                   [Page 13]
+
+                             iGov OAuth 2.0                 October 2018
+
+
 3.1.5.  Discovery
 
    The authorization server MUST provide an OpenID Connect service
    discovery [OpenID.Discovery] endpoint listing the components relevant
    to the OAuth protocol:
-
-
-
-Richer, et al.            Expires April 8, 2019                [Page 13]
-
-                             iGov OAuth 2.0                 October 2018
-
 
    issuer  REQUIRED.  The fully qualified issuer URL of the server
 
@@ -756,36 +762,6 @@ Richer, et al.            Expires April 8, 2019                [Page 13]
    The following example shows the JSON document found at a discovery
    endpoint for an authorization server:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Richer, et al.            Expires April 8, 2019                [Page 14]
-
-                             iGov OAuth 2.0                 October 2018
-
-
   {
     "request_parameter_supported": true,
     "registration_endpoint": "https://idp-p.example.com/register",
@@ -802,6 +778,14 @@ Richer, et al.            Expires April 8, 2019                [Page 14]
     "token_endpoint_auth_methods_supported": [
       "private_key_jwt",
     ],
+
+
+
+Richer, et al.               Standards Track                   [Page 14]
+
+                             iGov OAuth 2.0                 October 2018
+
+
     "jwks_uri": "https://idp-p.example.com/jwk",
     "authorization_endpoint": "https://idp-p.example.com/authorize",
     "require_request_uri_registration": false,
@@ -835,13 +819,6 @@ Richer, et al.            Expires April 8, 2019                [Page 14]
     "op_policy_uri": "https://idp-p.example.com/about"
   }
 
-
-
-Richer, et al.            Expires April 8, 2019                [Page 15]
-
-                             iGov OAuth 2.0                 October 2018
-
-
    Clients and protected resources SHOULD cache this discovery
    information.  It is RECOMMENDED that servers provide cache
    information through HTTP headers and make the cache valid for at
@@ -857,6 +834,13 @@ Richer, et al.            Expires April 8, 2019                [Page 15]
    alg  The default algorithm used for this key
 
    The following is an example of a 2048-bit RSA public key:
+
+
+
+Richer, et al.               Standards Track                   [Page 15]
+
+                             iGov OAuth 2.0                 October 2018
+
 
 {
   "keys": [
@@ -891,13 +875,6 @@ U-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEqfCaPDNp00J6AbY6w",
    A client MUST immediately discard the token and not use it again
    after revoking it.
 
-
-
-Richer, et al.            Expires April 8, 2019                [Page 16]
-
-                             iGov OAuth 2.0                 October 2018
-
-
 3.1.7.  PKCE
 
    An authorization server MUST support the Proof Key for Code Exchange
@@ -910,6 +887,16 @@ Richer, et al.            Expires April 8, 2019                [Page 16]
    The authorization server MUST compare a client's registered redirect
    URIs with the redirect URI presented during an authorization request
    using an exact string match.
+
+
+
+
+
+
+Richer, et al.               Standards Track                   [Page 16]
+
+                             iGov OAuth 2.0                 October 2018
+
 
 3.1.9.  RefreshTokens
 
@@ -947,13 +934,6 @@ Richer, et al.            Expires April 8, 2019                [Page 16]
    The server MUST issue tokens as JWTs with, at minimum, the following
    claims:
 
-
-
-Richer, et al.            Expires April 8, 2019                [Page 17]
-
-                             iGov OAuth 2.0                 October 2018
-
-
    iss  The issuer URL of the server that issued the token
 
    azp  The client id of the client to whom this token was issued
@@ -966,6 +946,13 @@ Richer, et al.            Expires April 8, 2019                [Page 17]
       This value MUST NOT be re-used in another token.  Clients MUST
       check for reuse of jti values and reject all tokens issued with
       duplicate jti values.
+
+
+
+Richer, et al.               Standards Track                   [Page 17]
+
+                             iGov OAuth 2.0                 October 2018
+
 
    The server MAY issue tokens with additional fields, including the
    following as defined here:
@@ -1002,18 +989,26 @@ Richer, et al.            Expires April 8, 2019                [Page 17]
    IANA JSON Web Signatures and Encryption Algorithms registry
    [JWS.JWE.Algs] . The JWS header MUST contain the following fields:
 
-
-
-
-Richer, et al.            Expires April 8, 2019                [Page 18]
-
-                             iGov OAuth 2.0                 October 2018
-
-
    kid  The key ID of the key pair used to sign this token
 
    This example access token has been signed with the server's private
    key using RS256:
+
+
+
+
+
+
+
+
+
+
+
+
+Richer, et al.               Standards Track                   [Page 18]
+
+                             iGov OAuth 2.0                 October 2018
+
 
    eyJhbGciOiJSUzI1NiJ9.ew0KICAgImV4cCI6IDE0MTg3MDIzODgsDQogICAiYXpwIjo
    gIjU1ZjlmNTU5LTI0OTYtNDlkNC1iNmMzLTM1MWE1ODZiNzQ4NCIsDQogICAiaXNzIjo
@@ -1061,7 +1056,12 @@ Richer, et al.            Expires April 8, 2019                [Page 18]
 
 
 
-Richer, et al.            Expires April 8, 2019                [Page 19]
+
+
+
+
+
+Richer, et al.               Standards Track                   [Page 19]
 
                              iGov OAuth 2.0                 October 2018
 
@@ -1117,7 +1117,7 @@ F2vFdL6D_lLeHRy-H2g2OzF59eMIsM_Ccs4G47862w
 
 
 
-Richer, et al.            Expires April 8, 2019                [Page 20]
+Richer, et al.               Standards Track                   [Page 20]
 
                              iGov OAuth 2.0                 October 2018
 
@@ -1173,7 +1173,7 @@ Richer, et al.            Expires April 8, 2019                [Page 20]
 
 
 
-Richer, et al.            Expires April 8, 2019                [Page 21]
+Richer, et al.               Standards Track                   [Page 21]
 
                              iGov OAuth 2.0                 October 2018
 
@@ -1229,7 +1229,7 @@ Richer, et al.            Expires April 8, 2019                [Page 21]
 
 
 
-Richer, et al.            Expires April 8, 2019                [Page 22]
+Richer, et al.               Standards Track                   [Page 22]
 
                              iGov OAuth 2.0                 October 2018
 
@@ -1246,8 +1246,8 @@ Richer, et al.            Expires April 8, 2019                [Page 22]
 4.1.  Protecting Resources
 
    Protected Resources grant access to clients if they present a valid
-   "access_token" with the appropriate "scope".  Resource servers trust
-   the authorization server to authenticate the end user and client
+   access_token with the appropriate scope.  Resource servers trust the
+   authorization server to authenticate the end user and client
    appropriately for the importance, risk, and value level of the
    protected resource scope.
 
@@ -1260,19 +1260,19 @@ Richer, et al.            Expires April 8, 2019                [Page 22]
    authorization server.
 
    Authorization servers MUST authenitcate the end-user with the
-   appropriate trust level before providing an "authorization_code" or
-   associated "access_token" to the client.
+   appropriate trust level before providing an authorization_code or
+   associated access_token to the client.
 
    Authorization servers MUST only grant access to higher level scope
    resources to clients that have permission to request these scope
    levels.  Client authorization requests containing scopes that are
    outside their permisson MUST be rejected.
 
-   Authorization servers MAY set the expiry time ("exp") of
-   access_tokens associated with higher level resources to be shorter
-   than access_tokens for less sensitive resources.
+   Authorization servers MAY set the expiry time (exp) of access_tokens
+   associated with higher level resources to be shorter than
+   access_tokens for less sensitive resources.
 
-   Authorization servers MAY allow a "refresh_token" issued at a higher
+   Authorization servers MAY allow a refresh_token issued at a higher
    level to be used to obtain an access_token for a lower level resource
    scope with an extended expiry time.  The client MUST request both the
    higher level scope and lower level scope in the original
@@ -1285,7 +1285,7 @@ Richer, et al.            Expires April 8, 2019                [Page 22]
 
 
 
-Richer, et al.            Expires April 8, 2019                [Page 23]
+Richer, et al.               Standards Track                   [Page 23]
 
                              iGov OAuth 2.0                 October 2018
 
@@ -1295,24 +1295,24 @@ Richer, et al.            Expires April 8, 2019                [Page 23]
    two-factor authentication, and those access grants are short-lived:
    15 minutes.  For a client to obtain access to both "public" and
    "sensitive" resources, it makes an authorization request to the
-   authorization server with "scope=public+sensitive".  The
-   authorization server authenticates the end-user as required to meet
-   the required trust level (two-factor authentication or some approved
-   equivalent) and issues an "access_token" for the "public" and
-   "sensitive" scopes with an expiry time of 15mins, and a
-   "refresh_token" for the "public" scope with an expiry time of 24 hrs.
-   The client can access both "public" and "sensitive" resources for
-   15mins with the access_token.  When the access_token expires, the
-   client will NOT be able to access "public" or "sensitive" resources
-   any longer as the access_token has expired, and must obtain a new
-   access_token.  The client makes a access grant request (as described
-   in OAuth 2.0 [RFC6749] section 6) with the refresh_token, and the
-   reduced scope of just "public".  The token endpoint validates the
-   refresh_token, and issues a new access_token for just the "public"
-   scopewith an expiry time set to 24hrs.  An access grant request for a
-   new access_token with the "sensitive" scope would be rejected, and
-   require the client to get the end-user to re-authenticate/authorize
-   the "sensitive" scope request.
+   authorization server with scope=public+sensitive.  The authorization
+   server authenticates the end-user as required to meet the required
+   trust level (two-factor authentication or some approved equivalent)
+   and issues an access_token for the "public" and "sensitive" scopes
+   with an expiry time of 15mins, and a refresh_token for the "public"
+   scope with an expiry time of 24 hrs.  The client can access both
+   "public" and "sensitive" resources for 15mins with the access_token.
+   When the access_token expires, the client will NOT be able to access
+   "public" or "sensitive" resources any longer as the access_token has
+   expired, and must obtain a new access_token.  The client makes a
+   access grant request (as described in OAuth 2.0 [RFC6749] section 6)
+   with the refresh_token, and the reduced scope of just "public".  The
+   token endpoint validates the refresh_token, and issues a new
+   access_token for just the "public" scopewith an expiry time set to
+   24hrs.  An access grant request for a new access_token with the
+   "sensitive" scope would be rejected, and require the client to get
+   the end-user to re-authenticate/authorize the "sensitive" scope
+   request.
 
    In this manner, protected resources and authorization servers work
    together to meet risk tolerance levels for sensitive resources and
@@ -1333,19 +1333,24 @@ Richer, et al.            Expires April 8, 2019                [Page 23]
    Protected resources MUST interpret access tokens using either JWT,
    token introspection, or a combination of the two.
 
-   The protected resource MUST check the "aud" (audience) claim, if it
-   exists in the token, to ensure that it includes the protected
-   resource's identifier.  The protected resource MUST ensure that the
-   rights associated with the token are sufficient to grant access to
-   the resource.  For example, this can be accomplished by querying the
 
 
 
-Richer, et al.            Expires April 8, 2019                [Page 24]
+
+
+
+
+
+Richer, et al.               Standards Track                   [Page 24]
 
                              iGov OAuth 2.0                 October 2018
 
 
+   The protected resource MUST check the aud (audience) claim, if it
+   exists in the token, to ensure that it includes the protected
+   resource's identifier.  The protected resource MUST ensure that the
+   rights associated with the token are sufficient to grant access to
+   the resource.  For example, this can be accomplished by querying the
    scopes and acr associated with the token from the authorization
    server's token introspection endpoint.
 
@@ -1375,8 +1380,8 @@ Richer, et al.            Expires April 8, 2019                [Page 24]
    bound to a particular symmetric or asymmetric key issued to, or
    already possessed by, the client.  The association of the key to the
    token is also communicated to the protected resource; a variety of
-   mechanisms for doing this are outlined in the draft OAuth 2.0 Proof-
-   of-Possession (PoP) Security Architecture
+   mechanisms for doing this are outlined in the draft OAuth 2.0
+   Proof-of-Possession (PoP) Security Architecture
    [I-D.ietf-oauth-pop-architecture] . When the client presents the
    token to the protected resource, it is also required to demonstrate
    possession of the corresponding key (e.g., by creating a
@@ -1389,18 +1394,18 @@ Richer, et al.            Expires April 8, 2019                [Page 24]
    access tokens by unauthorized parties.  The attacker would need to
    obtain the legitimate client's cryptographic key along with the
    access token to gain access to protected resources.  Additionally,
+
+
+
+Richer, et al.               Standards Track                   [Page 25]
+
+                             iGov OAuth 2.0                 October 2018
+
+
    portions of the HTTP request could be protected by the same signature
    used in presentation of the token.  Proof of possession tokens may
    not provide all of the same protections as PKI authentication, but
    they are far less challenging to implement on a distributed scale.
-
-
-
-
-Richer, et al.            Expires April 8, 2019                [Page 25]
-
-                             iGov OAuth 2.0                 October 2018
-
 
 6.  Security Considerations
 
@@ -1430,39 +1435,40 @@ Richer, et al.            Expires April 8, 2019                [Page 25]
 
    [HEART.OAuth2]
               Richer, J., "Health Relationship Trust Profile for OAuth
-              2.0", April 2017, <http://openid.net/specs/
-              openid-heart-oauth2-1_0-ID1.html>.
+              2.0", 25 April 2017, <http://openid.net/specs/openid-
+              heart-oauth2-1_0-ID1.html>.
 
    [I-D.ietf-oauth-pop-architecture]
               Hunt, P., Richer, J., Mills, W., Mishra, P., and H.
               Tschofenig, "OAuth 2.0 Proof-of-Possession (PoP) Security
-              Architecture", draft-ietf-oauth-pop-architecture-08 (work
-              in progress), July 2016.
+              Architecture", Work in Progress, Internet-Draft, draft-
+              ietf-oauth-pop-architecture-08, 8 July 2016,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-oauth-
+              pop-architecture-08>.
 
    [JWS.JWE.Algs]
-              "JSON Web Signature and Encryption Algorithms registry",
+              "JSON Web Signature and Encryption Algorithms registry", 8
               August 2016.
 
-   [OpenID.Core]
-              Sakimura, N., Bradley, J., Jones, M., de Medeiros, B., and
-              C. Mortimore, "OpenID Connect Core 1.0", August 2015,
-              <http://openid.net/specs/openid-connect-core-1_0.html>.
 
 
 
-
-
-
-Richer, et al.            Expires April 8, 2019                [Page 26]
+Richer, et al.               Standards Track                   [Page 26]
 
                              iGov OAuth 2.0                 October 2018
 
 
+   [OpenID.Core]
+              Sakimura, N., Bradley, J., Jones, M.B., de Medeiros, B.,
+              and C. Mortimore, "OpenID Connect Core 1.0", 3 August
+              2015,
+              <http://openid.net/specs/openid-connect-core-1_0.html>.
+
    [OpenID.Discovery]
-              Sakimura, N., Bradley, J., Jones, M., and E. Jay, "OpenID
-              Connect Discovery 1.0", August 2015,
-              <http://openid.net/specs/
-              openid-connect-discovery-1_0.html>.
+              Sakimura, N., Bradley, J., Jones, M.B., and E. Jay,
+              "OpenID Connect Discovery 1.0", 3 August 2015,
+              <http://openid.net/specs/openid-connect-discovery-
+              1_0.html>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1496,6 +1502,18 @@ Richer, et al.            Expires April 8, 2019                [Page 26]
               DOI 10.17487/RFC5785, April 2010,
               <https://www.rfc-editor.org/info/rfc5785>.
 
+
+
+
+
+
+
+
+Richer, et al.               Standards Track                   [Page 27]
+
+                             iGov OAuth 2.0                 October 2018
+
+
    [RFC6125]  Saint-Andre, P. and J. Hodges, "Representation and
               Verification of Domain-Based Application Service Identity
               within Internet Public Key Infrastructure Using X.509
@@ -1506,13 +1524,6 @@ Richer, et al.            Expires April 8, 2019                [Page 26]
    [RFC6749]  Hardt, D., Ed., "The OAuth 2.0 Authorization Framework",
               RFC 6749, DOI 10.17487/RFC6749, October 2012,
               <https://www.rfc-editor.org/info/rfc6749>.
-
-
-
-Richer, et al.            Expires April 8, 2019                [Page 27]
-
-                             iGov OAuth 2.0                 October 2018
-
 
    [RFC6750]  Jones, M. and D. Hardt, "The OAuth 2.0 Authorization
               Framework: Bearer Token Usage", RFC 6750,
@@ -1552,6 +1563,13 @@ Richer, et al.            Expires April 8, 2019                [Page 27]
               DOI 10.17487/RFC7518, May 2015,
               <https://www.rfc-editor.org/info/rfc7518>.
 
+
+
+Richer, et al.               Standards Track                   [Page 28]
+
+                             iGov OAuth 2.0                 October 2018
+
+
    [RFC7519]  Jones, M., Bradley, J., and N. Sakimura, "JSON Web Token
               (JWT)", RFC 7519, DOI 10.17487/RFC7519, May 2015,
               <https://www.rfc-editor.org/info/rfc7519>.
@@ -1560,15 +1578,6 @@ Richer, et al.            Expires April 8, 2019                [Page 27]
               (JWT) Profile for OAuth 2.0 Client Authentication and
               Authorization Grants", RFC 7523, DOI 10.17487/RFC7523, May
               2015, <https://www.rfc-editor.org/info/rfc7523>.
-
-
-
-
-
-Richer, et al.            Expires April 8, 2019                [Page 28]
-
-                             iGov OAuth 2.0                 October 2018
-
 
    [RFC7591]  Richer, J., Ed., Jones, M., Bradley, J., Machulak, M., and
               P. Hunt, "OAuth 2.0 Dynamic Client Registration Protocol",
@@ -1610,6 +1619,13 @@ Appendix B.  Notices
    made to the OIDF as the source of the material, but that such
    attribution does not indicate an endorsement by the OIDF.
 
+
+
+Richer, et al.               Standards Track                   [Page 29]
+
+                             iGov OAuth 2.0                 October 2018
+
+
    The technology described in this specification was made available
    from contributions from various sources, including members of the
    OpenID Foundation and others.  Although the OpenID Foundation has
@@ -1618,14 +1634,6 @@ Appendix B.  Notices
    any intellectual property or other rights that might be claimed to
    pertain to the implementation or use of the technology described in
    this specification or the extent to which any license under such
-
-
-
-Richer, et al.            Expires April 8, 2019                [Page 29]
-
-                             iGov OAuth 2.0                 October 2018
-
-
    rights might or might not be available; neither does it represent
    that it has made any independent effort to identify any such rights.
    The OpenID Foundation and the contributors to this specification make
@@ -1645,36 +1653,84 @@ Appendix C.  Document History
 
    -2017-06-01
 
-   o  Aligned with prior version of iGov.
+   *  Aligned with prior version of iGov.
 
-   o  Added guidance text around using scopes and refresh_tokens to
+   *  Added guidance text around using scopes and refresh_tokens to
       protect sensitive resources.
 
-   o  Removed ACR reference.
+   *  Removed ACR reference.
 
    -2018-05-07
 
-   o  Imported content from HEART OAuth profile.
+   *  Imported content from HEART OAuth profile.
 
 Authors' Addresses
 
    Justin Richer (editor)
-
    Email: openid@justin.richer.org
    URI:   http://justin.richer.org/
 
 
    Paul Grassi (editor)
-
    Email: pgrassi@easydynamics.com
 
 
-   Michael Varley (editor)
 
+
+Richer, et al.               Standards Track                   [Page 30]
+
+                             iGov OAuth 2.0                 October 2018
+
+
+   Michael Varley (editor)
    Email: mike.varley@securekey.com
 
 
 
 
 
-Richer, et al.            Expires April 8, 2019                [Page 30]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Richer, et al.               Standards Track                   [Page 31]
