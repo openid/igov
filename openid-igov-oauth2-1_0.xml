@@ -735,10 +735,12 @@ H2_VQ_Ww1JOLn9vRn-H48FDj7TxlIT74XdTZgTv31w_GRPAOfyxEw_ZUmxhz5Z-gTlQ",
 						TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
 						TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
 						TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+						
 						For the authorization_endpoint, the authorization server MAY allow 
-						additional cipher suites that are permitted by the latest version of BCP195,
-						 if necessary to allow sufficient interoperability with users' web browsers or as required by local regulations.
-						 NOTE: Permitted cipher suites are those that BCP195 does not explicity say MUST NOT use.
+						additional cipher suites that are permitted by the latest version of <xref target="BCP195">BCP195</xref>,
+						if necessary to allow sufficient interoperability with users' web browsers or as required by local regulations.
+						 
+						NOTE: Permitted cipher suites are those listed in <xref target="BCP195">BCP195</xref> that are not explicity say MUST NOT use.
 						When using the TLS_DHE_RSA_WITH_AES_128_GCM_SHA256 or TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 cipher suites, 
 						key lengths of at least 2048 bits are REQUIRED.
 
