@@ -7,11 +7,11 @@ OpenID iGov Working Group                                 J. Richer, Ed.
                                                           P. Grassi, Ed.
                                                                         
                                                         M.V. Varley, Ed.
-                                                          5 October 2018
+                                                           3 August 2023
 
 
-International Government Assurance Profile (iGov) for OAuth 2.0 - Draft
-                                   03
+International Government Assurance Profile (iGov) for OAuth 2.0 - draft
+                                   04
                          openid-igov-oauth2-1_0
 
 Abstract
@@ -55,7 +55,7 @@ Table of Contents
 
 Richer, et al.               Standards Track                    [Page 1]
 
-                             iGov OAuth 2.0                 October 2018
+                             iGov OAuth 2.0                  August 2023
 
 
        3.1.5.  Discovery . . . . . . . . . . . . . . . . . . . . . .  14
@@ -77,9 +77,9 @@ Richer, et al.               Standards Track                    [Page 1]
      5.1.  Proof of Possession Tokens  . . . . . . . . . . . . . . .  25
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .  26
    7.  Normative References  . . . . . . . . . . . . . . . . . . . .  26
-   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  29
-   Appendix B.  Notices  . . . . . . . . . . . . . . . . . . . . . .  29
-   Appendix C.  Document History . . . . . . . . . . . . . . . . . .  30
+   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  28
+   Appendix B.  Notices  . . . . . . . . . . . . . . . . . . . . . .  28
+   Appendix C.  Document History . . . . . . . . . . . . . . . . . .  29
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  30
 
 1.  Introduction
@@ -111,7 +111,7 @@ Richer, et al.               Standards Track                    [Page 1]
 
 Richer, et al.               Standards Track                    [Page 2]
 
-                             iGov OAuth 2.0                 October 2018
+                             iGov OAuth 2.0                  August 2023
 
 
 1.1.  Requirements Notation and Conventions
@@ -167,7 +167,7 @@ Richer, et al.               Standards Track                    [Page 2]
 
 Richer, et al.               Standards Track                    [Page 3]
 
-                             iGov OAuth 2.0                 October 2018
+                             iGov OAuth 2.0                  August 2023
 
 
    An iGov-compliant OAuth 2.0 authorization server MUST support all
@@ -223,7 +223,7 @@ Richer, et al.               Standards Track                    [Page 3]
 
 Richer, et al.               Standards Track                    [Page 4]
 
-                             iGov OAuth 2.0                 October 2018
+                             iGov OAuth 2.0                  August 2023
 
 
    This client type MAY request and be issued a refresh token if the
@@ -279,7 +279,7 @@ Richer, et al.               Standards Track                    [Page 4]
 
 Richer, et al.               Standards Track                    [Page 5]
 
-                             iGov OAuth 2.0                 October 2018
+                             iGov OAuth 2.0                  August 2023
 
 
 2.1.3.  Direct Access Client
@@ -335,7 +335,7 @@ Richer, et al.               Standards Track                    [Page 5]
 
 Richer, et al.               Standards Track                    [Page 6]
 
-                             iGov OAuth 2.0                 October 2018
+                             iGov OAuth 2.0                  August 2023
 
 
    Clients MUST NOT forward values passed back to their redirect URIs to
@@ -391,7 +391,7 @@ Status: 302 Found
 
 Richer, et al.               Standards Track                    [Page 7]
 
-                             iGov OAuth 2.0                 October 2018
+                             iGov OAuth 2.0                  August 2023
 
 
 2.3.2.  Requests to the Token Endpoint
@@ -447,7 +447,7 @@ Richer, et al.               Standards Track                    [Page 7]
 
 Richer, et al.               Standards Track                    [Page 8]
 
-                             iGov OAuth 2.0                 October 2018
+                             iGov OAuth 2.0                  August 2023
 
 
    The following sample JWT contains the above claims and has been
@@ -503,7 +503,7 @@ xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 
 Richer, et al.               Standards Track                    [Page 9]
 
-                             iGov OAuth 2.0                 October 2018
+                             iGov OAuth 2.0                  August 2023
 
 
 2.3.3.  Client Keys
@@ -559,7 +559,7 @@ cNt1H2_VQ_Ww1JOLn9vRn-H48FDj7TxlIT74XdTZgTv31w_GRPAOfyxEw_ZUmxhz5Z-gTlQ",
 
 Richer, et al.               Standards Track                   [Page 10]
 
-                             iGov OAuth 2.0                 October 2018
+                             iGov OAuth 2.0                  August 2023
 
 
  {
@@ -615,7 +615,7 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 
 Richer, et al.               Standards Track                   [Page 11]
 
-                             iGov OAuth 2.0                 October 2018
+                             iGov OAuth 2.0                  August 2023
 
 
 3.  Authorization Server Profile
@@ -671,7 +671,7 @@ Richer, et al.               Standards Track                   [Page 11]
 
 Richer, et al.               Standards Track                   [Page 12]
 
-                             iGov OAuth 2.0                 October 2018
+                             iGov OAuth 2.0                  August 2023
 
 
    Authorization servers MAY accept signed software statements as
@@ -727,7 +727,7 @@ Richer, et al.               Standards Track                   [Page 12]
 
 Richer, et al.               Standards Track                   [Page 13]
 
-                             iGov OAuth 2.0                 October 2018
+                             iGov OAuth 2.0                  August 2023
 
 
 3.1.5.  Discovery
@@ -783,7 +783,7 @@ Richer, et al.               Standards Track                   [Page 13]
 
 Richer, et al.               Standards Track                   [Page 14]
 
-                             iGov OAuth 2.0                 October 2018
+                             iGov OAuth 2.0                  August 2023
 
 
     "jwks_uri": "https://idp-p.example.com/jwk",
@@ -839,7 +839,7 @@ Richer, et al.               Standards Track                   [Page 14]
 
 Richer, et al.               Standards Track                   [Page 15]
 
-                             iGov OAuth 2.0                 October 2018
+                             iGov OAuth 2.0                  August 2023
 
 
 {
@@ -895,7 +895,7 @@ U-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEqfCaPDNp00J6AbY6w",
 
 Richer, et al.               Standards Track                   [Page 16]
 
-                             iGov OAuth 2.0                 October 2018
+                             iGov OAuth 2.0                  August 2023
 
 
 3.1.9.  RefreshTokens
@@ -951,7 +951,7 @@ Richer, et al.               Standards Track                   [Page 16]
 
 Richer, et al.               Standards Track                   [Page 17]
 
-                             iGov OAuth 2.0                 October 2018
+                             iGov OAuth 2.0                  August 2023
 
 
    The server MAY issue tokens with additional fields, including the
@@ -1007,7 +1007,7 @@ Richer, et al.               Standards Track                   [Page 17]
 
 Richer, et al.               Standards Track                   [Page 18]
 
-                             iGov OAuth 2.0                 October 2018
+                             iGov OAuth 2.0                  August 2023
 
 
    eyJhbGciOiJSUzI1NiJ9.ew0KICAgImV4cCI6IDE0MTg3MDIzODgsDQogICAiYXpwIjo
@@ -1063,7 +1063,7 @@ Richer, et al.               Standards Track                   [Page 18]
 
 Richer, et al.               Standards Track                   [Page 19]
 
-                             iGov OAuth 2.0                 October 2018
+                             iGov OAuth 2.0                  August 2023
 
 
 POST /introspect HTTP/1.1
@@ -1119,7 +1119,7 @@ F2vFdL6D_lLeHRy-H2g2OzF59eMIsM_Ccs4G47862w
 
 Richer, et al.               Standards Track                   [Page 20]
 
-                             iGov OAuth 2.0                 October 2018
+                             iGov OAuth 2.0                  August 2023
 
 
    exp  Timestamp of when this token expires (integer number of seconds
@@ -1175,7 +1175,7 @@ Richer, et al.               Standards Track                   [Page 20]
 
 Richer, et al.               Standards Track                   [Page 21]
 
-                             iGov OAuth 2.0                 October 2018
+                             iGov OAuth 2.0                  August 2023
 
 
    state  REQUIRED.  The value of the state parameter passed in in the
@@ -1231,7 +1231,7 @@ Richer, et al.               Standards Track                   [Page 21]
 
 Richer, et al.               Standards Track                   [Page 22]
 
-                             iGov OAuth 2.0                 October 2018
+                             iGov OAuth 2.0                  August 2023
 
 
    To facilitate general use across a wide variety of protected
@@ -1287,7 +1287,7 @@ Richer, et al.               Standards Track                   [Page 22]
 
 Richer, et al.               Standards Track                   [Page 23]
 
-                             iGov OAuth 2.0                 October 2018
+                             iGov OAuth 2.0                  August 2023
 
 
    For example: a resource server has resources classified as "public"
@@ -1343,7 +1343,7 @@ Richer, et al.               Standards Track                   [Page 23]
 
 Richer, et al.               Standards Track                   [Page 24]
 
-                             iGov OAuth 2.0                 October 2018
+                             iGov OAuth 2.0                  August 2023
 
 
    The protected resource MUST check the aud (audience) claim, if it
@@ -1399,7 +1399,7 @@ Richer, et al.               Standards Track                   [Page 24]
 
 Richer, et al.               Standards Track                   [Page 25]
 
-                             iGov OAuth 2.0                 October 2018
+                             iGov OAuth 2.0                  August 2023
 
 
    portions of the HTTP request could be protected by the same signature
@@ -1455,7 +1455,7 @@ Richer, et al.               Standards Track                   [Page 25]
 
 Richer, et al.               Standards Track                   [Page 26]
 
-                             iGov OAuth 2.0                 October 2018
+                             iGov OAuth 2.0                  August 2023
 
 
    [OpenID.Core]
@@ -1475,52 +1475,6 @@ Richer, et al.               Standards Track                   [Page 26]
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
-   [RFC2246]  Dierks, T. and C. Allen, "The TLS Protocol Version 1.0",
-              RFC 2246, DOI 10.17487/RFC2246, January 1999,
-              <https://www.rfc-editor.org/info/rfc2246>.
-
-   [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
-              Resource Identifier (URI): Generic Syntax", STD 66,
-              RFC 3986, DOI 10.17487/RFC3986, January 2005,
-              <https://www.rfc-editor.org/info/rfc3986>.
-
-   [RFC5246]  Dierks, T. and E. Rescorla, "The Transport Layer Security
-              (TLS) Protocol Version 1.2", RFC 5246,
-              DOI 10.17487/RFC5246, August 2008,
-              <https://www.rfc-editor.org/info/rfc5246>.
-
-   [RFC5322]  Resnick, P., Ed., "Internet Message Format", RFC 5322,
-              DOI 10.17487/RFC5322, October 2008,
-              <https://www.rfc-editor.org/info/rfc5322>.
-
-   [RFC5646]  Phillips, A., Ed. and M. Davis, Ed., "Tags for Identifying
-              Languages", BCP 47, RFC 5646, DOI 10.17487/RFC5646,
-              September 2009, <https://www.rfc-editor.org/info/rfc5646>.
-
-   [RFC5785]  Nottingham, M. and E. Hammer-Lahav, "Defining Well-Known
-              Uniform Resource Identifiers (URIs)", RFC 5785,
-              DOI 10.17487/RFC5785, April 2010,
-              <https://www.rfc-editor.org/info/rfc5785>.
-
-
-
-
-
-
-
-
-Richer, et al.               Standards Track                   [Page 27]
-
-                             iGov OAuth 2.0                 October 2018
-
-
-   [RFC6125]  Saint-Andre, P. and J. Hodges, "Representation and
-              Verification of Domain-Based Application Service Identity
-              within Internet Public Key Infrastructure Using X.509
-              (PKIX) Certificates in the Context of Transport Layer
-              Security (TLS)", RFC 6125, DOI 10.17487/RFC6125, March
-              2011, <https://www.rfc-editor.org/info/rfc6125>.
-
    [RFC6749]  Hardt, D., Ed., "The OAuth 2.0 Authorization Framework",
               RFC 6749, DOI 10.17487/RFC6749, October 2012,
               <https://www.rfc-editor.org/info/rfc6749>.
@@ -1539,14 +1493,6 @@ Richer, et al.               Standards Track                   [Page 27]
               2.0 Token Revocation", RFC 7009, DOI 10.17487/RFC7009,
               August 2013, <https://www.rfc-editor.org/info/rfc7009>.
 
-   [RFC7033]  Jones, P., Salgueiro, G., Jones, M., and J. Smarr,
-              "WebFinger", RFC 7033, DOI 10.17487/RFC7033, September
-              2013, <https://www.rfc-editor.org/info/rfc7033>.
-
-   [RFC7159]  Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
-              Interchange Format", RFC 7159, DOI 10.17487/RFC7159, March
-              2014, <https://www.rfc-editor.org/info/rfc7159>.
-
    [RFC7515]  Jones, M., Bradley, J., and N. Sakimura, "JSON Web
               Signature (JWS)", RFC 7515, DOI 10.17487/RFC7515, May
               2015, <https://www.rfc-editor.org/info/rfc7515>.
@@ -1559,16 +1505,18 @@ Richer, et al.               Standards Track                   [Page 27]
               DOI 10.17487/RFC7517, May 2015,
               <https://www.rfc-editor.org/info/rfc7517>.
 
+
+
+
+
+Richer, et al.               Standards Track                   [Page 27]
+
+                             iGov OAuth 2.0                  August 2023
+
+
    [RFC7518]  Jones, M., "JSON Web Algorithms (JWA)", RFC 7518,
               DOI 10.17487/RFC7518, May 2015,
               <https://www.rfc-editor.org/info/rfc7518>.
-
-
-
-Richer, et al.               Standards Track                   [Page 28]
-
-                             iGov OAuth 2.0                 October 2018
-
 
    [RFC7519]  Jones, M., Bradley, J., and N. Sakimura, "JSON Web Token
               (JWT)", RFC 7519, DOI 10.17487/RFC7519, May 2015,
@@ -1599,7 +1547,7 @@ Appendix A.  Acknowledgements
    their contributions to this specification: Mark Russel, Mary
    Pulvermacher, David Hill, Dale Moberg, Adrian Gropper, Eve Maler,
    Danny van Leeuwen, John Moehrke, Aaron Seib, John Bradley, Debbie
-   Bucci, Josh Mandel, and Sarah Squire.
+   Bucci, Josh Mandel, Sarah Squire, and Michael B.  Jones.
 
    The original version of this specification was part of the Secure
    RESTful Interfaces project from The MITRE Corporation, available
@@ -1607,24 +1555,25 @@ Appendix A.  Acknowledgements
 
 Appendix B.  Notices
 
-   Copyright (c) 2017 The OpenID Foundation.
+   Copyright (c) 2023 The OpenID Foundation.
 
    The OpenID Foundation (OIDF) grants to any Contributor, developer,
    implementer, or other interested party a non-exclusive, royalty free,
    worldwide copyright license to reproduce, prepare derivative works
    from, distribute, perform and display, this Implementers Draft or
    Final Specification solely for the purposes of (i) developing
+
+
+
+Richer, et al.               Standards Track                   [Page 28]
+
+                             iGov OAuth 2.0                  August 2023
+
+
    specifications, and (ii) implementing Implementers Drafts and Final
    Specifications based on such documents, provided that attribution be
    made to the OIDF as the source of the material, but that such
    attribution does not indicate an endorsement by the OIDF.
-
-
-
-Richer, et al.               Standards Track                   [Page 29]
-
-                             iGov OAuth 2.0                 October 2018
-
 
    The technology described in this specification was made available
    from contributions from various sources, including members of the
@@ -1651,12 +1600,31 @@ Richer, et al.               Standards Track                   [Page 29]
 
 Appendix C.  Document History
 
+   [[ To be removed from the final specification ]]
+
+   -04
+
+   *  Enable building with https://author-tools.ietf.org/.
+
+   *  Applied OpenID specification conventions.
+
+   -03
+
+   *  First Implementer's Draft
+
    -2017-06-01
 
    *  Aligned with prior version of iGov.
 
    *  Added guidance text around using scopes and refresh_tokens to
       protect sensitive resources.
+
+
+
+Richer, et al.               Standards Track                   [Page 29]
+
+                             iGov OAuth 2.0                  August 2023
+
 
    *  Removed ACR reference.
 
@@ -1673,13 +1641,6 @@ Authors' Addresses
 
    Paul Grassi (editor)
    Email: pgrassi@easydynamics.com
-
-
-
-
-Richer, et al.               Standards Track                   [Page 30]
-
-                             iGov OAuth 2.0                 October 2018
 
 
    Michael Varley (editor)
@@ -1716,21 +1677,4 @@ Richer, et al.               Standards Track                   [Page 30]
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Richer, et al.               Standards Track                   [Page 31]
+Richer, et al.               Standards Track                   [Page 30]

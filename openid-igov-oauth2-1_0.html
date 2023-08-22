@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>International Government Assurance Profile (iGov) for OAuth 2.0 - Draft 03</title>
+<title>International Government Assurance Profile (iGov) for OAuth 2.0 - draft 04</title>
 <meta content="Justin Richer" name="author">
 <meta content="Paul Grassi" name="author">
 <meta content="Michael Varley" name="author">
@@ -20,26 +20,26 @@
  consumer-to-government deployments.
        
     " name="description">
-<meta content="xml2rfc 3.17.1" name="generator">
+<meta content="xml2rfc 3.17.5" name="generator">
 <meta content="openid-igov-oauth2-1_0" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.17.1
+  xml2rfc 3.17.5
     Python 3.10.6
-    appdirs 1.4.4
-    ConfigArgParse 1.5.3
-    google-i18n-address 2.5.2
+    ConfigArgParse 1.7
+    google-i18n-address 3.1.0
     intervaltree 3.1.0
     Jinja2 3.1.2
-    lxml 4.9.2
+    lxml 4.9.3
+    platformdirs 3.9.1
     pycountry 22.3.5
-    PyYAML 6.0
-    requests 2.28.2
+    PyYAML 6.0.1
+    requests 2.31.0
     setuptools 59.6.0
     six 1.16.0
     wcwidth 0.2.6
-    weasyprint 58.1
+    weasyprint 59.0
 -->
-<link href="/usr/src/app/tmp/f630d5ca-4b47-42bd-9a22-15337be6675f/openid-igov-oauth2-1_0.xml" rel="alternate" type="application/rfc+xml">
+<link href="/usr/src/app/tmp/54423758-5a75-4be2-b56b-300e9ee0359e/openid-igov-oauth2-1_0.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
 <style type="text/css">/*
 
@@ -1213,7 +1213,7 @@ li > p:last-of-type:only-child {
 <thead><tr>
 <td class="left"></td>
 <td class="center">iGov OAuth 2.0</td>
-<td class="right">October 2018</td>
+<td class="right">August 2023</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Richer, et al.</td>
@@ -1228,7 +1228,7 @@ li > p:last-of-type:only-child {
 <dd class="workgroup">OpenID iGov Working Group</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2018-10-05" class="published">5 October 2018</time>
+<time datetime="2023-08-03" class="published">3 August 2023</time>
     </dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
@@ -1247,7 +1247,7 @@ li > p:last-of-type:only-child {
 </dd>
 </dl>
 </div>
-<h1 id="title">International Government Assurance Profile (iGov) for OAuth 2.0 - Draft 03</h1>
+<h1 id="title">International Government Assurance Profile (iGov) for OAuth 2.0 - draft 04</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">The OAuth 2.0 protocol framework defines a mechanism to allow a
@@ -3062,34 +3062,6 @@ https://https://client.example.org/cb?
       <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC2246">[RFC2246]</dt>
-      <dd>
-<span class="refAuthor">Dierks, T.</span> and <span class="refAuthor">C. Allen</span>, <span class="refTitle">"The TLS Protocol Version 1.0"</span>, <span class="seriesInfo">RFC 2246</span>, <span class="seriesInfo">DOI 10.17487/RFC2246</span>, <time datetime="1999-01" class="refDate">January 1999</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc2246">https://www.rfc-editor.org/info/rfc2246</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC3986">[RFC3986]</dt>
-      <dd>
-<span class="refAuthor">Berners-Lee, T.</span>, <span class="refAuthor">Fielding, R.</span>, and <span class="refAuthor">L. Masinter</span>, <span class="refTitle">"Uniform Resource Identifier (URI): Generic Syntax"</span>, <span class="seriesInfo">STD 66</span>, <span class="seriesInfo">RFC 3986</span>, <span class="seriesInfo">DOI 10.17487/RFC3986</span>, <time datetime="2005-01" class="refDate">January 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc3986">https://www.rfc-editor.org/info/rfc3986</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC5246">[RFC5246]</dt>
-      <dd>
-<span class="refAuthor">Dierks, T.</span> and <span class="refAuthor">E. Rescorla</span>, <span class="refTitle">"The Transport Layer Security (TLS) Protocol Version 1.2"</span>, <span class="seriesInfo">RFC 5246</span>, <span class="seriesInfo">DOI 10.17487/RFC5246</span>, <time datetime="2008-08" class="refDate">August 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5246">https://www.rfc-editor.org/info/rfc5246</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC5322">[RFC5322]</dt>
-      <dd>
-<span class="refAuthor">Resnick, P., Ed.</span>, <span class="refTitle">"Internet Message Format"</span>, <span class="seriesInfo">RFC 5322</span>, <span class="seriesInfo">DOI 10.17487/RFC5322</span>, <time datetime="2008-10" class="refDate">October 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5322">https://www.rfc-editor.org/info/rfc5322</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC5646">[RFC5646]</dt>
-      <dd>
-<span class="refAuthor">Phillips, A., Ed.</span> and <span class="refAuthor">M. Davis, Ed.</span>, <span class="refTitle">"Tags for Identifying Languages"</span>, <span class="seriesInfo">BCP 47</span>, <span class="seriesInfo">RFC 5646</span>, <span class="seriesInfo">DOI 10.17487/RFC5646</span>, <time datetime="2009-09" class="refDate">September 2009</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5646">https://www.rfc-editor.org/info/rfc5646</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC5785">[RFC5785]</dt>
-      <dd>
-<span class="refAuthor">Nottingham, M.</span> and <span class="refAuthor">E. Hammer-Lahav</span>, <span class="refTitle">"Defining Well-Known Uniform Resource Identifiers (URIs)"</span>, <span class="seriesInfo">RFC 5785</span>, <span class="seriesInfo">DOI 10.17487/RFC5785</span>, <time datetime="2010-04" class="refDate">April 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5785">https://www.rfc-editor.org/info/rfc5785</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC6125">[RFC6125]</dt>
-      <dd>
-<span class="refAuthor">Saint-Andre, P.</span> and <span class="refAuthor">J. Hodges</span>, <span class="refTitle">"Representation and Verification of Domain-Based Application Service Identity within Internet Public Key Infrastructure Using X.509 (PKIX) Certificates in the Context of Transport Layer Security (TLS)"</span>, <span class="seriesInfo">RFC 6125</span>, <span class="seriesInfo">DOI 10.17487/RFC6125</span>, <time datetime="2011-03" class="refDate">March 2011</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6125">https://www.rfc-editor.org/info/rfc6125</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC6749">[RFC6749]</dt>
       <dd>
 <span class="refAuthor">Hardt, D., Ed.</span>, <span class="refTitle">"The OAuth 2.0 Authorization Framework"</span>, <span class="seriesInfo">RFC 6749</span>, <span class="seriesInfo">DOI 10.17487/RFC6749</span>, <time datetime="2012-10" class="refDate">October 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6749">https://www.rfc-editor.org/info/rfc6749</a>&gt;</span>. </dd>
@@ -3105,14 +3077,6 @@ https://https://client.example.org/cb?
 <dt id="RFC7009">[RFC7009]</dt>
       <dd>
 <span class="refAuthor">Lodderstedt, T., Ed.</span>, <span class="refAuthor">Dronia, S.</span>, and <span class="refAuthor">M. Scurtescu</span>, <span class="refTitle">"OAuth 2.0 Token Revocation"</span>, <span class="seriesInfo">RFC 7009</span>, <span class="seriesInfo">DOI 10.17487/RFC7009</span>, <time datetime="2013-08" class="refDate">August 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7009">https://www.rfc-editor.org/info/rfc7009</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC7033">[RFC7033]</dt>
-      <dd>
-<span class="refAuthor">Jones, P.</span>, <span class="refAuthor">Salgueiro, G.</span>, <span class="refAuthor">Jones, M.</span>, and <span class="refAuthor">J. Smarr</span>, <span class="refTitle">"WebFinger"</span>, <span class="seriesInfo">RFC 7033</span>, <span class="seriesInfo">DOI 10.17487/RFC7033</span>, <time datetime="2013-09" class="refDate">September 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7033">https://www.rfc-editor.org/info/rfc7033</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC7159">[RFC7159]</dt>
-      <dd>
-<span class="refAuthor">Bray, T., Ed.</span>, <span class="refTitle">"The JavaScript Object Notation (JSON) Data Interchange Format"</span>, <span class="seriesInfo">RFC 7159</span>, <span class="seriesInfo">DOI 10.17487/RFC7159</span>, <time datetime="2014-03" class="refDate">March 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7159">https://www.rfc-editor.org/info/rfc7159</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC7515">[RFC7515]</dt>
       <dd>
@@ -3163,7 +3127,9 @@ https://https://client.example.org/cb?
  Danny
  van Leeuwen, John Moehrke, Aaron Seib, John Bradley, Debbie
  Bucci, Josh
- Mandel, and Sarah Squire.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+ Mandel, Sarah Squire,
+ and
+ Michael B. Jones.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 <p id="appendix-A-2">The original version of this specification was part of the Secure
  RESTful Interfaces project from The MITRE Corporation, available
  online
@@ -3175,7 +3141,7 @@ https://https://client.example.org/cb?
       <h2 id="name-notices">
 <a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-notices" class="section-name selfRef">Notices</a>
       </h2>
-<p id="appendix-B-1">Copyright (c) 2017 The OpenID Foundation.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+<p id="appendix-B-1">Copyright (c) 2023 The OpenID Foundation.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 <p id="appendix-B-2">The OpenID Foundation (OIDF) grants to any Contributor, developer,
  implementer, or other interested party a non-exclusive, royalty
  free,
@@ -3249,18 +3215,36 @@ https://https://client.example.org/cb?
       <h2 id="name-document-history">
 <a href="#appendix-C" class="section-number selfRef">Appendix C. </a><a href="#name-document-history" class="section-name selfRef">Document History</a>
       </h2>
-<p id="appendix-C-1">-2017-06-01<a href="#appendix-C-1" class="pilcrow">¶</a></p>
+<p id="appendix-C-1">[[ To be removed from the final specification ]]<a href="#appendix-C-1" class="pilcrow">¶</a></p>
+<p id="appendix-C-2">
+ -04<a href="#appendix-C-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-C-2.1">Aligned with prior version of iGov.<a href="#appendix-C-2.1" class="pilcrow">¶</a>
+<li class="normal" id="appendix-C-3.1">
+     Enable building with https://author-tools.ietf.org/.<a href="#appendix-C-3.1" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="appendix-C-2.2">Added guidance text around using scopes and refresh_tokens to protect sensitive resources.<a href="#appendix-C-2.2" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="appendix-C-2.3">Removed ACR reference.<a href="#appendix-C-2.3" class="pilcrow">¶</a>
+        <li class="normal" id="appendix-C-3.2">
+     Applied OpenID specification conventions.<a href="#appendix-C-3.2" class="pilcrow">¶</a>
 </li>
       </ul>
-<p id="appendix-C-3">-2018-05-07<a href="#appendix-C-3" class="pilcrow">¶</a></p>
+<p id="appendix-C-4">
+ -03<a href="#appendix-C-4" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-C-4.1">Imported content from HEART OAuth profile.<a href="#appendix-C-4.1" class="pilcrow">¶</a>
+<li class="normal" id="appendix-C-5.1">
+     First Implementer's Draft<a href="#appendix-C-5.1" class="pilcrow">¶</a>
+</li>
+      </ul>
+<p id="appendix-C-6">-2017-06-01<a href="#appendix-C-6" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-C-7.1">Aligned with prior version of iGov.<a href="#appendix-C-7.1" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="appendix-C-7.2">Added guidance text around using scopes and refresh_tokens to protect sensitive resources.<a href="#appendix-C-7.2" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="appendix-C-7.3">Removed ACR reference.<a href="#appendix-C-7.3" class="pilcrow">¶</a>
+</li>
+      </ul>
+<p id="appendix-C-8">-2018-05-07<a href="#appendix-C-8" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-C-9.1">Imported content from HEART OAuth profile.<a href="#appendix-C-9.1" class="pilcrow">¶</a>
 </li>
       </ul>
 </section>

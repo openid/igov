@@ -10,7 +10,9 @@ href='http://xml2rfc.tools.ietf.org/authoring/rfc2629.xslt' ?>
 	described in the "Notices" section. This is a public OpenID Foundation document 
 	and not a private document, as the private="..." declaration could be taken 
 	to indicate. -->
-<rfc category="std" docName="openid-igov-openid-connect-1_0" ipr="none">   <?rfc toc="yes" ?>
+<rfc category="std" docName="openid-igov-openid-connect-1_0" ipr="none" xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <?rfc toc="yes" ?>
 
   <?rfc tocdepth="5" ?>
 
@@ -22,12 +24,11 @@ href='http://xml2rfc.tools.ietf.org/authoring/rfc2629.xslt' ?>
 
   <?rfc iprnotified="no" ?>
 
-  <?rfc private="Final" ?>
+  <?rfc private="Draft" ?>
 
 	<front>
-		<title abbrev="openid-igov-profile">International Government Assurance Profile (iGov)
-			for
-			OpenID Connect 1.0 - Draft 03</title>
+		<title abbrev="iGov OpenID Connect">International Government Assurance Profile (iGov)
+			for OpenID Connect 1.0 - draft 04</title>
 
 		<author fullname="Michael Varley" initials="M.V." role="editor" surname="Varley">
 			<address>
@@ -40,7 +41,7 @@ href='http://xml2rfc.tools.ietf.org/authoring/rfc2629.xslt' ?>
 			</address>
 		</author>
 
-		<date day="05" month="October" year="2018"/>
+		<date day="3" month="August" year="2023"/>
 
 		<workgroup>OpenID iGov Working Group</workgroup>
 
@@ -1132,52 +1133,29 @@ Connection: close
 
 	<back>
 		<references title="Normative References">
-      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2119"?>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.2119"/>
 
-      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2246"?>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6749"/>
 
-      <?rfc include='http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.3986'?>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6819"/>
 
-      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5246"?>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7515"/>
 
-      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5322"?>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7516"/>
 
-      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5646"?>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7517"/>
 
-      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5785"?>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7519"/>
 
-      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6125"?>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7518"/>
 
-      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6749"?>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7009"/>
 
-      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6750"?>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7636"/>
 
-      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6819"?>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7662"/>
 
-      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7033"?>
-
-      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7515"?>
-
-      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7516"?>
-
-      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7517"?>
-
-      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7519"?>
-
-      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7518"?>
-
-      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7009"?>
-
-      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7636"?>
-
-      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7662"?>
-
-      <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7800"?>
-	  
-	  <?rfc include="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8485"?>
-
-      <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-oauth-pop-architecture.xml"?>
-
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8485"/>
 
 			<reference anchor="BCP195" target="http://www.rfc-editor.org/info/bcp195">
 				<front>
@@ -1277,24 +1255,6 @@ Connection: close
 				</front>
 			</reference>
 
-			<reference anchor="HEART.OAuth2" target="http://openid.net/specs/openid-heart-oauth2-1_0.html">
-				<front>
-					<title>Health Relationship Trust Profile for OAuth 2.0</title>
-
-					<author fullname="Justin Richer" initials="J." role="editor" surname="Richer">
-						<address>
-							<email>openid@justin.richer.org</email>
-
-							<uri>http://justin.richer.org/</uri>
-						</address>
-					</author>
-
-					<date day="25" month="April" year="2017"/>
-				</front>
-			</reference>
-
-			<!-- TODO - Get this updated once we have some actual URL's 
-			"https://xml2rfc.tools.ietf.org/cgi-bin/xml2rfc.cgi?Submit=Submit&format=ascii&mode=html&type=ascii&url=https://bitbucket.org/openid/igov/raw/master/openid-igov-oauth2.xml">   -->
 			<reference anchor="iGov.OAuth2" target="http://openid.net/specs/openid-igov-oauth2-1_0.html">
 				<front>
 					<title>iGov Profile for OAuth 2.0</title>
@@ -1321,12 +1281,14 @@ Connection: close
 			<t>The OpenID Community would like to thank the following people for
 				their contributions to this specification: Justin Ritcher, Paul
 				Grassi,
-				John Bradley, Adam Cooper, ...
+				John Bradley, Adam Cooper,
+				and
+				Michael B. Jones.
 			</t>
 		</section>
 
 		<section anchor="Notices" title="Notices">
-			<t>Copyright (c) 2015 The OpenID Foundation.</t>
+			<t>Copyright (c) 2023 The OpenID Foundation.</t>
 
 			<t>The OpenID Foundation (OIDF) grants to any Contributor, developer,
 				implementer, or other interested party a non-exclusive, royalty
@@ -1400,6 +1362,29 @@ Connection: close
 		</section>
 
 		<section anchor="History" title="Document History">
+      <t>[[ To be removed from the final specification ]]</t>
+
+      <t>
+	-04
+	<list style="symbols">
+	  <t>
+	    Enable building with https://author-tools.ietf.org/.
+	  </t>
+	  <t>
+	    Applied OpenID specification conventions.
+	  </t>
+        </list>
+      </t>
+
+      <t>
+	-03
+	<list style="symbols">
+	  <t>
+	    First Implementer's Draft
+	  </t>
+        </list>
+      </t>
+
 			<t>-2018-05-07</t>
 
 			<t>

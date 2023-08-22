@@ -5,11 +5,11 @@
 OpenID iGov Working Group                               M.V. Varley, Ed.
                                                                         
                                                         P.G. Grassi, Ed.
-                                                          5 October 2018
+                                                           3 August 2023
 
 
 International Government Assurance Profile (iGov) for OpenID Connect 1.0
-                               - Draft 03
+                               - draft 04
                      openid-igov-openid-connect-1_0
 
 Abstract
@@ -55,7 +55,7 @@ Table of Contents
 
 Varley & Grassi              Standards Track                    [Page 1]
 
-                           openid-igov-profile              October 2018
+                           iGov OpenID Connect               August 2023
 
 
      4.2.  Scope Profiles  . . . . . . . . . . . . . . . . . . . . .  15
@@ -65,10 +65,10 @@ Varley & Grassi              Standards Track                    [Page 1]
    5.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  17
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .  18
    7.  Normative References  . . . . . . . . . . . . . . . . . . . .  18
-   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  21
-   Appendix B.  Notices  . . . . . . . . . . . . . . . . . . . . . .  21
-   Appendix C.  Document History . . . . . . . . . . . . . . . . . .  22
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  22
+   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  19
+   Appendix B.  Notices  . . . . . . . . . . . . . . . . . . . . . .  19
+   Appendix C.  Document History . . . . . . . . . . . . . . . . . .  20
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  21
 
 1.  Introduction
 
@@ -111,7 +111,7 @@ Varley & Grassi              Standards Track                    [Page 1]
 
 Varley & Grassi              Standards Track                    [Page 2]
 
-                           openid-igov-profile              October 2018
+                           iGov OpenID Connect               August 2023
 
 
    Token (JWT)" defined by JSON Web Token (JWT) [RFC7519] , and the
@@ -167,7 +167,7 @@ Varley & Grassi              Standards Track                    [Page 2]
 
 Varley & Grassi              Standards Track                    [Page 3]
 
-                           openid-igov-profile              October 2018
+                           iGov OpenID Connect               August 2023
 
 
    In addition to the requirements specified in Section 2.1.1 of the
@@ -223,7 +223,7 @@ Varley & Grassi              Standards Track                    [Page 3]
 
 Varley & Grassi              Standards Track                    [Page 4]
 
-                           openid-igov-profile              October 2018
+                           iGov OpenID Connect               August 2023
 
 
   https://idp.government.gov/oidc/authorization?
@@ -279,7 +279,7 @@ Varley & Grassi              Standards Track                    [Page 4]
 
 Varley & Grassi              Standards Track                    [Page 5]
 
-                           openid-igov-profile              October 2018
+                           iGov OpenID Connect               August 2023
 
 
 2.4.  Request Objects
@@ -335,7 +335,7 @@ Varley & Grassi              Standards Track                    [Page 5]
 
 Varley & Grassi              Standards Track                    [Page 6]
 
-                           openid-igov-profile              October 2018
+                           iGov OpenID Connect               August 2023
 
 
       [RFC8485] . See Vectors of Trust (Section 3.5) for more details.
@@ -391,7 +391,7 @@ Varley & Grassi              Standards Track                    [Page 6]
 
 Varley & Grassi              Standards Track                    [Page 7]
 
-                           openid-igov-profile              October 2018
+                           iGov OpenID Connect               August 2023
 
 
     {
@@ -447,7 +447,7 @@ Varley & Grassi              Standards Track                    [Page 7]
 
 Varley & Grassi              Standards Track                    [Page 8]
 
-                           openid-igov-profile              October 2018
+                           iGov OpenID Connect               August 2023
 
 
    Support for a UserInfo Endpoint is important for maximum client
@@ -503,7 +503,7 @@ Varley & Grassi              Standards Track                    [Page 8]
 
 Varley & Grassi              Standards Track                    [Page 9]
 
-                           openid-igov-profile              October 2018
+                           iGov OpenID Connect               August 2023
 
 
    OpenID Providers MUST support the generation of JWT [RFC7519] encoded
@@ -559,7 +559,7 @@ Varley & Grassi              Standards Track                    [Page 9]
 
 Varley & Grassi              Standards Track                   [Page 10]
 
-                           openid-igov-profile              October 2018
+                           iGov OpenID Connect               August 2023
 
 
 3.6.  Authentication Context
@@ -615,7 +615,7 @@ Varley & Grassi              Standards Track                   [Page 10]
 
 Varley & Grassi              Standards Track                   [Page 11]
 
-                           openid-igov-profile              October 2018
+                           iGov OpenID Connect               August 2023
 
 
    revocation_endpoint  OPTIONAL.  The fully qualified URL of the
@@ -671,7 +671,7 @@ Varley & Grassi              Standards Track                   [Page 11]
 
 Varley & Grassi              Standards Track                   [Page 12]
 
-                           openid-igov-profile              October 2018
+                           iGov OpenID Connect               August 2023
 
 
        "RSA-OAEP", "RSA-OAEP-256"
@@ -727,7 +727,7 @@ Varley & Grassi              Standards Track                   [Page 12]
 
 Varley & Grassi              Standards Track                   [Page 13]
 
-                           openid-igov-profile              October 2018
+                           iGov OpenID Connect               August 2023
 
 
      "acr_values_supported": ["gold", "silver", "bronze"],
@@ -783,7 +783,7 @@ Varley & Grassi              Standards Track                   [Page 13]
 
 Varley & Grassi              Standards Track                   [Page 14]
 
-                           openid-igov-profile              October 2018
+                           iGov OpenID Connect               August 2023
 
 
 4.1.  Claims Supported
@@ -839,7 +839,7 @@ Varley & Grassi              Standards Track                   [Page 14]
 
 Varley & Grassi              Standards Track                   [Page 15]
 
-                           openid-igov-profile              October 2018
+                           iGov OpenID Connect               August 2023
 
 
       Provider is capable of providing.  Mutliple document types MAY be
@@ -895,7 +895,7 @@ Varley & Grassi              Standards Track                   [Page 15]
 
 Varley & Grassi              Standards Track                   [Page 16]
 
-                           openid-igov-profile              October 2018
+                           iGov OpenID Connect               August 2023
 
 
    Claims response MAY also make use of the aggegated and/or distributed
@@ -951,7 +951,7 @@ Varley & Grassi              Standards Track                   [Page 16]
 
 Varley & Grassi              Standards Track                   [Page 17]
 
-                           openid-igov-profile              October 2018
+                           iGov OpenID Connect               August 2023
 
 
 6.  Security Considerations
@@ -972,19 +972,6 @@ Varley & Grassi              Standards Track                   [Page 17]
               (DTLS)", BCP 195, RFC 7525, DOI 10.17487/RFC7525, May
               2015, <http://www.rfc-editor.org/info/bcp195>.
 
-   [HEART.OAuth2]
-              Richer, J., Ed., "Health Relationship Trust Profile for
-              OAuth 2.0", 25 April 2017,
-              <http://openid.net/specs/openid-heart-oauth2-1_0.html>.
-
-   [I-D.ietf-oauth-pop-architecture]
-              Hunt, P., Richer, J., Mills, W., Mishra, P., and H.
-              Tschofenig, "OAuth 2.0 Proof-of-Possession (PoP) Security
-              Architecture", Work in Progress, Internet-Draft, draft-
-              ietf-oauth-pop-architecture-08, 8 July 2016,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-oauth-
-              pop-architecture-08>.
-
    [iGov.OAuth2]
               Richer, J., Ed., "iGov Profile for OAuth 2.0", 5 October
               2018,
@@ -1002,82 +989,30 @@ Varley & Grassi              Standards Track                   [Page 17]
               <http://openid.net/specs/openid-connect-discovery-
               1_0.html>.
 
-
-
-
-Varley & Grassi              Standards Track                   [Page 18]
-
-                           openid-igov-profile              October 2018
-
-
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
-   [RFC2246]  Dierks, T. and C. Allen, "The TLS Protocol Version 1.0",
-              RFC 2246, DOI 10.17487/RFC2246, January 1999,
-              <https://www.rfc-editor.org/info/rfc2246>.
-
-   [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
-              Resource Identifier (URI): Generic Syntax", STD 66,
-              RFC 3986, DOI 10.17487/RFC3986, January 2005,
-              <https://www.rfc-editor.org/info/rfc3986>.
-
-   [RFC5246]  Dierks, T. and E. Rescorla, "The Transport Layer Security
-              (TLS) Protocol Version 1.2", RFC 5246,
-              DOI 10.17487/RFC5246, August 2008,
-              <https://www.rfc-editor.org/info/rfc5246>.
-
-   [RFC5322]  Resnick, P., Ed., "Internet Message Format", RFC 5322,
-              DOI 10.17487/RFC5322, October 2008,
-              <https://www.rfc-editor.org/info/rfc5322>.
-
-   [RFC5646]  Phillips, A., Ed. and M. Davis, Ed., "Tags for Identifying
-              Languages", BCP 47, RFC 5646, DOI 10.17487/RFC5646,
-              September 2009, <https://www.rfc-editor.org/info/rfc5646>.
-
-   [RFC5785]  Nottingham, M. and E. Hammer-Lahav, "Defining Well-Known
-              Uniform Resource Identifiers (URIs)", RFC 5785,
-              DOI 10.17487/RFC5785, April 2010,
-              <https://www.rfc-editor.org/info/rfc5785>.
-
-   [RFC6125]  Saint-Andre, P. and J. Hodges, "Representation and
-              Verification of Domain-Based Application Service Identity
-              within Internet Public Key Infrastructure Using X.509
-              (PKIX) Certificates in the Context of Transport Layer
-              Security (TLS)", RFC 6125, DOI 10.17487/RFC6125, March
-              2011, <https://www.rfc-editor.org/info/rfc6125>.
-
    [RFC6749]  Hardt, D., Ed., "The OAuth 2.0 Authorization Framework",
               RFC 6749, DOI 10.17487/RFC6749, October 2012,
               <https://www.rfc-editor.org/info/rfc6749>.
-
-   [RFC6750]  Jones, M. and D. Hardt, "The OAuth 2.0 Authorization
-              Framework: Bearer Token Usage", RFC 6750,
-              DOI 10.17487/RFC6750, October 2012,
-              <https://www.rfc-editor.org/info/rfc6750>.
-
-
-
-
-Varley & Grassi              Standards Track                   [Page 19]
-
-                           openid-igov-profile              October 2018
-
 
    [RFC6819]  Lodderstedt, T., Ed., McGloin, M., and P. Hunt, "OAuth 2.0
               Threat Model and Security Considerations", RFC 6819,
               DOI 10.17487/RFC6819, January 2013,
               <https://www.rfc-editor.org/info/rfc6819>.
 
+
+
+Varley & Grassi              Standards Track                   [Page 18]
+
+                           iGov OpenID Connect               August 2023
+
+
    [RFC7009]  Lodderstedt, T., Ed., Dronia, S., and M. Scurtescu, "OAuth
               2.0 Token Revocation", RFC 7009, DOI 10.17487/RFC7009,
               August 2013, <https://www.rfc-editor.org/info/rfc7009>.
-
-   [RFC7033]  Jones, P., Salgueiro, G., Jones, M., and J. Smarr,
-              "WebFinger", RFC 7033, DOI 10.17487/RFC7033, September
-              2013, <https://www.rfc-editor.org/info/rfc7033>.
 
    [RFC7515]  Jones, M., Bradley, J., and N. Sakimura, "JSON Web
               Signature (JWS)", RFC 7515, DOI 10.17487/RFC7515, May
@@ -1108,20 +1043,6 @@ Varley & Grassi              Standards Track                   [Page 19]
               RFC 7662, DOI 10.17487/RFC7662, October 2015,
               <https://www.rfc-editor.org/info/rfc7662>.
 
-   [RFC7800]  Jones, M., Bradley, J., and H. Tschofenig, "Proof-of-
-              Possession Key Semantics for JSON Web Tokens (JWTs)",
-              RFC 7800, DOI 10.17487/RFC7800, April 2016,
-              <https://www.rfc-editor.org/info/rfc7800>.
-
-
-
-
-
-Varley & Grassi              Standards Track                   [Page 20]
-
-                           openid-igov-profile              October 2018
-
-
    [RFC8485]  Richer, J., Ed. and L. Johansson, "Vectors of Trust",
               RFC 8485, DOI 10.17487/RFC8485, October 2018,
               <https://www.rfc-editor.org/info/rfc8485>.
@@ -1130,11 +1051,20 @@ Appendix A.  Acknowledgements
 
    The OpenID Community would like to thank the following people for
    their contributions to this specification: Justin Ritcher, Paul
-   Grassi, John Bradley, Adam Cooper, ...
+   Grassi, John Bradley, Adam Cooper, and Michael B.  Jones.
 
 Appendix B.  Notices
 
-   Copyright (c) 2015 The OpenID Foundation.
+   Copyright (c) 2023 The OpenID Foundation.
+
+
+
+
+
+Varley & Grassi              Standards Track                   [Page 19]
+
+                           iGov OpenID Connect               August 2023
+
 
    The OpenID Foundation (OIDF) grants to any Contributor, developer,
    implementer, or other interested party a non-exclusive, royalty free,
@@ -1169,18 +1099,28 @@ Appendix B.  Notices
    patents, patent applications, or other proprietary rights that may
    cover technology that may be required to practice this specification.
 
-
-
-
-
-Varley & Grassi              Standards Track                   [Page 21]
-
-                           openid-igov-profile              October 2018
-
-
 Appendix C.  Document History
 
+   [[ To be removed from the final specification ]]
+
+   -04
+
+   *  Enable building with https://author-tools.ietf.org/.
+
+   *  Applied OpenID specification conventions.
+
+   -03
+
+   *  First Implementer's Draft
+
    -2018-05-07
+
+
+
+Varley & Grassi              Standards Track                   [Page 20]
+
+                           iGov OpenID Connect               August 2023
+
 
    *  Removed Verifiable Claims definition (will go in another spec).
 
@@ -1229,4 +1169,8 @@ Authors' Addresses
 
 
 
-Varley & Grassi              Standards Track                   [Page 22]
+
+
+
+
+Varley & Grassi              Standards Track                   [Page 21]
