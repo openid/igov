@@ -410,9 +410,7 @@ https://idp.government.gov/oidc/authorization?
 				<t>OPs MUST support the use of acr_values in Authentication Requests and acr and amr in ID Tokens. 
 					OPs MUST provide Authentication Context to clients using either Vector of Trust
 					or both amr and acr, but not both, as described for the specific claims, below. 
-					longer than five minutes. Since the ID token is consumed by the
-					client and not presented to remote systems, much shorter expiration
-					times are RECOMMENDED where possible.
+
 				</t>
 				
 				<t>
