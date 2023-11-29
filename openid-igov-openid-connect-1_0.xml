@@ -870,7 +870,7 @@ Connection: close
   "op_policy_uri": "https://idp-p.example.com/about",
   "service_documentation": "https://idp-p.example.com/about",
   "claims_supported": [
-    "sub", "name", "acr"
+    "sub", "name", "vot", "acr"
   ],
   "acr_values_supported": ["gold", "silver", "bronze"],
 }
