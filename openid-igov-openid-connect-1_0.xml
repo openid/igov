@@ -518,7 +518,7 @@ https://idp.government.gov/oidc/authorization?
         ],
         "iss": "https://idp-p.example.com/",
         "vot":"P1.C1",
-        "vtm":"https://ipd-p.example.com/vtm.json"
+        "vtm":"https://idp-p.example.com/vtm.json"
         "iat": 1418698812
         }
         ]]></artwork>
