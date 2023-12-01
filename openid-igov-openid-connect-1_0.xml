@@ -410,7 +410,7 @@ https://idp.government.gov/oidc/authorization?
 				<t>OPs MUST support the use of acr_values in Authentication Requests and acr and amr in ID Tokens. 
 					OPs MUST provide Authentication Context to clients. The two permitted methods are Vector of Trust
 					or both amr and acr, together, as described for the specific claims, below. The specific claim values are 
-					out of scope for this specification. OPs must not use both methods with a single client.
+					out of scope for this specification. OPs MUST NOT use both methods with a single client.
 
 				</t>
 				
