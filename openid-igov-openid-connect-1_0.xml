@@ -658,8 +658,8 @@ Connection: close
 			
 			<section anchor="vot" title="Vectors of Trust">
 				<t>If the <spanx style="verb">vtr</spanx> (Vectors of Trust Request) value is present in the
-				 Authentication Request as defined in the 
-				 <xref target="RFC8485">Vectors of Trust</xref> standard, the OpenID 
+				 Authentication Request ("authorization request" as defined in the 
+				 <xref target="RFC8485">Vectors of Trust</xref> standard), the OpenID 
 				 Provider SHOULD respond with a valid <spanx style="verb">vot</spanx> value as defined 
 				 in [section 3.1]. Both the <spanx style="verb">vtr</spanx> and <spanx style="verb">vot</spanx>
 				 MUST contain values in accordance with the <xref target="RFC8485">Vectors 
