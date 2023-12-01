@@ -686,9 +686,7 @@ Connection: close
 					and
 					<spanx style="verb">amr</spanx>
 					(authentication methods reference) values in ID
-					tokens if <spanx style="verb">vtr</spanx> is not used, but MUST NOT include
-					<spanx style="verb">acr</spanx> and
-					<spanx style="verb">amr</spanx> if <spanx style="verb">vtr</spanx> is used.
+					tokens if and only if <spanx style="verb">vtr</spanx> (Vector of Trust request) is not used.
 				</t>
 
 				<t>It is out of scope of this document to determine how an
