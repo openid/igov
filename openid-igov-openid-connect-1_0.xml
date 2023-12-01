@@ -476,7 +476,7 @@ https://idp.government.gov/oidc/authorization?
 							ranges.
 						</t>
 
-						<t hangText="at_hash">RECOMMENDED. The Access Token hash values enables Access Token validation.
+						<t hangText="at_hash">RECOMMENDED. The Access Token hash value enables Access Token validation.
 						Computing at_hash value is detailed in section 3.1.3.6 of <xref target="OpenID.Core">OpenID Connect</xref>.
 						</t>
 					</list>
