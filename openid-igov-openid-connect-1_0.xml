@@ -255,14 +255,15 @@ href='http://xml2rfc.tools.ietf.org/authoring/rfc2629.xslt' ?>
 						</t>
 
 						<t hangText="vtr">
-							OPTIONAL. MUST be set to
+							RECOMMENDED. MUST be set to
 							a value as described in Section 6.1 of
 							<xref target="RFC8485">Vectors of Trust</xref>
 							<spanx style="verb">vtr</spanx> takes precedence over <spanx style="verb">acr_values</spanx>.
 						</t>
 
-						<t hangText="acr_values">OPTIONAL. Lists the acceptable LoAs for this
-							authentication. See (below). MUST not be set if <spanx style="verb">vtr</spanx> is specified.
+						<t hangText="acr_values">RECOMMENDED. Lists the acceptable LoAs for this
+							authentication. See (below). SHOULD be set if <spanx style="verb">vtr</spanx> is not specified and 
+							MUST NOT be set if <spanx style="verb">vtr</spanx> is specified.
 						</t>
 
 						<t hangText="code_challenge and code_challenge_method">OPTIONAL. If the PKCE protocol 
@@ -406,6 +407,13 @@ https://idp.government.gov/oidc/authorization?
 					times are RECOMMENDED where possible.
 				</t>
 
+				<t>OPs MUST support the use of acr_values in Authentication Requests and acr and amr in ID Tokens. 
+					OPs MUST provide Authentication Context to clients. The two permitted methods are Vector of Trust
+					or both amr and acr, together, as described for the specific claims, below. The specific claim values are 
+					out of scope for this specification. OPs MUST NOT use both methods with a single client.
+
+				</t>
+				
 				<t>
 					The token response includes an access token (which can be used to
 					make a UserInfo request) and ID token (a signed and optionally
@@ -426,10 +434,10 @@ https://idp.government.gov/oidc/authorization?
 						</t>
 
 						<t hangText="vot">
-							OPTIONAL. The vector value as specified in 
+							RECOMMENDED. The vector value as specified in 
 							<xref target="RFC8485">Vectors of Trust</xref>
 							. See <xref target="vot">Vectors of Trust</xref> for more details.
-							<spanx style="verb">vot</spanx> takes precedence over acr.
+							<spanx style="verb">vot</spanx> takes precedence over <spanx style="verb">acr</spanx>.
 						</t>
 						
 						<t hangText="vtm"> REQUIRED if <spanx style="verb">vot</spanx> is provided.
@@ -438,10 +446,15 @@ https://idp.government.gov/oidc/authorization?
 							. See <xref target="vot">Vectors of Trust</xref> for more details.
 						</t>
 
-						<t hangText="acr">OPTIONAL.
+						<t hangText="acr">REQUIRED if <spanx style="verb">vot</spanx> is not specified.
 							The LoA the user was authenticated at. MUST be a member of the
 							<spanx style="verb">acr_values</spanx>
 							list from the authentication request.  The OpenID Provider MUST NOT include this field if <spanx style="verb">vot</spanx> is provided. See <xref target="AuthenticationContext">Authentication Context</xref> for more details.
+						</t>
+
+						<t hangText="amr">REQUIRED if <spanx style="verb">vot</spanx> is not specified.
+							The authentication method used by the user. 
+							The OpenID Provider MUST NOT include this field if <spanx style="verb">vot</spanx> is provided. See <xref target="AuthenticationContext">Authentication Context</xref> for more details.
 						</t>
 
 						<t hangText="nonce">REQUIRED. MUST match the nonce value that was provided in the
@@ -463,6 +476,9 @@ https://idp.government.gov/oidc/authorization?
 							ranges.
 						</t>
 
+						<t hangText="at_hash">RECOMMENDED. The Access Token hash value enables Access Token validation.
+						Computing at_hash value is detailed in section 3.1.3.6 of <xref target="OpenID.Core">OpenID Connect</xref>.
+						</t>
 					</list>
 				</t>
 
@@ -500,9 +516,8 @@ https://idp.government.gov/oidc/authorization?
           "c1bc84e4-47ee-4b64-bb52-5cda6c81f788"
         ],
         "iss": "https://idp-p.example.com/",
-        "acr":"LOA1",
         "vot":"P1.C1",
-        "vtm":"https://ipd-p.example.com/vtm.json"
+        "vtm":"https://idp-p.example.com/vtm.json"
         "iat": 1418698812
         }
         ]]></artwork>
@@ -643,8 +658,8 @@ Connection: close
 			
 			<section anchor="vot" title="Vectors of Trust">
 				<t>If the <spanx style="verb">vtr</spanx> (Vectors of Trust Request) value is present in the
-				 authorization request as defined in the 
-				 <xref target="RFC8485">Vectors of Trust</xref> standard, the OpenID 
+				 Authentication Request ("authorization request" as defined in the 
+				 <xref target="RFC8485">Vectors of Trust</xref> standard), the OpenID 
 				 Provider SHOULD respond with a valid <spanx style="verb">vot</spanx> value as defined 
 				 in [section 3.1]. Both the <spanx style="verb">vtr</spanx> and <spanx style="verb">vot</spanx>
 				 MUST contain values in accordance with the <xref target="RFC8485">Vectors 
@@ -653,12 +668,6 @@ Connection: close
 				 MAY be from a compatible standard. The OpenID Provider MAY require the user to 
 				 re-authenticate, provide a second factor, or perform another action in order to fulfill 
 				 the state requested in the vtr. 
-				</t>
-				<t>
-					For backwards compatibility clients MAY send an <spanx style="verb">acr_values</spanx> parameter. If both the  <spanx style="verb">vtr</spanx> and 
-					<spanx style="verb">acr_values</spanx> are in the request, the 
-					<spanx style="verb">vtr</spanx> MUST take precedence and the 
-					<spanx style="verb">acr_values</spanx> MUST be ignored. 
 				</t>
 				
 				<t>It is out of scope of this document to determine how an
@@ -669,7 +678,7 @@ Connection: close
 
 			<section anchor="AuthenticationContext" title="Authentication Context">
 				<t>
-					OpenID Providers MAY provide
+					OpenID Providers MUST provide
 					<spanx style="verb">acr</spanx>
 					(authentication context class reference, equivalent to the
 					Security
@@ -677,9 +686,13 @@ Connection: close
 					and
 					<spanx style="verb">amr</spanx>
 					(authentication methods reference) values in ID
-					tokens only if vtr is not used.
+					tokens if and only if <spanx style="verb">vtr</spanx> (Vector of Trust request) is not used.
 				</t>
 
+				<t>It is out of scope of this document to determine how an
+					organization maps their digital identity practices
+					to <spanx style="verb">acr</spanx> values that identify LoAs.
+				</t>
 			</section>
 
 			
@@ -767,10 +780,10 @@ Connection: close
 							supported scopes. See below.
 						</t>
 
-						<t hangText="vot">OPTIONAL. The vectors supported.
+						<t hangText="vot">RECOMMENDED. The vectors supported.
 						</t>
 
-						<t hangText="acr_values_supported">OPTIONAL. The acrs supported.
+						<t hangText="acr_values_supported">RECOMMENDED. The acrs supported.
 						</t>
 
 
