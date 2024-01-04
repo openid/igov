@@ -240,17 +240,18 @@
 						authorization server.
 					</t>
 
-					<t>These clients MUST use the authorization code flow of OAuth 2
+					<t>These clients MUST use the authorization code flow of OAuth 2.0
 						by sending the resource owner to the authorization endpoint to
 						obtain authorization. The user MUST authenticate to the
-						authorization endpoint. The user's web browser is then
-						redirected back to a URI hosted by the client service, from which
-						the
-						client can obtain an authorization code passed as a query
-						parameter. The client then presents that authorization code along
-						with its own credentials (private_key_jwt) to the authorization
-						server's token
-						endpoint to obtain an access token.
+						authorization endpoint using either private_key_jwt or mTLS 
+						<xref target="RFC8705">mTLS</xref> authentication.
+						 
+						The user's web browser is then redirected back to a URI hosted by the client 
+						service, from which the client can obtain an authorization code passed as 
+						a query parameter. The client then presents that authorization code along
+						with its own credentials (private_key_jwt or mTLS) to the authorization
+						server's token endpoint to obtain an access token. The self-signed TLS client
+						authentication method MUST NOT be used.
 					</t>
 
 					<t>
@@ -287,7 +288,7 @@
 						simultaneously for different end users.
 					</t>
 
-					<t>These clients MUST use the authorization code flow of OAuth 2
+					<t>These clients MUST use the authorization code flow of OAuth 2.0
 						by sending the resource owner to the authorization endpoint to
 						obtain authorization. The user MUST authenticate to the
 						authorization endpoint. The user is then
@@ -314,15 +315,10 @@
 							</t>
 						</list>
 					</t>
-
 					<t>Native applications using dynamic registration SHOULD generate
 						a unique public and private key pair on the device and register
-						that public key value with the authorization server.
-						Alternatively, an authorization server MAY issue a public and
-						private key pair to the client as part of the registration
-						process. In such cases, the authorization server MUST discard its
-						copy of the private key. Client credentials MUST NOT be shared
-						among instances of client software.
+						that public key value with the authorization server, or
+						obtain a certificate from a trusted Certficate Authority.
 					</t>
 					<t>Dynamically registered native applications MAY use PKCE.</t>
 
@@ -333,8 +329,6 @@
 						with the S256 code challenge mechanism. Public Clients do not 
 						authenticate with the Token Endpoint in any other way.
 					</t>
-
-					
 
 				</section>
 
@@ -350,7 +344,7 @@
 						transfers.
 					</t>
 
-					<t>These clients use the client credentials flow of OAuth 2 by
+					<t>These clients use the client credentials flow of OAuth 2.0 by
 						sending a request to the token endpoint with the client's
 						credentials and obtaining an access token in the response. Since
 						this profile does not involve an authenticated user, this flow is
@@ -488,18 +482,18 @@ Host: idp-p.example.com
 					<t>
 						Full clients, native clients with dynamically registered keys, 
 						and direct access clients as defined above MUST
-						authenticate to the authorization server's token endpoint using a
-						JWT assertion as defined by the
-						<xref target="RFC7523">JWT Profile
-							for OAuth 2.0 Client Authentication
-							and Authorization Grants</xref>
-						using only the
-						<spanx style="verb">private_key_jwt</spanx>
-						method defined
-						in
+						authenticate to the authorization server's token endpoint using either 
+						the private_key_jwt method as defined in
 						<xref target="OpenID.Core">OpenID Connect Core</xref>
-						. The
-						assertion MUST use the claims as follows:
+						or 
+						the mutually-authenticated transport layer security (MTLS) request method
+						defined in
+						<xref target="RFC8705">OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens</xref>.
+						If using the private_key_jwt method, the request MUST be a JWT assertion as defined by the
+						<xref target="RFC7523">JWT Profile for OAuth 2.0 Client Authentication and Authorization Grants</xref>.
+						If using the mTLS method, the request must be made over a mutually authenticated TLS channel.
+
+						For both methods, the request MUST include the following claims:
 					</t>
 
 					<t>
@@ -534,10 +528,18 @@ Host: idp-p.example.com
 								token.
 							</t>
 						</list>
+						If mTLS client authentication is used, the request MUST include the following claim:
+						<list style="hanging">						
+							<t hangText="cnf">Confirmation, as defined in 
+							<xref target="RFC7800">Proof-of-Possession Key Semantics for JSON Web Tokens (JWTs)</xref> and 
+							<xref target="RFC8705">OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens</xref>.
+							The confirmation claim value MUST be computed using X.509 Certificate SHA-256 Thumbprint and include confirmation method value "x5t#256".
+							</t>
+						</list>
 						The following sample claim set illustrates the use of the
 						required
 						claims for a client authentication JWT as defined in this
-						profile;
+						profile using the private_key_jwt authentication method;
 						additional claims MAY be included in the claim set.
 					</t>
 
@@ -828,7 +830,9 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 					<t> The authorization server MUST validate all redirect
 						URIs for authorization code and implicit grant types.
 					</t>
-				</section>
+					<t> The authorization server MUST confirm thumbprints of client keys
+						if mTLS is used for client authentication or sender-constraining tokens.
+					</t>				</section>
 
 				<section anchor="DynamicRegistration" title="Dynamic Registration">
 					<t>
@@ -874,6 +878,12 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 							<t hangText="grant_types">grant type used by the client; must be
 								"authorization_code" or "client_credentials"</t>
 
+							<t hangText="client_name">human-readable name of the client</t>
+
+							<t hangText="client_uri">URL of a web page containing further
+								information
+								about the client
+							</t>
 							<t hangText="jwks_uri or jwks">client's public key in JWK Set
 								format; if jwks_uri
 								is used it MUST be reachable by the
@@ -882,12 +892,15 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 								set
 							</t>
 
-							<t hangText="client_name">human-readable name of the client</t>
-
-							<t hangText="client_uri">URL of a web page containing further
-								information
-								about the client
-							</t>
+						</list>
+						A client using the tls_client_auth authentication method MUST use exactly one of the below metadata parameters to indicate the certificate 
+						subject value that the authorization server is to expect when authenticating the respective client:
+						<list style="hanging">
+							<t hangText="tls_client_auth_subject_dn">String value specifying the expected subject DN of the client certificate.</t>
+							<t hangText="tls_client_auth_san_dns">String value specifying the expected dNSName SAN entry in the client certificate.</t>
+							<t hangText="tls_client_auth_san_uri">String value specifying the expected uniformResourceIdentifier SAN entry in the client certificate.</t>
+							<t hangText="tls_client_auth_san_ip">String value specifying the expected iPAddress SAN entry in the client certificate.</t>
+							<t hangText="tls_client_auth_san_email">String value specifying the expected rfc822Name SAN entry in the client certificate.</t>
 						</list>
 					</t>
 				</section>
@@ -918,7 +931,7 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 					<t>For example, for
 						native clients a message indicating a new App installation has been 
 						registered as a client can help users determin if this is the expected
-						behaviour. This signal helps users protect themselves fro potentially 
+						behaviour. This signal helps users protect themselves to potentially 
 						rogue clients.
 					</t> 
 				</section>
@@ -927,7 +940,7 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 					<t>
 						The authorization server MUST provide an
 						<xref target="OpenID.Discovery">OpenID Connect service discovery</xref>
-						endpoint listing the components relevant to the OAuth protocol:
+						endpoint listing the components relevant to the OAuth 2.0 protocol:
 						<list style="hanging">
 							<t hangText="issuer"> REQUIRED. The fully qualified issuer URL of the
 								server
@@ -960,12 +973,18 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 								defined by
 								<xref target="RFC7009">OAuth 2.0 Token Revocation</xref>
 							</t>
-
+							<t hangText="mtls_endpoint_aliases">
+								OPTIONAL. A JSON object containing alternative 
+								authorization server endpoints that, when present, an OAuth client intending to do 
+								mutual TLS uses in preference to the conventional endpoints. Use of this parameter enables isolation
+								of mTLS behavior to only clients intending to use mTLS for authentication or sender-constraining tokens.
+								Usage of the parameter is specified in 
+								<xref target="RFC8705">OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens</xref>
+							</t>
 							<t hangText="jwks_uri">
 								REQUIRED. The fully qualified URI of the server's
-								public key in
-								<xref target="RFC7517">JWK Set</xref>
-								format
+								JWK as defined in 
+								<xref target="RFC8414">OAuth 2.0 Authorization Server Metadata</xref>.
 							</t>
 						</list>
 					</t>
@@ -1186,16 +1205,7 @@ U-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEqfCaPDNp00J6AbY6w",
 								tokens
 								issued with duplicate jti values.
 							</t>
-						</list>
-					</t>
 
-					<t>The server MAY issue tokens with additional fields, including
-						the
-						following as defined here:
-					</t>
-
-					<t>
-						<list style="hanging">
 							<t hangText="sub">The identifier of the end-user that authorized
 								this
 								client, or the client id of a client acting on its own
@@ -1240,9 +1250,10 @@ U-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEqfCaPDNp00J6AbY6w",
 					</figure>
 
 					<t>
+<!-- Need to look at RFC8725 and FAPI 2 Security 5.4 Cryptography new section? -->
 						The access tokens MUST be signed with
 						<xref target="RFC7515">JWS</xref>
-						. The authorization server MUST support
+						. If private_key_jwt is used, the authorization server MUST support
 						the RS256 signature method
 						for tokens and MAY use other asymmetric
 						signing methods as defined
@@ -1778,6 +1789,12 @@ https://https://client.example.org/cb?
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7662"/>
 
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7518"/>
+
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7800"/>
+
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8414"/>
+
+	  <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8705"/>
 
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-oauth-pop-architecture.xml"/>
 
