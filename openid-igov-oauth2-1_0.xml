@@ -380,16 +380,15 @@
                 possession of the corresponding key or certificate.
             </t>
 
-            <t>Sender-constraining tokens could
-                prevent a number of attacks on OAuth that entail the interception
-                of
+            <t>As described in [Security BCP], sender-constraining tokens could
+                prevent a number of attacks on OAuth that entail the misuse of stolen and leaked
                 access tokens by unauthorized parties. The attacker would need to
                 obtain the legitimate client's cryptographic key or certificate along with the
                 access
                 token to gain access to protected resources.
                 </t>
             
-            <t> All clients MUST provide proof of possession for access tokens using either <xref target="RFC8705">mTLS</xref> or <xref target="RFC9449">DPoP</xref>.
+            <t> All clients MUST use proof of possession to sender-constrain access tokens using either <xref target="RFC8705">mTLS</xref> or <xref target="RFC9449">DPoP</xref>.
                 </t>
                     
                     
