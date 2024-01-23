@@ -250,8 +250,12 @@
 						service, from which the client can obtain an authorization code passed as 
 						a query parameter. The client then presents that authorization code along
 						with its own credentials (private_key_jwt or mTLS) to the authorization
-						server's token endpoint to obtain an access token. The self-signed TLS client
-						authentication method SHOULD NOT be used. 
+						server's token endpoint to obtain an access token. 
+						The self-signed TLS client
+						authentication method SHOULD NOT be used unless a non-person entity PKI is not available.
+						The PKI method provides security value by
+						allowing the authorization server to rely upon externally validated client entity
+						identifiers and attributes, and simplifies lifecycle management, including key rotation.
 					</t>
 
 					<t>
