@@ -380,7 +380,7 @@
                 possession of the corresponding key or certificate.
             </t>
 
-            <t>As described in [Security BCP], sender-constraining tokens could
+            <t>As described in <xref target="SecBCP">OAuth 2.0 Security Best Common Practices</xref>, sender-constraining tokens could
                 prevent a number of attacks on OAuth that entail the misuse of stolen and leaked
                 access tokens by unauthorized parties. The attacker would need to
                 obtain the legitimate client's cryptographic key or certificate along with the
@@ -1940,6 +1940,21 @@ https://https://client.example.org/cb?
 				</front>
 			</reference>
 
+			<reference anchor="SecBCP" target="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics">
+				<front>
+					<title>OAuth 2.0 Security Best Current Practice</title>
+
+					<author fullname="Torsten Lodderstedt" initials="T." surname="Lodderstedt"/>
+
+					<author fullname="John Bradley" initials="J." surname="Bradley"/>
+
+					<author fullname="Andrey Labunets" initials="A." surname="Labunets"/>
+
+					<author fullname="Daniel Fett" initials="D." surname="Fett"/>
+
+					<date day="23" month="October" year="2023"/>
+				</front>
+			</reference>
 
 
 
