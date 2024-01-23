@@ -884,12 +884,11 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 								information
 								about the client
 							</t>
-							<t hangText="jwks_uri or jwks">client's public key in JWK Set
-								format; if jwks_uri
-								is used it MUST be reachable by the
-								Authorization Server and
-								point to the client's public key
-								set
+							<t hangText="jwks_uri or jwks">client's public key in a JWK Set [RFC7517], or
+							    if jwks_uri is used it MUST be reachable by the Authorization Server and
+								point to the client's public key set. If the PKI/tls_client_auth method is used, the public key must be issued 
+								by a trusted Certificate Authority. 
+								If either the self-signed mTLS method or private_key_jwt method for client authentication is used, the jwks MUST include a certificate.
 							</t>
 
 						</list>
@@ -960,6 +959,12 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 									2.0</xref>
 							</t>
 
+							<t hangText="token_endpoint_auth_method">
+								REQUIRED. String of values corresponding to permitted methods for client authentication to the authorization server.
+								Defined in <xref target="RFC7591">OAuth 2.0 Dynamic Client Registration Protocol</xref>
+								Within this profile, the server MUST provide only one or more of the following values: "private_key_jwt", "tls_client_auth", and "self_signed_tls_auth".
+							</t>
+							
 							<t hangText="introspection_endpoint">
 								OPTIONAL. The fully qualified URL of
 								the server's introspection endpoint
@@ -985,6 +990,7 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 								REQUIRED. The fully qualified URI of the server's
 								JWK as defined in 
 								<xref target="RFC8414">OAuth 2.0 Authorization Server Metadata</xref>.
+								If the self_signed_tls_auth method is used, a jwks_uri MUST be registered and MUST include a certificate.
 							</t>
 						</list>
 					</t>
