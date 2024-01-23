@@ -988,7 +988,15 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 							</t>
 						</list>
 					</t>
-
+					<t>If the TLS method for client authentication is used, exactly one authentication method metadata value MUST be included.  
+						<list style="hanging">
+							<t hangText="tls_client_auth">Indicates that client authentication to the authorization server will occur with mutual TLS 
+								utilizing the PKI method of associating a certificate to a client.</t>
+							<t hangText="self_signed_tls_client_auth">Indicates that client authentication to the authorization server will occur using mutual TLS 
+								with the client utilizing a self-signed certificate.</t>
+						</list>
+					</t>
+					
 					<t>If the authorization server is also an OpenID Connect Provider,
 						it MUST provide a discovery endpoint meeting the requirements
 						listed
