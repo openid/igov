@@ -788,11 +788,8 @@ H2_VQ_Ww1JOLn9vRn-H48FDj7TxlIT74XdTZgTv31w_GRPAOfyxEw_ZUmxhz5Z-gTlQ",
 				<section anchor="RequestsToProtectedResource" title="Requests to the Protected Resource">
 					<t>
 						<!-- Can we specify when this is a SHALL? -->
-						Clients SHOULD send bearer tokens passed in the Authentication
+						Clients MUST send bearer tokens passed in the authorization
 						header as defined by
-						<xref target="RFC6750"/>
-						. Clients MAY use the
-						form-parameter or query-parameter methods in
 						<xref target="RFC6750"/>
 						. All network connections MUST be made using TLS 1.2 or above.
 						Each originator of a TLS connection MUST verify the destination's certificate.
