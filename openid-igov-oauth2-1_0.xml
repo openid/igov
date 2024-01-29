@@ -1700,7 +1700,7 @@ https://https://client.example.org/cb?
 					authorization header as described in
 					<xref target="RFC6750"/>
 					. A
-					protected resource MAY also accept bearer tokens passed in the
+					protected resource MUST NOT accept bearer tokens passed in the
 					form
 					parameter or query parameter methods.
 				</t>
