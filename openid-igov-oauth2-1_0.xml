@@ -380,7 +380,7 @@
                 possession of the corresponding key.
             </t>
 
-            <t>As described in <xref target="SecBCP">OAuth 2.0 Security Best Common Practices</xref>, sender-constraining tokens could
+            <t>As described in <xref target="SecBCP">OAuth 2.0 Security Best Common Practices</xref>, sender-constrained tokens could
                 prevent a number of attacks on OAuth that entail the misuse of stolen and leaked
                 access tokens by unauthorized parties. The attacker would need to
                 obtain the legitimate client's cryptographic key along with the
