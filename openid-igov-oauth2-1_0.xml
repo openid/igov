@@ -369,21 +369,21 @@
                 by anyone
                 in possession of the token, a sender-constrained token is
                 bound to a
-                particular symmetric key, asymmetric key, or certificate issued to, or
+                particular symmetric or asymmetric key issued to, or
                 already
                 possessed
-                by, the client. The association of the key or certificate to the
+                by, the client. The association of the key to the
                 token is also
                 communicated to the protected resource. When the client presents the token
-                to the protected resource, it
+                to the protected resource, it 
                 is also required to demonstrate
-                possession of the corresponding key or certificate.
+                possession of the corresponding key.
             </t>
 
             <t>As described in <xref target="SecBCP">OAuth 2.0 Security Best Common Practices</xref>, sender-constraining tokens could
                 prevent a number of attacks on OAuth that entail the misuse of stolen and leaked
                 access tokens by unauthorized parties. The attacker would need to
-                obtain the legitimate client's cryptographic key or certificate along with the
+                obtain the legitimate client's cryptographic key along with the
                 access
                 token to gain access to protected resources.
                 </t>
