@@ -413,7 +413,8 @@
                 <t> If a client uses <xref target="RFC9449">DPoP</xref> to sender constrain tokens, the client MUST include the dpop_bound_access_tokens parameter in its registration metadata.
                     </t>
                 
-                <t>Clients using mTLS for client authentication or to sender-constrain tokens MUST register their TLS certificate's subject DN with the authorization server.</t>
+                <t>Clients using mTLS for client authentication or to sender-constrain tokens MUST register their TLS certificate's subject DN with the authorization server. 
+				Clients using self-signed certificate option are not guaranteed uniqueness of their certificate fingerprint.</t>
 
 				<section anchor="RedirectURI" title="Redirect URI">
 					<t>Clients using the authorization code grant type
