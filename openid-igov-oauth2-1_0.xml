@@ -587,7 +587,7 @@ Host: idp-p.example.com
 						</list>
                         </t>
                     
-                        <t>Additionally, if the client uses <xref target="RFC8705">mTLS</xref> for client authentication or to sender-constrain tokens, the client MUST include the following claim in the access token.
+                        <t>Additionally, if the client uses <xref target="RFC8705">mTLS</xref> for client authentication or to sender-constrain tokens, the client MUST include the following claim in the client assertion.
                             </t>
                         
                         <list style="hanging">
