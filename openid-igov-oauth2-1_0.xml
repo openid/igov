@@ -791,8 +791,7 @@ H2_VQ_Ww1JOLn9vRn-H48FDj7TxlIT74XdTZgTv31w_GRPAOfyxEw_ZUmxhz5Z-gTlQ",
 				<section anchor="RequestsToProtectedResource" title="Requests to the Protected Resource">
 					<t>
 						<!-- Can we specify when this is a SHALL? -->
-						Clients MUST send bearer tokens passed in the authorization
-						header as defined by
+						Clients MUST use the authorization request header field mechanism to send bearer tokens as defined by
 						<xref target="RFC6750"/>
 						. All network connections MUST be made using TLS 1.2 or above.
 						Each originator of a TLS connection MUST verify the destination's certificate.
