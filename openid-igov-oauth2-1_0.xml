@@ -501,11 +501,11 @@ Cache-Control: no-cache
 Connection: close
 Content-Type: text/plain; charset=UTF-8
 Date: Wed, 07 Jan 2015 20:24:15 GMT
-Location: https://idp-p.example.com/authorize?client_id=55f9f559-2496-49d4-b6c3-351a586b7484
-&nonce=cd567ed4d958042f721a7cdca557c30d
-&response_type=code
-&scope=openid+email
-&redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb
+Location: \
+  https://idp-p.example.com/authorize?client_id=55f9f559-2496-49d4-\
+  b6c3-351a586b7484&nonce=cd567ed4d958042f721a7cdca557c30d\
+  &response_type=code&scope=openid+email\
+  &redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb
 Status: 302 Found
 ]]></artwork>
 					</figure>
