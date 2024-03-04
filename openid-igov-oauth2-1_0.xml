@@ -994,7 +994,8 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
                     <t> The authorization server MUST support and verify sender-constraining tokens using <xref target="RFC8705">mTLS</xref> and <xref target="RFC9449">DPoP</xref>.
                         </t>
                     
-                    <t>If a client that has indicated the intention to use mutual-TLS client certificate-bound tokens makes a request to the token endpoint over a non-mutual-TLS connection, the Authorization Server MUST NOT issue the client an access token.
+                    <t>If a client that has indicated the intention to use mutual-TLS client certificate-bound tokens, by including the <spanx style="verb">tls_client_certificate_bound_access_tokens</spanx>
+					parameter in its registration metadata, makes a request to the token endpoint over a non-mutual-TLS connection, the Authorization Server MUST NOT issue the client an access token.
                         </t>
                     </section>
                 
