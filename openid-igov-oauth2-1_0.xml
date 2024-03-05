@@ -543,9 +543,9 @@ Host: idp-p.example.com
 						<xref target="OpenID.Core">OpenID Connect Core</xref>.
                         </t>
                     
-                    <t> If a client has indicated the intention to use mutual-TLS client certificate-bound tokens by including the 
+                    <t> The client MUST make the request to the token endpoint over a mutual-TLS connection if the client included the 
 					<spanx style="verb">tls_client_certificate_bound_access_tokens</spanx>
-					parameter in its registration metadata, the client MUST make the request to the token endpoint over a mutual-TLS connection.
+					parameter in its registration metadata.
                         </t>
                     
                     <t> The
