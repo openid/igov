@@ -953,7 +953,7 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 								about the client
 							</t>
                             
-                            <t hangText="tls_client_certificate_bound_access_tokens"> limit server responses to the client to only those permitted for the 
+                            <t hangText="tls_client_certificate_bound_access_tokens">if present and set to TRUE, the client MUST use the 
 							mutual-TLS client certificate-bound access token method.
                             </t>
 						</list>
