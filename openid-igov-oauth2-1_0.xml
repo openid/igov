@@ -1115,7 +1115,7 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
   "issuer": "https://idp-p.example.com/",
   "op_policy_uri": "https://idp-p.example.com/about"
   "tls_client_certificate_bound_access_tokens": "true"
-  "dpop_signing_alg_values_supported": []
+  "dpop_signing_alg_values_supported": ["PS256", "ES256"]
 }
 ]]></artwork>
 					</figure>
