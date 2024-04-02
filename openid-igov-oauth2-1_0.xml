@@ -932,8 +932,8 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 					
 					<t>For example, for
 						native clients a message indicating a new App installation has been 
-						registered as a client can help users determin if this is the expected
-						behaviour. This signal helps users protect themselves to potentially 
+						registered as a client can help users determine if this is the expected
+						behaviour. This signal helps users protect themselves from potentially 
 						rogue clients.
 					</t> 
 				</section>
