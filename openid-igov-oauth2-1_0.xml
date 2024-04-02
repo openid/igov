@@ -251,7 +251,7 @@
 						a query parameter. The client then presents that authorization code along
 						with its own credentials (private_key_jwt or mTLS) to the authorization
 						server's token endpoint to obtain an access token. 
-						A non-person entity PKI SHOULD be used rather than a self-signed TLS client if available.
+						A non-person entity PKI SHOULD be used rather than a self-signed TLS client certificate if available.
 						The PKI method provides security value by
 						allowing the authorization server to rely upon externally validated client entity
 						identifiers and attributes, and simplifies lifecycle management, including key rotation.
