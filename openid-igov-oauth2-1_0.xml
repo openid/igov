@@ -356,6 +356,9 @@
 						system that performs bulk data transfers between two systems
 						would be considered a direct access client.
 					</t>
+				</section> <!-- End of DirectClient section -->
+			</section> <!-- End of ClientTypes section -->
+
 
             <section anchor="PoPTokens" title="Sender-constrained Tokens">
                 <t> While a bearer token can be used by anyone in possession of the token, a sender-constrained token is
@@ -505,9 +508,9 @@ GET /authorize?
 Host: idp-p.example.com
 ]]></artwork>
 					</figure>
-				</section>
+			</section>
 
-				<section anchor="RequestsToTokenEndpoint" title="Requests to the Token Endpoint">
+			<section anchor="RequestsToTokenEndpoint" title="Requests to the Token Endpoint">
 					<t>
 						Full clients, native clients with dynamically registered keys, 
 						and direct access clients as defined above MUST
@@ -570,12 +573,12 @@ Host: idp-p.example.com
 							method value "x5t#256".
 							</t>
 						</list>
-						The following sample claim set illustrates the use of the
+						<t>The following sample claim set illustrates the use of the
 						required
 						claims for a client authentication JWT as defined in this
 						profile using the private_key_jwt authentication method;
 						additional claims MAY be included in the claim set.
-					</t>
+						</t>
 
 					<figure>
 						<artwork><![CDATA[{
@@ -660,10 +663,10 @@ xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 ]]></artwork>
 					</figure>
 
-				</section>
+			</section>
 
 
-				<section title="Client Keys">
+			<section title="Client Keys">
 					<t>
 						Clients using the authorization code grant type or direct
 						access
@@ -754,12 +757,12 @@ H2_VQ_Ww1JOLn9vRn-H48FDj7TxlIT74XdTZgTv31w_GRPAOfyxEw_ZUmxhz5Z-gTlQ",
 						keys, while the first example contains the public key only.
 					</t>
 
-				</section>
+			</section> <!-- End of Client keys -->
 				
-			</section>
+		</section> <!-- End of Connections to AS section -->
 
-			<section title="Connection to the Protected Resource">
-				<section anchor="RequestsToProtectedResource" title="Requests to the Protected Resource">
+		<section title="Connection to the Protected Resource">
+			<section anchor="RequestsToProtectedResource" title="Requests to the Protected Resource">
 					<t>
 						<!-- Can we specify when this is a SHALL? -->
 						Clients MUST use the authorization request header field mechanism to send bearer tokens as defined by
@@ -806,10 +809,12 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 ]]></artwork>
 					</figure>
 				</section>
-			</section>
-		</section>
+		</section> <!-- End of Connections to Protected Resource section -->
 
-		<section anchor="ServerProfile" title="Authorization Server Profile">
+
+	</section> <!-- End of Client profile section -->
+
+	<section anchor="ServerProfile" title="Authorization Server Profile">
 			<t>
 				All servers MUST conform to applicable recommendations found in the
 				Security Considerations sections of
@@ -1552,7 +1557,7 @@ https://https://client.example.org/cb?
    &code=gOIFJ1hV6Rb1sxUdFhZGACWwR1sMhYbJJcQbVJN0wHA
 ]]></artwork>
 				</figure>
-			</section>
+		</section>
 			<section anchor="TokenLifetimes" title="Token Lifetimes">
 				<t>This profile provides RECOMMENDED lifetimes for different types
 					of
