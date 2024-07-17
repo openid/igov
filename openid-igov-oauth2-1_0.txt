@@ -36,20 +36,20 @@ Table of Contents
        2.1.1.  Full Client with User Delegation  . . . . . . . . . .   4
        2.1.2.  Native Client with User Delegation  . . . . . . . . .   5
        2.1.3.  Direct Access Client  . . . . . . . . . . . . . . . .   6
-     2.2.  Client Registration . . . . . . . . . . . . . . . . . . .   6
-       2.2.1.  Redirect URI  . . . . . . . . . . . . . . . . . . . .   6
-     2.3.  Connection to the Authorization Server  . . . . . . . . .   7
-       2.3.1.  Requests to the Authorization Endpoint  . . . . . . .   7
-       2.3.2.  Requests to the Token Endpoint  . . . . . . . . . . .   8
-       2.3.3.  Client Keys . . . . . . . . . . . . . . . . . . . . .  10
-     2.4.  Connection to the Protected Resource  . . . . . . . . . .  11
-       2.4.1.  Requests to the Protected Resource  . . . . . . . . .  11
-   3.  Authorization Server Profile  . . . . . . . . . . . . . . . .  12
-     3.1.  Connections with clients  . . . . . . . . . . . . . . . .  12
-       3.1.1.  Grant types . . . . . . . . . . . . . . . . . . . . .  12
-       3.1.2.  Client authentication . . . . . . . . . . . . . . . .  12
-       3.1.3.  Dynamic Registration  . . . . . . . . . . . . . . . .  12
-       3.1.4.  Client Approval . . . . . . . . . . . . . . . . . . .  13
+     2.2.  Sender-constrained Tokens . . . . . . . . . . . . . . . .   6
+     2.3.  Client Registration . . . . . . . . . . . . . . . . . . .   7
+       2.3.1.  Redirect URI  . . . . . . . . . . . . . . . . . . . .   7
+     2.4.  Connection to the Authorization Server  . . . . . . . . .   8
+       2.4.1.  Requests to the Authorization Endpoint  . . . . . . .   8
+       2.4.2.  Requests to the Token Endpoint  . . . . . . . . . . .   9
+       2.4.3.  Client Keys . . . . . . . . . . . . . . . . . . . . .  11
+     2.5.  Connection to the Protected Resource  . . . . . . . . . .  12
+       2.5.1.  Requests to the Protected Resource  . . . . . . . . .  13
+   3.  Authorization Server Profile  . . . . . . . . . . . . . . . .  13
+     3.1.  Connections with clients  . . . . . . . . . . . . . . . .  14
+       3.1.1.  Grant types . . . . . . . . . . . . . . . . . . . . .  14
+       3.1.2.  Client authentication . . . . . . . . . . . . . . . .  14
+       3.1.3.  Dynamic Registration  . . . . . . . . . . . . . . . .  14
 
 
 
@@ -58,29 +58,29 @@ Richer, et al.               Standards Track                    [Page 1]
                              iGov OAuth 2.0                  August 2023
 
 
-       3.1.5.  Discovery . . . . . . . . . . . . . . . . . . . . . .  14
-       3.1.6.  Revocation  . . . . . . . . . . . . . . . . . . . . .  16
-       3.1.7.  PKCE  . . . . . . . . . . . . . . . . . . . . . . . .  16
-       3.1.8.  Redirect URIs . . . . . . . . . . . . . . . . . . . .  16
-       3.1.9.  RefreshTokens . . . . . . . . . . . . . . . . . . . .  17
-     3.2.  Connections with protected resources  . . . . . . . . . .  17
-       3.2.1.  JWT Bearer Tokens . . . . . . . . . . . . . . . . . .  17
-       3.2.2.  Introspection . . . . . . . . . . . . . . . . . . . .  19
-     3.3.  Response to Authorization Requests  . . . . . . . . . . .  21
-     3.4.  Token Lifetimes . . . . . . . . . . . . . . . . . . . . .  22
-     3.5.  Scopes  . . . . . . . . . . . . . . . . . . . . . . . . .  22
-   4.  Protected Resource Profile  . . . . . . . . . . . . . . . . .  23
-     4.1.  Protecting Resources  . . . . . . . . . . . . . . . . . .  23
-     4.2.  Connections with Clients  . . . . . . . . . . . . . . . .  24
-     4.3.  Connections with Authorization Servers  . . . . . . . . .  24
-   5.  Advanced OAuth Security Options . . . . . . . . . . . . . . .  25
-     5.1.  Proof of Possession Tokens  . . . . . . . . . . . . . . .  25
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  26
-   7.  Normative References  . . . . . . . . . . . . . . . . . . . .  26
-   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  28
-   Appendix B.  Notices  . . . . . . . . . . . . . . . . . . . . . .  28
-   Appendix C.  Document History . . . . . . . . . . . . . . . . . .  29
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  30
+       3.1.4.  Client Approval . . . . . . . . . . . . . . . . . . .  16
+       3.1.5.  Sender-constrained Tokens . . . . . . . . . . . . . .  16
+       3.1.6.  Discovery . . . . . . . . . . . . . . . . . . . . . .  16
+       3.1.7.  Revocation  . . . . . . . . . . . . . . . . . . . . .  20
+       3.1.8.  PKCE  . . . . . . . . . . . . . . . . . . . . . . . .  20
+       3.1.9.  Redirect URIs . . . . . . . . . . . . . . . . . . . .  20
+       3.1.10. RefreshTokens . . . . . . . . . . . . . . . . . . . .  20
+     3.2.  Connections with protected resources  . . . . . . . . . .  20
+       3.2.1.  JWT Bearer Tokens . . . . . . . . . . . . . . . . . .  21
+       3.2.2.  Introspection . . . . . . . . . . . . . . . . . . . .  23
+     3.3.  Response to Authorization Requests  . . . . . . . . . . .  25
+     3.4.  Token Lifetimes . . . . . . . . . . . . . . . . . . . . .  25
+     3.5.  Scopes  . . . . . . . . . . . . . . . . . . . . . . . . .  26
+   4.  Protected Resource Profile  . . . . . . . . . . . . . . . . .  26
+     4.1.  Protecting Resources  . . . . . . . . . . . . . . . . . .  26
+     4.2.  Connections with Clients  . . . . . . . . . . . . . . . .  27
+     4.3.  Connections with Authorization Servers  . . . . . . . . .  28
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  28
+   6.  Normative References  . . . . . . . . . . . . . . . . . . . .  28
+   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  31
+   Appendix B.  Notices  . . . . . . . . . . . . . . . . . . . . . .  31
+   Appendix C.  Document History . . . . . . . . . . . . . . . . . .  32
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  33
 
 1.  Introduction
 
@@ -205,18 +205,18 @@ Richer, et al.               Standards Track                    [Page 3]
    application to facilitate the resource owner's interaction with the
    authentication endpoint of the authorization server.
 
-   These clients MUST use the authorization code flow of OAuth 2 by
-   sending the resource owner to the authorization endpoint to obtain
-   authorization.  The user MUST authenticate to the authorization
-   endpoint.  The user's web browser is then redirected back to a URI
-   hosted by the client service, from which the client can obtain an
-   authorization code passed as a query parameter.  The client then
-   presents that authorization code along with its own credentials
-   (private_key_jwt) to the authorization server's token endpoint to
-   obtain an access token.
 
-   These clients MUST be associated with a unique public key, as
-   described in Section 2.2 .
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -225,6 +225,25 @@ Richer, et al.               Standards Track                    [Page 4]
 
                              iGov OAuth 2.0                  August 2023
 
+
+   These clients MUST use the authorization code flow of OAuth 2.0 by
+   sending the resource owner to the authorization endpoint to obtain
+   authorization.  The user MUST authenticate to the authorization
+   endpoint using either private_key_jwt or mTLS [RFC8705]
+   authentication.  The user's web browser is then redirected back to a
+   URI hosted by the client service, from which the client can obtain an
+   authorization code passed as a query parameter.  The client then
+   presents that authorization code along with its own credentials
+   (private_key_jwt or mTLS) to the authorization server's token
+   endpoint to obtain an access token.  A non-person entity PKI SHOULD
+   be used rather than a self-signed TLS client certificate if
+   available.  The PKI method provides security value by allowing the
+   authorization server to rely upon externally validated client entity
+   identifiers and attributes, and simplifies lifecycle management,
+   including key rotation.
+
+   These clients MUST be associated with a unique public key, as
+   described in Section 2.3 .
 
    This client type MAY request and be issued a refresh token if the
    security parameters of the access request allow for it.
@@ -242,7 +261,7 @@ Richer, et al.               Standards Track                    [Page 4]
    a piece of software operating in different environments and running
    simultaneously for different end users.
 
-   These clients MUST use the authorization code flow of OAuth 2 by
+   These clients MUST use the authorization code flow of OAuth 2.0 by
    sending the resource owner to the authorization endpoint to obtain
    authorization.  The user MUST authenticate to the authorization
    endpoint.  The user is then redirected back to a URI hosted by the
@@ -256,17 +275,20 @@ Richer, et al.               Standards Track                    [Page 4]
    *  use dynamic client registration to obtain a separate client id for
       each instance, or
 
+
+
+Richer, et al.               Standards Track                    [Page 5]
+
+                             iGov OAuth 2.0                  August 2023
+
+
    *  act as a public client by using a common client id and use PKCE
       [RFC7636] to protect calls to the token endpoint.
 
    Native applications using dynamic registration SHOULD generate a
    unique public and private key pair on the device and register that
-   public key value with the authorization server.  Alternatively, an
-   authorization server MAY issue a public and private key pair to the
-   client as part of the registration process.  In such cases, the
-   authorization server MUST discard its copy of the private key.
-   Client credentials MUST NOT be shared among instances of client
-   software.
+   public key value with the authorization server, or obtain a
+   certificate from a trusted Certificate Authority.
 
    Dynamically registered native applications MAY use PKCE.
 
@@ -274,13 +296,6 @@ Richer, et al.               Standards Track                    [Page 4]
    instance are considered Public Clients, and MUST use PKCE [RFC7636]
    with the S256 code challenge mechanism.  Public Clients do not
    authenticate with the Token Endpoint in any other way.
-
-
-
-Richer, et al.               Standards Track                    [Page 5]
-
-                             iGov OAuth 2.0                  August 2023
-
 
 2.1.3.  Direct Access Client
 
@@ -290,8 +305,8 @@ Richer, et al.               Standards Track                    [Page 5]
    resources and do not act on behalf of a particular resource owner,
    such as those clients that facilitate bulk transfers.
 
-   These clients use the client credentials flow of OAuth 2 by sending a
-   request to the token endpoint with the client's credentials and
+   These clients use the client credentials flow of OAuth 2.0 by sending
+   a request to the token endpoint with the client's credentials and
    obtaining an access token in the response.  Since this profile does
    not involve an authenticated user, this flow is appropriate only for
    trusted applications, such as those that would traditionally use a
@@ -299,7 +314,34 @@ Richer, et al.               Standards Track                    [Page 5]
    transfers between two systems would be considered a direct access
    client.
 
-2.2.  Client Registration
+2.2.  Sender-constrained Tokens
+
+   While a bearer token can be used by anyone in possession of the
+   token, a sender-constrained token is bound to a particular symmetric
+   or asymmetric key issued to, or already possessed by, the client.
+   The association of the key to the token is also communicated to the
+   protected resource.  When the client presents the token to the
+   protected resource, it is also required to demonstrate possession of
+   the corresponding key.
+
+   As described in OAuth 2.0 Security Best Common Practices [SecBCP],
+   sender-constrained tokens could prevent a number of attacks on OAuth
+   that entail the misuse of stolen and leaked access tokens by
+   unauthorized parties.  The attacker would need to obtain the
+   legitimate client's cryptographic key along with the access token to
+   gain access to protected resources.
+
+
+
+Richer, et al.               Standards Track                    [Page 6]
+
+                             iGov OAuth 2.0                  August 2023
+
+
+   All clients MUST use proof of possession to sender-constrain access
+   tokens using either mTLS [RFC8705] or DPoP [RFC9449].
+
+2.3.  Client Registration
 
    All clients MUST register with the authorization server.  For client
    software that may be installed on multiple client instances, such as
@@ -310,7 +352,21 @@ Richer, et al.               Standards Track                    [Page 5]
    Client registration MAY be completed by either static configuration
    (out-of-band, through an administrator, etc...) or dynamically.
 
-2.2.1.  Redirect URI
+   If a client uses mTLS [RFC8705] for client authentication or to
+   sender-constrain tokens, the client MUST include the
+   tls_client_certificate_bound_access_tokens parameter in its
+   registration metadata.
+
+   If a client uses DPoP [RFC9449] to sender constrain tokens, the
+   client MUST include the dpop_bound_access_tokens parameter in its
+   registration metadata.
+
+   Clients using mTLS for client authentication or to sender-constrain
+   tokens MUST register their TLS certificate's subject DN with the
+   authorization server.  Clients using self-signed certificate option
+   are not guaranteed uniqueness of their certificate fingerprint.
+
+2.3.1.  Redirect URI
 
    Clients using the authorization code grant type MUST register their
    full redirect URIs.  The Authorization Server MUST validate the
@@ -333,7 +389,7 @@ Richer, et al.               Standards Track                    [Page 5]
 
 
 
-Richer, et al.               Standards Track                    [Page 6]
+Richer, et al.               Standards Track                    [Page 7]
 
                              iGov OAuth 2.0                  August 2023
 
@@ -342,9 +398,9 @@ Richer, et al.               Standards Track                    [Page 6]
    other arbitrary or user-provided URIs (a practice known as an "open
    redirector").
 
-2.3.  Connection to the Authorization Server
+2.4.  Connection to the Authorization Server
 
-2.3.1.  Requests to the Authorization Endpoint
+2.4.1.  Requests to the Authorization Endpoint
 
    Full clients and browser-embedded clients making a request to the
    authorization endpoint MUST use an unpredictable value for the state
@@ -364,18 +420,35 @@ Richer, et al.               Standards Track                    [Page 6]
    user's browser for the purpose of redirecting the end user to the
    authorization server's authorization endpoint:
 
-HTTP/1.2 302 Found
-Cache-Control: no-cache
-Connection: close
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 07 Jan 2015 20:24:15 GMT
-Location: https://idp-p.example.com/authorize?client_id=55f9f559-2496-49d4-b6c3-351a58
-6b7484&nonce=cd567ed4d958042f721a7cdca557c30d&response_type=code&scope=openid+email&redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb
-Status: 302 Found
+   HTTP/1.2 302 Found
+   Cache-Control: no-cache
+   Connection: close
+   Content-Type: text/plain; charset=UTF-8
+   Date: Wed, 07 Jan 2015 20:24:15 GMT
+   Location: \
+     https://idp-p.example.com/authorize?client_id=55f9f559-2496-49d4-\
+     b6c3-351a586b7484&nonce=cd567ed4d958042f721a7cdca557c30d&response\
+     _type=code&scope=openid+email&redirect_uri=https%3A%2F%2Fclient.e\
+     xample.org%2Fcb
+   Status: 302 Found
 
    This causes the browser to send the following (non-normative) request
    to the authorization endpoint (inline wraps for display purposes
    only):
+
+
+
+
+
+
+
+
+
+
+Richer, et al.               Standards Track                    [Page 8]
+
+                             iGov OAuth 2.0                  August 2023
+
 
    GET /authorize?
       client_id=55f9f559-2496-49d4-b6c3-351a586b7484
@@ -385,24 +458,20 @@ Status: 302 Found
      &redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb HTTP/1.1
    Host: idp-p.example.com
 
-
-
-
-
-Richer, et al.               Standards Track                    [Page 7]
-
-                             iGov OAuth 2.0                  August 2023
-
-
-2.3.2.  Requests to the Token Endpoint
+2.4.2.  Requests to the Token Endpoint
 
    Full clients, native clients with dynamically registered keys, and
    direct access clients as defined above MUST authenticate to the
-   authorization server's token endpoint using a JWT assertion as
-   defined by the JWT Profile for OAuth 2.0 Client Authentication and
-   Authorization Grants [RFC7523] using only the private_key_jwt method
-   defined in OpenID Connect Core [OpenID.Core] . The assertion MUST use
-   the claims as follows:
+   authorization server's token endpoint using either the
+   private_key_jwt method as defined in OpenID Connect Core
+   [OpenID.Core] or the mutually-authenticated transport layer security
+   (MTLS) request method defined in OAuth 2.0 Mutual-TLS Client
+   Authentication and Certificate-Bound Access Tokens [RFC8705].  If
+   using the private_key_jwt method, the request MUST be a JWT assertion
+   as defined by the JWT Profile for OAuth 2.0 Client Authentication and
+   Authorization Grants [RFC7523].  If using the mTLS method, the
+   request must be made over a mutually authenticated TLS channel.  For
+   both methods, the request MUST include the following claims:
 
    iss  the client ID of the client creating the token
 
@@ -420,9 +489,33 @@ Richer, et al.               Standards Track                    [Page 7]
       entropy and MUST NOT be re-used by any subsequent authentication
       token.
 
+   Additionally, if the client uses mTLS [RFC8705] for client
+   authentication or to sender-constrain tokens, the client MUST include
+   the following claim in the client assertion.
+
+   cnf  Confirmation, as defined in Proof-of-Possession Key Semantics
+
+
+
+
+
+
+
+Richer, et al.               Standards Track                    [Page 9]
+
+                             iGov OAuth 2.0                  August 2023
+
+
+      for JSON Web Tokens (JWTs) [RFC7800] and OAuth 2.0 Mutual-TLS
+      Client Authentication and Certificate-Bound Access Tokens
+      [RFC8705].  The confirmation claim value MUST be computed using
+      the X.509 Certificate SHA-256 Thumbprint method and include
+      confirmation method value "x5t#256".
+
    The following sample claim set illustrates the use of the required
-   claims for a client authentication JWT as defined in this profile;
-   additional claims MAY be included in the claim set.
+   claims for a client authentication JWT as defined in this profile
+   using the private_key_jwt authentication method; additional claims
+   MAY be included in the claim set.
 
    {
       "iss": "55f9f559-2496-49d4-b6c3-351a586b7484",
@@ -431,24 +524,18 @@ Richer, et al.               Standards Track                    [Page 7]
       "iat": 1418698788,
       "exp": 1418698848,
       "jti": "1418698788/107c4da5194df463e52b56865c5af34e5595"
-   }
+       "cnf":{
+           "x5t#S256":"A4DtL2JmUMhAsvJj5tKyn64SqzmuXbMrJa0n761y5v0"
+              }
+          }
 
    The JWT assertion MUST be signed by the client using the client's
-   private key.  See Section 2.2 for mechanisms by which the client can
+   private key.  See Section 2.3 for mechanisms by which the client can
    make its public key known to the server.  The authorization server
    MUST support the RS256 signature method (the Rivest, Shamir, and
    Adleman (RSA) signature algorithm with a 256-bit hash) and MAY use
    other asymmetric signature methods listed in the JSON Web Algorithms
-   ( JWA [RFC7518] ) specification.
-
-
-
-
-
-Richer, et al.               Standards Track                    [Page 8]
-
-                             iGov OAuth 2.0                  August 2023
-
+   (JWA [RFC7518]) ) specification.
 
    The following sample JWT contains the above claims and has been
    signed using the RS256 JWS algorithm and the client's own private key
@@ -467,6 +554,13 @@ THszt-ZjKR38v4F_MnSrx8e0iIqgZwurW0RtetEWvynOCJXk-p166T7qZR45xuCxgOotXY6O3et4n7
 
    This is sent in the request to the token endpoint as in the following
    example:
+
+
+
+Richer, et al.               Standards Track                   [Page 10]
+
+                             iGov OAuth 2.0                  August 2023
+
 
 POST /token HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
@@ -493,20 +587,7 @@ IgT7-Lhf6BbwQNlMQubNeOPRFDqQoLWqe7UxuI06dKX3SEQRMqcxYSIAfP7CQZ4WLuKXb6oEbaqz6g
 L4l6p83G7wKGDeLETOTHszt-ZjKR38v4F_MnSrx8e0iIqgZwurW0RtetEWvynOCJXk-p166T7qZR45
 xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 
-
-
-
-
-
-
-
-
-Richer, et al.               Standards Track                    [Page 9]
-
-                             iGov OAuth 2.0                  August 2023
-
-
-2.3.3.  Client Keys
+2.4.3.  Client Keys
 
    Clients using the authorization code grant type or direct access
    clients using the client credentials grant type MUST have a public
@@ -524,6 +605,18 @@ Richer, et al.               Standards Track                    [Page 9]
    format.  The authorization server MUST validate the content of the
    client's registered jwks_uri document and verify that it contains a
    JWK Set. The following example is of a 2048-bit RSA key:
+
+
+
+
+
+
+
+
+Richer, et al.               Standards Track                   [Page 11]
+
+                             iGov OAuth 2.0                  August 2023
+
 
 {
    "keys": [
@@ -543,24 +636,6 @@ cNt1H2_VQ_Ww1JOLn9vRn-H48FDj7TxlIT74XdTZgTv31w_GRPAOfyxEw_ZUmxhz5Z-gTlQ",
 
    For reference, the corresponding public/private key pair for this
    public key is the following (in JWK format):
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Richer, et al.               Standards Track                   [Page 10]
-
-                             iGov OAuth 2.0                  August 2023
-
 
  {
     "alg": "RS256",
@@ -582,15 +657,45 @@ Richer, et al.               Standards Track                   [Page 10]
    Note that the second example contains both the public and private
    keys, while the first example contains the public key only.
 
-2.4.  Connection to the Protected Resource
+2.5.  Connection to the Protected Resource
 
-2.4.1.  Requests to the Protected Resource
 
-   Clients SHOULD send bearer tokens passed in the Authentication header
-   as defined by [RFC6750] . Clients MAY use the form-parameter or
-   query-parameter methods in [RFC6750] . Authorized requests MUST be
-   made over TLS, and clients MUST validate the protected resource
-   server's certificate.
+
+
+
+
+
+
+
+
+
+Richer, et al.               Standards Track                   [Page 12]
+
+                             iGov OAuth 2.0                  August 2023
+
+
+2.5.1.  Requests to the Protected Resource
+
+   Clients MUST use the authorization request header field mechanism to
+   send bearer tokens as defined by [RFC6750] . All network connections
+   MUST be made using TLS 1.2 or above.  Each originator of a TLS
+   connection MUST verify the destination's certificate.  For TLS
+   versions below 1.3, only the following 4 cipher suites shall be
+   permitted: TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
+   TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+   TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
+   TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+
+   For the authorization_endpoint, the authorization server MAY allow
+   additional cipher suites that are permitted by the latest version of
+   BCP195 [BCP195], if necessary to allow sufficient interoperability
+   with users' web browsers or as required by local regulations.
+
+   NOTE: Permitted cipher suites are those listed in BCP195 [BCP195]
+   that do not explicitly say MUST NOT use.  When using the
+   TLS_DHE_RSA_WITH_AES_128_GCM_SHA256 or
+   TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 cipher suites, key lengths of at
+   least 2048 bits are REQUIRED.
 
    An example of an OAuth-protected call to the OpenID Connect UserInfo
    endpoint, sending the token in the Authorization header, follows:
@@ -609,35 +714,33 @@ Host: idp-p.example.com
 Connection: Keep-Alive
 User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 
-
-
-
-
-Richer, et al.               Standards Track                   [Page 11]
-
-                             iGov OAuth 2.0                  August 2023
-
-
 3.  Authorization Server Profile
 
    All servers MUST conform to applicable recommendations found in the
    Security Considerations sections of [RFC6749] and those found in the
-   OAuth Threat Model Document [RFC6819] .
+   OAuth Threat Model Document [RFC6819].
 
    The authorization server MUST protect all communications to and from
    its OAuth endpoints using TLS.
+
+
+
+Richer, et al.               Standards Track                   [Page 13]
+
+                             iGov OAuth 2.0                  August 2023
+
 
 3.1.  Connections with clients
 
 
 3.1.1.  Grant types
 
-   The authorization server MUST support the authorization_code , and
-   MAY support the client_credentials grant types as described in
-   Section 2 . The authorization server MUST limit each registered
-   client (identified by a client ID) to a single grant type only, since
-   a single piece of software will be functioning at runtime in only one
-   of the modes described in Section 2 . Clients that have multiple
+   The authorization server MUST support the authorization_code, and MAY
+   support the client_credentials grant types as described in Section 2.
+   The authorization server MUST limit each registered client
+   (identified by a client ID) to a single grant type only, since a
+   single piece of software will be functioning at runtime in only one
+   of the modes described in Section 2.  Clients that have multiple
    modes of operation MUST have a separate client ID for each mode.
 
 3.1.2.  Client authentication
@@ -650,10 +753,13 @@ Richer, et al.               Standards Track                   [Page 11]
    The authorization server MUST validate all redirect URIs for
    authorization code and implicit grant types.
 
+   The authorization server MUST confirm thumbprints of client keys if
+   mTLS is used for client authentication or sender-constraining tokens.
+
 3.1.3.  Dynamic Registration
 
    Dynamic Registration allows for authorized Clients to on-board
-   programatically without administrative intervention.  This is
+   programmatically without administrative intervention.  This is
    particularly important in ecosystems with many potential Clients,
    including Mobile Apps acting as independent Clients.  Authorization
    servers MUST support dynamic client registration, and clients MAY
@@ -663,17 +769,26 @@ Richer, et al.               Standards Track                   [Page 11]
    servers MAY limit the scopes available to dynamically registered
    clients.
 
-   Authorization servers MAY protect their Dynamic Registration
-   endpoints by requiring clients to present credentials that the
-   authorization server would recognize as authorized participants.
 
 
 
-Richer, et al.               Standards Track                   [Page 12]
+
+
+
+
+
+
+
+
+
+Richer, et al.               Standards Track                   [Page 14]
 
                              iGov OAuth 2.0                  August 2023
 
 
+   Authorization servers MAY protect their Dynamic Registration
+   endpoints by requiring clients to present credentials that the
+   authorization server would recognize as authorized participants.
    Authorization servers MAY accept signed software statements as
    described in [RFC7591] issued to client software developers from a
    trusted registration entity.  The software statement can be used to
@@ -683,19 +798,58 @@ Richer, et al.               Standards Track                   [Page 12]
    parameters:
 
    redirect_uris  array of redirect URIs used by the client; subject to
-      the requirements listed in Section 2.2.1
+      the requirements listed in Section 2.3.1
 
    grant_types  grant type used by the client; must be
       "authorization_code" or "client_credentials"
-
-   jwks_uri or jwks  client's public key in JWK Set format; if jwks_uri
-      is used it MUST be reachable by the Authorization Server and point
-      to the client's public key set
 
    client_name  human-readable name of the client
 
    client_uri  URL of a web page containing further information about
       the client
+
+   tls_client_certificate_bound_access_tokens  REQUIRED.  Boolean value
+      indicating server support for mutual-TLS client certificate-bound
+      access tokens.
+
+   dpop_signing_alg_values_supported  REQUIRED.  A JSON array containing
+      a list of the JWS alg values supported by the authorization server
+      for DPoP proof JWTs.
+
+   jwks_uri or jwks  client's public key in a JWK Set [RFC7517], or if
+      jwks_uri is used it MUST be reachable by the Authorization Server
+      and point to the client's public key set.  If the PKI/
+      tls_client_auth method is used, the public key must be issued by a
+      trusted Certificate Authority.  If either the self-signed mTLS
+      method or private_key_jwt method for client authentication is
+      used, the jwks MUST include a certificate.
+
+   A client using the tls_client_auth authentication method MUST use
+   exactly one of the below metadata parameters to indicate the
+   certificate subject value that the authorization server is to expect
+   when authenticating the respective client:
+
+   tls_client_auth_subject_dn  String value specifying the expected
+      subject DN of the client certificate.
+
+   tls_client_auth_san_dns  String value specifying the expected dNSName
+      SAN entry in the client certificate.
+
+
+
+Richer, et al.               Standards Track                   [Page 15]
+
+                             iGov OAuth 2.0                  August 2023
+
+
+   tls_client_auth_san_uri  String value specifying the expected
+      uniformResourceIdentifier SAN entry in the client certificate.
+
+   tls_client_auth_san_ip  String value specifying the expected
+      iPAddress SAN entry in the client certificate.
+
+   tls_client_auth_san_email  String value specifying the expected
+      rfc822Name SAN entry in the client certificate.
 
 3.1.4.  Client Approval
 
@@ -714,35 +868,48 @@ Richer, et al.               Standards Track                   [Page 12]
       duration.
 
    For example, for native clients a message indicating a new App
-   installation has been registered as a client can help users determin
+   installation has been registered as a client can help users determine
    if this is the expected behaviour.  This signal helps users protect
-   themselves fro potentially rogue clients.
+   themselves from potentially rogue clients.
 
+3.1.5.  Sender-constrained Tokens
 
+   The authorization server MUST support and verify sender-constraining
+   tokens using mTLS [RFC8705] and DPoP [RFC9449].
 
+   The Authorization Server MUST NOT issue the client an access token if
+   the client included the tls_client_certificate_bound_access_tokens
+   parameter in its registration metadata and makes a request to the
+   token endpoint over a non-mutual-TLS connection.
 
-
-
-
-
-Richer, et al.               Standards Track                   [Page 13]
-
-                             iGov OAuth 2.0                  August 2023
-
-
-3.1.5.  Discovery
+3.1.6.  Discovery
 
    The authorization server MUST provide an OpenID Connect service
    discovery [OpenID.Discovery] endpoint listing the components relevant
-   to the OAuth protocol:
+   to the OAuth 2.0 protocol:
 
    issuer  REQUIRED.  The fully qualified issuer URL of the server
+
+
+
+
+Richer, et al.               Standards Track                   [Page 16]
+
+                             iGov OAuth 2.0                  August 2023
+
 
    authorization_endpoint  REQUIRED.  The fully qualified URL of the
       server's authorization endpoint defined by OAuth 2.0 [RFC6749]
 
    token_endpoint  REQUIRED.  The fully qualified URL of the server's
       token endpoint defined by OAuth 2.0 [RFC6749]
+
+   token_endpoint_auth_method  REQUIRED.  String of values corresponding
+      to permitted methods for client authentication to the
+      authorization server as defined in OAuth 2.0 Dynamic Client
+      Registration Protocol [RFC7591].  Within this profile, the server
+      MUST provide one or more of the following values:
+      "private_key_jwt", "tls_client_auth", and "self_signed_tls_auth".
 
    introspection_endpoint  OPTIONAL.  The fully qualified URL of the
       server's introspection endpoint defined by OAuth Token
@@ -752,8 +919,40 @@ Richer, et al.               Standards Track                   [Page 13]
       server's revocation endpoint defined by OAuth 2.0 Token Revocation
       [RFC7009]
 
-   jwks_uri  REQUIRED.  The fully qualified URI of the server's public
-      key in JWK Set [RFC7517] format
+   mtls_endpoint_aliases  OPTIONAL.  A JSON object containing
+      alternative authorization server endpoints that, when present, an
+      OAuth client intending to perform mutual TLS uses in preference to
+      the conventional endpoints.  Use of this parameter enables
+      isolation of mTLS behavior to only clients intending to use mTLS
+      for authentication or sender-constraining tokens.  Usage of the
+      parameter is specified in OAuth 2.0 Mutual-TLS Client
+      Authentication and Certificate-Bound Access Tokens [RFC8705]
+
+   jwks_uri  REQUIRED.  The fully qualified URI of the server's JWK as
+      defined in OAuth 2.0 Authorization Server Metadata [RFC8414].  If
+      the self_signed_tls_auth method is used, a jwks_uri MUST be
+      registered and MUST include a certificate.
+
+   If the TLS method for client authentication is used, exactly one
+   authentication method metadata value MUST be included.
+
+   tls_client_auth  Indicates that client authentication to the
+      authorization server will occur with mutual TLS utilizing the PKI
+      method of associating a certificate to a client.
+
+   self_signed_tls_client_auth  Indicates that client authentication to
+      the authorization server will occur using mutual TLS with the
+      client utilizing a self-signed certificate.
+
+
+
+
+
+
+Richer, et al.               Standards Track                   [Page 17]
+
+                             iGov OAuth 2.0                  August 2023
+
 
    If the authorization server is also an OpenID Connect Provider, it
    MUST provide a discovery endpoint meeting the requirements listed in
@@ -778,14 +977,6 @@ Richer, et al.               Standards Track                   [Page 13]
     "token_endpoint_auth_methods_supported": [
       "private_key_jwt",
     ],
-
-
-
-Richer, et al.               Standards Track                   [Page 14]
-
-                             iGov OAuth 2.0                  August 2023
-
-
     "jwks_uri": "https://idp-p.example.com/jwk",
     "authorization_endpoint": "https://idp-p.example.com/authorize",
     "require_request_uri_registration": false,
@@ -811,12 +1002,22 @@ Richer, et al.               Standards Track                   [Page 14]
       "client_credentials",
       "urn:ietf:params:oauth:grant_type:redelegate"
     ],
+
+
+
+Richer, et al.               Standards Track                   [Page 18]
+
+                             iGov OAuth 2.0                  August 2023
+
+
     "scopes_supported": [
       "profile", "openid", "email", "address", "phone", "offline_access"
     ],
     "op_tos_uri": "https://idp-p.example.com/about",
     "issuer": "https://idp-p.example.com/",
     "op_policy_uri": "https://idp-p.example.com/about"
+    "tls_client_certificate_bound_access_tokens": "true"
+    "dpop_signing_alg_values_supported": ["PS256", "ES256"]
   }
 
    Clients and protected resources SHOULD cache this discovery
@@ -834,13 +1035,6 @@ Richer, et al.               Standards Track                   [Page 14]
    alg  The default algorithm used for this key
 
    The following is an example of a 2048-bit RSA public key:
-
-
-
-Richer, et al.               Standards Track                   [Page 15]
-
-                             iGov OAuth 2.0                  August 2023
-
 
 {
   "keys": [
@@ -862,7 +1056,17 @@ U-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEqfCaPDNp00J6AbY6w",
    RECOMMENDED that servers provide cache information through HTTP
    headers and make the cache valid for at least one week.
 
-3.1.6.  Revocation
+
+
+
+
+
+Richer, et al.               Standards Track                   [Page 19]
+
+                             iGov OAuth 2.0                  August 2023
+
+
+3.1.7.  Revocation
 
    Token revocation allows a client to signal to an authorization server
    that a given token will no longer be used.
@@ -875,37 +1079,27 @@ U-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEqfCaPDNp00J6AbY6w",
    A client MUST immediately discard the token and not use it again
    after revoking it.
 
-3.1.7.  PKCE
+3.1.8.  PKCE
 
    An authorization server MUST support the Proof Key for Code Exchange
    (PKCE [RFC7636]) extension to the authorization code flow, including
    support for the S256 code challenge method.  The authorization server
    MUST NOT allow an iGov client to use the plain code challenge method.
 
-3.1.8.  Redirect URIs
+3.1.9.  Redirect URIs
 
    The authorization server MUST compare a client's registered redirect
    URIs with the redirect URI presented during an authorization request
    using an exact string match.
 
-
-
-
-
-
-Richer, et al.               Standards Track                   [Page 16]
-
-                             iGov OAuth 2.0                  August 2023
-
-
-3.1.9.  RefreshTokens
+3.1.10.  RefreshTokens
 
    Authorization Servers MAY issue refresh tokens to clients under the
    following context:
 
    Clients MUST be registered with the Authorization Server.
 
-   Clients MUST present a valid client_id.  COnfidential clients MUST
+   Clients MUST present a valid client_id.  Confidential clients MUST
    present a signed client_assertion with their associated keypair.
 
    Clients using the Direct Credentials method MUST NOT be issued
@@ -918,18 +1112,29 @@ Richer, et al.               Standards Track                   [Page 16]
    compliant protected resources to connect to compliant authorization
    servers.
 
+
+
+
+
+
+Richer, et al.               Standards Track                   [Page 20]
+
+                             iGov OAuth 2.0                  August 2023
+
+
 3.2.1.  JWT Bearer Tokens
 
    In order to facilitate interoperability with multiple protected
    resources, all iGov-compliant authorization servers issue
-   cryptographically signed tokens in the JSON Web Token (JWT) format.
-   The information carried in the JWT is intended to allow a protected
-   resource to quickly test the integrity of the token without
-   additional network calls, and to allow the protected resource to
-   determine which authorization server issued the token.  When combined
-   with discovery, this information is sufficient to programmatically
-   locate the token introspection service, which is in turn used for
-   conveying additional security information about the token.
+   cryptographically signed sender-constrained tokens in the JSON Web
+   Token (JWT) format.  The information carried in the JWT is intended
+   to allow a protected resource to quickly test the integrity of the
+   token without additional network calls, and to allow the protected
+   resource to determine which authorization server issued the token.
+   When combined with discovery, this information is sufficient to
+   programmatically locate the token introspection service, which is in
+   turn used for conveying additional security information about the
+   token.
 
    The server MUST issue tokens as JWTs with, at minimum, the following
    claims:
@@ -947,22 +1152,12 @@ Richer, et al.               Standards Track                   [Page 16]
       check for reuse of jti values and reject all tokens issued with
       duplicate jti values.
 
-
-
-Richer, et al.               Standards Track                   [Page 17]
-
-                             iGov OAuth 2.0                  August 2023
-
-
-   The server MAY issue tokens with additional fields, including the
-   following as defined here:
-
    sub  The identifier of the end-user that authorized this client, or
       the client id of a client acting on its own behalf (such as a bulk
       transfer).  Since this information could potentially leak private
       user information, it should be used only when needed.  End-user
       identifiers SHOULD be pairwise anonymous identifiers unless the
-      audiance requires otherwise.
+      audience requires otherwise.
 
    aud  The audience of the token, an array containing the identifier(s)
       of protected resource(s) for which the token is valid, if this
@@ -970,6 +1165,25 @@ Richer, et al.               Standards Track                   [Page 17]
       if the token is valid for multiple protected resources.  Note that
       at runtime, the authorization server may not know the identifiers
       of all possible protected resources at which a token may be used.
+
+   Additionally, if the client uses mTLS [RFC8705] for client
+   authentication or to sender-constrain tokens, the server MUST include
+   the following claim in the access token.
+
+
+
+
+Richer, et al.               Standards Track                   [Page 21]
+
+                             iGov OAuth 2.0                  August 2023
+
+
+   cnf  Confirmation, as defined in Proof-of-Possession Key Semantics
+      for JSON Web Tokens (JWTs) [RFC7800] and OAuth 2.0 Mutual-TLS
+      Client Authentication and Certificate-Bound Access Tokens
+      [RFC8705].  The confirmation claim value MUST be computed using
+      X.509 Certificate SHA-256 Thumbprint and include confirmation
+      method value "x5t#256".
 
    The following sample claim set illustrates the use of the required
    claims for an access token as defined in this profile; additional
@@ -981,34 +1195,22 @@ Richer, et al.               Standards Track                   [Page 17]
       "iss": "https://idp-p.example.com/",
       "jti": "2402f87c-b6ce-45c4-95b0-7a3f2904997f",
       "iat": 1418698788
+      "cnf": {
+          "x5t#S256":"A4DtL2JmUMhAsvJj5tKyn64SqzmuXbMrJa0n761y5v0"
+          }
    }
 
-   The access tokens MUST be signed with JWS [RFC7515] . The
-   authorization server MUST support the RS256 signature method for
-   tokens and MAY use other asymmetric signing methods as defined in the
-   IANA JSON Web Signatures and Encryption Algorithms registry
-   [JWS.JWE.Algs] . The JWS header MUST contain the following fields:
+   The access tokens MUST be signed with JWS [RFC7515] . If
+   private_key_jwt is used, the authorization server MUST support the
+   RS256 signature method for tokens and MAY use other asymmetric
+   signing methods as defined in the IANA JSON Web Signatures and
+   Encryption Algorithms registry [JWS.JWE.Algs] . The JWS header MUST
+   contain the following fields:
 
    kid  The key ID of the key pair used to sign this token
 
    This example access token has been signed with the server's private
    key using RS256:
-
-
-
-
-
-
-
-
-
-
-
-
-Richer, et al.               Standards Track                   [Page 18]
-
-                             iGov OAuth 2.0                  August 2023
-
 
    eyJhbGciOiJSUzI1NiJ9.ew0KICAgImV4cCI6IDE0MTg3MDIzODgsDQogICAiYXpwIjo
    gIjU1ZjlmNTU5LTI0OTYtNDlkNC1iNmMzLTM1MWE1ODZiNzQ4NCIsDQogICAiaXNzIjo
@@ -1024,6 +1226,14 @@ Richer, et al.               Standards Track                   [Page 18]
    Refresh tokens SHOULD be signed with JWS [RFC7515] using the same
    private key and contain the same set of claims as the access tokens.
 
+
+
+
+Richer, et al.               Standards Track                   [Page 22]
+
+                             iGov OAuth 2.0                  August 2023
+
+
    The authorization server MAY encrypt access tokens and refresh tokens
    using JWE [RFC7516] . Encrypted access tokens MUST be encrypted using
    the public key of the protected resource.  Encrypted refresh tokens
@@ -1033,38 +1243,8 @@ Richer, et al.               Standards Track                   [Page 18]
 
    Token introspection allows a protected resource to query the
    authorization server for metadata about a token.  The protected
-   resource makes a request like the following to the token
-   introspection endpoint:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Richer, et al.               Standards Track                   [Page 19]
-
-                             iGov OAuth 2.0                  August 2023
-
+   resource makes a request over a mutually authenticated TLS connection
+   like the following to the token introspection endpoint:
 
 POST /introspect HTTP/1.1
 User-Agent: Faraday v0.9.0
@@ -1101,7 +1281,14 @@ A4j7QI5loZYeyzGR9h70xQLVzqwwl1P0-F_0JaDFMJFO1yl4IexfpoZZsB3Hh
 F2vFdL6D_lLeHRy-H2g2OzF59eMIsM_Ccs4G47862w
 
    The client assertion parameter is structured as described in
-   Section 2.3.2 .
+   Section 2.4.2 .
+
+
+
+Richer, et al.               Standards Track                   [Page 23]
+
+                             iGov OAuth 2.0                  August 2023
+
 
    The server responds to an introspection request with a JSON object
    representing the token containing the following fields as defined in
@@ -1114,13 +1301,6 @@ F2vFdL6D_lLeHRy-H2g2OzF59eMIsM_Ccs4G47862w
 
    scope  Space-separated list of OAuth 2.0 scope values represented as
       a single string.
-
-
-
-Richer, et al.               Standards Track                   [Page 20]
-
-                             iGov OAuth 2.0                  August 2023
-
 
    exp  Timestamp of when this token expires (integer number of seconds
       since from 1970-01-01T00:00:00Z UTC)
@@ -1152,10 +1332,19 @@ Richer, et al.               Standards Track                   [Page 20]
  }
 
    The authorization server MUST require authentication for both the
-   revocation and introspection endpoints as described in Section 2.3.2
-   . Protected resources calling the introspection endpoint MUST use
+   revocation and introspection endpoints as described in Section 2.4.2.
+   Protected resources calling the introspection endpoint MUST use
    credentials distinct from any other OAuth client registered at the
    server.
+
+
+
+
+
+Richer, et al.               Standards Track                   [Page 24]
+
+                             iGov OAuth 2.0                  August 2023
+
 
    A protected resource MAY cache the response from the introspection
    endpoint for a period of time no greater than half the lifetime of
@@ -1165,18 +1354,11 @@ Richer, et al.               Standards Track                   [Page 20]
 3.3.  Response to Authorization Requests
 
    The following data will be sent as an Authorization Response to the
-   Authorization Code Flow as desribed above.  The authentication
+   Authorization Code Flow as described above.  The authentication
    response is sent via HTTP redirect to the redirect URI specified in
    the request.
 
    The following fields MUST be included in the response:
-
-
-
-Richer, et al.               Standards Track                   [Page 21]
-
-                             iGov OAuth 2.0                  August 2023
-
 
    state  REQUIRED.  The value of the state parameter passed in in the
       authentication request.  This value MUST match exactly.
@@ -1212,6 +1394,14 @@ Richer, et al.               Standards Track                   [Page 21]
    For clients using the client credentials grant type, access tokens
    SHOULD have a valid lifetime no greater than six hours.
 
+
+
+
+Richer, et al.               Standards Track                   [Page 25]
+
+                             iGov OAuth 2.0                  August 2023
+
+
 3.5.  Scopes
 
    Scopes define individual pieces of authority that can be requested by
@@ -1225,15 +1415,6 @@ Richer, et al.               Standards Track                   [Page 21]
    that will be used if an authorization request does not specify a
    requested set of scopes.
 
-
-
-
-
-Richer, et al.               Standards Track                   [Page 22]
-
-                             iGov OAuth 2.0                  August 2023
-
-
    To facilitate general use across a wide variety of protected
    resources, authorization servers SHOULD allow for the use of
    arbitrary scope values at runtime, such as allowing clients or
@@ -1246,10 +1427,10 @@ Richer, et al.               Standards Track                   [Page 22]
 4.1.  Protecting Resources
 
    Protected Resources grant access to clients if they present a valid
-   access_token with the appropriate scope.  Resource servers trust the
-   authorization server to authenticate the end user and client
-   appropriately for the importance, risk, and value level of the
-   protected resource scope.
+   sender-constrained access_token with the appropriate scope.  Resource
+   servers trust the authorization server to authenticate the end user
+   and client appropriately for the importance, risk, and value level of
+   the protected resource scope.
 
    Protected resources that require a higher end-user authentication
    trust level to access certain resources MUST associate those
@@ -1259,14 +1440,23 @@ Richer, et al.               Standards Track                   [Page 22]
    the higher level scope in their authorization request to the
    authorization server.
 
-   Authorization servers MUST authenitcate the end-user with the
+   Authorization servers MUST authenticate the end-user with the
    appropriate trust level before providing an authorization_code or
    associated access_token to the client.
 
    Authorization servers MUST only grant access to higher level scope
    resources to clients that have permission to request these scope
    levels.  Client authorization requests containing scopes that are
-   outside their permisson MUST be rejected.
+   outside their permission MUST be rejected.
+
+
+
+
+
+Richer, et al.               Standards Track                   [Page 26]
+
+                             iGov OAuth 2.0                  August 2023
+
 
    Authorization servers MAY set the expiry time (exp) of access_tokens
    associated with higher level resources to be shorter than
@@ -1278,17 +1468,8 @@ Richer, et al.               Standards Track                   [Page 22]
    higher level scope and lower level scope in the original
    authorization request.  This allows clients to continue accessing
    lower level resources after the higher level resource access has
-   expired -- without requiring an additonal user authentication/
+   expired -- without requiring an additional user authentication/
    authorization.
-
-
-
-
-
-Richer, et al.               Standards Track                   [Page 23]
-
-                             iGov OAuth 2.0                  August 2023
-
 
    For example: a resource server has resources classified as "public"
    and "sensitive".  "Sensitive" resources require the user to perform a
@@ -1308,7 +1489,7 @@ Richer, et al.               Standards Track                   [Page 23]
    access grant request (as described in OAuth 2.0 [RFC6749] section 6)
    with the refresh_token, and the reduced scope of just "public".  The
    token endpoint validates the refresh_token, and issues a new
-   access_token for just the "public" scopewith an expiry time set to
+   access_token for just the "public" scope with an expiry time set to
    24hrs.  An access grant request for a new access_token with the
    "sensitive" scope would be rejected, and require the client to get
    the end-user to re-authenticate/authorize the "sensitive" scope
@@ -1322,29 +1503,32 @@ Richer, et al.               Standards Track                   [Page 23]
 
    A protected resource MUST accept bearer tokens passed in the
    authorization header as described in [RFC6750] . A protected resource
-   MAY also accept bearer tokens passed in the form parameter or query
+   MUST NOT accept bearer tokens passed in the form parameter or query
    parameter methods.
+
+
+
+
+Richer, et al.               Standards Track                   [Page 27]
+
+                             iGov OAuth 2.0                  August 2023
+
 
    Protected resources MUST define and document which scopes are
    required for access to the resource.
+
+   If the client uses sender-constrained tokens, the client MUST connect
+   to the protected resource over a mutually authenticated TLS
+   connection using the same certificate that was used for mutual TLS at
+   the authorization server's token endpoint.  The protected resource
+   MUST verify that the certificate matches the certificate associated
+   with the access token.  If they do not match, the resource access
+   attempt MUST be denied.
 
 4.3.  Connections with Authorization Servers
 
    Protected resources MUST interpret access tokens using either JWT,
    token introspection, or a combination of the two.
-
-
-
-
-
-
-
-
-
-Richer, et al.               Standards Track                   [Page 24]
-
-                             iGov OAuth 2.0                  August 2023
-
 
    The protected resource MUST check the aud (audience) claim, if it
    exists in the token, to ensure that it includes the protected
@@ -1359,55 +1543,7 @@ Richer, et al.               Standards Track                   [Page 24]
    using a whitelist of trusted servers, a dynamic policy engine, or
    other means.
 
-5.  Advanced OAuth Security Options
-
-   The preceding portions of this OAuth profile provide a level of
-   security adequate for a wide range of use cases, while still
-   maintaining relative ease of implementation and usability for
-   developers, system administrators, and end users.  The following are
-   some additional security measures that can be employed for use cases
-   where elevated risks justify the use of additional controls at the
-   expense of implementation effort and usability.  This section also
-   addresses future security capabilities, currently in the early draft
-   stages, being added to the OAuth standard suite.
-
-5.1.  Proof of Possession Tokens
-
-   OAuth proof of possession tokens are currently defined in a set of
-   drafts under active development in the Internet Engineering Task
-   Force (IETF) OAuth Working Group.  While a bearer token can be used
-   by anyone in possession of the token, a proof of possession token is
-   bound to a particular symmetric or asymmetric key issued to, or
-   already possessed by, the client.  The association of the key to the
-   token is also communicated to the protected resource; a variety of
-   mechanisms for doing this are outlined in the draft OAuth 2.0
-   Proof-of-Possession (PoP) Security Architecture
-   [I-D.ietf-oauth-pop-architecture] . When the client presents the
-   token to the protected resource, it is also required to demonstrate
-   possession of the corresponding key (e.g., by creating a
-   cryptographic hash or signature of the request).
-
-   Proof of Possession tokens are somewhat analogous to the Security
-   Assertion Markup Language's (SAML's) Holder-of-Key mechanism for
-   binding assertions to user identities.  Proof of possession could
-   prevent a number of attacks on OAuth that entail the interception of
-   access tokens by unauthorized parties.  The attacker would need to
-   obtain the legitimate client's cryptographic key along with the
-   access token to gain access to protected resources.  Additionally,
-
-
-
-Richer, et al.               Standards Track                   [Page 25]
-
-                             iGov OAuth 2.0                  August 2023
-
-
-   portions of the HTTP request could be protected by the same signature
-   used in presentation of the token.  Proof of possession tokens may
-   not provide all of the same protections as PKI authentication, but
-   they are far less challenging to implement on a distributed scale.
-
-6.  Security Considerations
+5.  Security Considerations
 
    All transactions MUST be protected in transit by TLS as described in
    BCP195 [BCP195] .
@@ -1425,7 +1561,14 @@ Richer, et al.               Standards Track                   [Page 25]
    OAuth 2.0 Threat Model and Security Considerations document [RFC6819]
    .
 
-7.  Normative References
+6.  Normative References
+
+
+
+Richer, et al.               Standards Track                   [Page 28]
+
+                             iGov OAuth 2.0                  August 2023
+
 
    [BCP195]   Sheffer, Y., Holz, R., and P. Saint-Andre,
               "Recommendations for Secure Use of Transport Layer
@@ -1449,14 +1592,6 @@ Richer, et al.               Standards Track                   [Page 25]
    [JWS.JWE.Algs]
               "JSON Web Signature and Encryption Algorithms registry", 8
               August 2016.
-
-
-
-
-Richer, et al.               Standards Track                   [Page 26]
-
-                             iGov OAuth 2.0                  August 2023
-
 
    [OpenID.Core]
               Sakimura, N., Bradley, J., Jones, M.B., de Medeiros, B.,
@@ -1484,6 +1619,13 @@ Richer, et al.               Standards Track                   [Page 26]
               DOI 10.17487/RFC6750, October 2012,
               <https://www.rfc-editor.org/info/rfc6750>.
 
+
+
+Richer, et al.               Standards Track                   [Page 29]
+
+                             iGov OAuth 2.0                  August 2023
+
+
    [RFC6819]  Lodderstedt, T., Ed., McGloin, M., and P. Hunt, "OAuth 2.0
               Threat Model and Security Considerations", RFC 6819,
               DOI 10.17487/RFC6819, January 2013,
@@ -1504,15 +1646,6 @@ Richer, et al.               Standards Track                   [Page 26]
    [RFC7517]  Jones, M., "JSON Web Key (JWK)", RFC 7517,
               DOI 10.17487/RFC7517, May 2015,
               <https://www.rfc-editor.org/info/rfc7517>.
-
-
-
-
-
-Richer, et al.               Standards Track                   [Page 27]
-
-                             iGov OAuth 2.0                  August 2023
-
 
    [RFC7518]  Jones, M., "JSON Web Algorithms (JWA)", RFC 7518,
               DOI 10.17487/RFC7518, May 2015,
@@ -1541,6 +1674,40 @@ Richer, et al.               Standards Track                   [Page 27]
               RFC 7662, DOI 10.17487/RFC7662, October 2015,
               <https://www.rfc-editor.org/info/rfc7662>.
 
+
+
+
+Richer, et al.               Standards Track                   [Page 30]
+
+                             iGov OAuth 2.0                  August 2023
+
+
+   [RFC7800]  Jones, M., Bradley, J., and H. Tschofenig, "Proof-of-
+              Possession Key Semantics for JSON Web Tokens (JWTs)",
+              RFC 7800, DOI 10.17487/RFC7800, April 2016,
+              <https://www.rfc-editor.org/info/rfc7800>.
+
+   [RFC8414]  Jones, M., Sakimura, N., and J. Bradley, "OAuth 2.0
+              Authorization Server Metadata", RFC 8414,
+              DOI 10.17487/RFC8414, June 2018,
+              <https://www.rfc-editor.org/info/rfc8414>.
+
+   [RFC8705]  Campbell, B., Bradley, J., Sakimura, N., and T.
+              Lodderstedt, "OAuth 2.0 Mutual-TLS Client Authentication
+              and Certificate-Bound Access Tokens", RFC 8705,
+              DOI 10.17487/RFC8705, February 2020,
+              <https://www.rfc-editor.org/info/rfc8705>.
+
+   [RFC9449]  Fett, D., Campbell, B., Bradley, J., Lodderstedt, T.,
+              Jones, M., and D. Waite, "OAuth 2.0 Demonstrating Proof of
+              Possession (DPoP)", RFC 9449, DOI 10.17487/RFC9449,
+              September 2023, <https://www.rfc-editor.org/info/rfc9449>.
+
+   [SecBCP]   Lodderstedt, T., Bradley, J., Labunets, A., and D. Fett,
+              "OAuth 2.0 Security Best Current Practice", 23 October
+              2023, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              oauth-security-topics>.
+
 Appendix A.  Acknowledgements
 
    The OpenID Community would like to thank the following people for
@@ -1562,15 +1729,15 @@ Appendix B.  Notices
    worldwide copyright license to reproduce, prepare derivative works
    from, distribute, perform and display, this Implementers Draft or
    Final Specification solely for the purposes of (i) developing
+   specifications, and (ii) implementing Implementers Drafts and Final
 
 
 
-Richer, et al.               Standards Track                   [Page 28]
+Richer, et al.               Standards Track                   [Page 31]
 
                              iGov OAuth 2.0                  August 2023
 
 
-   specifications, and (ii) implementing Implementers Drafts and Final
    Specifications based on such documents, provided that attribution be
    made to the OIDF as the source of the material, but that such
    attribution does not indicate an endorsement by the OIDF.
@@ -1621,7 +1788,8 @@ Appendix C.  Document History
 
 
 
-Richer, et al.               Standards Track                   [Page 29]
+
+Richer, et al.               Standards Track                   [Page 32]
 
                              iGov OAuth 2.0                  August 2023
 
@@ -1677,4 +1845,4 @@ Authors' Addresses
 
 
 
-Richer, et al.               Standards Track                   [Page 30]
+Richer, et al.               Standards Track                   [Page 33]
