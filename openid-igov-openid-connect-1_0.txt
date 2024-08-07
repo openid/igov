@@ -42,13 +42,13 @@ Table of Contents
    3.  OpenID Provider Profile . . . . . . . . . . . . . . . . . . .   6
      3.1.  ID Tokens . . . . . . . . . . . . . . . . . . . . . . . .   6
      3.2.  Pairwise Identifiers  . . . . . . . . . . . . . . . . . .   8
-     3.3.  UserInfo Endpoint . . . . . . . . . . . . . . . . . . . .   8
+     3.3.  UserInfo Endpoint . . . . . . . . . . . . . . . . . . . .   9
      3.4.  Request Objects . . . . . . . . . . . . . . . . . . . . .  10
-     3.5.  Vectors of Trust  . . . . . . . . . . . . . . . . . . . .  10
+     3.5.  Vectors of Trust  . . . . . . . . . . . . . . . . . . . .  11
      3.6.  Authentication Context  . . . . . . . . . . . . . . . . .  11
      3.7.  Discovery . . . . . . . . . . . . . . . . . . . . . . . .  11
-     3.8.  Dynamic Registration  . . . . . . . . . . . . . . . . . .  14
-   4.  User Info . . . . . . . . . . . . . . . . . . . . . . . . . .  14
+     3.8.  Dynamic Registration  . . . . . . . . . . . . . . . . . .  15
+   4.  User Info . . . . . . . . . . . . . . . . . . . . . . . . . .  15
      4.1.  Claims Supported  . . . . . . . . . . . . . . . . . . . .  15
 
 
@@ -58,16 +58,16 @@ Varley & Grassi              Standards Track                    [Page 1]
                            iGov OpenID Connect               August 2023
 
 
-     4.2.  Scope Profiles  . . . . . . . . . . . . . . . . . . . . .  15
+     4.2.  Scope Profiles  . . . . . . . . . . . . . . . . . . . . .  16
      4.3.  Claims Request  . . . . . . . . . . . . . . . . . . . . .  16
-     4.4.  Claims Response . . . . . . . . . . . . . . . . . . . . .  16
+     4.4.  Claims Response . . . . . . . . . . . . . . . . . . . . .  17
      4.5.  Claims Metadata . . . . . . . . . . . . . . . . . . . . .  17
-   5.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  17
+   5.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  18
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .  18
    7.  Normative References  . . . . . . . . . . . . . . . . . . . .  18
-   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  19
-   Appendix B.  Notices  . . . . . . . . . . . . . . . . . . . . . .  19
-   Appendix C.  Document History . . . . . . . . . . . . . . . . . .  20
+   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  20
+   Appendix B.  Notices  . . . . . . . . . . . . . . . . . . . . . .  20
+   Appendix C.  Document History . . . . . . . . . . . . . . . . . .  21
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  21
 
 1.  Introduction
@@ -199,19 +199,19 @@ Varley & Grassi              Standards Track                    [Page 3]
       amount of entropy to avoid guessing.  Returned to the client in
       the ID Token.
 
-   vtr  OPTIONAL.  MUST be set to a value as described in Section 6.1 of
-      Vectors of Trust [RFC8485] vtr takes precedence over acr_values.
+   vtr  RECOMMENDED.  MUST be set to a value as described in Section 6.1
+      of Vectors of Trust [RFC8485] vtr takes precedence over
+      acr_values.
 
-   acr_values  OPTIONAL.  Lists the acceptable LoAs for this
-      authentication.  See (below).  MUST not be set if vtr is
-      specified.
+   acr_values  RECOMMENDED.  Lists the acceptable LoAs for this
+      authentication.  See (below).  SHOULD be set if vtr is not
+      specified and MUST NOT be set if vtr is specified.
 
    code_challenge and code_challenge_method  OPTIONAL.  If the PKCE
       protocol is being used by the client.  See OAUTH profile for iGov.
       [iGov.OAuth2]
 
    A sample request may look like:
-
 
 
 
@@ -312,6 +312,13 @@ Varley & Grassi              Standards Track                    [Page 5]
    not presented to remote systems, much shorter expiration times are
    RECOMMENDED where possible.
 
+   OPs MUST support the use of acr_values in Authentication Requests and
+   acr and amr in ID Tokens.  OPs MUST provide Authentication Context to
+   clients.  The two permitted methods are Vector of Trust or both amr
+   and acr, together, as described for the specific claims, below.  The
+   specific claim values are out of scope for this specification.  OPs
+   MUST NOT use both methods with a single client.
+
    The token response includes an access token (which can be used to
    make a UserInfo request) and ID token (a signed and optionally
    encrypted JSON Web Token).  ID Token values have the following
@@ -323,13 +330,6 @@ Varley & Grassi              Standards Track                    [Page 5]
    aud  REQUIRED.  The "audience" field contains the client ID of the
       client.
 
-   sub  REQUIRED.  The identifier of the user.  OpenID Providers MUST
-      support a pairwise identifier in accordance with OpenID Connect
-      [OpenID.Core] section 8.1.  See Pairwise Identifiers below on when
-      it may be useful to relax this requirement.
-
-   vot  OPTIONAL.  The vector value as specified in Vectors of Trust
-
 
 
 
@@ -338,6 +338,12 @@ Varley & Grassi              Standards Track                    [Page 6]
                            iGov OpenID Connect               August 2023
 
 
+   sub  REQUIRED.  The identifier of the user.  OpenID Providers MUST
+      support a pairwise identifier in accordance with OpenID Connect
+      [OpenID.Core] section 8.1.  See Pairwise Identifiers below on when
+      it may be useful to relax this requirement.
+
+   vot  RECOMMENDED.  The vector value as specified in Vectors of Trust
       [RFC8485] . See Vectors of Trust (Section 3.5) for more details.
       vot takes precedence over acr.
 
@@ -345,11 +351,16 @@ Varley & Grassi              Standards Track                    [Page 6]
       Vectors of Trust [RFC8485] . See Vectors of Trust (Section 3.5)
       for more details.
 
-   acr  OPTIONAL.  The LoA the user was authenticated at.  MUST be a
-      member of the acr_values list from the authentication request.
-      The OpenID Provider MUST NOT include this field if vot is
-      provided.  See Authentication Context (Section 3.6) for more
-      details.
+   acr  REQUIRED if vot is not specified.  The LoA the user was
+      authenticated at.  MUST be a member of the acr_values list from
+      the authentication request.  The OpenID Provider MUST NOT include
+      this field if vot is provided.  See Authentication Context
+      (Section 3.6) for more details.
+
+   amr  REQUIRED if vot is not specified.  The authentication method
+      used by the user.  The OpenID Provider MUST NOT include this field
+      if vot is provided.  See Authentication Context (Section 3.6) for
+      more details.
 
    nonce  REQUIRED.  MUST match the nonce value that was provided in the
       authentication request.
@@ -367,7 +378,21 @@ Varley & Grassi              Standards Track                    [Page 6]
       seconds since from 1970-01-01T00:00:00Z UTC) within acceptable
       ranges.
 
+   at_hash  RECOMMENDED.  The Access Token hash value enables Access
+      Token validation.  Computing at_hash value is detailed in section
+      3.1.3.6 of OpenID Connect [OpenID.Core].
+
    This example ID token has been signed using the server's RSA key:
+
+
+
+
+
+
+Varley & Grassi              Standards Track                    [Page 7]
+
+                           iGov OpenID Connect               August 2023
+
 
    eyJhbGciOiJSUzI1NiJ9.eyJhdXRoX3RpbWUiOjE0
            MTg2OTg3ODIsImV4cCI6MTQxODY5OTQxMiwic3ViI
@@ -387,13 +412,6 @@ Varley & Grassi              Standards Track                    [Page 6]
 
    Its claims are as follows:
 
-
-
-Varley & Grassi              Standards Track                    [Page 7]
-
-                           iGov OpenID Connect               August 2023
-
-
     {
            "auth_time": 1418698782,
            "exp": 1418699412,
@@ -403,9 +421,8 @@ Varley & Grassi              Standards Track                    [Page 7]
              "c1bc84e4-47ee-4b64-bb52-5cda6c81f788"
            ],
            "iss": "https://idp-p.example.com/",
-           "acr":"LOA1",
            "vot":"P1.C1",
-           "vtm":"https://ipd-p.example.com/vtm.json"
+           "vtm":"https://idp-p.example.com/vtm.json"
            "iat": 1418698812
            }
 
@@ -426,6 +443,13 @@ Varley & Grassi              Standards Track                    [Page 7]
    pairwise identifier will aid in protecting the privacy of end users
    as they navigate the system.
 
+
+
+Varley & Grassi              Standards Track                    [Page 8]
+
+                           iGov OpenID Connect               August 2023
+
+
    OpenID Providers MUST support pairwise identifiers for cases where
    clients require this functionality.  OpenID Providers MAY support
    public identifiers for frameworks where public identifiers are
@@ -439,16 +463,6 @@ Varley & Grassi              Standards Track                    [Page 7]
    minimum, the sub (subject) claim.  It is expected that the sub claim
    will remain pseudonymous in use cases where obtaining personal
    information is not needed.
-
-
-
-
-
-
-Varley & Grassi              Standards Track                    [Page 8]
-
-                           iGov OpenID Connect               August 2023
-
 
    Support for a UserInfo Endpoint is important for maximum client
    implementation interoperability even if no additional user
@@ -475,20 +489,6 @@ Varley & Grassi              Standards Track                    [Page 8]
 
    And receives a document in response like the following:
 
-   HTTP/1.1 200 OK
-   Date: Tue, 16 Dec 2014 03:00:12 GMT
-   Access-Control-Allow-Origin: *
-   Content-Type: application/json;charset=ISO-8859-1
-   Content-Language: en-US
-   Content-Length: 333
-   Connection: close
-
-   {
-      "sub": "6WZQPpnQxV",
-      "iss": "https://idp-p.example.com"
-      "given_name": "Stephen",
-      "family_name": "Emeritus",
-   }
 
 
 
@@ -505,6 +505,21 @@ Varley & Grassi              Standards Track                    [Page 9]
 
                            iGov OpenID Connect               August 2023
 
+
+   HTTP/1.1 200 OK
+   Date: Tue, 16 Dec 2014 03:00:12 GMT
+   Access-Control-Allow-Origin: *
+   Content-Type: application/json;charset=ISO-8859-1
+   Content-Language: en-US
+   Content-Length: 333
+   Connection: close
+
+   {
+      "sub": "6WZQPpnQxV",
+      "iss": "https://idp-p.example.com"
+      "given_name": "Stephen",
+      "family_name": "Emeritus",
+   }
 
    OpenID Providers MUST support the generation of JWT [RFC7519] encoded
    responses from the UserInfo Endpoint in addition to unsigned JSON
@@ -533,25 +548,10 @@ Varley & Grassi              Standards Track                    [Page 9]
    it.  Clients are not required to use request objects, but OpenID
    Providers are required to support requests using them.
 
-3.5.  Vectors of Trust
 
-   If the vtr (Vectors of Trust Request) value is present in the
-   authorization request as defined in the Vectors of Trust [RFC8485]
-   standard, the OpenID Provider SHOULD respond with a valid vot value
-   as defined in [section 3.1].  Both the vtr and vot MUST contain
-   values in accordance with the Vectors of Trust [RFC8485] standard.
-   These values MAY be those defined in the Vectors of Trust [RFC8485]
-   standard directly or MAY be from a compatible standard.  The OpenID
-   Provider MAY require the user to re-authenticate, provide a second
-   factor, or perform another action in order to fulfill the state
-   requested in the vtr.
 
-   For backwards compatibility clients MAY send an acr_values parameter.
-   If both the vtr and acr_values are in the request, the vtr MUST take
-   precedence and the acr_values MUST be ignored.
 
-   It is out of scope of this document to determine how an organization
-   maps their digital identity practices to valid VOT component values.
+
 
 
 
@@ -562,12 +562,33 @@ Varley & Grassi              Standards Track                   [Page 10]
                            iGov OpenID Connect               August 2023
 
 
+3.5.  Vectors of Trust
+
+   If the vtr (Vectors of Trust Request) value is present in the
+   Authentication Request ("authorization request" as defined in the
+   Vectors of Trust [RFC8485] standard), the OpenID Provider SHOULD
+   respond with a valid vot value as defined in [section 3.1].  Both the
+   vtr and vot MUST contain values in accordance with the Vectors of
+   Trust [RFC8485] standard.  These values MAY be those defined in the
+   Vectors of Trust [RFC8485] standard directly or MAY be from a
+   compatible standard.  The OpenID Provider MAY require the user to re-
+   authenticate, provide a second factor, or perform another action in
+   order to fulfill the state requested in the vtr.
+
+   It is out of scope of this document to determine how an organization
+   maps their digital identity practices to valid VOT component values.
+
 3.6.  Authentication Context
 
-   OpenID Providers MAY provide acr (authentication context class
+   OpenID Providers MUST provide acr (authentication context class
    reference, equivalent to the Security Assertion Markup Language
    (SAML) element of the same name) and amr (authentication methods
-   reference) values in ID tokens only if vtr is not used.
+   reference) values in ID tokens if and only if vtr (Vector of Trust
+   request) is not used.
+
+   It is out of scope of this document to determine how an organization
+   maps their digital identity practices to acr values that identify
+   LoAs.
 
 3.7.  Discovery
 
@@ -586,6 +607,16 @@ Varley & Grassi              Standards Track                   [Page 10]
    the Discovery document are then managed by the Provider.  Support for
    these authentication methods is outside the scope of this
    specification.
+
+
+
+
+
+
+Varley & Grassi              Standards Track                   [Page 11]
+
+                           iGov OpenID Connect               August 2023
+
 
    Endpoints described in the Discovery document MUST be secured in
    accordance with this specification and MAY have additonal controls
@@ -610,14 +641,6 @@ Varley & Grassi              Standards Track                   [Page 10]
       server's introspection endpoint defined by OAuth Token
       Introspection [RFC7662].
 
-
-
-
-Varley & Grassi              Standards Track                   [Page 11]
-
-                           iGov OpenID Connect               August 2023
-
-
    revocation_endpoint  OPTIONAL.  The fully qualified URL of the
       server's revocation endpoint defined by OAuth Token Revocation
       [RFC7009].
@@ -632,12 +655,24 @@ Varley & Grassi              Standards Track                   [Page 11]
    claims_supported  REQUIRED.  The list of claims available in the
       supported scopes.  See below.
 
-   vot  OPTIONAL.  The vectors supported.
+   vot  RECOMMENDED.  The vectors supported.
 
-   acr_values_supported  OPTIONAL.  The acrs supported.
+   acr_values_supported  RECOMMENDED.  The acrs supported.
 
    The following example shows the JSON document found at a discovery
    endpoint for an authorization server:
+
+
+
+
+
+
+
+
+Varley & Grassi              Standards Track                   [Page 12]
+
+                           iGov OpenID Connect               August 2023
+
 
    {
      "issuer": "https://idp-p.example.com/",
@@ -666,14 +701,6 @@ Varley & Grassi              Standards Track                   [Page 11]
      "code_challenge_methods_supported":["S256"],
      "authorization_endpoint": "https://idp-p.example.com/authorize",
      "request_object_encryption_alg_values_supported": [
-
-
-
-Varley & Grassi              Standards Track                   [Page 12]
-
-                           iGov OpenID Connect               August 2023
-
-
        "RSA-OAEP", "RSA-OAEP-256"
      ],
      "response_types_supported": [
@@ -695,6 +722,14 @@ Varley & Grassi              Standards Track                   [Page 12]
      "id_token_encryption_enc_values_supported": [
        "A192CBC-HS384", "A192GCM", "A256CBC+HS512",
        "A128CBC+HS256", "A256CBC-HS512", "A128CBC-HS256",
+
+
+
+Varley & Grassi              Standards Track                   [Page 13]
+
+                           iGov OpenID Connect               August 2023
+
+
        "A128GCM", "A256GCM"
      ],
      "id_token_encryption_alg_values_supported": [
@@ -722,14 +757,6 @@ Varley & Grassi              Standards Track                   [Page 12]
      "claims_supported": [
        "sub", "name", "vot", "acr"
      ],
-
-
-
-Varley & Grassi              Standards Track                   [Page 13]
-
-                           iGov OpenID Connect               August 2023
-
-
      "acr_values_supported": ["gold", "silver", "bronze"],
    }
 
@@ -738,6 +765,26 @@ Varley & Grassi              Standards Track                   [Page 13]
 
    The server MUST provide its public key in JWK Set [RFC7517] format,
    such as the following 2048-bit RSA key:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Varley & Grassi              Standards Track                   [Page 14]
+
+                           iGov OpenID Connect               August 2023
+
 
    {
      "keys": [
@@ -771,21 +818,6 @@ Varley & Grassi              Standards Track                   [Page 13]
    cross-jurisdictional interoperability, while setting Client
    expectations on the type of data they may acquire.
 
-
-
-
-
-
-
-
-
-
-
-Varley & Grassi              Standards Track                   [Page 14]
-
-                           iGov OpenID Connect               August 2023
-
-
 4.1.  Claims Supported
 
    Discovery mandates the inclusion of the claims_supported field that
@@ -797,6 +829,18 @@ Varley & Grassi              Standards Track                   [Page 14]
    outside of the claims_supported list, but they MUST still ensure that
    the extra claims to not violate the privacy policies set out by the
    federation.
+
+
+
+
+
+
+
+
+Varley & Grassi              Standards Track                   [Page 15]
+
+                           iGov OpenID Connect               August 2023
+
 
 4.2.  Scope Profiles
 
@@ -832,16 +876,6 @@ Varley & Grassi              Standards Track                   [Page 14]
       Considerations below.
 
    doc  The identity document type(s) and associated "number" the
-
-
-
-
-
-Varley & Grassi              Standards Track                   [Page 15]
-
-                           iGov OpenID Connect               August 2023
-
-
       Provider is capable of providing.  Mutliple document types MAY be
       returned.  This could be passport, driver's license, national ID
       card, health insurance no., and so on.  See the Claims below for
@@ -855,6 +889,14 @@ Varley & Grassi              Standards Track                   [Page 15]
    that is, the Provider only returns information on the subject the
    client specifically asks for, and does not volunteer additonal
    information about the subject.
+
+
+
+
+Varley & Grassi              Standards Track                   [Page 16]
+
+                           iGov OpenID Connect               August 2023
+
 
    Clients requesting the profile scope MAY provide a claims request
    parameter.  If the claims request is omitted, the OpenID Provider
@@ -890,14 +932,6 @@ Varley & Grassi              Standards Track                   [Page 15]
 
    issuer_location  The location/address of the issuing agency.
 
-
-
-
-Varley & Grassi              Standards Track                   [Page 16]
-
-                           iGov OpenID Connect               August 2023
-
-
    Claims response MAY also make use of the aggegated and/or distributed
    claims structure to refer to the original source of the subject's
    claims.
@@ -909,6 +943,16 @@ Varley & Grassi              Standards Track                   [Page 16]
    attributes within the UserInfo object, but are outside the scope of
    this document.  These types of claims are best described by the trust
    framework the clients and OpenID Providers operate within.
+
+
+
+
+
+
+Varley & Grassi              Standards Track                   [Page 17]
+
+                           iGov OpenID Connect               August 2023
+
 
 5.  Privacy Considerations
 
@@ -944,16 +988,6 @@ Varley & Grassi              Standards Track                   [Page 16]
    The reasons for relaxing the controls that support data
    minimalization are outside the scope of this specification.
 
-
-
-
-
-
-Varley & Grassi              Standards Track                   [Page 17]
-
-                           iGov OpenID Connect               August 2023
-
-
 6.  Security Considerations
 
    All transactions MUST be protected in transit by TLS as described in
@@ -965,6 +999,16 @@ Varley & Grassi              Standards Track                   [Page 17]
    .
 
 7.  Normative References
+
+
+
+
+
+
+Varley & Grassi              Standards Track                   [Page 18]
+
+                           iGov OpenID Connect               August 2023
+
 
    [BCP195]   Sheffer, Y., Holz, R., and P. Saint-Andre,
               "Recommendations for Secure Use of Transport Layer
@@ -1003,13 +1047,6 @@ Varley & Grassi              Standards Track                   [Page 17]
               DOI 10.17487/RFC6819, January 2013,
               <https://www.rfc-editor.org/info/rfc6819>.
 
-
-
-Varley & Grassi              Standards Track                   [Page 18]
-
-                           iGov OpenID Connect               August 2023
-
-
    [RFC7009]  Lodderstedt, T., Ed., Dronia, S., and M. Scurtescu, "OAuth
               2.0 Token Revocation", RFC 7009, DOI 10.17487/RFC7009,
               August 2013, <https://www.rfc-editor.org/info/rfc7009>.
@@ -1021,6 +1058,13 @@ Varley & Grassi              Standards Track                   [Page 18]
    [RFC7516]  Jones, M. and J. Hildebrand, "JSON Web Encryption (JWE)",
               RFC 7516, DOI 10.17487/RFC7516, May 2015,
               <https://www.rfc-editor.org/info/rfc7516>.
+
+
+
+Varley & Grassi              Standards Track                   [Page 19]
+
+                           iGov OpenID Connect               August 2023
+
 
    [RFC7517]  Jones, M., "JSON Web Key (JWK)", RFC 7517,
               DOI 10.17487/RFC7517, May 2015,
@@ -1057,15 +1101,6 @@ Appendix B.  Notices
 
    Copyright (c) 2023 The OpenID Foundation.
 
-
-
-
-
-Varley & Grassi              Standards Track                   [Page 19]
-
-                           iGov OpenID Connect               August 2023
-
-
    The OpenID Foundation (OIDF) grants to any Contributor, developer,
    implementer, or other interested party a non-exclusive, royalty free,
    worldwide copyright license to reproduce, prepare derivative works
@@ -1079,6 +1114,14 @@ Varley & Grassi              Standards Track                   [Page 19]
    The technology described in this specification was made available
    from contributions from various sources, including members of the
    OpenID Foundation and others.  Although the OpenID Foundation has
+
+
+
+Varley & Grassi              Standards Track                   [Page 20]
+
+                           iGov OpenID Connect               August 2023
+
+
    taken steps to help ensure that the technology is available for
    distribution, it takes no position regarding the validity or scope of
    any intellectual property or other rights that might be claimed to
@@ -1115,13 +1158,6 @@ Appendix C.  Document History
 
    -2018-05-07
 
-
-
-Varley & Grassi              Standards Track                   [Page 20]
-
-                           iGov OpenID Connect               August 2023
-
-
    *  Removed Verifiable Claims definition (will go in another spec).
 
    *  Clarified Scope and Metadata.
@@ -1134,6 +1170,14 @@ Varley & Grassi              Standards Track                   [Page 20]
 Authors' Addresses
 
    Michael Varley (editor)
+
+
+
+Varley & Grassi              Standards Track                   [Page 21]
+
+                           iGov OpenID Connect               August 2023
+
+
    Email: mike.varley@securekey.com
 
 
@@ -1173,4 +1217,16 @@ Authors' Addresses
 
 
 
-Varley & Grassi              Standards Track                   [Page 21]
+
+
+
+
+
+
+
+
+
+
+
+
+Varley & Grassi              Standards Track                   [Page 22]
