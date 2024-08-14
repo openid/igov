@@ -1768,15 +1768,11 @@ https://https://client.example.org/cb?
 			</t>  
 
 			<t>
-				All clients MUST conform to applicable recommendations found in the
-				Security Considerations sections of
-				<xref target="RFC6749"/>
-				and those
-				found in the
-				<xref target="RFC6819">OAuth 2.0 Threat Model and Security
-					Considerations
-					document</xref>
-				.
+				This profile does not protect against the attacks described in 
+				in <xref target="SAM">The Stronger Attacker Model</xref>, in which an attacker
+				could inject the authorization request and read the authorization response.
+				Although using request object signatures would provide mitigation, this profile does not require 
+				request object signatures because of the lack of available implementations. 
 			</t>
 		</section>
 	</middle>
@@ -1954,7 +1950,13 @@ https://https://client.example.org/cb?
 				</front>
 			</reference>
 
-
+			<reference anchor="SAM" target="https://danielfett.de/2020/05/16/pkce-vs-nonce-equivalent-or-not/">
+				<front>
+					<title>PKCE vs. Nonce: Equivalent or Not?</title>
+					<author fullname="Daniel Fett" initials="D." surname="Fett"/>
+					<date day="16" month="May" year="2020"/>
+				</front>
+			</reference>
 
 		</references>
 
