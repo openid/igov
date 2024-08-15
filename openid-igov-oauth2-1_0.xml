@@ -29,13 +29,6 @@
 		<title abbrev="iGov OAuth 2.0">International Government Assurance Profile (iGov)
 			for OAuth 2.0 - draft 04</title>
 
-		<author fullname="Justin Richer" initials="J." role="editor" surname="Richer">
-			<address>
-				<email>openid@justin.richer.org</email>
-
-				<uri>http://justin.richer.org/</uri>
-			</address>
-		</author>
 		<author fullname="Kelley Burgin" initials="K." role="editor" surname="Burgin">
 			<address>
 				<email>kburgin@mitre.org</email>
@@ -46,11 +39,6 @@
 			<address>
 				<email>tclancy@mitre.org</email>
 
-			</address>
-		</author>
-		<author fullname="Michael Varley" initials="M.V." role="editor" surname="Varley">
-			<address>
-				<email>mike.varley@securekey.com</email>
 			</address>
 		</author>
 
@@ -1968,13 +1956,13 @@ https://https://client.example.org/cb?
 			<t>The OpenID Community would like to thank the following people for
 				their contributions to this specification: Mark Russel, Mary
 				Pulvermacher, David Hill, Dale Moberg, Adrian Gropper, Eve Maler,
-				Danny
-				van Leeuwen, John Moehrke, Aaron Seib, John Bradley, Debbie
-				Bucci, Josh
-				Mandel, Sarah Squire,
-				and
-				Michael B. Jones.
+				Danny van Leeuwen, John Moehrke, Aaron Seib, John Bradley, Debbie
+				Bucci, Josh Mandel, Sarah Squire, Giuseppe De Marco, Joseph Heenan, 
+				Jim Fenton, Ryan Galluzzo, and Michael B. Jones.
 			</t>
+			<t> Special thank you to the original iGov Profile editors: Paul Grassi, Justin Richer,
+			    and Michael Varley.
+				</t>
 
 			<t>The original version of this specification was part of the Secure
 				RESTful Interfaces project from The MITRE Corporation, available
