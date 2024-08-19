@@ -2,11 +2,9 @@
 
 
 
-OpenID iGov Working Group                                 J. Richer, Ed.
+OpenID iGov Working Group                                 K. Burgin, Ed.
                                                                         
-                                                          P. Grassi, Ed.
-                                                                        
-                                                        M.V. Varley, Ed.
+                                                          T. Clancy, Ed.
                                                            3 August 2023
 
 
@@ -50,16 +48,16 @@ Table of Contents
        3.1.1.  Grant types . . . . . . . . . . . . . . . . . . . . .  14
        3.1.2.  Client authentication . . . . . . . . . . . . . . . .  14
        3.1.3.  Dynamic Registration  . . . . . . . . . . . . . . . .  14
+       3.1.4.  Client Approval . . . . . . . . . . . . . . . . . . .  16
+       3.1.5.  Sender-constrained Tokens . . . . . . . . . . . . . .  16
 
 
 
-Richer, et al.               Standards Track                    [Page 1]
+Burgin & Clancy              Standards Track                    [Page 1]
 
                              iGov OAuth 2.0                  August 2023
 
 
-       3.1.4.  Client Approval . . . . . . . . . . . . . . . . . . .  16
-       3.1.5.  Sender-constrained Tokens . . . . . . . . . . . . . .  16
        3.1.6.  Discovery . . . . . . . . . . . . . . . . . . . . . .  16
        3.1.7.  Revocation  . . . . . . . . . . . . . . . . . . . . .  20
        3.1.8.  PKCE  . . . . . . . . . . . . . . . . . . . . . . . .  20
@@ -76,9 +74,9 @@ Richer, et al.               Standards Track                    [Page 1]
      4.2.  Connections with Clients  . . . . . . . . . . . . . . . .  27
      4.3.  Connections with Authorization Servers  . . . . . . . . .  28
    5.  Security Considerations . . . . . . . . . . . . . . . . . . .  28
-   6.  Normative References  . . . . . . . . . . . . . . . . . . . .  28
+   6.  Normative References  . . . . . . . . . . . . . . . . . . . .  29
    Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  31
-   Appendix B.  Notices  . . . . . . . . . . . . . . . . . . . . . .  31
+   Appendix B.  Notices  . . . . . . . . . . . . . . . . . . . . . .  32
    Appendix C.  Document History . . . . . . . . . . . . . . . . . .  32
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  33
 
@@ -109,7 +107,9 @@ Richer, et al.               Standards Track                    [Page 1]
 
 
 
-Richer, et al.               Standards Track                    [Page 2]
+
+
+Burgin & Clancy              Standards Track                    [Page 2]
 
                              iGov OAuth 2.0                  August 2023
 
@@ -165,7 +165,7 @@ Richer, et al.               Standards Track                    [Page 2]
 
 
 
-Richer, et al.               Standards Track                    [Page 3]
+Burgin & Clancy              Standards Track                    [Page 3]
 
                              iGov OAuth 2.0                  August 2023
 
@@ -221,7 +221,7 @@ Richer, et al.               Standards Track                    [Page 3]
 
 
 
-Richer, et al.               Standards Track                    [Page 4]
+Burgin & Clancy              Standards Track                    [Page 4]
 
                              iGov OAuth 2.0                  August 2023
 
@@ -277,7 +277,7 @@ Richer, et al.               Standards Track                    [Page 4]
 
 
 
-Richer, et al.               Standards Track                    [Page 5]
+Burgin & Clancy              Standards Track                    [Page 5]
 
                              iGov OAuth 2.0                  August 2023
 
@@ -290,12 +290,7 @@ Richer, et al.               Standards Track                    [Page 5]
    public key value with the authorization server, or obtain a
    certificate from a trusted Certificate Authority.
 
-   Dynamically registered native applications MAY use PKCE.
-
-   Native applications not registering a separate public key for each
-   instance are considered Public Clients, and MUST use PKCE [RFC7636]
-   with the S256 code challenge mechanism.  Public Clients do not
-   authenticate with the Token Endpoint in any other way.
+   Public Clients do not authenticate with the Token Endpoint.
 
 2.1.3.  Direct Access Client
 
@@ -331,15 +326,17 @@ Richer, et al.               Standards Track                    [Page 5]
    legitimate client's cryptographic key along with the access token to
    gain access to protected resources.
 
+   All clients MUST use proof of possession to sender-constrain access
+   tokens using either mTLS [RFC8705] or DPoP [RFC9449].
 
 
-Richer, et al.               Standards Track                    [Page 6]
+
+
+
+Burgin & Clancy              Standards Track                    [Page 6]
 
                              iGov OAuth 2.0                  August 2023
 
-
-   All clients MUST use proof of possession to sender-constrain access
-   tokens using either mTLS [RFC8705] or DPoP [RFC9449].
 
 2.3.  Client Registration
 
@@ -386,21 +383,26 @@ Richer, et al.               Standards Track                    [Page 6]
 
    Clients SHOULD NOT have multiple redirect URIs on different domains.
 
-
-
-
-Richer, et al.               Standards Track                    [Page 7]
-
-                             iGov OAuth 2.0                  August 2023
-
-
    Clients MUST NOT forward values passed back to their redirect URIs to
    other arbitrary or user-provided URIs (a practice known as an "open
    redirector").
 
+
+
+Burgin & Clancy              Standards Track                    [Page 7]
+
+                             iGov OAuth 2.0                  August 2023
+
+
 2.4.  Connection to the Authorization Server
 
 2.4.1.  Requests to the Authorization Endpoint
+
+   All clients MUST use the PKCE S256 code challenge method as described
+   in Proof Key for Code Exchange by OAuth Public Clients [RFC7636] and
+   include the "code_challenge" parameter and "code_challenge_method",
+   set to "S256", in the authorization request.  The PKCE code_verifier
+   value MUST contain at least 128 bits of entropy.
 
    Full clients and browser-embedded clients making a request to the
    authorization endpoint MUST use an unpredictable value for the state
@@ -443,9 +445,7 @@ Richer, et al.               Standards Track                    [Page 7]
 
 
 
-
-
-Richer, et al.               Standards Track                    [Page 8]
+Burgin & Clancy              Standards Track                    [Page 8]
 
                              iGov OAuth 2.0                  August 2023
 
@@ -501,7 +501,7 @@ Richer, et al.               Standards Track                    [Page 8]
 
 
 
-Richer, et al.               Standards Track                    [Page 9]
+Burgin & Clancy              Standards Track                    [Page 9]
 
                              iGov OAuth 2.0                  August 2023
 
@@ -524,10 +524,10 @@ Richer, et al.               Standards Track                    [Page 9]
       "iat": 1418698788,
       "exp": 1418698848,
       "jti": "1418698788/107c4da5194df463e52b56865c5af34e5595"
-       "cnf":{
+           "cnf":{
            "x5t#S256":"A4DtL2JmUMhAsvJj5tKyn64SqzmuXbMrJa0n761y5v0"
+           }
               }
-          }
 
    The JWT assertion MUST be signed by the client using the client's
    private key.  See Section 2.3 for mechanisms by which the client can
@@ -557,7 +557,7 @@ THszt-ZjKR38v4F_MnSrx8e0iIqgZwurW0RtetEWvynOCJXk-p166T7qZR45xuCxgOotXY6O3et4n7
 
 
 
-Richer, et al.               Standards Track                   [Page 10]
+Burgin & Clancy              Standards Track                   [Page 10]
 
                              iGov OAuth 2.0                  August 2023
 
@@ -613,7 +613,7 @@ xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 
 
 
-Richer, et al.               Standards Track                   [Page 11]
+Burgin & Clancy              Standards Track                   [Page 11]
 
                              iGov OAuth 2.0                  August 2023
 
@@ -669,7 +669,7 @@ cNt1H2_VQ_Ww1JOLn9vRn-H48FDj7TxlIT74XdTZgTv31w_GRPAOfyxEw_ZUmxhz5Z-gTlQ",
 
 
 
-Richer, et al.               Standards Track                   [Page 12]
+Burgin & Clancy              Standards Track                   [Page 12]
 
                              iGov OAuth 2.0                  August 2023
 
@@ -725,7 +725,7 @@ User-Agent: Apache-HttpClient/4.2.3 (java 1.5)
 
 
 
-Richer, et al.               Standards Track                   [Page 13]
+Burgin & Clancy              Standards Track                   [Page 13]
 
                              iGov OAuth 2.0                  August 2023
 
@@ -781,7 +781,7 @@ Richer, et al.               Standards Track                   [Page 13]
 
 
 
-Richer, et al.               Standards Track                   [Page 14]
+Burgin & Clancy              Standards Track                   [Page 14]
 
                              iGov OAuth 2.0                  August 2023
 
@@ -837,7 +837,7 @@ Richer, et al.               Standards Track                   [Page 14]
 
 
 
-Richer, et al.               Standards Track                   [Page 15]
+Burgin & Clancy              Standards Track                   [Page 15]
 
                              iGov OAuth 2.0                  August 2023
 
@@ -893,7 +893,7 @@ Richer, et al.               Standards Track                   [Page 15]
 
 
 
-Richer, et al.               Standards Track                   [Page 16]
+Burgin & Clancy              Standards Track                   [Page 16]
 
                              iGov OAuth 2.0                  August 2023
 
@@ -949,7 +949,7 @@ Richer, et al.               Standards Track                   [Page 16]
 
 
 
-Richer, et al.               Standards Track                   [Page 17]
+Burgin & Clancy              Standards Track                   [Page 17]
 
                              iGov OAuth 2.0                  August 2023
 
@@ -1005,7 +1005,7 @@ Richer, et al.               Standards Track                   [Page 17]
 
 
 
-Richer, et al.               Standards Track                   [Page 18]
+Burgin & Clancy              Standards Track                   [Page 18]
 
                              iGov OAuth 2.0                  August 2023
 
@@ -1061,7 +1061,7 @@ U-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEqfCaPDNp00J6AbY6w",
 
 
 
-Richer, et al.               Standards Track                   [Page 19]
+Burgin & Clancy              Standards Track                   [Page 19]
 
                              iGov OAuth 2.0                  August 2023
 
@@ -1081,10 +1081,12 @@ Richer, et al.               Standards Track                   [Page 19]
 
 3.1.8.  PKCE
 
-   An authorization server MUST support the Proof Key for Code Exchange
-   (PKCE [RFC7636]) extension to the authorization code flow, including
-   support for the S256 code challenge method.  The authorization server
-   MUST NOT allow an iGov client to use the plain code challenge method.
+   The authorization server MUST require use of PKCE (Proof Key for Code
+   Exchange by OAuth Public Clients [RFC7636]) by all clients, rejecting
+   requests to the authorization endpoint from clients that do not
+   contain a code challenge.  Authorization servers MUST support the
+   S256 code challenge method.  Authorization servers MUST NOT allow a
+   client to use the plain code challenge method.
 
 3.1.9.  Redirect URIs
 
@@ -1115,26 +1117,21 @@ Richer, et al.               Standards Track                   [Page 19]
 
 
 
-
-
-Richer, et al.               Standards Track                   [Page 20]
+Burgin & Clancy              Standards Track                   [Page 20]
 
                              iGov OAuth 2.0                  August 2023
 
 
 3.2.1.  JWT Bearer Tokens
 
-   In order to facilitate interoperability with multiple protected
-   resources, all iGov-compliant authorization servers issue
-   cryptographically signed sender-constrained tokens in the JSON Web
-   Token (JWT) format.  The information carried in the JWT is intended
-   to allow a protected resource to quickly test the integrity of the
-   token without additional network calls, and to allow the protected
-   resource to determine which authorization server issued the token.
-   When combined with discovery, this information is sufficient to
-   programmatically locate the token introspection service, which is in
-   turn used for conveying additional security information about the
-   token.
+   All iGov-compliant authorization servers issue cryptographically
+   signed sender-constrained tokens in the JSON Web Token (JWT) format.
+   The information carried in the JWT is intended to allow a protected
+   resource to quickly test the integrity of the token without
+   additional network calls, and to allow the protected resource to
+   determine which authorization server issued the token.  The protected
+   resource MAY use the authorization server token introspection service
+   to retrieve additional security information about the token.
 
    The server MUST issue tokens as JWTs with, at minimum, the following
    claims:
@@ -1170,15 +1167,17 @@ Richer, et al.               Standards Track                   [Page 20]
    authentication or to sender-constrain tokens, the server MUST include
    the following claim in the access token.
 
+   cnf  Confirmation, as defined in Proof-of-Possession Key Semantics
 
 
 
-Richer, et al.               Standards Track                   [Page 21]
+
+
+Burgin & Clancy              Standards Track                   [Page 21]
 
                              iGov OAuth 2.0                  August 2023
 
 
-   cnf  Confirmation, as defined in Proof-of-Possession Key Semantics
       for JSON Web Tokens (JWTs) [RFC7800] and OAuth 2.0 Mutual-TLS
       Client Authentication and Certificate-Bound Access Tokens
       [RFC8705].  The confirmation claim value MUST be computed using
@@ -1229,7 +1228,8 @@ Richer, et al.               Standards Track                   [Page 21]
 
 
 
-Richer, et al.               Standards Track                   [Page 22]
+
+Burgin & Clancy              Standards Track                   [Page 22]
 
                              iGov OAuth 2.0                  August 2023
 
@@ -1285,7 +1285,7 @@ F2vFdL6D_lLeHRy-H2g2OzF59eMIsM_Ccs4G47862w
 
 
 
-Richer, et al.               Standards Track                   [Page 23]
+Burgin & Clancy              Standards Track                   [Page 23]
 
                              iGov OAuth 2.0                  August 2023
 
@@ -1341,7 +1341,7 @@ Richer, et al.               Standards Track                   [Page 23]
 
 
 
-Richer, et al.               Standards Track                   [Page 24]
+Burgin & Clancy              Standards Track                   [Page 24]
 
                              iGov OAuth 2.0                  August 2023
 
@@ -1397,7 +1397,7 @@ Richer, et al.               Standards Track                   [Page 24]
 
 
 
-Richer, et al.               Standards Track                   [Page 25]
+Burgin & Clancy              Standards Track                   [Page 25]
 
                              iGov OAuth 2.0                  August 2023
 
@@ -1453,7 +1453,7 @@ Richer, et al.               Standards Track                   [Page 25]
 
 
 
-Richer, et al.               Standards Track                   [Page 26]
+Burgin & Clancy              Standards Track                   [Page 26]
 
                              iGov OAuth 2.0                  August 2023
 
@@ -1509,7 +1509,7 @@ Richer, et al.               Standards Track                   [Page 26]
 
 
 
-Richer, et al.               Standards Track                   [Page 27]
+Burgin & Clancy              Standards Track                   [Page 27]
 
                              iGov OAuth 2.0                  August 2023
 
@@ -1556,19 +1556,21 @@ Richer, et al.               Standards Track                   [Page 27]
    device attestation for the app for its validity.  Specific policies
    or capabilities are outside the scope of this specification.
 
-   All clients MUST conform to applicable recommendations found in the
-   Security Considerations sections of [RFC6749] and those found in the
-   OAuth 2.0 Threat Model and Security Considerations document [RFC6819]
-   .
+   This profile does not protect against the attacks described in in The
+   Stronger Attacker Model [SAM], in which an attacker could inject the
+   authorization request and read the authorization response.  Although
+   using request object signatures would provide mitigation, this
+   profile does not require request object signatures because of the
+   lack of available implementations.
 
-6.  Normative References
 
 
-
-Richer, et al.               Standards Track                   [Page 28]
+Burgin & Clancy              Standards Track                   [Page 28]
 
                              iGov OAuth 2.0                  August 2023
 
+
+6.  Normative References
 
    [BCP195]   Sheffer, Y., Holz, R., and P. Saint-Andre,
               "Recommendations for Secure Use of Transport Layer
@@ -1614,17 +1616,20 @@ Richer, et al.               Standards Track                   [Page 28]
               RFC 6749, DOI 10.17487/RFC6749, October 2012,
               <https://www.rfc-editor.org/info/rfc6749>.
 
+
+
+
+
+
+Burgin & Clancy              Standards Track                   [Page 29]
+
+                             iGov OAuth 2.0                  August 2023
+
+
    [RFC6750]  Jones, M. and D. Hardt, "The OAuth 2.0 Authorization
               Framework: Bearer Token Usage", RFC 6750,
               DOI 10.17487/RFC6750, October 2012,
               <https://www.rfc-editor.org/info/rfc6750>.
-
-
-
-Richer, et al.               Standards Track                   [Page 29]
-
-                             iGov OAuth 2.0                  August 2023
-
 
    [RFC6819]  Lodderstedt, T., Ed., McGloin, M., and P. Hunt, "OAuth 2.0
               Threat Model and Security Considerations", RFC 6819,
@@ -1670,17 +1675,16 @@ Richer, et al.               Standards Track                   [Page 29]
               DOI 10.17487/RFC7636, September 2015,
               <https://www.rfc-editor.org/info/rfc7636>.
 
-   [RFC7662]  Richer, J., Ed., "OAuth 2.0 Token Introspection",
-              RFC 7662, DOI 10.17487/RFC7662, October 2015,
-              <https://www.rfc-editor.org/info/rfc7662>.
 
 
-
-
-Richer, et al.               Standards Track                   [Page 30]
+Burgin & Clancy              Standards Track                   [Page 30]
 
                              iGov OAuth 2.0                  August 2023
 
+
+   [RFC7662]  Richer, J., Ed., "OAuth 2.0 Token Introspection",
+              RFC 7662, DOI 10.17487/RFC7662, October 2015,
+              <https://www.rfc-editor.org/info/rfc7662>.
 
    [RFC7800]  Jones, M., Bradley, J., and H. Tschofenig, "Proof-of-
               Possession Key Semantics for JSON Web Tokens (JWTs)",
@@ -1703,6 +1707,10 @@ Richer, et al.               Standards Track                   [Page 30]
               Possession (DPoP)", RFC 9449, DOI 10.17487/RFC9449,
               September 2023, <https://www.rfc-editor.org/info/rfc9449>.
 
+   [SAM]      Fett, D., "PKCE vs. Nonce: Equivalent or Not?", 16 May
+              2020, <https://danielfett.de/2020/05/16/pkce-vs-nonce-
+              equivalent-or-not/>.
+
    [SecBCP]   Lodderstedt, T., Bradley, J., Labunets, A., and D. Fett,
               "OAuth 2.0 Security Best Current Practice", 23 October
               2023, <https://datatracker.ietf.org/doc/html/draft-ietf-
@@ -1714,7 +1722,21 @@ Appendix A.  Acknowledgements
    their contributions to this specification: Mark Russel, Mary
    Pulvermacher, David Hill, Dale Moberg, Adrian Gropper, Eve Maler,
    Danny van Leeuwen, John Moehrke, Aaron Seib, John Bradley, Debbie
-   Bucci, Josh Mandel, Sarah Squire, and Michael B.  Jones.
+   Bucci, Josh Mandel, Sarah Cecchetti, Giuseppe De Marco, Joseph
+   Heenan, Jim Fenton, Ryan Galluzzo, and Michael B.  Jones.
+
+   Special thank you to the original iGov Profile editors: Paul Grassi,
+   Justin Richer, and Michael Varley.
+
+
+
+
+
+
+Burgin & Clancy              Standards Track                   [Page 31]
+
+                             iGov OAuth 2.0                  August 2023
+
 
    The original version of this specification was part of the Secure
    RESTful Interfaces project from The MITRE Corporation, available
@@ -1730,14 +1752,6 @@ Appendix B.  Notices
    from, distribute, perform and display, this Implementers Draft or
    Final Specification solely for the purposes of (i) developing
    specifications, and (ii) implementing Implementers Drafts and Final
-
-
-
-Richer, et al.               Standards Track                   [Page 31]
-
-                             iGov OAuth 2.0                  August 2023
-
-
    Specifications based on such documents, provided that attribution be
    made to the OIDF as the source of the material, but that such
    attribution does not indicate an endorsement by the OIDF.
@@ -1773,6 +1787,13 @@ Appendix C.  Document History
 
    *  Enable building with https://author-tools.ietf.org/.
 
+
+
+Burgin & Clancy              Standards Track                   [Page 32]
+
+                             iGov OAuth 2.0                  August 2023
+
+
    *  Applied OpenID specification conventions.
 
    -03
@@ -1786,14 +1807,6 @@ Appendix C.  Document History
    *  Added guidance text around using scopes and refresh_tokens to
       protect sensitive resources.
 
-
-
-
-Richer, et al.               Standards Track                   [Page 32]
-
-                             iGov OAuth 2.0                  August 2023
-
-
    *  Removed ACR reference.
 
    -2018-05-07
@@ -1802,17 +1815,12 @@ Richer, et al.               Standards Track                   [Page 32]
 
 Authors' Addresses
 
-   Justin Richer (editor)
-   Email: openid@justin.richer.org
-   URI:   http://justin.richer.org/
+   Kelley Burgin (editor)
+   Email: kburgin@mitre.org
 
 
-   Paul Grassi (editor)
-   Email: pgrassi@easydynamics.com
-
-
-   Michael Varley (editor)
-   Email: mike.varley@securekey.com
+   Tom Clancy (editor)
+   Email: tclancy@mitre.org
 
 
 
@@ -1837,12 +1845,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-
-
-
-Richer, et al.               Standards Track                   [Page 33]
+Burgin & Clancy              Standards Track                   [Page 33]
