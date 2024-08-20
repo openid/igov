@@ -1576,33 +1576,13 @@ https://https://client.example.org/cb?
 				</figure>
 		</section>
 			<section anchor="TokenLifetimes" title="Token Lifetimes">
-				<t>This profile provides RECOMMENDED lifetimes for different types
-					of
-					tokens issued to different types of clients. Specific
-					applications MAY
-					issue tokens with different lifetimes. Any active
-					token MAY be
-					revoked
-					at any time.
+
+				<t>Access tokens SHOULD have a valid lifetime no greater than one hour, and
+					refresh tokens (if issued) SHOULD have a valid lifetime no greater
+					than twenty-four hours. Specific applications MAY issue tokens with different lifetimes. 
+					Any active token MAY be revoked at any time.
 				</t>
 
-				<t>For clients using the authorization code grant type, access
-					tokens
-					SHOULD have a valid lifetime no greater than one hour, and
-					refresh
-					tokens (if issued) SHOULD have a valid lifetime no greater
-					than
-					twenty-four hours.
-				</t>
-
-				<t>For public clients access tokens SHOULD
-					have a valid lifetime no greater than fifteen minutes.
-				</t>
-
-				<t>For clients using the client credentials grant type, access
-					tokens
-					SHOULD have a valid lifetime no greater than six hours.
-				</t>
 			</section>
 
 			<section anchor="Scopes" title="Scopes">
