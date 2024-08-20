@@ -480,6 +480,8 @@
 
 					<figure>
 						<artwork><![CDATA[
+NOTE: '\' line wrapping per RFC 8792
+
 HTTP/1.2 302 Found
 Cache-Control: no-cache
 Connection: close
@@ -500,6 +502,8 @@ Status: 302 Found
 
 					<figure>
 						<artwork><![CDATA[
+NOTE: '\' line wrapping per RFC 8792
+
 GET /authorize?
    client_id=55f9f559-2496-49d4-b6c3-351a586b7484
   &nonce=cd567ed4d958042f721a7cdca557c30d
@@ -621,6 +625,8 @@ Host: idp-p.example.com
 
 					<figure>
 						<artwork><![CDATA[
+NOTE: '\' line wrapping per RFC 8792
+
 eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.ew0KICAgImlzcyI6ICI1NWY5ZjU1OS0\
 yNDk2LTQ5ZDQtYjZjMy0zNTFhNTg2Yjc0ODQiLA0KICAgInN1YiI6ICI1NWY5ZjU1OS0\
 yNDk2LTQ5ZDQtYjZjMy0zNTFhNTg2Yjc0ODQiLA0KICAgImF1ZCI6ICJodHRwczovL2l\
@@ -641,6 +647,8 @@ ZR45xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 
 					<figure>
 						<artwork><![CDATA[POST /token HTTP/1.1
+NOTE: '\' line wrapping per RFC 8792
+
 Content-Type: application/x-www-form-urlencoded
 User-Agent: Rack::OAuth2 (1.0.8.7) (2.5.3.2, ruby 2.1.3 (2014-09-19))
 Accept: */*
@@ -714,6 +722,8 @@ EWvynOCJXk-p166T7qZR45xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 
 					<figure>
 						<artwork><![CDATA[
+NOTE: '\' line wrapping per RFC 8792
+
 {
    "keys": [
      {
@@ -740,6 +750,8 @@ _ZUmxhz5Z-gTlQ",
 
 					<figure>
 						<artwork><![CDATA[
+NOTE: '\' line wrapping per RFC 8792
+
 {
   "alg": "RS256",
   "d": "PjIX4i2NsBQuOVIw74ZDjqthYsoFvaoah9GP-cPrai5s5VUIlLoadEAdGbBr\
@@ -803,6 +815,8 @@ xhz5Z-gTlQ",
 
 					<figure>
 						<artwork><![CDATA[
+NOTE: '\' line wrapping per RFC 8792
+
 GET /userinfo HTTP/1.1
 Authorization: Bearer eyJhbGciOiJSUzI1NiJ9.eyJleHAiOjE0MTg3MDI0MTIsI\
 \mF1ZCI6WyJjMWJjODRlNC00N2VlLTRiNjQtYmI1Mi01Y2RhNmM4MWY3ODgiXSwiaXNz\
@@ -1153,7 +1167,9 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 
 					<figure>
 						<artwork><![CDATA[{
-  "keys": [
+NOTE: '\' line wrapping per RFC 8792
+
+"keys": [
    {
      "alg": "RS256",
      "e": "AQAB",
@@ -1369,6 +1385,7 @@ DNp00J6AbY6w",
 
 					<figure>
 						<artwork><![CDATA[
+NOTE: '\' line wrapping per RFC 8792
 
 eyJhbGciOiJSUzI1NiJ9.ew0KICAgImV4cCI6IDE0MTg3MDIzODgsDQogICAiYXpwIjo\
 gIjU1ZjlmNTU5LTI0OTYtNDlkNC1iNmMzLTM1MWE1ODZiNzQ4NCIsDQogICAiaXNzIjo\
@@ -1414,6 +1431,8 @@ pXDaLyyY-4HT9XHT9V73fKF8rLWJu9grrA
 
 					<figure>
 						<artwork><![CDATA[
+NOTE: '\' line wrapping per RFC 8792
+
 POST /introspect HTTP/1.1
 User-Agent: Faraday v0.9.0
 Content-Type: application/x-www-form-urlencoded
