@@ -206,6 +206,37 @@
 					with non-iGov authorization servers and clients.
 				</t>
 			</section>
+
+
+			<section title="Global Requirements">
+             	<section title="TLS Considerations">
+             
+	             <t> All network connections MUST be made using TLS 1.3 or above.
+    	         Each originator of a TLS connection MUST verify the destination's certificate.
+        	     For TLS versions below 1.3, only the following 4 cipher suites shall be permitted:
+            	 TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
+ 	           	 TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+    	         TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
+        	     TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+ 	        	 </t>
+	 	         <t>
+    	         For the authorization_endpoint, the authorization server MAY allow
+        	     additional cipher suites that are permitted by the latest version of <xref target="BCP195">BCP195</xref>,
+	             if necessary to allow sufficient interoperability with users' web browsers or as required by local regulations.
+ 		         </t>
+	 	         <t>
+    	          NOTE: Permitted cipher suites are those listed in <xref target="BCP195">BCP195</xref> that do not explicitly say MUST NOT use.
+        	      When using the TLS_DHE_RSA_WITH_AES_128_GCM_SHA256 or TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 cipher suites,
+     	          key lengths of at least 2048 bits are REQUIRED.
+  	    	     </t>
+         
+ 		          <t> Endpoints for use by web browsers SHOULD use mechanisms to ensure that connections cannot be downgraded 
+				  using TLS Stripping attacks. A preloaded HTTP Strict Transport Security policy (see PRELOAD and RFC6797) 
+				  MAY be used for this purpose.
+        	      </t>
+  	   	        </section>
+			</section>
+
 		</section>
 
 		<section anchor="ClientProfiles" title="Client Profiles">
@@ -779,28 +810,11 @@ xhz5Z-gTlQ",
 		<section title="Connection to the Protected Resource">
 			<section anchor="RequestsToProtectedResource" title="Requests to the Protected Resource">
 					<t>
-						<!-- Can we specify when this is a SHALL? -->
-						Clients MUST use the authorization request header field mechanism to send bearer tokens as defined by
-						<xref target="RFC6750"/>
-						. All network connections MUST be made using TLS 1.2 or above.
-						Each originator of a TLS connection MUST verify the destination's certificate.
-						For TLS versions below 1.3, only the following 4 cipher suites shall be permitted: 
-						TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
-						TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-						TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
-						TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-					</t>
-					<t>
-						For the authorization_endpoint, the authorization server MAY allow 
-						additional cipher suites that are permitted by the latest version of <xref target="BCP195">BCP195</xref>,
-						if necessary to allow sufficient interoperability with users' web browsers or as required by local regulations.
-					</t> 
-					<t>
-						NOTE: Permitted cipher suites are those listed in <xref target="BCP195">BCP195</xref> that do not explicitly say MUST NOT use.
-						When using the TLS_DHE_RSA_WITH_AES_128_GCM_SHA256 or TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 cipher suites, 
-						key lengths of at least 2048 bits are REQUIRED.
 
+						Clients MUST use the authorization request header field mechanism to send bearer tokens as defined by
+						<xref target="RFC6750"/>.
 					</t>
+
 
 					<t>An example of an OAuth-protected call to the OpenID Connect
 						UserInfo endpoint, sending the token in the Authorization header,
@@ -1750,27 +1764,83 @@ https://https://client.example.org/cb?
 		<section title="Security Considerations">
 		
 		<!--  Need to add data from John's RFC regarding registration security -->
-			<t>
-				All transactions MUST be protected in transit by TLS as described in
-				<xref target="BCP195">BCP195</xref>
-				.
-			</t>
+			<section>DNSSEC Considerations
+                <t> For a comprehensive protection against network attackers, all endpoints should additionally use DNSSEC to protect 
+				 against DNS spoofing attacks that can lead to the issuance of rogue domain-validated TLS certificates.
+            	</t>
+			</section>
 
-			<t> Authorization Servers SHOULD take into account device postures when dealing
-				with native apps if possible. Device postures include characteristics such as
-				a user's lock screen setting, or if the app has 'root access' (meaning the 
-				device OS may be compromised to gain additional privilages not intended by the 
-				vendor), or if there is a device attestation for the app for its validity. 
-				Specific policies or capabilities are outside the scope of this specification.
-			</t>  
+			<section>Other Considerations
 
-			<t>
-				This profile does not protect against the attacks described in 
-				in <xref target="SAM">The Stronger Attacker Model</xref>, in which an attacker
-				could inject the authorization request and read the authorization response.
-				Although using request object signatures would provide mitigation, this profile does not require 
-				request object signatures because of the lack of available implementations. 
-			</t>
+				<t> Authorization Servers SHOULD take into account device postures when dealing
+					with native apps if possible. Device postures include characteristics such as
+					a user's lock screen setting, or if the app has 'root access' (meaning the 
+					device OS may be compromised to gain additional privilages not intended by the 
+					vendor), or if there is a device attestation for the app for its validity. 
+					Specific policies or capabilities are outside the scope of this specification.
+				</t>  
+
+				<t>
+					This profile does not protect against the attacks described in 
+					in <xref target="SAM">The Stronger Attacker Model</xref>, in which an attacker
+					could inject the authorization request and read the authorization response.
+					Although using request object signatures would provide mitigation, this profile does not require 
+					request object signatures because of the lack of available implementations. 
+				</t>
+			</section>
+		</section>
+	
+		<section>Privacy Considerations
+             <section title="Personally Identifiable Information">
+             <t>
+                 The OpenID Connect UserInfo Response typically contains Personally Identifiable Information (PII). 
+				 As such, End-User consent for the release of the information for the specified purpose should be obtained 
+				 at or prior to the authorization time in accordance with relevant regulations. The purpose of use is typically 
+				 registered in association with the redirect_uris.
+                 </t>
+ 
+             <t> If an OAuth client requests UserInfo from the UserInfo endpoint, to protect the user's data, only necessary 
+			 UserInfo data should be stored at the client and the client SHOULD associate the received data with the purpose of use statement.
+             </t>
+	         </section>
+             <section title="Data Access Monitoring">
+                 <t> The Resource Server SHOULD make users' UserInfo access logs available to them so that they can monitor who 
+				 accessed their data.
+                 </t>
+             </section>
+             <section title="Data Access Monitoring">
+                 <t> To protect the user from possible correlation among clients, the use of a Pairwise Pseudonymous Identifier 
+				 (PPID) as the sub (subject) SHOULD be considered.
+                 </t>
+                 </section>
+             <section title="Offline Access">
+                 <t>Offline access enables access to Claims when the user is not present, posing greater privacy risk than the 
+				 Claims transfer when the user is present. Therefore, it is prudent to obtain explicit consent for offline access 
+				 to resources. This specification mandates the use of the prompt parameter to obtain consent unless it is already 
+				 known that the request complies with the conditions for processing the request in each jurisdiction.
+                 </t>
+ 
+                 <t>When an Access Token is returned via the User Agent using the Implicit Flow or Hybrid Flow, there is a greater 
+				 risk of it being exposed to an attacker, who could later use it to access the UserInfo endpoint. If the Access Token 
+				 does not enable offline access and the server can differentiate whether the Client request has been made offline or online, 
+				 the risk will be substantially reduced. Therefore, this specification mandates ignoring the offline access request when 
+				 the Access Token is transmitted through the User Agent. Note that differentiating between online and offline access from 
+				 the server can be difficult especially for native clients. The server may well have to rely on heuristics. Also, the risk 
+				 of exposure for the Access Token delivered through the User Agent for the Response Types of code token and token is the same. 
+				 Thus, the implementations should be prepared to detect whether the Access Token was issued through the User Agent or directly 
+				 from the Token Endpoint and deny offline access if the token was issued through the User Agent.
+                 </t>
+ 
+                 <t> Note that although these provisions require an explicit consent dialogue through the prompt parameter, the mere fact 
+				 that the user pressed an "accept" button etc., might not constitute a valid consent. Developers should be aware that for 
+				 the act of consent to be valid, typically, the impact of the terms have to be understood by the End-User, the consent must 
+				 be freely given and not forced (i.e., other options have to be available), and the terms must fair and equitable. In general, 
+				 it is advisable for the service to follow the required privacy principles in each jurisdiction and rely on other conditions 
+				 for processing the request than simply explicit consent, as online self-service "explicit consent" often does not form a 
+				 valid consent in some jurisdictions.
+				 </t>
+              </section>
+	
 		</section>
 	</middle>
 
