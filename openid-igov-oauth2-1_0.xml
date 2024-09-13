@@ -209,7 +209,6 @@
 
 
 			<section title="Global Requirements">
-             	<section title="TLS Considerations">
              
 	             <t> All network connections MUST be made using TLS 1.3 or above.
     	         Each originator of a TLS connection MUST verify the destination's certificate.
@@ -234,7 +233,7 @@
 				  using TLS Stripping attacks. A preloaded HTTP Strict Transport Security policy (see PRELOAD and RFC6797) 
 				  MAY be used for this purpose.
         	      </t>
-  	   	        </section>
+
 			</section>
 
 		</section>
@@ -1763,7 +1762,7 @@ https://https://client.example.org/cb?
 
 		<section title="Security Considerations">
 		
-		<!--  Need to add data from John's RFC regarding registration security -->
+				<!--  Need to add data from John's RFC regarding registration security -->
 			<section>DNSSEC Considerations
                 <t> For a comprehensive protection against network attackers, all endpoints should additionally use DNSSEC to protect 
 				 against DNS spoofing attacks that can lead to the issuance of rogue domain-validated TLS certificates.
