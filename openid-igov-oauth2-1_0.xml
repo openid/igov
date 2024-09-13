@@ -1763,13 +1763,13 @@ https://https://client.example.org/cb?
 		<section title="Security Considerations">
 		
 				<!--  Need to add data from John's RFC regarding registration security -->
-			<section>DNSSEC Considerations
+			<section title="DNSSEC Considerations">
                 <t> For a comprehensive protection against network attackers, all endpoints should additionally use DNSSEC to protect 
 				 against DNS spoofing attacks that can lead to the issuance of rogue domain-validated TLS certificates.
             	</t>
 			</section>
 
-			<section>Other Considerations
+			<section title="Other Considerations">
 
 				<t> Authorization Servers SHOULD take into account device postures when dealing
 					with native apps if possible. Device postures include characteristics such as
@@ -1789,7 +1789,7 @@ https://https://client.example.org/cb?
 			</section>
 		</section>
 	
-		<section>Privacy Considerations
+		<section title="Privacy Considerations">
              <section title="Personally Identifiable Information">
              <t>
                  The OpenID Connect UserInfo Response typically contains Personally Identifiable Information (PII). 
@@ -1803,11 +1803,11 @@ https://https://client.example.org/cb?
              </t>
 	         </section>
              <section title="Data Access Monitoring">
-                 <t> The Resource Server SHOULD make users' UserInfo access logs available to them so that they can monitor who 
+                 <t> The Resource Server SHOULD make each users' UserInfo access logs available to them so that users can monitor who 
 				 accessed their data.
                  </t>
              </section>
-             <section title="Data Access Monitoring">
+             <section title="Prevent Correlation">
                  <t> To protect the user from possible correlation among clients, the use of a Pairwise Pseudonymous Identifier 
 				 (PPID) as the sub (subject) SHOULD be considered.
                  </t>
