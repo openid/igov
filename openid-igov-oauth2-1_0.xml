@@ -1789,58 +1789,7 @@ https://https://client.example.org/cb?
 			</section>
 		</section>
 	
-		<section title="Privacy Considerations">
-             <section title="Personally Identifiable Information">
-             <t>
-                 The OpenID Connect UserInfo Response typically contains Personally Identifiable Information (PII). 
-				 As such, End-User consent for the release of the information for the specified purpose should be obtained 
-				 at or prior to the authorization time in accordance with relevant regulations. The purpose of use is typically 
-				 registered in association with the redirect_uris.
-                 </t>
- 
-             <t> If an OAuth client requests UserInfo from the UserInfo endpoint, to protect the user's data, only necessary 
-			 UserInfo data should be stored at the client and the client SHOULD associate the received data with the purpose of use statement.
-             </t>
-	         </section>
-             <section title="Data Access Monitoring">
-                 <t> The Resource Server SHOULD make each users' UserInfo access logs available to them so that users can monitor who 
-				 accessed their data.
-                 </t>
-             </section>
-             <section title="Prevent Correlation">
-                 <t> To protect the user from possible correlation among clients, the use of a Pairwise Pseudonymous Identifier 
-				 (PPID) as the sub (subject) SHOULD be considered.
-                 </t>
-                 </section>
-             <section title="Offline Access">
-                 <t>Offline access enables access to Claims when the user is not present, posing greater privacy risk than the 
-				 Claims transfer when the user is present. Therefore, it is prudent to obtain explicit consent for offline access 
-				 to resources. This specification mandates the use of the prompt parameter to obtain consent unless it is already 
-				 known that the request complies with the conditions for processing the request in each jurisdiction.
-                 </t>
- 
-                 <t>When an Access Token is returned via the User Agent using the Implicit Flow or Hybrid Flow, there is a greater 
-				 risk of it being exposed to an attacker, who could later use it to access the UserInfo endpoint. If the Access Token 
-				 does not enable offline access and the server can differentiate whether the Client request has been made offline or online, 
-				 the risk will be substantially reduced. Therefore, this specification mandates ignoring the offline access request when 
-				 the Access Token is transmitted through the User Agent. Note that differentiating between online and offline access from 
-				 the server can be difficult especially for native clients. The server may well have to rely on heuristics. Also, the risk 
-				 of exposure for the Access Token delivered through the User Agent for the Response Types of code token and token is the same. 
-				 Thus, the implementations should be prepared to detect whether the Access Token was issued through the User Agent or directly 
-				 from the Token Endpoint and deny offline access if the token was issued through the User Agent.
-                 </t>
- 
-                 <t> Note that although these provisions require an explicit consent dialogue through the prompt parameter, the mere fact 
-				 that the user pressed an "accept" button etc., might not constitute a valid consent. Developers should be aware that for 
-				 the act of consent to be valid, typically, the impact of the terms have to be understood by the End-User, the consent must 
-				 be freely given and not forced (i.e., other options have to be available), and the terms must fair and equitable. In general, 
-				 it is advisable for the service to follow the required privacy principles in each jurisdiction and rely on other conditions 
-				 for processing the request than simply explicit consent, as online self-service "explicit consent" often does not form a 
-				 valid consent in some jurisdictions.
-				 </t>
-              </section>
-	
-		</section>
+
 	</middle>
 
 	<back>
