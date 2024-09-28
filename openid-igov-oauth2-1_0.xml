@@ -1789,7 +1789,7 @@ https://https://client.example.org/cb?
 			</section>
 		</section>
 			<section title="Privacy Considerations">
-                <t>This profile includes privacy considerations in <xref target="RFC 6973">Privacy Considerations for Internet Protocols</xref> 
+                <t>This profile includes privacy considerations in <xref target="RFC6973">Privacy Considerations for Internet Protocols</xref> 
 				with normative language in the Requirements sections. 
 				</t>
 				<t>In OpenID Connect implementations, servers and clients SHOULD leverage Privacy Considerations in the iGov OpenID Connect profile.</t> 
