@@ -1771,11 +1771,15 @@ https://https://client.example.org/cb?
 
 			<section title="Other Considerations">
 
-				<t> Authorization Servers SHOULD take into account device postures when dealing
-					with native apps if possible. Device postures include characteristics such as
-					a user's lock screen setting, or if the app has 'root access' (meaning the 
-					device OS may be compromised to gain additional privilages not intended by the 
-					vendor), or if there is a device attestation for the app for its validity. 
+				<t> Authorization Servers SHOULD take into account device posture when dealing
+					with native apps if possible. Some examples of device posture include:
+					<list type="symbols">
+					<t>the user's lock screen setting</t>
+					<t>the app's level of privilege over the device operating system (e.g. if the app has 'root access', the 
+					device operating system may be compromised to gain additional privileges not intended by the vendor)</t>
+					<t>the availability of a device attestation to validate the app</t>
+					</list>
+				<t>
 					Specific policies or capabilities are outside the scope of this specification.
 				</t>  
 
