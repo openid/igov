@@ -1789,12 +1789,13 @@ https://https://client.example.org/cb?
 			</section>
 		</section>
 			<section title="Privacy Considerations">
-                <t>This profile includes privacy considerations in <xref target="RFC6973">Privacy Considerations for Internet Protocols</xref> 
-				with normative language in the Requirements sections. 
+                <t>This profile addresses the privacy threats identified in <xref target="RFC6973">Privacy Considerations for Internet Protocols</xref> with normative 
+				language throughout the document. In particular, this profile requires the use of TLS for all network connections, PKCE, and sender constrained tokens 
+				to mitigate the threats in <xref target="RFC6973"></xref>
 				</t>
-				<t>In OpenID Connect implementations, servers and clients SHOULD leverage Privacy Considerations in the iGov OpenID Connect profile.</t> 
-				<t>When additional privacy considerations are identified that are not addressed as requirements, they SHOULD be included here.
-            	</t>
+				<t>In OpenID Connect implementations, servers and clients SHOULD implement the privacy threat mitigations in Section 17 of 
+				<xref target="OpenID.Core">OpenID Connect Core 1.0</xref>.
+                </t>
 			</section>
 	</middle>
 
