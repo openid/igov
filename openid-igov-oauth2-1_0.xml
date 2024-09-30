@@ -1781,7 +1781,7 @@ https://https://client.example.org/cb?
 
 				<t>
 					This profile does not protect against the attacks described in 
-					in <xref target="SAM">The Stronger Attacker Model</xref>, in which an attacker
+					<xref target="SAM">The Stronger Attacker Model</xref>, in which an attacker
 					could inject the authorization request and read the authorization response.
 					Although using request object signatures would provide mitigation, this profile does not require 
 					request object signatures because of the lack of available implementations. 
