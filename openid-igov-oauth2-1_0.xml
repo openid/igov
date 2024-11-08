@@ -27,7 +27,7 @@
 
 	<front>
 		<title abbrev="iGov OAuth 2.0">International Government Assurance Profile (iGov)
-			for OAuth 2.0 - draft 04</title>
+			for OAuth 2.0 - draft 05</title>
 
 		<author fullname="Kelley Burgin" initials="K." role="editor" surname="Burgin">
 			<address>
@@ -42,7 +42,7 @@
 			</address>
 		</author>
 
-		<date day="3" month="August" year="2023"/>
+		<date day="7" month="November" year="2024"/>
 
 		<workgroup>OpenID iGov Working Group</workgroup>
 
@@ -1843,8 +1843,9 @@ https://https://client.example.org/cb?
 
 	  <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9449"/>
 
-      <xi:include href="https://bib.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-oauth-pop-architecture.xml"/>
-
+<!-- Unused reference commented out
+     <xi:include href="https://bib.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-oauth-pop-architecture.xml"/>
+-->
 			<reference anchor="BCP195" target="http://www.rfc-editor.org/info/bcp195">
 				<front>
 					<title>Recommendations for Secure Use of Transport Layer Security
