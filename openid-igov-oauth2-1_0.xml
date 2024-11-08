@@ -1792,8 +1792,15 @@ https://https://client.example.org/cb?
 				</t>
 			</section>
 		</section>
-	
-
+			<section title="Privacy Considerations">
+                <t>This profile addresses the privacy threats identified in <xref target="RFC6973">Privacy Considerations for Internet Protocols</xref> with normative 
+				language throughout the document. In particular, this profile requires the use of TLS for all network connections, PKCE, and sender constrained tokens 
+				to mitigate the threats in <xref target="RFC6973"></xref>
+				</t>
+				<t>In OpenID Connect implementations, servers and clients SHOULD implement the privacy threat mitigations in Section 17 of 
+				<xref target="OpenID.Core">OpenID Connect Core 1.0</xref>.
+                </t>
+			</section>
 	</middle>
 
 	<back>
@@ -1805,6 +1812,8 @@ https://https://client.example.org/cb?
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6750"/>
 
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6819"/>
+
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6973"/>  
 
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7515"/>
 
