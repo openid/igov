@@ -5,11 +5,11 @@
 OpenID iGov Working Group                                 K. Burgin, Ed.
                                                                         
                                                           T. Clancy, Ed.
-                                                           3 August 2023
+                                                         7 November 2024
 
 
 International Government Assurance Profile (iGov) for OAuth 2.0 - draft
-                                   04
+                                   05
                          openid-igov-oauth2-1_0
 
 Abstract
@@ -29,56 +29,60 @@ Table of Contents
      1.1.  Requirements Notation and Conventions . . . . . . . . . .   3
      1.2.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   3
      1.3.  Conformance . . . . . . . . . . . . . . . . . . . . . . .   3
+     1.4.  Global Requirements . . . . . . . . . . . . . . . . . . .   4
    2.  Client Profiles . . . . . . . . . . . . . . . . . . . . . . .   4
-     2.1.  Client Types  . . . . . . . . . . . . . . . . . . . . . .   4
-       2.1.1.  Full Client with User Delegation  . . . . . . . . . .   4
+     2.1.  Client Types  . . . . . . . . . . . . . . . . . . . . . .   5
+       2.1.1.  Full Client with User Delegation  . . . . . . . . . .   5
        2.1.2.  Native Client with User Delegation  . . . . . . . . .   5
        2.1.3.  Direct Access Client  . . . . . . . . . . . . . . . .   6
-     2.2.  Sender-constrained Tokens . . . . . . . . . . . . . . . .   6
+     2.2.  Sender-constrained Tokens . . . . . . . . . . . . . . . .   7
      2.3.  Client Registration . . . . . . . . . . . . . . . . . . .   7
-       2.3.1.  Redirect URI  . . . . . . . . . . . . . . . . . . . .   7
+       2.3.1.  Redirect URI  . . . . . . . . . . . . . . . . . . . .   8
      2.4.  Connection to the Authorization Server  . . . . . . . . .   8
        2.4.1.  Requests to the Authorization Endpoint  . . . . . . .   8
        2.4.2.  Requests to the Token Endpoint  . . . . . . . . . . .   9
-       2.4.3.  Client Keys . . . . . . . . . . . . . . . . . . . . .  11
-     2.5.  Connection to the Protected Resource  . . . . . . . . . .  12
-       2.5.1.  Requests to the Protected Resource  . . . . . . . . .  13
-   3.  Authorization Server Profile  . . . . . . . . . . . . . . . .  13
+       2.4.3.  Client Keys . . . . . . . . . . . . . . . . . . . . .  12
+     2.5.  Connection to the Protected Resource  . . . . . . . . . .  13
+       2.5.1.  Requests to the Protected Resource  . . . . . . . . .  14
+   3.  Authorization Server Profile  . . . . . . . . . . . . . . . .  14
      3.1.  Connections with clients  . . . . . . . . . . . . . . . .  14
        3.1.1.  Grant types . . . . . . . . . . . . . . . . . . . . .  14
-       3.1.2.  Client authentication . . . . . . . . . . . . . . . .  14
-       3.1.3.  Dynamic Registration  . . . . . . . . . . . . . . . .  14
+       3.1.2.  Client authentication . . . . . . . . . . . . . . . .  15
+       3.1.3.  Dynamic Registration  . . . . . . . . . . . . . . . .  15
        3.1.4.  Client Approval . . . . . . . . . . . . . . . . . . .  16
-       3.1.5.  Sender-constrained Tokens . . . . . . . . . . . . . .  16
 
 
 
 Burgin & Clancy              Standards Track                    [Page 1]
 
-                             iGov OAuth 2.0                  August 2023
+                             iGov OAuth 2.0                November 2024
 
 
-       3.1.6.  Discovery . . . . . . . . . . . . . . . . . . . . . .  16
+       3.1.5.  Sender-constrained Tokens . . . . . . . . . . . . . .  17
+       3.1.6.  Discovery . . . . . . . . . . . . . . . . . . . . . .  17
        3.1.7.  Revocation  . . . . . . . . . . . . . . . . . . . . .  20
        3.1.8.  PKCE  . . . . . . . . . . . . . . . . . . . . . . . .  20
-       3.1.9.  Redirect URIs . . . . . . . . . . . . . . . . . . . .  20
-       3.1.10. RefreshTokens . . . . . . . . . . . . . . . . . . . .  20
-     3.2.  Connections with protected resources  . . . . . . . . . .  20
+       3.1.9.  Redirect URIs . . . . . . . . . . . . . . . . . . . .  21
+       3.1.10. RefreshTokens . . . . . . . . . . . . . . . . . . . .  21
+     3.2.  Connections with protected resources  . . . . . . . . . .  21
        3.2.1.  JWT Bearer Tokens . . . . . . . . . . . . . . . . . .  21
        3.2.2.  Introspection . . . . . . . . . . . . . . . . . . . .  23
      3.3.  Response to Authorization Requests  . . . . . . . . . . .  25
-     3.4.  Token Lifetimes . . . . . . . . . . . . . . . . . . . . .  25
+     3.4.  Token Lifetimes . . . . . . . . . . . . . . . . . . . . .  26
      3.5.  Scopes  . . . . . . . . . . . . . . . . . . . . . . . . .  26
    4.  Protected Resource Profile  . . . . . . . . . . . . . . . . .  26
-     4.1.  Protecting Resources  . . . . . . . . . . . . . . . . . .  26
-     4.2.  Connections with Clients  . . . . . . . . . . . . . . . .  27
+     4.1.  Protecting Resources  . . . . . . . . . . . . . . . . . .  27
+     4.2.  Connections with Clients  . . . . . . . . . . . . . . . .  28
      4.3.  Connections with Authorization Servers  . . . . . . . . .  28
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  28
-   6.  Normative References  . . . . . . . . . . . . . . . . . . . .  29
-   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  31
-   Appendix B.  Notices  . . . . . . . . . . . . . . . . . . . . . .  32
-   Appendix C.  Document History . . . . . . . . . . . . . . . . . .  32
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  33
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  29
+     5.1.  DNSSEC Considerations . . . . . . . . . . . . . . . . . .  29
+     5.2.  Other Considerations  . . . . . . . . . . . . . . . . . .  29
+   6.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  29
+   7.  Normative References  . . . . . . . . . . . . . . . . . . . .  30
+   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  32
+   Appendix B.  Notices  . . . . . . . . . . . . . . . . . . . . . .  33
+   Appendix C.  Document History . . . . . . . . . . . . . . . . . .  33
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  34
 
 1.  Introduction
 
@@ -105,13 +109,9 @@ Burgin & Clancy              Standards Track                    [Page 1]
 
 
 
-
-
-
-
 Burgin & Clancy              Standards Track                    [Page 2]
 
-                             iGov OAuth 2.0                  August 2023
+                             iGov OAuth 2.0                November 2024
 
 
 1.1.  Requirements Notation and Conventions
@@ -167,7 +167,7 @@ Burgin & Clancy              Standards Track                    [Page 2]
 
 Burgin & Clancy              Standards Track                    [Page 3]
 
-                             iGov OAuth 2.0                  August 2023
+                             iGov OAuth 2.0                November 2024
 
 
    An iGov-compliant OAuth 2.0 authorization server MUST support all
@@ -185,7 +185,45 @@ Burgin & Clancy              Standards Track                    [Page 3]
    resource library MAY support additional features for use with non-
    iGov authorization servers and clients.
 
+1.4.  Global Requirements
+
+   All network connections MUST be made using TLS 1.3 or above.  Each
+   originator of a TLS connection MUST verify the destination's
+   certificate.  For TLS versions below 1.3, only the following 4 cipher
+   suites shall be permitted: TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
+   TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+   TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
+   TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+
+   For the authorization_endpoint, the authorization server MAY allow
+   additional cipher suites that are permitted by the latest version of
+   BCP195 [BCP195], if necessary to allow sufficient interoperability
+   with users' web browsers or as required by local regulations.
+
+   NOTE: Permitted cipher suites are those listed in BCP195 [BCP195]
+   that do not explicitly say MUST NOT use.  When using the
+   TLS_DHE_RSA_WITH_AES_128_GCM_SHA256 or
+   TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 cipher suites, key lengths of at
+   least 2048 bits are REQUIRED.
+
+   Endpoints for use by web browsers SHOULD use mechanisms to ensure
+   that connections cannot be downgraded using TLS Stripping attacks.  A
+   preloaded HTTP Strict Transport Security policy (see PRELOAD and
+   RFC6797) MAY be used for this purpose.
+
 2.  Client Profiles
+
+
+
+
+
+
+
+
+
+Burgin & Clancy              Standards Track                    [Page 4]
+
+                             iGov OAuth 2.0                November 2024
 
 
 2.1.  Client Types
@@ -204,27 +242,6 @@ Burgin & Clancy              Standards Track                    [Page 3]
    clients are capable of interacting with a separate web browser
    application to facilitate the resource owner's interaction with the
    authentication endpoint of the authorization server.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Burgin & Clancy              Standards Track                    [Page 4]
-
-                             iGov OAuth 2.0                  August 2023
-
 
    These clients MUST use the authorization code flow of OAuth 2.0 by
    sending the resource owner to the authorization endpoint to obtain
@@ -257,6 +274,14 @@ Burgin & Clancy              Standards Track                    [Page 4]
    a separate web browser application to facilitate the resource owner's
    interaction with the authentication endpoint of the authorization
    server.  In particular, this client type runs natively on the
+
+
+
+Burgin & Clancy              Standards Track                    [Page 5]
+
+                             iGov OAuth 2.0                November 2024
+
+
    resource owner's device, often leading to many identical instances of
    a piece of software operating in different environments and running
    simultaneously for different end users.
@@ -274,13 +299,6 @@ Burgin & Clancy              Standards Track                    [Page 4]
 
    *  use dynamic client registration to obtain a separate client id for
       each instance, or
-
-
-
-Burgin & Clancy              Standards Track                    [Page 5]
-
-                             iGov OAuth 2.0                  August 2023
-
 
    *  act as a public client by using a common client id and use PKCE
       [RFC7636] to protect calls to the token endpoint.
@@ -309,6 +327,17 @@ Burgin & Clancy              Standards Track                    [Page 5]
    transfers between two systems would be considered a direct access
    client.
 
+
+
+
+
+
+
+Burgin & Clancy              Standards Track                    [Page 6]
+
+                             iGov OAuth 2.0                November 2024
+
+
 2.2.  Sender-constrained Tokens
 
    While a bearer token can be used by anyone in possession of the
@@ -328,15 +357,6 @@ Burgin & Clancy              Standards Track                    [Page 5]
 
    All clients MUST use proof of possession to sender-constrain access
    tokens using either mTLS [RFC8705] or DPoP [RFC9449].
-
-
-
-
-
-Burgin & Clancy              Standards Track                    [Page 6]
-
-                             iGov OAuth 2.0                  August 2023
-
 
 2.3.  Client Registration
 
@@ -363,6 +383,17 @@ Burgin & Clancy              Standards Track                    [Page 6]
    authorization server.  Clients using self-signed certificate option
    are not guaranteed uniqueness of their certificate fingerprint.
 
+
+
+
+
+
+
+Burgin & Clancy              Standards Track                    [Page 7]
+
+                             iGov OAuth 2.0                November 2024
+
+
 2.3.1.  Redirect URI
 
    Clients using the authorization code grant type MUST register their
@@ -386,13 +417,6 @@ Burgin & Clancy              Standards Track                    [Page 6]
    Clients MUST NOT forward values passed back to their redirect URIs to
    other arbitrary or user-provided URIs (a practice known as an "open
    redirector").
-
-
-
-Burgin & Clancy              Standards Track                    [Page 7]
-
-                             iGov OAuth 2.0                  August 2023
-
 
 2.4.  Connection to the Authorization Server
 
@@ -418,6 +442,14 @@ Burgin & Clancy              Standards Track                    [Page 7]
    direct string comparison against registered values and MUST reject
    requests with an invalid or missing redirect URI.
 
+
+
+
+Burgin & Clancy              Standards Track                    [Page 8]
+
+                             iGov OAuth 2.0                November 2024
+
+
    The following is a sample response from a web-based client to the end
    user's browser for the purpose of redirecting the end user to the
    authorization server's authorization endpoint:
@@ -439,16 +471,6 @@ Burgin & Clancy              Standards Track                    [Page 7]
    This causes the browser to send the following (non-normative) request
    to the authorization endpoint (inline wraps for display purposes
    only):
-
-
-
-
-
-
-Burgin & Clancy              Standards Track                    [Page 8]
-
-                             iGov OAuth 2.0                  August 2023
-
 
    NOTE: '\' line wrapping per RFC 8792
 
@@ -477,6 +499,13 @@ Burgin & Clancy              Standards Track                    [Page 8]
 
    iss  the client ID of the client creating the token
 
+
+
+Burgin & Clancy              Standards Track                    [Page 9]
+
+                             iGov OAuth 2.0                November 2024
+
+
    sub  the client ID of the client creating the token
 
    aud  the URL of the authorization server's token endpoint
@@ -496,16 +525,6 @@ Burgin & Clancy              Standards Track                    [Page 8]
    the following claim in the client assertion.
 
    cnf  Confirmation, as defined in Proof-of-Possession Key Semantics
-
-
-
-
-
-Burgin & Clancy              Standards Track                    [Page 9]
-
-                             iGov OAuth 2.0                  August 2023
-
-
       for JSON Web Tokens (JWTs) [RFC7800] and OAuth 2.0 Mutual-TLS
       Client Authentication and Certificate-Bound Access Tokens
       [RFC8705].  The confirmation claim value MUST be computed using
@@ -528,6 +547,20 @@ Burgin & Clancy              Standards Track                    [Page 9]
            "x5t#S256":"A4DtL2JmUMhAsvJj5tKyn64SqzmuXbMrJa0n761y5v0"
            }
               }
+
+
+
+
+
+
+
+
+
+
+Burgin & Clancy              Standards Track                   [Page 10]
+
+                             iGov OAuth 2.0                November 2024
+
 
    The JWT assertion MUST be signed by the client using the client's
    private key.  See Section 2.3 for mechanisms by which the client can
@@ -555,15 +588,35 @@ Burgin & Clancy              Standards Track                    [Page 9]
    3G7wKGDeLETOTHszt-ZjKR38v4F_MnSrx8e0iIqgZwurW0RtetEWvynOCJXk-p166T7q\
    ZR45xuCxgOotXY6O3et4n77GtgspMgOEKj3b_WpCiuNEwQ
 
-
-
-Burgin & Clancy              Standards Track                   [Page 10]
-
-                             iGov OAuth 2.0                  August 2023
-
-
    This is sent in the request to the token endpoint as in the following
    example:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Burgin & Clancy              Standards Track                   [Page 11]
+
+                             iGov OAuth 2.0                November 2024
+
 
    POST /token HTTP/1.1
    NOTE: '\' line wrapping per RFC 8792
@@ -613,9 +666,12 @@ Burgin & Clancy              Standards Track                   [Page 10]
 
 
 
-Burgin & Clancy              Standards Track                   [Page 11]
+
+
+
+Burgin & Clancy              Standards Track                   [Page 12]
 
-                             iGov OAuth 2.0                  August 2023
+                             iGov OAuth 2.0                November 2024
 
 
    NOTE: '\' line wrapping per RFC 8792
@@ -669,33 +725,15 @@ Burgin & Clancy              Standards Track                   [Page 11]
 
 
 
-Burgin & Clancy              Standards Track                   [Page 12]
+Burgin & Clancy              Standards Track                   [Page 13]
 
-                             iGov OAuth 2.0                  August 2023
+                             iGov OAuth 2.0                November 2024
 
 
 2.5.1.  Requests to the Protected Resource
 
    Clients MUST use the authorization request header field mechanism to
-   send bearer tokens as defined by [RFC6750] . All network connections
-   MUST be made using TLS 1.2 or above.  Each originator of a TLS
-   connection MUST verify the destination's certificate.  For TLS
-   versions below 1.3, only the following 4 cipher suites shall be
-   permitted: TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
-   TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-   TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
-   TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-
-   For the authorization_endpoint, the authorization server MAY allow
-   additional cipher suites that are permitted by the latest version of
-   BCP195 [BCP195], if necessary to allow sufficient interoperability
-   with users' web browsers or as required by local regulations.
-
-   NOTE: Permitted cipher suites are those listed in BCP195 [BCP195]
-   that do not explicitly say MUST NOT use.  When using the
-   TLS_DHE_RSA_WITH_AES_128_GCM_SHA256 or
-   TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 cipher suites, key lengths of at
-   least 2048 bits are REQUIRED.
+   send bearer tokens as defined by [RFC6750].
 
    An example of an OAuth-protected call to the OpenID Connect UserInfo
    endpoint, sending the token in the Authorization header, follows:
@@ -722,14 +760,6 @@ Burgin & Clancy              Standards Track                   [Page 12]
    The authorization server MUST protect all communications to and from
    its OAuth endpoints using TLS.
 
-
-
-
-Burgin & Clancy              Standards Track                   [Page 13]
-
-                             iGov OAuth 2.0                  August 2023
-
-
 3.1.  Connections with clients
 
 
@@ -742,6 +772,19 @@ Burgin & Clancy              Standards Track                   [Page 13]
    single piece of software will be functioning at runtime in only one
    of the modes described in Section 2.  Clients that have multiple
    modes of operation MUST have a separate client ID for each mode.
+
+
+
+
+
+
+
+
+
+Burgin & Clancy              Standards Track                   [Page 14]
+
+                             iGov OAuth 2.0                November 2024
+
 
 3.1.2.  Client authentication
 
@@ -769,23 +812,6 @@ Burgin & Clancy              Standards Track                   [Page 13]
    servers MAY limit the scopes available to dynamically registered
    clients.
 
-
-
-
-
-
-
-
-
-
-
-
-
-Burgin & Clancy              Standards Track                   [Page 14]
-
-                             iGov OAuth 2.0                  August 2023
-
-
    Authorization servers MAY protect their Dynamic Registration
    endpoints by requiring clients to present credentials that the
    authorization server would recognize as authorized participants.
@@ -807,6 +833,14 @@ Burgin & Clancy              Standards Track                   [Page 14]
 
    client_uri  URL of a web page containing further information about
       the client
+
+
+
+
+Burgin & Clancy              Standards Track                   [Page 15]
+
+                             iGov OAuth 2.0                November 2024
+
 
    tls_client_certificate_bound_access_tokens  REQUIRED.  Boolean value
       indicating server support for mutual-TLS client certificate-bound
@@ -835,13 +869,6 @@ Burgin & Clancy              Standards Track                   [Page 14]
    tls_client_auth_san_dns  String value specifying the expected dNSName
       SAN entry in the client certificate.
 
-
-
-Burgin & Clancy              Standards Track                   [Page 15]
-
-                             iGov OAuth 2.0                  August 2023
-
-
    tls_client_auth_san_uri  String value specifying the expected
       uniformResourceIdentifier SAN entry in the client certificate.
 
@@ -862,6 +889,14 @@ Burgin & Clancy              Standards Track                   [Page 15]
    *  Whether the client is associated with a software statement, and in
       which case provide information about the trusted issuer of the
       software statement.
+
+
+
+
+Burgin & Clancy              Standards Track                   [Page 16]
+
+                             iGov OAuth 2.0                November 2024
+
 
    *  What kind of access the client is requesting, including scope,
       protected resources (if applicable beyond scopes), and access
@@ -890,14 +925,6 @@ Burgin & Clancy              Standards Track                   [Page 15]
 
    issuer  REQUIRED.  The fully qualified issuer URL of the server
 
-
-
-
-Burgin & Clancy              Standards Track                   [Page 16]
-
-                             iGov OAuth 2.0                  August 2023
-
-
    authorization_endpoint  REQUIRED.  The fully qualified URL of the
       server's authorization endpoint defined by OAuth 2.0 [RFC6749]
 
@@ -918,6 +945,14 @@ Burgin & Clancy              Standards Track                   [Page 16]
    revocation_endpoint  OPTIONAL.  The fully qualified URL of the
       server's revocation endpoint defined by OAuth 2.0 Token Revocation
       [RFC7009]
+
+
+
+
+Burgin & Clancy              Standards Track                   [Page 17]
+
+                             iGov OAuth 2.0                November 2024
+
 
    mtls_endpoint_aliases  OPTIONAL.  A JSON object containing
       alternative authorization server endpoints that, when present, an
@@ -944,16 +979,6 @@ Burgin & Clancy              Standards Track                   [Page 16]
       the authorization server will occur using mutual TLS with the
       client utilizing a self-signed certificate.
 
-
-
-
-
-
-Burgin & Clancy              Standards Track                   [Page 17]
-
-                             iGov OAuth 2.0                  August 2023
-
-
    If the authorization server is also an OpenID Connect Provider, it
    MUST provide a discovery endpoint meeting the requirements listed in
    Section 3.6 of the iGov OpenID Connect profile.
@@ -977,6 +1002,14 @@ Burgin & Clancy              Standards Track                   [Page 17]
     "token_endpoint_auth_methods_supported": [
       "private_key_jwt",
     ],
+
+
+
+Burgin & Clancy              Standards Track                   [Page 18]
+
+                             iGov OAuth 2.0                November 2024
+
+
     "jwks_uri": "https://idp-p.example.com/jwk",
     "authorization_endpoint": "https://idp-p.example.com/authorize",
     "require_request_uri_registration": false,
@@ -1002,14 +1035,6 @@ Burgin & Clancy              Standards Track                   [Page 17]
       "client_credentials",
       "urn:ietf:params:oauth:grant_type:redelegate"
     ],
-
-
-
-Burgin & Clancy              Standards Track                   [Page 18]
-
-                             iGov OAuth 2.0                  August 2023
-
-
     "scopes_supported": [
       "profile", "openid", "email", "address", "phone", "offline_access"
     ],
@@ -1033,6 +1058,13 @@ Burgin & Clancy              Standards Track                   [Page 18]
    kty  The key type
 
    alg  The default algorithm used for this key
+
+
+
+Burgin & Clancy              Standards Track                   [Page 19]
+
+                             iGov OAuth 2.0                November 2024
+
 
    The following is an example of a 2048-bit RSA public key:
 
@@ -1059,13 +1091,6 @@ Burgin & Clancy              Standards Track                   [Page 18]
    RECOMMENDED that servers provide cache information through HTTP
    headers and make the cache valid for at least one week.
 
-
-
-Burgin & Clancy              Standards Track                   [Page 19]
-
-                             iGov OAuth 2.0                  August 2023
-
-
 3.1.7.  Revocation
 
    Token revocation allows a client to signal to an authorization server
@@ -1087,6 +1112,15 @@ Burgin & Clancy              Standards Track                   [Page 19]
    contain a code challenge.  Authorization servers MUST support the
    S256 code challenge method.  Authorization servers MUST NOT allow a
    client to use the plain code challenge method.
+
+
+
+
+
+Burgin & Clancy              Standards Track                   [Page 20]
+
+                             iGov OAuth 2.0                November 2024
+
 
 3.1.9.  Redirect URIs
 
@@ -1114,14 +1148,6 @@ Burgin & Clancy              Standards Track                   [Page 19]
    compliant protected resources to connect to compliant authorization
    servers.
 
-
-
-
-Burgin & Clancy              Standards Track                   [Page 20]
-
-                             iGov OAuth 2.0                  August 2023
-
-
 3.2.1.  JWT Bearer Tokens
 
    All iGov-compliant authorization servers issue cryptographically
@@ -1143,6 +1169,14 @@ Burgin & Clancy              Standards Track                   [Page 20]
    exp  The expiration time (integer number of seconds since from
       1970-01-01T00:00:00Z UTC), after which the token MUST be
       considered invalid
+
+
+
+
+Burgin & Clancy              Standards Track                   [Page 21]
+
+                             iGov OAuth 2.0                November 2024
+
 
    jti  A unique JWT Token ID value with at least 128 bits of entropy.
       This value MUST NOT be re-used in another token.  Clients MUST
@@ -1168,16 +1202,6 @@ Burgin & Clancy              Standards Track                   [Page 20]
    the following claim in the access token.
 
    cnf  Confirmation, as defined in Proof-of-Possession Key Semantics
-
-
-
-
-
-Burgin & Clancy              Standards Track                   [Page 21]
-
-                             iGov OAuth 2.0                  August 2023
-
-
       for JSON Web Tokens (JWTs) [RFC7800] and OAuth 2.0 Mutual-TLS
       Client Authentication and Certificate-Bound Access Tokens
       [RFC8705].  The confirmation claim value MUST be computed using
@@ -1202,6 +1226,14 @@ Burgin & Clancy              Standards Track                   [Page 21]
    The access tokens MUST be signed with JWS [RFC7515] . If
    private_key_jwt is used, the authorization server MUST support the
    RS256 signature method for tokens and MAY use other asymmetric
+
+
+
+Burgin & Clancy              Standards Track                   [Page 22]
+
+                             iGov OAuth 2.0                November 2024
+
+
    signing methods as defined in the IANA JSON Web Signatures and
    Encryption Algorithms registry [JWS.JWE.Algs] . The JWS header MUST
    contain the following fields:
@@ -1227,13 +1259,6 @@ Burgin & Clancy              Standards Track                   [Page 21]
    Refresh tokens SHOULD be signed with JWS [RFC7515] using the same
    private key and contain the same set of claims as the access tokens.
 
-
-
-Burgin & Clancy              Standards Track                   [Page 22]
-
-                             iGov OAuth 2.0                  August 2023
-
-
    The authorization server MAY encrypt access tokens and refresh tokens
    using JWE [RFC7516] . Encrypted access tokens MUST be encrypted using
    the public key of the protected resource.  Encrypted refresh tokens
@@ -1245,6 +1270,25 @@ Burgin & Clancy              Standards Track                   [Page 22]
    authorization server for metadata about a token.  The protected
    resource makes a request over a mutually authenticated TLS connection
    like the following to the token introspection endpoint:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Burgin & Clancy              Standards Track                   [Page 23]
+
+                             iGov OAuth 2.0                November 2024
+
 
    NOTE: '\' line wrapping per RFC 8792
 
@@ -1281,15 +1325,6 @@ Burgin & Clancy              Standards Track                   [Page 22]
    SI28XZvDaGnxA4j7QI5loZYeyzGR9h70xQLVzqwwl1P0-F_0JaDFMJFO1yl4IexfpoZZ\
    sB3HhF2vFdL6D_lLeHRy-H2g2OzF59eMIsM_Ccs4G47862w
 
-
-
-
-
-Burgin & Clancy              Standards Track                   [Page 23]
-
-                             iGov OAuth 2.0                  August 2023
-
-
    The client assertion parameter is structured as described in
    Section 2.4.2 .
 
@@ -1303,6 +1338,14 @@ Burgin & Clancy              Standards Track                   [Page 23]
       authorization server are considered non-active.
 
    scope  Space-separated list of OAuth 2.0 scope values represented as
+
+
+
+Burgin & Clancy              Standards Track                   [Page 24]
+
+                             iGov OAuth 2.0                November 2024
+
+
       a single string.
 
    exp  Timestamp of when this token expires (integer number of seconds
@@ -1334,18 +1377,6 @@ Burgin & Clancy              Standards Track                   [Page 23]
     "token_type": "Bearer"
  }
 
-
-
-
-
-
-
-
-Burgin & Clancy              Standards Track                   [Page 24]
-
-                             iGov OAuth 2.0                  August 2023
-
-
    The authorization server MUST require authentication for both the
    revocation and introspection endpoints as described in Section 2.4.2.
    Protected resources calling the introspection endpoint MUST use
@@ -1363,6 +1394,13 @@ Burgin & Clancy              Standards Track                   [Page 24]
    Authorization Code Flow as described above.  The authentication
    response is sent via HTTP redirect to the redirect URI specified in
    the request.
+
+
+
+Burgin & Clancy              Standards Track                   [Page 25]
+
+                             iGov OAuth 2.0                November 2024
+
 
    The following fields MUST be included in the response:
 
@@ -1390,18 +1428,6 @@ Burgin & Clancy              Standards Track                   [Page 24]
    tokens with different lifetimes.  Any active token MAY be revoked at
    any time.
 
-
-
-
-
-
-
-
-Burgin & Clancy              Standards Track                   [Page 25]
-
-                             iGov OAuth 2.0                  August 2023
-
-
 3.5.  Scopes
 
    Scopes define individual pieces of authority that can be requested by
@@ -1423,6 +1449,14 @@ Burgin & Clancy              Standards Track                   [Page 25]
    dynamically registered systems or public clients.
 
 4.  Protected Resource Profile
+
+
+
+
+Burgin & Clancy              Standards Track                   [Page 26]
+
+                             iGov OAuth 2.0                November 2024
+
 
 4.1.  Protecting Resources
 
@@ -1449,15 +1483,6 @@ Burgin & Clancy              Standards Track                   [Page 25]
    levels.  Client authorization requests containing scopes that are
    outside their permission MUST be rejected.
 
-
-
-
-
-Burgin & Clancy              Standards Track                   [Page 26]
-
-                             iGov OAuth 2.0                  August 2023
-
-
    Authorization servers MAY set the expiry time (exp) of access_tokens
    associated with higher level resources to be shorter than
    access_tokens for less sensitive resources.
@@ -1481,6 +1506,14 @@ Burgin & Clancy              Standards Track                   [Page 26]
    trust level (two-factor authentication or some approved equivalent)
    and issues an access_token for the "public" and "sensitive" scopes
    with an expiry time of 15mins, and a refresh_token for the "public"
+
+
+
+Burgin & Clancy              Standards Track                   [Page 27]
+
+                             iGov OAuth 2.0                November 2024
+
+
    scope with an expiry time of 24 hrs.  The client can access both
    "public" and "sensitive" resources for 15mins with the access_token.
    When the access_token expires, the client will NOT be able to access
@@ -1506,14 +1539,6 @@ Burgin & Clancy              Standards Track                   [Page 26]
    MUST NOT accept bearer tokens passed in the form parameter or query
    parameter methods.
 
-
-
-
-Burgin & Clancy              Standards Track                   [Page 27]
-
-                             iGov OAuth 2.0                  August 2023
-
-
    Protected resources MUST define and document which scopes are
    required for access to the resource.
 
@@ -1538,6 +1563,13 @@ Burgin & Clancy              Standards Track                   [Page 27]
    scopes and acr associated with the token from the authorization
    server's token introspection endpoint.
 
+
+
+Burgin & Clancy              Standards Track                   [Page 28]
+
+                             iGov OAuth 2.0                November 2024
+
+
    A protected resource MUST limit which authorization servers it will
    accept valid tokens from.  A resource server MAY accomplish this
    using a whitelist of trusted servers, a dynamic policy engine, or
@@ -1545,32 +1577,60 @@ Burgin & Clancy              Standards Track                   [Page 27]
 
 5.  Security Considerations
 
-   All transactions MUST be protected in transit by TLS as described in
-   BCP195 [BCP195] .
+5.1.  DNSSEC Considerations
 
-   Authorization Servers SHOULD take into account device postures when
-   dealing with native apps if possible.  Device postures include
-   characteristics such as a user's lock screen setting, or if the app
-   has 'root access' (meaning the device OS may be compromised to gain
-   additional privilages not intended by the vendor), or if there is a
-   device attestation for the app for its validity.  Specific policies
-   or capabilities are outside the scope of this specification.
+   For a comprehensive protection against network attackers, all
+   endpoints should additionally use DNSSEC to protect against DNS
+   spoofing attacks that can lead to the issuance of rogue domain-
+   validated TLS certificates.
 
-   This profile does not protect against the attacks described in in The
+5.2.  Other Considerations
+
+   Authorization Servers SHOULD take into account device posture when
+   dealing with native apps if possible.  Some examples of device
+   posture include:
+
+   *  the user's lock screen setting
+
+   *  the app's level of privilege over the device operating system
+      (e.g. if the app has 'root access', the device operating system
+      may be compromised to gain additional privileges not intended by
+      the vendor)
+
+   *  the availability of a device attestation to validate the app
+
+   Specific policies or capabilities are outside the scope of this
+   specification.
+
+   This profile does not protect against the attacks described in The
    Stronger Attacker Model [SAM], in which an attacker could inject the
    authorization request and read the authorization response.  Although
    using request object signatures would provide mitigation, this
    profile does not require request object signatures because of the
    lack of available implementations.
 
+6.  Privacy Considerations
+
+   This profile addresses the privacy threats identified in Privacy
+   Considerations for Internet Protocols [RFC6973] with normative
+   language throughout the document.  In particular, this profile
+   requires the use of TLS for all network connections, PKCE, and sender
+   constrained tokens to mitigate the threats in [RFC6973]
 
 
-Burgin & Clancy              Standards Track                   [Page 28]
+
+
+
+Burgin & Clancy              Standards Track                   [Page 29]
 
-                             iGov OAuth 2.0                  August 2023
+                             iGov OAuth 2.0                November 2024
 
 
-6.  Normative References
+   In OpenID Connect implementations, servers and clients SHOULD
+   implement the privacy threat mitigations in Section 17 of OpenID
+   Connect Core 1.0 [OpenID.Core].
+
+7.  Normative References
 
    [BCP195]   Sheffer, Y., Holz, R., and P. Saint-Andre,
               "Recommendations for Secure Use of Transport Layer
@@ -1582,14 +1642,6 @@ Burgin & Clancy              Standards Track                   [Page 28]
               Richer, J., "Health Relationship Trust Profile for OAuth
               2.0", 25 April 2017, <http://openid.net/specs/openid-
               heart-oauth2-1_0-ID1.html>.
-
-   [I-D.ietf-oauth-pop-architecture]
-              Hunt, P., Richer, J., Mills, W., Mishra, P., and H.
-              Tschofenig, "OAuth 2.0 Proof-of-Possession (PoP) Security
-              Architecture", Work in Progress, Internet-Draft, draft-
-              ietf-oauth-pop-architecture-08, 8 July 2016,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-oauth-
-              pop-architecture-08>.
 
    [JWS.JWE.Algs]
               "JSON Web Signature and Encryption Algorithms registry", 8
@@ -1616,25 +1668,30 @@ Burgin & Clancy              Standards Track                   [Page 28]
               RFC 6749, DOI 10.17487/RFC6749, October 2012,
               <https://www.rfc-editor.org/info/rfc6749>.
 
-
-
-
-
-
-Burgin & Clancy              Standards Track                   [Page 29]
-
-                             iGov OAuth 2.0                  August 2023
-
-
    [RFC6750]  Jones, M. and D. Hardt, "The OAuth 2.0 Authorization
               Framework: Bearer Token Usage", RFC 6750,
               DOI 10.17487/RFC6750, October 2012,
               <https://www.rfc-editor.org/info/rfc6750>.
 
+
+
+
+
+Burgin & Clancy              Standards Track                   [Page 30]
+
+                             iGov OAuth 2.0                November 2024
+
+
    [RFC6819]  Lodderstedt, T., Ed., McGloin, M., and P. Hunt, "OAuth 2.0
               Threat Model and Security Considerations", RFC 6819,
               DOI 10.17487/RFC6819, January 2013,
               <https://www.rfc-editor.org/info/rfc6819>.
+
+   [RFC6973]  Cooper, A., Tschofenig, H., Aboba, B., Peterson, J.,
+              Morris, J., Hansen, M., and R. Smith, "Privacy
+              Considerations for Internet Protocols", RFC 6973,
+              DOI 10.17487/RFC6973, July 2013,
+              <https://www.rfc-editor.org/info/rfc6973>.
 
    [RFC7009]  Lodderstedt, T., Ed., Dronia, S., and M. Scurtescu, "OAuth
               2.0 Token Revocation", RFC 7009, DOI 10.17487/RFC7009,
@@ -1670,17 +1727,21 @@ Burgin & Clancy              Standards Track                   [Page 29]
               RFC 7591, DOI 10.17487/RFC7591, July 2015,
               <https://www.rfc-editor.org/info/rfc7591>.
 
+
+
+
+
+
+
+Burgin & Clancy              Standards Track                   [Page 31]
+
+                             iGov OAuth 2.0                November 2024
+
+
    [RFC7636]  Sakimura, N., Ed., Bradley, J., and N. Agarwal, "Proof Key
               for Code Exchange by OAuth Public Clients", RFC 7636,
               DOI 10.17487/RFC7636, September 2015,
               <https://www.rfc-editor.org/info/rfc7636>.
-
-
-
-Burgin & Clancy              Standards Track                   [Page 30]
-
-                             iGov OAuth 2.0                  August 2023
-
 
    [RFC7662]  Richer, J., Ed., "OAuth 2.0 Token Introspection",
               RFC 7662, DOI 10.17487/RFC7662, October 2015,
@@ -1725,18 +1786,16 @@ Appendix A.  Acknowledgements
    Bucci, Josh Mandel, Sarah Cecchetti, Giuseppe De Marco, Joseph
    Heenan, Jim Fenton, Ryan Galluzzo, and Michael B.  Jones.
 
+
+
+
+Burgin & Clancy              Standards Track                   [Page 32]
+
+                             iGov OAuth 2.0                November 2024
+
+
    Special thank you to the original iGov Profile editors: Paul Grassi,
    Justin Richer, and Michael Varley.
-
-
-
-
-
-
-Burgin & Clancy              Standards Track                   [Page 31]
-
-                             iGov OAuth 2.0                  August 2023
-
 
    The original version of this specification was part of the Secure
    RESTful Interfaces project from The MITRE Corporation, available
@@ -1783,16 +1842,17 @@ Appendix C.  Document History
 
    [[ To be removed from the final specification ]]
 
+
+
+
+Burgin & Clancy              Standards Track                   [Page 33]
+
+                             iGov OAuth 2.0                November 2024
+
+
    -04
 
    *  Enable building with https://author-tools.ietf.org/.
-
-
-
-Burgin & Clancy              Standards Track                   [Page 32]
-
-                             iGov OAuth 2.0                  August 2023
-
 
    *  Applied OpenID specification conventions.
 
@@ -1841,8 +1901,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-Burgin & Clancy              Standards Track                   [Page 33]
+Burgin & Clancy              Standards Track                   [Page 34]
