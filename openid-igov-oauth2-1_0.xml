@@ -1874,8 +1874,6 @@ https://https://client.example.org/cb?
 
 	  <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9470"/>
 
-      <xi:include href="https://bib.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-oauth-pop-architecture.xml"/>
-
 			<reference anchor="BCP195" target="http://www.rfc-editor.org/info/bcp195">
 				<front>
 					<title>Recommendations for Secure Use of Transport Layer Security
