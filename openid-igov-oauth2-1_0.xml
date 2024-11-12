@@ -972,7 +972,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 
 							<t hangText="acr_values_supported">indicates the authorization server will understand and honor the acr_values and max_age
    								parameters in incoming authorization requests, and handle insufficient_user_authentication error messages in conformance
-								with <xref="RFC9470">OAuth 2.0 Step Up Authentication Challenge Protocol</xref>.</t>
+								with <xref target="RFC9470">OAuth 2.0 Step Up Authentication Challenge Protocol</xref>.</t>
 
 							<t hangText="client_uri">URL of a web page containing further
 								information
