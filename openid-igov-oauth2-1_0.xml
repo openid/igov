@@ -583,7 +583,7 @@ Host: idp-p.example.com
 						</t>
 
 						<t>The client MAY specify a strength of authentication and maximum age to the authorization server that should be met 
-						when issuing an access token for the requesting client by including the following claims:
+						when issuing an access token for the requesting client by including the following claims:</t>
 
 						<list style="hanging">
 							<t hangText="acr_values">A space-separated string listing the authentication context class reference values in order of preference.  
