@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>International Government Assurance Profile (iGov) for OAuth 2.0 - draft 04</title>
+<title>International Government Assurance Profile (iGov) for OAuth 2.0 - draft 05</title>
 <meta content="Kelley Burgin" name="author">
 <meta content="Tom Clancy" name="author">
 <meta content="
@@ -19,26 +19,26 @@
  consumer-to-government deployments.
        
     " name="description">
-<meta content="xml2rfc 3.23.0" name="generator">
+<meta content="xml2rfc 3.24.0" name="generator">
 <meta content="openid-igov-oauth2-1_0" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.23.0
+  xml2rfc 3.24.0
     Python 3.10.12
     ConfigArgParse 1.7
-    google-i18n-address 3.1.0
+    google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.4
-    lxml 4.9.4
-    platformdirs 4.2.2
+    lxml 5.3.0
+    platformdirs 4.3.6
     pycountry 24.6.1
-    pydyf 0.10.0
+    pydyf 0.9.0
     PyYAML 6.0.2
     requests 2.32.3
-    setuptools 59.6.0
+    setuptools 75.3.0
     wcwidth 0.2.13
     weasyprint 61.2
 -->
-<link href="/usr/src/app/tmp/2210f6c3-2470-4077-a72e-4474333b6b65/openid-igov-oauth2-1_0.xml" rel="alternate" type="application/rfc+xml">
+<link href="/usr/src/app/tmp/54166738-942d-4630-ad33-0c1e178b0a11/openid-igov-auth2-1_0.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
 <style type="text/css">/*
 
@@ -1221,7 +1221,7 @@ li > p:last-of-type:only-child {
 <thead><tr>
 <td class="left"></td>
 <td class="center">iGov OAuth 2.0</td>
-<td class="right">August 2023</td>
+<td class="right">November 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Burgin &amp; Clancy</td>
@@ -1236,7 +1236,7 @@ li > p:last-of-type:only-child {
 <dd class="workgroup">OpenID iGov Working Group</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-08-03" class="published">3 August 2023</time>
+<time datetime="2024-11-07" class="published">7 November 2024</time>
     </dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
@@ -1251,7 +1251,7 @@ li > p:last-of-type:only-child {
 </dd>
 </dl>
 </div>
-<h1 id="title">International Government Assurance Profile (iGov) for OAuth 2.0 - draft 04</h1>
+<h1 id="title">International Government Assurance Profile (iGov) for OAuth 2.0 - draft 05</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">The OAuth 2.0 protocol framework defines a mechanism to allow a
@@ -1280,6 +1280,9 @@ li > p:last-of-type:only-child {
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.3">
                 <p id="section-toc.1-1.1.2.3.1" class="keepWithNext"><a href="#section-1.3" class="auto internal xref">1.3</a>.  <a href="#name-conformance" class="internal xref">Conformance</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.4">
+                <p id="section-toc.1-1.1.2.4.1"><a href="#section-1.4" class="auto internal xref">1.4</a>.  <a href="#name-global-requirements" class="internal xref">Global Requirements</a></p>
 </li>
             </ul>
 </li>
@@ -1411,21 +1414,32 @@ li > p:last-of-type:only-child {
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-dnssec-considerations" class="internal xref">DNSSEC Considerations</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-other-considerations" class="internal xref">Other Considerations</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-privacy-considerations" class="internal xref">Privacy Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
-            <p id="section-toc.1-1.7.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-acknowledgements" class="internal xref">Acknowledgements</a></p>
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-notices" class="internal xref">Notices</a></p>
+            <p id="section-toc.1-1.8.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-acknowledgements" class="internal xref">Acknowledgements</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#appendix-C" class="auto internal xref">Appendix C</a>.  <a href="#name-document-history" class="internal xref">Document History</a></p>
+            <p id="section-toc.1-1.9.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-notices" class="internal xref">Notices</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.10.1"><a href="#appendix-C" class="auto internal xref">Appendix C</a>.  <a href="#name-document-history" class="internal xref">Document History</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
+            <p id="section-toc.1-1.11.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1569,6 +1583,29 @@ li > p:last-of-type:only-child {
  functions as described in this specification. A general-purpose
  protected resource library MAY support additional features for use
  with non-iGov authorization servers and clients.<a href="#section-1.3-8" class="pilcrow">¶</a></p>
+</section>
+<section id="section-1.4">
+        <h3 id="name-global-requirements">
+<a href="#section-1.4" class="section-number selfRef">1.4. </a><a href="#name-global-requirements" class="section-name selfRef">Global Requirements</a>
+        </h3>
+<p id="section-1.4-1"> All network connections MUST be made using TLS 1.3 or above.
+              Each originator of a TLS connection MUST verify the destination's certificate.
+              For TLS versions below 1.3, only the following 4 cipher suites shall be permitted:
+              TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
+               TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+              TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
+              TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384<a href="#section-1.4-1" class="pilcrow">¶</a></p>
+<p id="section-1.4-2">
+              For the authorization_endpoint, the authorization server MAY allow
+              additional cipher suites that are permitted by the latest version of <span><a href="#BCP195" class="internal xref">BCP195</a> [<a href="#BCP195" class="cite xref">BCP195</a>]</span>,
+              if necessary to allow sufficient interoperability with users' web browsers or as required by local regulations.<a href="#section-1.4-2" class="pilcrow">¶</a></p>
+<p id="section-1.4-3">
+               NOTE: Permitted cipher suites are those listed in <span><a href="#BCP195" class="internal xref">BCP195</a> [<a href="#BCP195" class="cite xref">BCP195</a>]</span> that do not explicitly say MUST NOT use.
+               When using the TLS_DHE_RSA_WITH_AES_128_GCM_SHA256 or TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 cipher suites,
+                key lengths of at least 2048 bits are REQUIRED.<a href="#section-1.4-3" class="pilcrow">¶</a></p>
+<p id="section-1.4-4"> Endpoints for use by web browsers SHOULD use mechanisms to ensure that connections cannot be downgraded 
+   using TLS Stripping attacks. A preloaded HTTP Strict Transport Security policy (see PRELOAD and RFC6797) 
+   MAY be used for this purpose.<a href="#section-1.4-4" class="pilcrow">¶</a></p>
 </section>
 </section>
 </div>
@@ -2115,28 +2152,13 @@ xhz5Z-gTlQ",
 <a href="#section-2.5.1" class="section-number selfRef">2.5.1. </a><a href="#name-requests-to-the-protected-r" class="section-name selfRef">Requests to the Protected Resource</a>
           </h4>
 <p id="section-2.5.1-1">
- 
+
  Clients MUST use the authorization request header field mechanism to send bearer tokens as defined by
- <span>[<a href="#RFC6750" class="cite xref">RFC6750</a>]</span>
- . All network connections MUST be made using TLS 1.2 or above.
- Each originator of a TLS connection MUST verify the destination's certificate.
- For TLS versions below 1.3, only the following 4 cipher suites shall be permitted: 
- TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
- TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384<a href="#section-2.5.1-1" class="pilcrow">¶</a></p>
-<p id="section-2.5.1-2">
- For the authorization_endpoint, the authorization server MAY allow 
- additional cipher suites that are permitted by the latest version of <span><a href="#BCP195" class="internal xref">BCP195</a> [<a href="#BCP195" class="cite xref">BCP195</a>]</span>,
- if necessary to allow sufficient interoperability with users' web browsers or as required by local regulations.<a href="#section-2.5.1-2" class="pilcrow">¶</a></p>
-<p id="section-2.5.1-3">
- NOTE: Permitted cipher suites are those listed in <span><a href="#BCP195" class="internal xref">BCP195</a> [<a href="#BCP195" class="cite xref">BCP195</a>]</span> that do not explicitly say MUST NOT use.
- When using the TLS_DHE_RSA_WITH_AES_128_GCM_SHA256 or TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 cipher suites, 
- key lengths of at least 2048 bits are REQUIRED.<a href="#section-2.5.1-3" class="pilcrow">¶</a></p>
-<p id="section-2.5.1-4">An example of an OAuth-protected call to the OpenID Connect
+ <span>[<a href="#RFC6750" class="cite xref">RFC6750</a>]</span>.<a href="#section-2.5.1-1" class="pilcrow">¶</a></p>
+<p id="section-2.5.1-2">An example of an OAuth-protected call to the OpenID Connect
  UserInfo endpoint, sending the token in the Authorization header,
- follows:<a href="#section-2.5.1-4" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-2.5.1-5">
+ follows:<a href="#section-2.5.1-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-2.5.1-3">
 <pre>
 NOTE: '\' line wrapping per RFC 8792
 
@@ -2150,7 +2172,7 @@ qPD738oWRo0rOnoKJAgbF1GhXPAYnN5pZRygWSD1a6RcmN85SxUig0H0e7drmdmRkPQg\
 bl2wMhu-6h2Oqize4dKmykN9UX_2drXrooSxpRZqFVYX8PkCvCCBuFy2O-HPRov_SwtJ\
 Mk5qjUWMyn2I4Nu2s-R20aCA-7T5dunr0iWCkLQnVnaXMfA22RlRiU87nl21zappYb1_\
 EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
-</pre><a href="#section-2.5.1-5" class="pilcrow">¶</a>
+</pre><a href="#section-2.5.1-3" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
@@ -3082,26 +3104,54 @@ https://https://client.example.org/cb?
       <h2 id="name-security-considerations">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-5-1">
- All transactions MUST be protected in transit by TLS as described in
- <span><a href="#BCP195" class="internal xref">BCP195</a> [<a href="#BCP195" class="cite xref">BCP195</a>]</span>
- .<a href="#section-5-1" class="pilcrow">¶</a></p>
-<p id="section-5-2"> Authorization Servers SHOULD take into account device postures when dealing
- with native apps if possible. Device postures include characteristics such as
- a user's lock screen setting, or if the app has 'root access' (meaning the 
- device OS may be compromised to gain additional privilages not intended by the 
- vendor), or if there is a device attestation for the app for its validity. 
- Specific policies or capabilities are outside the scope of this specification.<a href="#section-5-2" class="pilcrow">¶</a></p>
-<p id="section-5-3">
+<section id="section-5.1">
+        <h3 id="name-dnssec-considerations">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-dnssec-considerations" class="section-name selfRef">DNSSEC Considerations</a>
+        </h3>
+<p id="section-5.1-1"> For a comprehensive protection against network attackers, all endpoints should additionally use DNSSEC to protect 
+  against DNS spoofing attacks that can lead to the issuance of rogue domain-validated TLS certificates.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+</section>
+<section id="section-5.2">
+        <h3 id="name-other-considerations">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-other-considerations" class="section-name selfRef">Other Considerations</a>
+        </h3>
+<p id="section-5.2-1"> Authorization Servers SHOULD take into account device posture when dealing
+ with native apps if possible. Some examples of device posture include:<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.2-2.1">
+            <p id="section-5.2-2.1.1">the user's lock screen setting<a href="#section-5.2-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.2-2.2">
+            <p id="section-5.2-2.2.1">the app's level of privilege over the device operating system (e.g. if the app has 'root access', the 
+ device operating system may be compromised to gain additional privileges not intended by the vendor)<a href="#section-5.2-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.2-2.3">
+            <p id="section-5.2-2.3.1">the availability of a device attestation to validate the app<a href="#section-5.2-2.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-5.2-3">
+ Specific policies or capabilities are outside the scope of this specification.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
+<p id="section-5.2-4">
  This profile does not protect against the attacks described in 
- in <span><a href="#SAM" class="internal xref">The Stronger Attacker Model</a> [<a href="#SAM" class="cite xref">SAM</a>]</span>, in which an attacker
+ <span><a href="#SAM" class="internal xref">The Stronger Attacker Model</a> [<a href="#SAM" class="cite xref">SAM</a>]</span>, in which an attacker
  could inject the authorization request and read the authorization response.
  Although using request object signatures would provide mitigation, this profile does not require 
- request object signatures because of the lack of available implementations.<a href="#section-5-3" class="pilcrow">¶</a></p>
+ request object signatures because of the lack of available implementations.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
+</section>
 </section>
 <section id="section-6">
+      <h2 id="name-privacy-considerations">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-privacy-considerations" class="section-name selfRef">Privacy Considerations</a>
+      </h2>
+<p id="section-6-1">This profile addresses the privacy threats identified in <span><a href="#RFC6973" class="internal xref">Privacy Considerations for Internet Protocols</a> [<a href="#RFC6973" class="cite xref">RFC6973</a>]</span> with normative 
+ language throughout the document. In particular, this profile requires the use of TLS for all network connections, PKCE, and sender constrained tokens 
+ to mitigate the threats in <span>[<a href="#RFC6973" class="cite xref">RFC6973</a>]</span><a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-2">In OpenID Connect implementations, servers and clients SHOULD implement the privacy threat mitigations in Section 17 of 
+ <span><a href="#OpenID.Core" class="internal xref">OpenID Connect Core 1.0</a> [<a href="#OpenID.Core" class="cite xref">OpenID.Core</a>]</span>.<a href="#section-6-2" class="pilcrow">¶</a></p>
+</section>
+<section id="section-7">
       <h2 id="name-normative-references">
-<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
       </h2>
 <dl class="references">
 <dt id="BCP195">[BCP195]</dt>
@@ -3111,10 +3161,6 @@ https://https://client.example.org/cb?
 <dt id="HEART.OAuth2">[HEART.OAuth2]</dt>
       <dd>
 <span class="refAuthor">Richer, J.</span>, <span class="refTitle">"Health Relationship Trust Profile for OAuth 2.0"</span>, <time datetime="2017-04-25" class="refDate">25 April 2017</time>, <span>&lt;<a href="http://openid.net/specs/openid-heart-oauth2-1_0-ID1.html">http://openid.net/specs/openid-heart-oauth2-1_0-ID1.html</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="I-D.ietf-oauth-pop-architecture">[I-D.ietf-oauth-pop-architecture]</dt>
-      <dd>
-<span class="refAuthor">Hunt, P.</span>, <span class="refAuthor">Richer, J.</span>, <span class="refAuthor">Mills, W.</span>, <span class="refAuthor">Mishra, P.</span>, and <span class="refAuthor">H. Tschofenig</span>, <span class="refTitle">"OAuth 2.0 Proof-of-Possession (PoP) Security Architecture"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-oauth-pop-architecture-08</span>, <time datetime="2016-07-08" class="refDate">8 July 2016</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-pop-architecture-08">https://datatracker.ietf.org/doc/html/draft-ietf-oauth-pop-architecture-08</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="JWS.JWE.Algs">[JWS.JWE.Algs]</dt>
       <dd>
@@ -3143,6 +3189,10 @@ https://https://client.example.org/cb?
 <dt id="RFC6819">[RFC6819]</dt>
       <dd>
 <span class="refAuthor">Lodderstedt, T., Ed.</span>, <span class="refAuthor">McGloin, M.</span>, and <span class="refAuthor">P. Hunt</span>, <span class="refTitle">"OAuth 2.0 Threat Model and Security Considerations"</span>, <span class="seriesInfo">RFC 6819</span>, <span class="seriesInfo">DOI 10.17487/RFC6819</span>, <time datetime="2013-01" class="refDate">January 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6819">https://www.rfc-editor.org/info/rfc6819</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6973">[RFC6973]</dt>
+      <dd>
+<span class="refAuthor">Cooper, A.</span>, <span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Aboba, B.</span>, <span class="refAuthor">Peterson, J.</span>, <span class="refAuthor">Morris, J.</span>, <span class="refAuthor">Hansen, M.</span>, and <span class="refAuthor">R. Smith</span>, <span class="refTitle">"Privacy Considerations for Internet Protocols"</span>, <span class="seriesInfo">RFC 6973</span>, <span class="seriesInfo">DOI 10.17487/RFC6973</span>, <time datetime="2013-07" class="refDate">July 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6973">https://www.rfc-editor.org/info/rfc6973</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC7009">[RFC7009]</dt>
       <dd>
