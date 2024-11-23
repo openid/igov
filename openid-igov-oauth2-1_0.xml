@@ -206,6 +206,36 @@
 					with non-iGov authorization servers and clients.
 				</t>
 			</section>
+
+
+			<section title="Global Requirements">
+             
+	             <t> All network connections MUST be made using TLS 1.3 or above.
+    	         Each originator of a TLS connection MUST verify the destination's certificate.
+        	     For TLS versions below 1.3, only the following 4 cipher suites shall be permitted:
+            	 TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
+ 	           	 TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+    	         TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
+        	     TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+ 	        	 </t>
+	 	         <t>
+    	         For the authorization_endpoint, the authorization server MAY allow
+        	     additional cipher suites that are permitted by the latest version of <xref target="BCP195">BCP195</xref>,
+	             if necessary to allow sufficient interoperability with users' web browsers or as required by local regulations.
+ 		         </t>
+	 	         <t>
+    	          NOTE: Permitted cipher suites are those listed in <xref target="BCP195">BCP195</xref> that do not explicitly say MUST NOT use.
+        	      When using the TLS_DHE_RSA_WITH_AES_128_GCM_SHA256 or TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 cipher suites,
+     	          key lengths of at least 2048 bits are REQUIRED.
+  	    	     </t>
+         
+ 		          <t> Endpoints for use by web browsers SHOULD use mechanisms to ensure that connections cannot be downgraded 
+				  using TLS Stripping attacks. A preloaded HTTP Strict Transport Security policy (see PRELOAD and RFC6797) 
+				  MAY be used for this purpose.
+        	      </t>
+
+			</section>
+
 		</section>
 
 		<section anchor="ClientProfiles" title="Client Profiles">
@@ -779,28 +809,11 @@ xhz5Z-gTlQ",
 		<section title="Connection to the Protected Resource">
 			<section anchor="RequestsToProtectedResource" title="Requests to the Protected Resource">
 					<t>
-						<!-- Can we specify when this is a SHALL? -->
-						Clients MUST use the authorization request header field mechanism to send bearer tokens as defined by
-						<xref target="RFC6750"/>
-						. All network connections MUST be made using TLS 1.2 or above.
-						Each originator of a TLS connection MUST verify the destination's certificate.
-						For TLS versions below 1.3, only the following 4 cipher suites shall be permitted: 
-						TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
-						TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-						TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
-						TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-					</t>
-					<t>
-						For the authorization_endpoint, the authorization server MAY allow 
-						additional cipher suites that are permitted by the latest version of <xref target="BCP195">BCP195</xref>,
-						if necessary to allow sufficient interoperability with users' web browsers or as required by local regulations.
-					</t> 
-					<t>
-						NOTE: Permitted cipher suites are those listed in <xref target="BCP195">BCP195</xref> that do not explicitly say MUST NOT use.
-						When using the TLS_DHE_RSA_WITH_AES_128_GCM_SHA256 or TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 cipher suites, 
-						key lengths of at least 2048 bits are REQUIRED.
 
+						Clients MUST use the authorization request header field mechanism to send bearer tokens as defined by
+						<xref target="RFC6750"/>.
 					</t>
+
 
 					<t>An example of an OAuth-protected call to the OpenID Connect
 						UserInfo endpoint, sending the token in the Authorization header,
@@ -1749,29 +1762,45 @@ https://https://client.example.org/cb?
 
 		<section title="Security Considerations">
 		
-		<!--  Need to add data from John's RFC regarding registration security -->
-			<t>
-				All transactions MUST be protected in transit by TLS as described in
-				<xref target="BCP195">BCP195</xref>
-				.
-			</t>
+				<!--  Need to add data from John's RFC regarding registration security -->
+			<section title="DNSSEC Considerations">
+                <t> For a comprehensive protection against network attackers, all endpoints should additionally use DNSSEC to protect 
+				 against DNS spoofing attacks that can lead to the issuance of rogue domain-validated TLS certificates.
+            	</t>
+			</section>
 
-			<t> Authorization Servers SHOULD take into account device postures when dealing
-				with native apps if possible. Device postures include characteristics such as
-				a user's lock screen setting, or if the app has 'root access' (meaning the 
-				device OS may be compromised to gain additional privilages not intended by the 
-				vendor), or if there is a device attestation for the app for its validity. 
-				Specific policies or capabilities are outside the scope of this specification.
-			</t>  
+			<section title="Other Considerations">
 
-			<t>
-				This profile does not protect against the attacks described in 
-				in <xref target="SAM">The Stronger Attacker Model</xref>, in which an attacker
-				could inject the authorization request and read the authorization response.
-				Although using request object signatures would provide mitigation, this profile does not require 
-				request object signatures because of the lack of available implementations. 
-			</t>
+				<t> Authorization Servers SHOULD take into account device posture when dealing
+					with native apps if possible. Some examples of device posture include:</t>
+					<t><list style="symbols">
+					<t>the user's lock screen setting</t>
+					<t>the app's level of privilege over the device operating system (e.g. if the app has 'root access', the 
+					device operating system may be compromised to gain additional privileges not intended by the vendor)</t>
+					<t>the availability of a device attestation to validate the app</t>
+					</list></t>
+				<t>
+					Specific policies or capabilities are outside the scope of this specification.
+				</t>  
+
+				<t>
+					This profile does not protect against the attacks described in 
+					<xref target="SAM">The Stronger Attacker Model</xref>, in which an attacker
+					could inject the authorization request and read the authorization response.
+					Although using request object signatures would provide mitigation, this profile does not require 
+					request object signatures because of the lack of available implementations. 
+				</t>
+			</section>
 		</section>
+			<section title="Privacy Considerations">
+                <t>This profile addresses the privacy threats identified in <xref target="RFC6973">Privacy Considerations for Internet Protocols</xref> with normative 
+				language throughout the document. In particular, this profile requires the use of TLS for all network connections, PKCE, and sender constrained tokens 
+				to mitigate the threats in <xref target="RFC6973"></xref>
+				</t>
+				<t>In OpenID Connect implementations, servers and clients SHOULD implement the privacy threat mitigations in Section 17 of 
+				<xref target="OpenID.Core">OpenID Connect Core 1.0</xref>.
+                </t>
+			</section>
 	</middle>
 
 	<back>
@@ -1783,6 +1812,8 @@ https://https://client.example.org/cb?
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6750"/>
 
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6819"/>
+
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6973"/>  
 
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7515"/>
 
