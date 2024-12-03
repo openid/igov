@@ -1765,8 +1765,17 @@ https://https://client.example.org/cb?
                 <t> For a comprehensive protection against network attackers, all endpoints should additionally use DNSSEC to protect 
 				 against DNS spoofing attacks that can lead to the issuance of rogue domain-validated TLS certificates.
             	</t>
+				<t>
 			</section>
-
+			
+			<section title="Best Practices">
+				<t>Authorization servers, clients, and protected resources SHOULD consider internet best practices from 
+					<xref target="RFC8725">JSON Web Token Best Current Practices</xref> and
+					<xref target="RFC9068">JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens</xref> that are not
+					explicitly REQUIRED or RECOMMENDED in this profile.
+				</t>
+			</section>
+			
 			<section title="Other Considerations">
 
 				<t> Authorization Servers SHOULD take into account device posture when dealing
@@ -1838,9 +1847,13 @@ https://https://client.example.org/cb?
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8414"/>
 
 	  <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8705"/>
-
+	  
+	  <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8725"/>
+	  
+	  <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9068"/>
+	  
 	  <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9449"/>
-
+	  
 			<reference anchor="BCP195" target="http://www.rfc-editor.org/info/bcp195">
 				<front>
 					<title>Recommendations for Secure Use of Transport Layer Security
