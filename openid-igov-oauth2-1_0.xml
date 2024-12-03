@@ -210,13 +210,13 @@
 
 			<section title="Global Requirements">
              
-	             <t> All network connections MUST be made using TLS 1.3 or above.
+	             <t>All network connections MUST be made using TLS 1.3 or above.
     	         Each originator of a TLS connection MUST verify the destination's certificate.
         	     For TLS versions below 1.3, only the following 4 cipher suites shall be permitted:
-            	 TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
- 	           	 TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-    	         TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
-        	     TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+   					TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+					TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+					TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+					TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
  	        	 </t>
 	 	         <t>
     	         For the authorization_endpoint, the authorization server MAY allow
@@ -224,15 +224,13 @@
 	             if necessary to allow sufficient interoperability with users' web browsers or as required by local regulations.
  		         </t>
 	 	         <t>
-    	          NOTE: Permitted cipher suites are those listed in <xref target="BCP195">BCP195</xref> that do not explicitly say MUST NOT use.
-        	      When using the TLS_DHE_RSA_WITH_AES_128_GCM_SHA256 or TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 cipher suites,
-     	          key lengths of at least 2048 bits are REQUIRED.
+    	         NOTE: Permitted cipher suites are those listed in <xref target="BCP195">BCP195</xref> that do not explicitly say MUST NOT use.
   	    	     </t>
          
- 		          <t> Endpoints for use by web browsers SHOULD use mechanisms to ensure that connections cannot be downgraded 
-				  using TLS Stripping attacks. A preloaded HTTP Strict Transport Security policy (see PRELOAD and RFC6797) 
-				  MAY be used for this purpose.
-        	      </t>
+ 		         <t>Endpoints for use by web browsers SHOULD use mechanisms to ensure that connections cannot be downgraded 
+				 using TLS Stripping attacks. A preloaded HTTP Strict Transport Security policy (see PRELOAD and RFC6797) 
+				 MAY be used for this purpose.
+        	     </t>
 
 			</section>
 
