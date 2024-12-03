@@ -1715,8 +1715,8 @@ https://https://client.example.org/cb?
 					required for access to the resource.
 				</t>
 
-				<t> If the client uses sender-constrained tokens, the client MUST connect to the protected resource over a mutually 
-				authenticated TLS connection using the same certificate that was used for mutual TLS at the authorization server's 
+				<t> If the client uses the MTLS method to sender-constrain tokens, the client MUST use the same certificate to connect to 
+				both the protected resource and the authorization server's 
 				token endpoint. The protected resource MUST verify that the certificate matches the certificate associated with the 
 				access token. If they do not match, the resource access attempt MUST be denied.
                 </t>
