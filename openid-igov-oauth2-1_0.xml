@@ -890,7 +890,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 					</t> 
 
 					<t> The authorization server MUST validate all redirect
-						URIs for authorization code and implicit grant types.
+						URIs for authorization code grant types.
 					</t>
 					<t> The authorization server MUST confirm thumbprints of client keys
 						if mTLS is used for client authentication or sender-constraining tokens.
@@ -1130,10 +1130,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
   ],
   "grant_types_supported": [
     "authorization_code",
-    "implicit",
-    "urn:ietf:params:oauth:grant-type:jwt-bearer",
-    "client_credentials",
-    "urn:ietf:params:oauth:grant_type:redelegate"
+    "client_credentials"
   ],
   "scopes_supported": [
     "profile", "openid", "email", "address", "phone", "offline_access"
