@@ -450,6 +450,8 @@
 
 					<t>Clients SHOULD NOT have multiple redirect URIs on different domains.
 					</t>
+					<t>Confidential and public clients MUST use a unique redirect URI for each logical authorization server.
+					</t>
 
 					<t>Clients MUST NOT forward values passed back to their redirect
 						URIs to other arbitrary or user-provided URIs (a practice known
@@ -1765,7 +1767,7 @@ https://https://client.example.org/cb?
                 <t> For a comprehensive protection against network attackers, all endpoints should additionally use DNSSEC to protect 
 				 against DNS spoofing attacks that can lead to the issuance of rogue domain-validated TLS certificates.
             	</t>
-				<t>
+
 			</section>
 			
 			<section title="Best Practices">
