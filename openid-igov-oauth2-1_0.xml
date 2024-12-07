@@ -1990,7 +1990,6 @@ https://https://client.example.org/cb?
 <reference anchor="OpenID.iGov" target="https://openid.net/specs/openid-igov-openid-connect-1_0.html">
 				<front>
 					<title>International Government Assurance Profile (iGov) for OpenID Connect 1.0</title>
-					<author fullname="Torsten Lodderstedt" initials="T." surname="Lodderstedt"/>
 					<author fullname="Michael Varleyy" initials="M." surname="Varley"/>
 					<author fullname="Paul Grassi" initials="P." surname="Grassi"/>
 					<date day="3" month="August" year="2023"/>
