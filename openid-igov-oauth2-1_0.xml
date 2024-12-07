@@ -399,15 +399,16 @@
 
 			<section anchor="AuthNContext" title="Authentication Context and Step-Up Authentication Challenge Protocol Support">
 				<t>OAuth 2.0 clients and Authorization Servers MUST support the mechanism specified in <xref target="RFC9470">OAuth 2.0 Step Up Authentication Challenge 
-				Protocol"</xref>to communicate authentication context and implement interoperable step up authentication.</t>
-				<t>Protected resources MAY use authentication context or step up to implement access controls.</t>
+				Protocol"</xref> to communicate authentication context and implement interoperable step up authentication.</t>
+				<t>Protected resources MAY use authentication context or step up authentication to implement access controls.</t>
 				<t>This profile acknowledges government use cases will likely operate within an ecosystem of authentication methods of highly variable security 
 				value for the foreseeable future by imposing requirements to enable protected resources with basic capabilities to communicate
 				requirements for authentication strength and recency to supporting authorization clients and servers, as well as the capability to enforce access 
 				policies using access tokens augmented with the strength and recency of the authentication event that led to the issuance of each specific access token.</t>
-				<t>This profile will leverage the supporting server metadata, request, token claims and values, and error messages from [RFC9470] and [OIDC].</t>
+				<t>This profile will leverage the supporting server metadata, request, token claims and values, and error messages from <xref target="RFC9470">OAuth 2.0 Step Up Authentication Challenge 
+				Protocol"</xref> and <xref target="OpenID.Core">OpenID Connect Core 1.0</xref>.</t>
 				<t>Digital identity policies and semantic mappings to string values are required for implementation but are out of scope for this technical profile.</t>
-				<t>OAuth 2.0 MUST NOT be used as an authentication protocol. Use of the iGov OpenID Connect profile is RECOMMENDED to provide the identity 
+				<t>OAuth 2.0 MUST NOT be used as an authentication protocol. Use of the <xref target="OpenID.iGov">iGov OpenID Connect Profile"</xref> is RECOMMENDED to provide the identity 
 				authentication layer for iGov OAuth 2.0 delegated access use cases.  
 				</t> 
 			</section>
@@ -1986,7 +1987,15 @@ https://https://client.example.org/cb?
 				</front>
 			</reference>
 
-
+<reference anchor="OpenID.iGov" target="https://openid.net/specs/openid-igov-openid-connect-1_0.html">
+				<front>
+					<title>International Government Assurance Profile (iGov) for OpenID Connect 1.0</title>
+					<author fullname="Torsten Lodderstedt" initials="T." surname="Lodderstedt"/>
+					<author fullname="Michael Varleyy" initials="M." surname="Varley"/>
+					<author fullname="Paul Grassi" initials="P." surname="Grassi"/>
+					<date day="3" month="August" year="2023"/>
+				</front>
+			</reference>
 
 			<reference anchor="JWS.JWE.Algs">
 				<front>
