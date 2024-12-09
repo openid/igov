@@ -228,8 +228,10 @@
   	    	     </t>
          
  		         <t>Endpoints for use by web browsers SHOULD use mechanisms to ensure that connections cannot be downgraded 
-				 using TLS Stripping attacks. A preloaded HTTP Strict Transport Security policy (see PRELOAD and RFC6797) 
-				 MAY be used for this purpose.
+				 using TLS Stripping attacks. Protected resources MAY implement an HTTP Strict Transport Security policy as defined in 
+				 <xref target="RFC6797">HTTP Strict Transport Security (HSTS)</xref> to mitigate these attacks. Protected resources SHOULD 
+				 consider registering web domain names with browsers that offer browser-side ("preload") HSTS policy enforcement to further mitigate 
+				 TLS downgrade attacks.
         	     </t>
 
 			</section>
@@ -1816,7 +1818,9 @@ https://https://client.example.org/cb?
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6749"/>
 
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6750"/>
-
+	  
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6797"/>
+	  
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6819"/>
 
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6973"/>  
