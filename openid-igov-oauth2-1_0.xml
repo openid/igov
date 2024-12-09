@@ -611,18 +611,19 @@ Host: idp-p.example.com
  						<t>The client MAY specify a strength of authentication and maximum age to the authorization server that should be met 
 						when issuing an access token for the requesting client by including the following claims:</t>
 						<list style="hanging">
-							<t hangText="acr_values">A space-separated string listing the authentication context class reference values in order of preference.  
+							<t hangText="acr_values"> a space-separated string listing the authentication context class reference values in order of preference.  
 							The protected resource requires one of these values for the authentication event associated with the access token.  As defined
-							in Section 1.2 of [OIDC], the authentication context conveys information about how authentication takes place (e.g., what authentication 
+							in Section 1.2 of <xref target="OpenID.Core">OpenID Connect Core 1.0 </xref>, the authentication context conveys information about how 
+							authentication takes place (e.g., what authentication 
 							method(s) or assurance level to meet).  It is out of scope of this document to determine how an organization semantically maps their 
 							digital identity practices to acr values that identify levels of assurance. 
 							</t>
-							<t hangText="max_age">This non-negative integer value indicates the allowable elapsed time in seconds since the last active authentication event 
+							<t hangText="max_age"> a non-negative integer value that indicates the allowable elapsed time in seconds since the last active authentication event 
 							associated with the access token. 
 							</t>
 							</list>
 						<t>Furthermore, if the authorization request is a follow-up to a prior request that did not meet the client's initial or subsequent authentication 
-						strength or recency requirements, the client should include the insuffient_user_authentication error code, along with acr_values or mage_age 
+						strength or recency requirements, the client should include the insuffient_user_authentication error code, along with acr_values or max_age 
 						values that specify expected strength and recency requirements to be provided to the authentication provider, such as the OpenID Provider, in a new 
 						authentication request.</t>
 
