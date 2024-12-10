@@ -218,7 +218,15 @@
 					TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
 					TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
  	        	 </t>
-	 	         <t>
+	 	         <t>Implementers of this profile SHOULD monitor the progress on specification of post-quantum 
+				 safe cryptography for TLS implementations.
+				 Implementers MAY adopt a ciphersuite not included in <xref target="BCP195">BCP195</xref> when post quantum safety 
+				 is required if the ciphersuite is supported in the implementation environment.
+				 </t>
+				 <t>An example of an emerging PQ safe ciphersuite that is broadly supported at the time of writing is X25519MLKEM768, specified by 
+				 <xref target="mlkem.ikev2">Post-quantum Hybrid Key Exchange with ML-KEM in the Internet Key Exchange Protocol Version 2 (IKEv2)</xref>.
+				 </t>
+				 <t>
     	         For the authorization_endpoint, the authorization server MAY allow
         	     additional cipher suites that are permitted by the latest version of <xref target="BCP195">BCP195</xref>,
 	             if necessary to allow sufficient interoperability with users' web browsers or as required by local regulations.
@@ -2002,7 +2010,7 @@ https://https://client.example.org/cb?
 				</front>
 			</reference>
 
-<reference anchor="OpenID.iGov" target="https://openid.net/specs/openid-igov-openid-connect-1_0.html">
+			<reference anchor="OpenID.iGov" target="https://openid.net/specs/openid-igov-openid-connect-1_0.html">
 				<front>
 					<title>International Government Assurance Profile (iGov) for OpenID Connect 1.0</title>
 					<author fullname="Michael Varleyy" initials="M." surname="Varley"/>
@@ -2032,6 +2040,15 @@ https://https://client.example.org/cb?
 					<date day="25" month="April" year="2017"/>
 				</front>
 			</reference>
+			
+			<reference anchor="mlkem.ikev2" target="https://datatracker.ietf.org/doc/draft-kampanakis-ml-kem-ikev2/">
+				<front>
+					<title>Post-quantum Hybrid Key Exchange with ML-KEM in the Internet Key Exchange Protocol Version 2 (IKEv2)</title>
+					<author fullname="Panos Kampanakis" initials="P." surname="Kampanakis"/>
+					<author fullname="Gerardo Ravago" initials="G." surname="Ravago"/>
+					<date day="4" month="November" year="2024"/>
+				</front>
+			</reference>
 
 			<reference anchor="SecBCP" target="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics">
 				<front>
@@ -2040,7 +2057,7 @@ https://https://client.example.org/cb?
 					<author fullname="John Bradley" initials="J." surname="Bradley"/>
 					<author fullname="Andrey Labunets" initials="A." surname="Labunets"/>
 					<author fullname="Daniel Fett" initials="D." surname="Fett"/>
-					<date day="23" month="October" year="2023"/>
+					<date day="5" month="December" year="2024"/>
 				</front>
 			</reference>
 
@@ -2060,7 +2077,7 @@ https://https://client.example.org/cb?
 				Pulvermacher, David Hill, Dale Moberg, Adrian Gropper, Eve Maler,
 				Danny van Leeuwen, John Moehrke, Aaron Seib, John Bradley, Debbie
 				Bucci, Josh Mandel, Sarah Cecchetti, Giuseppe De Marco, Joseph Heenan, 
-				Jim Fenton, Ryan Galluzzo, and Michael B. Jones.
+				Jim Fenton, Ryan Galluzzo, Bjorn Hjelm, and Michael B. Jones.
 			</t>
 			<t> Special thank you to the original iGov Profile editors: Paul Grassi, Justin Richer,
 			    and Michael Varley.
