@@ -391,9 +391,26 @@
                 token to gain access to protected resources.
                 	</t>
             
-            <t> All clients MUST use proof of possession to sender-constrain access tokens using either <xref target="RFC8705">mTLS</xref> or <xref target="RFC9449">DPoP</xref>.
+            <t> All clients MUST use proof of possession to sender-constrain access tokens using either <xref target="RFC8705">mTLS</xref> or 
+			<xref target="RFC9449">DPoP</xref>.
                 </t>
 				
+			</section>
+
+			<section anchor="AuthNContext" title="Authentication Context and Step-Up Authentication Challenge Protocol Support">
+				<t>OAuth 2.0 clients and Authorization Servers MUST support the mechanism specified in <xref target="RFC9470">OAuth 2.0 Step Up Authentication Challenge 
+				Protocol"</xref> to communicate authentication context and implement interoperable step up authentication.</t>
+				<t>Protected resources MAY use authentication context or step up authentication to implement access controls.</t>
+				<t>This profile acknowledges government use cases will likely operate within an ecosystem of authentication methods of highly variable security 
+				value for the foreseeable future by imposing requirements to enable protected resources with basic capabilities to communicate
+				requirements for authentication strength and recency to supporting authorization clients and servers, as well as the capability to enforce access 
+				policies using access tokens augmented with the strength and recency of the authentication event that led to the issuance of each specific access token.</t>
+				<t>This profile will leverage the supporting server metadata, request, token claims and values, and error messages from <xref target="RFC9470">OAuth 2.0 Step Up Authentication Challenge 
+				Protocol"</xref> and <xref target="OpenID.Core">OpenID Connect Core 1.0</xref>.</t>
+				<t>Digital identity policies and semantic mappings to string values are required for implementation but are out of scope for this technical profile.</t>
+				<t>OAuth 2.0 MUST NOT be used as an authentication protocol. Use of the <xref target="OpenID.iGov">iGov OpenID Connect Profile"</xref> is RECOMMENDED to provide the identity 
+				authentication layer for iGov OAuth 2.0 delegated access use cases.  
+				</t> 
 			</section>
 
 			<section anchor="ClientRegistration" title="Client Registration">
@@ -591,7 +608,26 @@ Host: idp-p.example.com
 						</list>
 						</t>
 
-                        <t>Additionally, if the client uses <xref target="RFC8705">mTLS</xref> for client authentication or to sender-constrain 
+ 						<t>The client MAY specify a strength of authentication and maximum age to the authorization server that should be met 
+						when issuing an access token for the requesting client by including the following claims:</t>
+						<list style="hanging">
+							<t hangText="acr_values"> a space-separated string listing the authentication context class reference values in order of preference.  
+							The protected resource requires one of these values for the authentication event associated with the access token.  As defined
+							in Section 1.2 of <xref target="OpenID.Core">OpenID Connect Core 1.0 </xref>, the authentication context conveys information about how 
+							authentication takes place (e.g., what authentication 
+							method(s) or assurance level to meet).  It is out of scope of this document to determine how an organization semantically maps their 
+							digital identity practices to acr values that identify levels of assurance. 
+							</t>
+							<t hangText="max_age"> a non-negative integer value that indicates the allowable elapsed time in seconds since the last active authentication event 
+							associated with the access token. 
+							</t>
+							</list>
+						<t>Furthermore, if the authorization request is a follow-up to a prior request that did not meet the client's initial or subsequent authentication 
+						strength or recency requirements, the client should include the insuffient_user_authentication error code, along with acr_values or max_age 
+						values that specify expected strength and recency requirements to be provided to the authentication provider, such as the OpenID Provider, in a new 
+						authentication request.</t>
+
+						<t>Additionally, if the client uses <xref target="RFC8705">mTLS</xref> for client authentication or to sender-constrain 
 						tokens, the client MUST include the following claim in the client assertion.
 						</t>
 						<list style="hanging">						
@@ -942,6 +978,10 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 
 							<t hangText="client_name">human-readable name of the client</t>
 
+							<t hangText="acr_values_supported">indicates the authorization server will understand and honor the acr_values and max_age
+   								parameters in incoming authorization requests, and handle insufficient_user_authentication error messages in conformance
+								with <xref target="RFC9470">OAuth 2.0 Step Up Authentication Challenge Protocol</xref>.</t>
+								
 							<t hangText="client_uri">URL of a web page containing further
 								information
 								about the client
@@ -1347,7 +1387,9 @@ DNp00J6AbY6w",
    "azp": "55f9f559-2496-49d4-b6c3-351a586b7484",
    "iss": "https://idp-p.example.com/",
    "jti": "2402f87c-b6ce-45c4-95b0-7a3f2904997f",
-   "iat": 1418698788
+   "iat": 1418698788,
+   "acr": "myACR",
+   "auth_time": 16463400198,
    "cnf": {
        "x5t#S256":"A4DtL2JmUMhAsvJj5tKyn64SqzmuXbMrJa0n761y5v0"
        }
@@ -1595,6 +1637,11 @@ https://https://client.example.org/cb?
 					than twenty-four hours. Specific applications MAY issue tokens with different lifetimes. 
 					Any active token MAY be revoked at any time.
 				</t>
+				
+				<t>In addition to the lifetime of the token, protected resources may specify a maximum age of the
+				authentication events that led to access tokens they receive by including the max_age claim
+				in authorization requests and examining the auth_time claim value in access tokens. 
+				</t> 
 
 			</section>
 
@@ -1941,7 +1988,14 @@ https://https://client.example.org/cb?
 				</front>
 			</reference>
 
-
+<reference anchor="OpenID.iGov" target="https://openid.net/specs/openid-igov-openid-connect-1_0.html">
+				<front>
+					<title>International Government Assurance Profile (iGov) for OpenID Connect 1.0</title>
+					<author fullname="Michael Varleyy" initials="M." surname="Varley"/>
+					<author fullname="Paul Grassi" initials="P." surname="Grassi"/>
+					<date day="3" month="August" year="2023"/>
+				</front>
+			</reference>
 
 			<reference anchor="JWS.JWE.Algs">
 				<front>
