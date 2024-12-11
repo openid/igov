@@ -477,7 +477,7 @@
 
 					<t>Clients SHOULD NOT have multiple redirect URIs on different domains.
 					</t>
-					<t>Confidential and public clients MUST use a unique redirect URI for each logical authorization server.
+					<t>Clients MUST use a unique redirect URI for each logical authorization server.
 					</t>
 
 					<t>Clients MUST NOT forward values passed back to their redirect
@@ -1769,7 +1769,7 @@ https://https://client.example.org/cb?
 					required for access to the resource.
 				</t>
 
-				<t> If the client uses the MTLS method to sender-constrain tokens, the client MUST use the same certificate to connect to 
+				<t> If a client uses the <xref target="RFC8705">mTLS</xref> method to sender-constrain tokens, the client MUST use the same certificate to connect to 
 				both the protected resource and the authorization server's 
 				token endpoint. The protected resource MUST verify that the certificate matches the certificate associated with the 
 				access token. If they do not match, the resource access attempt MUST be denied.
