@@ -2168,7 +2168,27 @@ https://https://client.example.org/cb?
 
 		<section anchor="History" title="Document History">
       <t>[[ To be removed from the final specification ]]</t>
-
+ 
+ 	<t>
+	-05
+	<list style="symbols">
+	  <t>
+	    Updated BCP mitigations, aligned with FAPI
+	  </t>
+	  <t>
+	    Harmonized cryptography, sender constrained tokens with FAPI
+	  </t>
+	  <t>
+	    Added requirement and optionality for authentication context and support for Step-up (RFC 9470)
+	  </t>
+	  <t>
+	    Added Privacy Considerations (RFC 6973)
+	  </t>
+	  <t>
+	    Added optionally to support enterprise tailoring, especially RFC 8705 mTLS with PKI
+	  </t>	  
+	  </list>
+      </t>
       <t>
 	-04
 	<list style="symbols">
