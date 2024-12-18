@@ -212,18 +212,18 @@
              
 	             <t>All network connections MUST be made using TLS 1.3 or above.
     	         Each originator of a TLS connection MUST verify the destination's certificate.
-        	     For TLS versions below 1.3, only the following 4 cipher suites shall be permitted:
+        	     Additionally, the following four TLS 1.2 cipher suites are permitted:
    					TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
 					TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 					TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
 					TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
  	        	 </t>
-	 	         <t>Implementers of this profile SHOULD monitor the progress on specification of post-quantum 
-				 safe cryptography for TLS implementations.
-				 Implementers MAY adopt a ciphersuite not included in <xref target="BCP195">BCP195</xref> when post quantum safety 
-				 is required if the ciphersuite is supported in the implementation environment.
+	 	         <t>Implementers of this profile SHOULD monitor the progress of specification of post-quantum 
+				 cryptography for TLS implementations.
+				 Implementers MAY adopt a cipher suite not included in <xref target="BCP195">BCP195</xref> when post quantum safety 
+				 is required if the cipher suite is supported in the implementation environment.
 				 </t>
-				 <t>An example of an emerging PQ safe ciphersuite that is broadly supported at the time of writing is X25519MLKEM768, specified by 
+				 <t>An example of an emerging PQ cipher suite that is broadly supported at the time of writing is X25519MLKEM768, specified by 
 				 <xref target="mlkem.ikev2">Post-quantum Hybrid Key Exchange with ML-KEM in the Internet Key Exchange Protocol Version 2 (IKEv2)</xref>.
 				 </t>
 				 <t>
