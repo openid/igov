@@ -212,13 +212,13 @@
              
 	             <t>All network connections MUST be made using TLS 1.3 or above.
     	         Each originator of a TLS connection MUST verify the destination's certificate.
-        	     Additionally, the following four TLS 1.2 cipher suites are permitted:
+        	     Additionally, the following four TLS 1.2 cipher suites MAY be used:
    					TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
 					TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 					TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
 					TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
  	        	 </t>
-	 	         <t>Implementers of this profile SHOULD monitor the progress of specification of post-quantum 
+	 	         <t>Implementers of this profile SHOULD monitor the progress of specifications of post-quantum 
 				 cryptography for TLS implementations.
 				 Implementers MAY adopt a cipher suite not included in <xref target="BCP195">BCP195</xref> when post quantum safety 
 				 is required if the cipher suite is supported in the implementation environment.
