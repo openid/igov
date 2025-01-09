@@ -9,22 +9,33 @@
 	described in the "Notices" section. This is a public OpenID Foundation document 
 	and not a private document, as the private="..." declaration could be taken 
 	to indicate. -->
-<rfc category="std" docName="openid-igov-oauth2-1_0" ipr="none" xmlns:xi="http://www.w3.org/2001/XInclude">
+<rfc 
+  category="std" 
+  
+  docName="openid-igov-oauth2-1_0" 
+  
+  ipr="none" 
+  
+  xmlns:xi="http://www.w3.org/2001/XInclude" 
+  
+  submissionType="IETF" 
+  
+  consensus="true" >
 
-  <?rfc toc="yes" ?>
+  <?rfc tocInclude="yes" ?> 
 
-  <?rfc tocdepth="5" ?>
+  <?rfc tocdepth="5" ?> 
 
-  <?rfc symrefs="yes" ?>
+  <?rfc symrefs="yes" ?> 
 
-  <?rfc sortrefs="yes"?>
+  <?rfc sortrefs="yes" ?>
 
-  <?rfc strict="yes" ?>
+  <?rfc strict="yes" ?> 
 
-  <?rfc iprnotified="no" ?>
+  <?rfc iprnotified="no" ?> 
 
-  <?rfc private="Draft" ?>
-
+  <?rfc private="Draft" ?> 
+  
 	<front>
 		<title abbrev="iGov OAuth 2.0">International Government Assurance Profile (iGov)
 			for OAuth 2.0 - draft 05</title>
@@ -42,7 +53,7 @@
 			</address>
 		</author>
 
-		<date day="7" month="November" year="2024"/>
+		<date day="8" month="January" year="2025"/>
 
 		<workgroup>OpenID iGov Working Group</workgroup>
 
@@ -210,29 +221,39 @@
 
 			<section title="Global Requirements">
              
-	             <t> All network connections MUST be made using TLS 1.3 or above.
+	             <t>All network connections MUST be made using TLS 1.3 or above.
     	         Each originator of a TLS connection MUST verify the destination's certificate.
-        	     For TLS versions below 1.3, only the following 4 cipher suites shall be permitted:
-            	 TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
- 	           	 TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-    	         TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
-        	     TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+        	     Additionally, the following four TLS 1.2 cipher suites MAY be used:
+  					<list>
+  					<t>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256</t>
+					<t>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</t>
+					<t>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256</t>
+					<t>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384</t>
+					</list>
  	        	 </t>
-	 	         <t>
+	 	         <t>Implementers of this profile SHOULD monitor the progress of specifications of post-quantum 
+				 cryptography for TLS implementations.
+				 Implementers MAY adopt a cipher suite not included in <xref target="BCP195">BCP195</xref> when post quantum safety 
+				 is required if the cipher suite is supported in the implementation environment.
+				 </t>
+				 <t>An example of an emerging PQ cipher suite that is broadly supported at the time of writing is X25519MLKEM768, specified by 
+				 <xref target="mlkem.ikev2">Post-quantum Hybrid Key Exchange with ML-KEM in the Internet Key Exchange Protocol Version 2 (IKEv2)</xref>.
+				 </t>
+				 <t>
     	         For the authorization_endpoint, the authorization server MAY allow
         	     additional cipher suites that are permitted by the latest version of <xref target="BCP195">BCP195</xref>,
 	             if necessary to allow sufficient interoperability with users' web browsers or as required by local regulations.
  		         </t>
 	 	         <t>
-    	          NOTE: Permitted cipher suites are those listed in <xref target="BCP195">BCP195</xref> that do not explicitly say MUST NOT use.
-        	      When using the TLS_DHE_RSA_WITH_AES_128_GCM_SHA256 or TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 cipher suites,
-     	          key lengths of at least 2048 bits are REQUIRED.
+    	         NOTE: Permitted cipher suites are those listed in <xref target="BCP195">BCP195</xref> that do not explicitly say MUST NOT use.
   	    	     </t>
          
- 		          <t> Endpoints for use by web browsers SHOULD use mechanisms to ensure that connections cannot be downgraded 
-				  using TLS Stripping attacks. A preloaded HTTP Strict Transport Security policy (see PRELOAD and RFC6797) 
-				  MAY be used for this purpose.
-        	      </t>
+ 		         <t>Endpoints for use by web browsers MUST use mechanisms to ensure that connections cannot be downgraded 
+				 using TLS Stripping attacks. Protected resources MAY implement an HTTP Strict Transport Security policy as defined in 
+				 <xref target="RFC6797">HTTP Strict Transport Security (HSTS)</xref> to mitigate these attacks. Protected resources SHOULD 
+				 consider registering web domain names with browsers that offer browser-side ("preload") HSTS policy enforcement to further mitigate 
+				 TLS downgrade attacks.
+        	     </t>
 
 			</section>
 
@@ -468,6 +489,8 @@
 					</t>
 
 					<t>Clients SHOULD NOT have multiple redirect URIs on different domains.
+					</t>
+					<t>Clients MUST use a unique redirect URI for each logical authorization server.
 					</t>
 
 					<t>Clients MUST NOT forward values passed back to their redirect
@@ -926,7 +949,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 					</t> 
 
 					<t> The authorization server MUST validate all redirect
-						URIs for authorization code and implicit grant types.
+						URIs for authorization code grant types.
 					</t>
 					<t> The authorization server MUST confirm thumbprints of client keys
 						if mTLS is used for client authentication or sender-constraining tokens.
@@ -1170,10 +1193,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
   ],
   "grant_types_supported": [
     "authorization_code",
-    "implicit",
-    "urn:ietf:params:oauth:grant-type:jwt-bearer",
-    "client_credentials",
-    "urn:ietf:params:oauth:grant_type:redelegate"
+    "client_credentials"
   ],
   "scopes_supported": [
     "profile", "openid", "email", "address", "phone", "offline_access"
@@ -1762,8 +1782,8 @@ https://https://client.example.org/cb?
 					required for access to the resource.
 				</t>
 
-				<t> If the client uses sender-constrained tokens, the client MUST connect to the protected resource over a mutually 
-				authenticated TLS connection using the same certificate that was used for mutual TLS at the authorization server's 
+				<t> If a client uses the <xref target="RFC8705">mTLS</xref> method to sender-constrain tokens, the client MUST use the same certificate to connect to 
+				both the protected resource and the authorization server's 
 				token endpoint. The protected resource MUST verify that the certificate matches the certificate associated with the 
 				access token. If they do not match, the resource access attempt MUST be denied.
                 </t>
@@ -1814,8 +1834,18 @@ https://https://client.example.org/cb?
                 <t> For a comprehensive protection against network attackers, all endpoints should additionally use DNSSEC to protect 
 				 against DNS spoofing attacks that can lead to the issuance of rogue domain-validated TLS certificates.
             	</t>
-			</section>
 
+			</section>
+			
+			<section title="Best Practices">
+				<t>Authorization servers, clients, and protected resources SHOULD consider internet best practices from 
+					<xref target="SecBCP">OAuth 2.0 Security Best Current Practice</xref>, 
+					<xref target="RFC8725">JSON Web Token Best Current Practices</xref> and
+					<xref target="RFC9068">JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens</xref> that are not
+					explicitly REQUIRED or RECOMMENDED in this profile.
+				</t>
+			</section>
+			
 			<section title="Other Considerations">
 
 				<t> Authorization Servers SHOULD take into account device posture when dealing
@@ -1857,7 +1887,9 @@ https://https://client.example.org/cb?
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6749"/>
 
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6750"/>
-
+	  
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6797"/>
+	  
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6819"/>
 
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6973"/>  
@@ -1887,9 +1919,15 @@ https://https://client.example.org/cb?
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8414"/>
 
 	  <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8705"/>
-
+	  
+	  <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8725"/>
+	  
+	  <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9068"/>
+	  
 	  <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9449"/>
-
+	  
+	  <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9470"/>
+	  
 			<reference anchor="BCP195" target="http://www.rfc-editor.org/info/bcp195">
 				<front>
 					<title>Recommendations for Secure Use of Transport Layer Security
@@ -1988,7 +2026,7 @@ https://https://client.example.org/cb?
 				</front>
 			</reference>
 
-<reference anchor="OpenID.iGov" target="https://openid.net/specs/openid-igov-openid-connect-1_0.html">
+			<reference anchor="OpenID.iGov" target="https://openid.net/specs/openid-igov-openid-connect-1_0.html">
 				<front>
 					<title>International Government Assurance Profile (iGov) for OpenID Connect 1.0</title>
 					<author fullname="Michael Varleyy" initials="M." surname="Varley"/>
@@ -2018,6 +2056,15 @@ https://https://client.example.org/cb?
 					<date day="25" month="April" year="2017"/>
 				</front>
 			</reference>
+			
+			<reference anchor="mlkem.ikev2" target="https://datatracker.ietf.org/doc/draft-kampanakis-ml-kem-ikev2/">
+				<front>
+					<title>Post-quantum Hybrid Key Exchange with ML-KEM in the Internet Key Exchange Protocol Version 2 (IKEv2)</title>
+					<author fullname="Panos Kampanakis" initials="P." surname="Kampanakis"/>
+					<author fullname="Gerardo Ravago" initials="G." surname="Ravago"/>
+					<date day="4" month="November" year="2024"/>
+				</front>
+			</reference>
 
 			<reference anchor="SecBCP" target="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics">
 				<front>
@@ -2026,7 +2073,7 @@ https://https://client.example.org/cb?
 					<author fullname="John Bradley" initials="J." surname="Bradley"/>
 					<author fullname="Andrey Labunets" initials="A." surname="Labunets"/>
 					<author fullname="Daniel Fett" initials="D." surname="Fett"/>
-					<date day="23" month="October" year="2023"/>
+					<date day="5" month="December" year="2024"/>
 				</front>
 			</reference>
 
@@ -2046,7 +2093,7 @@ https://https://client.example.org/cb?
 				Pulvermacher, David Hill, Dale Moberg, Adrian Gropper, Eve Maler,
 				Danny van Leeuwen, John Moehrke, Aaron Seib, John Bradley, Debbie
 				Bucci, Josh Mandel, Sarah Cecchetti, Giuseppe De Marco, Joseph Heenan, 
-				Jim Fenton, Ryan Galluzzo, and Michael B. Jones.
+				Jim Fenton, Ryan Galluzzo, Bjorn Hjelm, and Michael B. Jones.
 			</t>
 			<t> Special thank you to the original iGov Profile editors: Paul Grassi, Justin Richer,
 			    and Michael Varley.
@@ -2135,7 +2182,27 @@ https://https://client.example.org/cb?
 
 		<section anchor="History" title="Document History">
       <t>[[ To be removed from the final specification ]]</t>
-
+ 
+ 	<t>
+	-05
+	<list style="symbols">
+	  <t>
+	    Updated BCP mitigations, aligned with FAPI
+	  </t>
+	  <t>
+	    Harmonized cryptography, sender constrained tokens with FAPI
+	  </t>
+	  <t>
+	    Added requirement and optionality for authentication context and support for Step-up (RFC 9470)
+	  </t>
+	  <t>
+	    Added Privacy Considerations (RFC 6973)
+	  </t>
+	  <t>
+	    Added optionality to support enterprise tailoring, especially RFC 8705 mTLS with PKI
+	  </t>	  
+	  </list>
+      </t>
       <t>
 	-04
 	<list style="symbols">
