@@ -9,22 +9,33 @@
 	described in the "Notices" section. This is a public OpenID Foundation document 
 	and not a private document, as the private="..." declaration could be taken 
 	to indicate. -->
-<rfc category="std" docName="openid-igov-oauth2-1_0" ipr="none" xmlns:xi="http://www.w3.org/2001/XInclude">
+<rfc 
+  category="std" 
+  
+  docName="openid-igov-oauth2-1_0" 
+  
+  ipr="none" 
+  
+  xmlns:xi="http://www.w3.org/2001/XInclude" 
+  
+  submissionType="IETF" 
+  
+  consensus="true" >
 
-  <?rfc toc="yes" ?>
+  <?rfc tocInclude="yes" ?> 
 
-  <?rfc tocdepth="5" ?>
+  <?rfc tocdepth="5" ?> 
 
-  <?rfc symrefs="yes" ?>
+  <?rfc symrefs="yes" ?> 
 
-  <?rfc sortrefs="yes"?>
+  <?rfc sortrefs="yes" ?>
 
-  <?rfc strict="yes" ?>
+  <?rfc strict="yes" ?> 
 
-  <?rfc iprnotified="no" ?>
+  <?rfc iprnotified="no" ?> 
 
-  <?rfc private="Draft" ?>
-
+  <?rfc private="Draft" ?> 
+  
 	<front>
 		<title abbrev="iGov OAuth 2.0">International Government Assurance Profile (iGov)
 			for OAuth 2.0 - draft 05</title>
@@ -42,7 +53,7 @@
 			</address>
 		</author>
 
-		<date day="7" month="November" year="2024"/>
+		<date day="8" month="January" year="2025"/>
 
 		<workgroup>OpenID iGov Working Group</workgroup>
 
@@ -1828,6 +1839,7 @@ https://https://client.example.org/cb?
 			
 			<section title="Best Practices">
 				<t>Authorization servers, clients, and protected resources SHOULD consider internet best practices from 
+					<xref target="SecBCP">OAuth 2.0 Security Best Current Practice</xref>, 
 					<xref target="RFC8725">JSON Web Token Best Current Practices</xref> and
 					<xref target="RFC9068">JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens</xref> that are not
 					explicitly REQUIRED or RECOMMENDED in this profile.
