@@ -41,12 +41,14 @@
 			for OAuth 2.0 - draft 05</title>
 
 		<author fullname="Kelley Burgin" initials="K." role="editor" surname="Burgin">
+			<organization abbrev="MITRE">The MITRE Corporation</organization>
 			<address>
 				<email>kburgin@mitre.org</email>
 
 			</address>
 		</author>
-		<author fullname="Tom Clancy" initials="T." role="editor" surname="Clancy">
+		<author fullname="Tom Clancy" initials="T." role="editor" surname="Clancy" org="The MITRE Corporation">
+			<organization abbrev="MITRE">The MITRE Corporation</organization>
 			<address>
 				<email>tclancy@mitre.org</email>
 
