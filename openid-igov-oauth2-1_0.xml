@@ -47,7 +47,7 @@
 
 			</address>
 		</author>
-		<author fullname="Tom Clancy" initials="T." role="editor" surname="Clancy" org="The MITRE Corporation">
+		<author fullname="Tom Clancy" initials="T." role="editor" surname="Clancy">
 			<organization abbrev="MITRE">The MITRE Corporation</organization>
 			<address>
 				<email>tclancy@mitre.org</email>
