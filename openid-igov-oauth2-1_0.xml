@@ -12,7 +12,7 @@
 <rfc 
   category="std" 
   
-  docName="openid-igov-oauth2-1_0" 
+  docName="openid-igov-oauth2-1_05" 
   
   ipr="none" 
   
@@ -55,7 +55,7 @@
 			</address>
 		</author>
 
-		<date day="30" month="January" year="2025"/>
+		<date day="4" month="February" year="2025"/>
 
 		<workgroup>OpenID iGov Working Group</workgroup>
 
@@ -318,8 +318,8 @@
 
 				<section title="Native Client with User Delegation">
 					<t>This client type applies to clients that act on behalf of a
-						particular resource owner, such as an app on a mobile platform,
-						and require delegation of that user's
+						particular resource owner, such as an app on a mobile platform
+						or a Single Page App (SPA), and require delegation of that user's
 						authority to access the
 						protected resource. Furthermore, these
 						clients are capable of
@@ -359,9 +359,7 @@
 							</t>
 
 							<t>
-								act as a public client by using a common client id and use
-								<xref target="RFC7636">PKCE</xref> to protect calls to the
-								token endpoint.
+								act as a public client by using a common client id.
 							</t>
 						</list>
 					</t>
@@ -408,7 +406,7 @@
 				presents the token to the protected resource, it is also required to demonstrate possession of the corresponding key.
             		</t>
 
-             	<t>As described in <xref target="SecBCP">OAuth 2.0 Security Best Common Practices</xref>, sender-constrained tokens could
+             	<t>As described in <xref target="BCP240">Best Current Practice for OAuth 2.0 Security</xref>, sender-constrained tokens could
                 prevent a number of attacks on OAuth that entail the misuse of stolen and leaked access tokens by unauthorized parties. 
 				The attacker would need to obtain the legitimate client's cryptographic key along with the access
                 token to gain access to protected resources.
@@ -440,10 +438,9 @@
 				<t>All clients MUST register with the authorization server. For
 					client software that may be installed on multiple client
 					instances,
-					such as native applications or web application software,
+					such as native applications or single page app (SPA),
 					each client	instance MAY receive a unique client identifier from
-					the	authorization server. Clients that share client identifiers are
-					considered public clients. 
+					the	authorization server. 
 				</t>
 				
 				<t>Client registration MAY be completed by either static configuration 
@@ -490,7 +487,7 @@
 						</list>
 					</t>
 
-					<t>Clients SHOULD NOT have multiple redirect URIs on different domains.
+					<t>Clients SHOULD NOT have multiple redirect URIs on different domains. [NEED EXPLANATORY TEXT]
 					</t>
 					<t>Clients MUST use a unique redirect URI for each logical authorization server.
 					</t>
@@ -499,6 +496,9 @@
 						URIs to other arbitrary or user-provided URIs (a practice known
 						as
 						an "open redirector").</t>
+					<t>Refer to <xref target="BCP240">Best Current Practice for OAuth 2.0 Security</xref> Section 2.4.1
+					for additional guidance for implementation of edge cases.
+					</t>
 				</section>
 			</section>
 
@@ -511,7 +511,7 @@
 					The PKCE code_verifier value MUST contain at least 128 bits of entropy.
 					</t>
 					<t>
-						Full clients and browser-embedded clients making a request to the
+						Clients making a request to the
 						authorization endpoint MUST use an unpredictable value for the
 						state
 						parameter with at least 128 bits of entropy. Clients MUST
@@ -536,8 +536,28 @@
 						values and MUST reject requests with an invalid or missing redirect
 						URI.
 					</t>
-
-					<t>The following is a sample response from a web-based client to
+					
+ 					<t>The client MAY specify a strength of authentication and maximum age to the authorization server that should be met 
+						when issuing an access token for the requesting client by including the following claims:</t>
+						<list style="hanging">
+							<t hangText="acr_values"> a space-separated string listing the authentication context class reference values in order of preference.  
+							The protected resource requires one of these values for the authentication event associated with the access token.  As defined
+							in Section 1.2 of <xref target="OpenID.Core">OpenID Connect Core 1.0 </xref>, the authentication context conveys information about how 
+							authentication takes place (e.g., what authentication 
+							method(s) or assurance level to meet).  It is out of scope of this document to determine how an organization semantically maps their 
+							digital identity practices to acr values that identify levels of assurance. 
+							</t>
+							<t hangText="max_age"> a non-negative integer value that indicates the allowable elapsed time in seconds since the last active authentication event 
+							associated with the access token. 
+							</t>
+							</list>
+							
+						<t>Furthermore, if the authorization request is a follow-up to a prior request that did not meet the client's initial or subsequent authentication 
+						strength or recency requirements, the client should include the insuffient_user_authentication error code, along with acr_values or max_age 
+						values that specify expected strength and recency requirements to be provided to the authentication provider, such as the OpenID Provider, in a new 
+						authentication request.</t>
+						
+					<t>The following is a sample response from a client to
 						the
 						end user's browser for the purpose of redirecting the end
 						user
@@ -555,9 +575,8 @@ Content-Type: text/plain; charset=UTF-8
 Date: Wed, 07 Jan 2015 20:24:15 GMT
 Location: \
   https://idp-p.example.com/authorize?client_id=55f9f559-2496-49d4-b\
-6c3-351a586b7484&nonce=cd567ed4d958042f721a7cdca557c30d&response_typ\
-e=code&scope=openid+email&redirect_uri=https%3A%2F%2Fclient.example.\
-org%2Fcb
+6c3-351a586b7484&response_type=code&scope=openid+email&redirect_uri=\
+https%3A%2F%2Fclient.example.org%2Fcb&acr_values=myACR&max_age=1800\
 Status: 302 Found
 ]]></artwork>
 					</figure>
@@ -596,7 +615,7 @@ Host: idp-p.example.com
 						<xref target="RFC7523">JWT Profile for OAuth 2.0 Client Authentication and Authorization Grants</xref>.
 						If using the mTLS method, the request must be made over a mutually authenticated TLS channel.
 
-						For both methods, the request MUST include the following claims:
+						For both methods, the request MUST include the following parameters:
 					</t>
 
 					<t>
@@ -609,7 +628,7 @@ Host: idp-p.example.com
 								token
 							</t>
 
-							<t hangText="aud">the URL of the authorization server's token
+							<t hangText="aud">the URL of the authorization server's issuer
 								endpoint
 							</t>
 
@@ -633,24 +652,7 @@ Host: idp-p.example.com
 						</list>
 						</t>
 
- 						<t>The client MAY specify a strength of authentication and maximum age to the authorization server that should be met 
-						when issuing an access token for the requesting client by including the following claims:</t>
-						<list style="hanging">
-							<t hangText="acr_values"> a space-separated string listing the authentication context class reference values in order of preference.  
-							The protected resource requires one of these values for the authentication event associated with the access token.  As defined
-							in Section 1.2 of <xref target="OpenID.Core">OpenID Connect Core 1.0 </xref>, the authentication context conveys information about how 
-							authentication takes place (e.g., what authentication 
-							method(s) or assurance level to meet).  It is out of scope of this document to determine how an organization semantically maps their 
-							digital identity practices to acr values that identify levels of assurance. 
-							</t>
-							<t hangText="max_age"> a non-negative integer value that indicates the allowable elapsed time in seconds since the last active authentication event 
-							associated with the access token. 
-							</t>
-							</list>
-						<t>Furthermore, if the authorization request is a follow-up to a prior request that did not meet the client's initial or subsequent authentication 
-						strength or recency requirements, the client should include the insuffient_user_authentication error code, along with acr_values or max_age 
-						values that specify expected strength and recency requirements to be provided to the authentication provider, such as the OpenID Provider, in a new 
-						authentication request.</t>
+
 
 						<t>Additionally, if the client uses <xref target="RFC8705">mTLS</xref> for client authentication or to sender-constrain 
 						tokens, the client MUST include the following claim in the client assertion.
@@ -897,6 +899,27 @@ Mk5qjUWMyn2I4Nu2s-R20aCA-7T5dunr0iWCkLQnVnaXMfA22RlRiU87nl21zappYb1_\
 EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 ]]></artwork>
 					</figure>
+					
+<section anchor="ResponseFromProtectedResource" title="Response From the Protected Resource">
+	<t>When a client request to a protected resource includes acr_values, max_age, or both, the protected resource MUST provide a response 
+	in accordance with the requirements outlined in <xref target="RFC9470">OAuth 2.0 Step Up Authentication Challenge Protocol</xref>.</t> 
+
+	<t>If the authentication event associated with the access token does not satisfy these requirements, the protected resource must return a 
+	401 Unauthorized status code along with a WWW-Authenticate header. This header must include the insufficient_user_authentication error code 
+	to indicate that the presented access token is inadequate. </t>
+	
+	<t>Additionally, the response must specify the acr_values and/or max_age auth-params to communicate the necessary authentication context 
+	class reference values and the allowable elapsed time since the last active authentication event, respectively. The acr_values parameter 
+	should list the required authentication context class reference values in order of preference, while the max_age parameter should indicate 
+	the maximum permissible time in seconds since the last user interaction with the authorization server.</t> 
+	
+	<t>The mechanisms by which the protected resource determines whether the authentication requirements are met are outside the scope of this profile.</t>
+	<t>Furthermore, if both acr_values and max_age are relevant, they may be included together in the response.</t>
+	
+	<t>The protected resource may also include the scope parameter if additional scopes are required to access the resource, as per Section 3.1 of 
+	<xref target="RFC6750">The OAuth 2.0 Authorization Framework: Bearer Token Usage</xref>.
+	</t>
+				</section>
 				</section>
 		</section> <!-- End of Connections to Protected Resource section -->
 
@@ -1825,11 +1848,6 @@ https://https://client.example.org/cb?
 			</section>
 		</section>
 
-
-
-
-
-
 		<section title="Security Considerations">
 		
 				<!--  Need to add data from John's RFC regarding registration security -->
@@ -1842,7 +1860,7 @@ https://https://client.example.org/cb?
 			
 			<section title="Best Practices">
 				<t>Authorization servers, clients, and protected resources SHOULD consider internet best practices from 
-					<xref target="SecBCP">OAuth 2.0 Security Best Current Practice</xref>, 
+					<xref target="BCP240">Best Current Practice for OAuth 2.0 Security</xref>, 
 					<xref target="RFC8725">JSON Web Token Best Current Practices</xref> and
 					<xref target="RFC9068">JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens</xref> that are not
 					explicitly REQUIRED or RECOMMENDED in this profile.
@@ -1931,7 +1949,7 @@ https://https://client.example.org/cb?
 	  
 	  <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9470"/>
 	  
-			<reference anchor="BCP195" target="http://www.rfc-editor.org/info/bcp195">
+	  <reference anchor="BCP195" target="http://www.rfc-editor.org/info/bcp195">
 				<front>
 					<title>Recommendations for Secure Use of Transport Layer Security
 						(TLS) and Datagram Transport Layer Security (DTLS)</title>
@@ -1969,8 +1987,48 @@ https://https://client.example.org/cb?
 				<seriesInfo name="BCP" value="195"/>
 
 				<seriesInfo name="RFC" value="7525"/>
-
+				
 				<seriesInfo name="DOI" value="10.17487/RFC7525"/>
+
+				<format octets="60283" type="ASCII"/>
+			</reference>
+
+	  <reference anchor="BCP240" target="http://www.rfc-editor.org/info/bcp240">
+				<front>
+					<title>Best Current Practice for OAuth 2.0 Security</title>
+
+					<author fullname="Torsten Lodderstedt" initials="T." surname="Lodderstedt">
+											<organization/>
+					</author>
+					<author fullname="John Bradley" initials="J." surname="Bradley">
+											<organization/>
+					</author>
+					<author fullname="Andrey Labunets" initials="A." surname="Labunets">
+											<organization/>
+					</author>
+					<author fullname="Daniel Fett" initials="D." surname="Fett">
+											<organization/>
+					</author>
+
+					<date month="January" year="2025"/>
+
+					<abstract>
+						<t>   This document describes best current security practice for OAuth 2.0.
+							   It updates and extends the threat model and security advice given in
+							   RFCs 6749, 6750, and 6819 to incorporate practical experiences
+							   gathered since OAuth 2.0 was published and covers new threats
+							   relevant due to the broader application of OAuth 2.0.  Further, it
+							   deprecates some modes of operation that are deemed less secure or
+							   even insecure.
+						</t>
+					</abstract>
+				</front>
+
+				<seriesInfo name="BCP" value="240"/>
+
+				<seriesInfo name="RFC" value="9700"/>
+				
+				<seriesInfo name="DOI" value="10.17487/RFC9700"/>
 
 				<format octets="60283" type="ASCII"/>
 			</reference>
@@ -2069,16 +2127,6 @@ https://https://client.example.org/cb?
 				</front>
 			</reference>
 
-			<reference anchor="SecBCP" target="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics">
-				<front>
-					<title>OAuth 2.0 Security Best Current Practice</title>
-					<author fullname="Torsten Lodderstedt" initials="T." surname="Lodderstedt"/>
-					<author fullname="John Bradley" initials="J." surname="Bradley"/>
-					<author fullname="Andrey Labunets" initials="A." surname="Labunets"/>
-					<author fullname="Daniel Fett" initials="D." surname="Fett"/>
-					<date day="5" month="December" year="2024"/>
-				</front>
-			</reference>
 
 			<reference anchor="SAM" target="https://danielfett.de/2020/05/16/pkce-vs-nonce-equivalent-or-not/">
 				<front>
@@ -2096,7 +2144,7 @@ https://https://client.example.org/cb?
 				Pulvermacher, David Hill, Dale Moberg, Adrian Gropper, Eve Maler,
 				Danny van Leeuwen, John Moehrke, Aaron Seib, John Bradley, Debbie
 				Bucci, Josh Mandel, Sarah Cecchetti, Giuseppe De Marco, Joseph Heenan, 
-				Jim Fenton, Ryan Galluzzo, Bjorn Hjelm, and Michael B. Jones.
+				Jim Fenton, Ryan Galluzzo, Bjorn Hjelm, Aaron Parecki, and Michael B. Jones.
 			</t>
 			<t> Special thank you to the original iGov Profile editors: Paul Grassi, Justin Richer,
 			    and Michael Varley.
