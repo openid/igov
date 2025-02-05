@@ -386,7 +386,7 @@
 						transfers.
 					</t>
 
-					<t>These clients use the client credentials flow of OAuth 2.0 by
+					<t>These clients MUST use the client credentials flow of OAuth 2.0 by
 						sending a request to the token endpoint with the client's
 						credentials and obtaining an access token in the response. Since
 						this profile does not involve an authenticated user, this flow is
@@ -899,15 +899,12 @@ Mk5qjUWMyn2I4Nu2s-R20aCA-7T5dunr0iWCkLQnVnaXMfA22RlRiU87nl21zappYb1_\
 EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 ]]></artwork>
 					</figure>
-					
+					</section>
 <section anchor="ResponseFromProtectedResource" title="Response From the Protected Resource">
-	<t>When a protected resource includes acr_values, max_age, or both, in an authorization request, it MUST process resultant access tokens
-	to determine and provide a response that meets the 
-	requirements outlined in <xref target="RFC9470">OAuth 2.0 Step Up Authentication Challenge Protocol</xref>.</t> 
-
-	<t>If the authentication event associated with the access token does not satisfy these requirements, the protected resource MUST return a 
-	401 Unauthorized status code along with a WWW-Authenticate header. This header must include the insufficient_user_authentication error code 
-	to indicate that the presented access token is inadequate. </t>
+	<t>If the authentication event associated with the access token does not satisfy the requirements of the resource server for the given request, 
+	the protected resource MUST return a 401 Unauthorized status code along with a WWW-Authenticate header as defined in <xref target="RFC9470">OAuth 
+	2.0 Step Up Authentication Challenge Protocol</xref>. This header MUST include the insufficient_user_authentication error code to indicate that the 
+	presented access token is inadequate. </t>
 	
 	<t>Additionally, the response MUST include the acr_values and/or max_age auth-params to communicate the necessary authentication context 
 	class reference values and the allowable elapsed time since the last active authentication event, respectively. The acr_values parameter 
@@ -920,7 +917,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 	<t>The protected resource may also include the scope parameter if additional scopes are required to access the resource, as per Section 3.1 of 
 	<xref target="RFC6750">The OAuth 2.0 Authorization Framework: Bearer Token Usage</xref>.
 	</t>
-				</section>
+		
 				</section>
 		</section> <!-- End of Connections to Protected Resource section -->
 
@@ -940,7 +937,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 
 			<t>The authorization server MUST protect all communications to and
 				from
-				its OAuth endpoints using TLS.
+				its OAuth endpoints using TLS as described in Section 1.4.
 			</t>
 
 
@@ -956,7 +953,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 						<xref target="ClientProfiles"/>. The
 						authorization server MUST limit each registered client
 						(identified
-						by a client ID) to a single grant type only, since a
+						by a client ID) to a single client type only, since a
 						single piece of
 						software will be functioning at runtime in only one
 						of the modes
@@ -971,7 +968,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 				<section title="Client authentication">
 					<t>The authorization server MUST enforce client authentication as
 						described above for the authorization code and client credentials
-						grant types. Public client cannot authenticate to the authorization server.
+						grant types. Public clients cannot authenticate to the authorization server.
 					</t> 
 
 					<t> The authorization server MUST validate all redirect
