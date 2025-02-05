@@ -552,10 +552,10 @@
 							</t>
 							</list>
 							
-						<t>Furthermore, if the authorization request is a follow-up to a prior request that did not meet the client's initial or subsequent authentication 
-						strength or recency requirements, the client should include the insuffient_user_authentication error code, along with acr_values or max_age 
-						values that specify expected strength and recency requirements to be provided to the authentication provider, such as the OpenID Provider, in a new 
-						authentication request.</t>
+						<t>Furthermore, if the authorization request is a follow-up to a prior request that did not meet the resource server's initial or subsequent 
+						authentication strength or recency requirements, the client should include the acr_values and/or max_age values sent by the resource server with 
+						the insuffient_user_authentication error code that specify expected strength and recency requirements to be provided to the authentication provider, 
+						such as the OpenID Provider, in a new authentication request.</t>
 						
 					<t>The following is a sample response from a client to
 						the
