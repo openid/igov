@@ -538,7 +538,7 @@
 					</t>
 					
  					<t>The client MAY specify a strength of authentication and maximum age to the authorization server that should be met 
-						when issuing an access token for the requesting client by including the following claims:</t>
+						when issuing an access token for the requesting client by including parameters in the authorization request:</t>
 						<list style="hanging">
 							<t hangText="acr_values"> a space-separated string listing the authentication context class reference values in order of preference.  
 							The protected resource requires one of these values for the authentication event associated with the access token.  As defined
@@ -901,17 +901,18 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 					</figure>
 					
 <section anchor="ResponseFromProtectedResource" title="Response From the Protected Resource">
-	<t>When a client request to a protected resource includes acr_values, max_age, or both, the protected resource MUST provide a response 
-	in accordance with the requirements outlined in <xref target="RFC9470">OAuth 2.0 Step Up Authentication Challenge Protocol</xref>.</t> 
+	<t>When a protected resource includes acr_values, max_age, or both, in an authorization request, it MUST process resultant access tokens
+	to determine and provide a response that meets the 
+	requirements outlined in <xref target="RFC9470">OAuth 2.0 Step Up Authentication Challenge Protocol</xref>.</t> 
 
-	<t>If the authentication event associated with the access token does not satisfy these requirements, the protected resource must return a 
+	<t>If the authentication event associated with the access token does not satisfy these requirements, the protected resource MUST return a 
 	401 Unauthorized status code along with a WWW-Authenticate header. This header must include the insufficient_user_authentication error code 
 	to indicate that the presented access token is inadequate. </t>
 	
-	<t>Additionally, the response must specify the acr_values and/or max_age auth-params to communicate the necessary authentication context 
+	<t>Additionally, the response MUST include the acr_values and/or max_age auth-params to communicate the necessary authentication context 
 	class reference values and the allowable elapsed time since the last active authentication event, respectively. The acr_values parameter 
 	should list the required authentication context class reference values in order of preference, while the max_age parameter should indicate 
-	the maximum permissible time in seconds since the last user interaction with the authorization server.</t> 
+	the maximum permissible time in seconds since the last user authentication.</t> 
 	
 	<t>The mechanisms by which the protected resource determines whether the authentication requirements are met are outside the scope of this profile.</t>
 	<t>Furthermore, if both acr_values and max_age are relevant, they may be included together in the response.</t>
