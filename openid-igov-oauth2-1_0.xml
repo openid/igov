@@ -1284,10 +1284,16 @@ DNp00J6AbY6w",
 				</section>
 
 				<section title="Revocation">
+ 
 					<t>Token revocation allows a client to signal to an authorization
 						server that a given token will no longer be used.
 					</t>
-
+					<t>Authorization Servers MUST support token revocation as follows.</t>
+					<t>The AS MUST provide a revocation endpoint URL as
+					specified in <xref target="RFC7009">OAuth 2.0 Token Revocation</xref>
+					for end users to view a list of clients that have been granted access to resources on the 
+					user's behalf, and for end users to revoke this access.</t>
+					
 					<t>An authorization server MUST revoke the token if the client
 						requesting the revocation is the client to which the token was
 						issued, the client has permission to revoke tokens, and the token
@@ -1318,7 +1324,7 @@ DNp00J6AbY6w",
 						authorization request using an exact string match.
 					</t>
 				</section>
-				<section title="RefreshTokens">
+				<section title="Refresh Tokens">
 					<t>Authorization Servers MAY issue refresh tokens to clients under the 
 						following context:
 					</t>
@@ -1913,6 +1919,8 @@ https://https://client.example.org/cb?
 
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6973"/>  
 
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7009"/>
+	  
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7515"/>
 
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7516"/>
