@@ -55,7 +55,7 @@
 			</address>
 		</author>
 
-		<date day="4" month="February" year="2025"/>
+		<date day="15" month="February" year="2025"/>
 
 		<workgroup>OpenID iGov Working Group</workgroup>
 
@@ -1060,7 +1060,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 					</t>
 				</section>
 
-				<section title="Client Approval">
+				<section anchor="ClientApproval" title="Client Approval">
 					<t>When prompting the end user with an interactive approval page,
 						the authorization server MUST indicate to the user:
 					</t>
@@ -1333,14 +1333,12 @@ DNp00J6AbY6w",
 				</section>
 			</section>
 
-			<section title="Connections with protected resources">
-				<t>Unlike the core OAuth protocol, the iGov profile intends to allow
-					compliant protected resources to connect to compliant authorization
-					servers.
+			<section title="Connections between authorization servers and protected resources">
+				<t>This profile defines interoperability requirements between authorization servers and resource servers.
 				</t>
 
 				<section anchor="JWTokens" title="JSON Web Tokens (JWT)">
-					<t>All iGov-compliant authorization servers issue
+					<t>All iGov-compliant authorization servers MUST issue
 						cryptographically signed sender-constrained tokens in the JSON Web Token (JWT)
 						format as defined in <xref target="RFC9068">JSON Web Token (JWT) Profile for OAuth 
 						2.0 Access Tokens</xref>.
@@ -1444,10 +1442,13 @@ DNp00J6AbY6w",
 					<figure>
 						<artwork><![CDATA[{
    "exp": 1418702388,
+   "client_id": "55f9f559-2496-49d4-b6c3-351a586b7484",
    "azp": "55f9f559-2496-49d4-b6c3-351a586b7484",
    "iss": "https://idp-p.example.com/",
+   "sub" : "93ff28e3-3982-c34b-f2a4-98bb3d42b277",
    "jti": "2402f87c-b6ce-45c4-95b0-7a3f2904997f",
    "iat": 1418698788,
+   "scope" : "MyResource1 MyResource2",
    "acr": "myACR",
    "auth_time": 16463400198,
    "cnf": {
@@ -1458,7 +1459,6 @@ DNp00J6AbY6w",
 					</figure>
 
 					<t>
-<!-- Need to look at RFC8725 and FAPI 2 Security 5.4 Cryptography new section? -->
 						The access tokens MUST be signed with
 						<xref target="RFC7515">JWS</xref>
 						. If private_key_jwt is used, the authorization server MUST support
@@ -1520,7 +1520,7 @@ pXDaLyyY-4HT9XHT9V73fKF8rLWJu9grrA
 						the protected
 						resource. Encrypted refresh tokens MUST be encrypted
 						using the
-						authorization server's public key.
+						authorization server's public key. 
 					</t>
 				</section>
 
@@ -1638,13 +1638,16 @@ Connection: close
 					</figure>
 
 					<t>
-						The authorization server MUST require authentication for both the
-						revocation and introspection endpoints as described in
+						The authorization server MUST require authentication of resource servers
+						for both the
+						revocation and introspection endpoints, using either private_key_jwt or Mutual-TLS
+						methods as described for clients in
 						<xref target="RequestsToTokenEndpoint"/>. Protected resources calling the
 						introspection endpoint MUST use
 						credentials distinct from any other
 						OAuth client registered at the
-						server.
+						server. Authorization servers MUST NOT allow authorization clients to 
+						use token introspection endpoints.
 					</t>
 
 					<t>A protected resource MAY cache the response from the
@@ -1661,9 +1664,9 @@ Connection: close
 
 			<section title="Response to Authorization Requests">
 				<t> The following data will be sent as an Authorization Response to
-					the Authorization Code Flow as described above. The authentication
+					the Authorization Code Flow as described <xref target="ClientProfiles" />. The authentication
 					response is sent via HTTP redirect to the redirect URI specified in
-					the request.</t>
+					the request, consistent with <xref target="RFC6749">The OAuth 2.0 Authorization Framework</xref>.</t>
 
 				<t>
 					The following fields MUST be included in the response:
@@ -1697,11 +1700,6 @@ https://https://client.example.org/cb?
 					than twenty-four hours. Specific applications MAY issue tokens with different lifetimes. 
 					Any active token MAY be revoked at any time.
 				</t>
-				
-				<t>In addition to the lifetime of the token, protected resources may specify a maximum age of the
-				authentication events that led to access tokens they receive by including the max_age claim
-				in authorization requests and examining the auth_time claim value in access tokens. 
-				</t> 
 
 			</section>
 
@@ -1736,6 +1734,10 @@ https://https://client.example.org/cb?
 					Authorization servers MAY restrict certain scopes from
 					use by
 					dynamically registered systems or public clients.
+				</t>
+				
+				<t>Refer to <xref target="ClientApproval"/> for further information about
+				displaying scopes to end users.
 				</t>
 			</section>
 			
