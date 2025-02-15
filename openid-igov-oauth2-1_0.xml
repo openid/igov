@@ -1325,14 +1325,10 @@ DNp00J6AbY6w",
 					</t>
 				</section>
 				<section title="Refresh Tokens">
-					<t>Authorization Servers MAY issue refresh tokens to clients under the 
-						following context:
+					<t>AS MAY issue refresh tokens to Full (confidential) and Native (public) clients.
 					</t>
-					<t>Clients MUST be registered with the Authorization Server. </t>
-					<t>Clients MUST present a valid client_id. Confidential clients MUST present a signed client_assertion with their associated keypair.</t>
-					<t>Clients using the Direct Credentials method MUST NOT be issued refresh_tokens. 
-						These clients MUST present their client credentials with a new access_token request
-						and the desired scope.
+
+					<t>AS MUST NOT issue refresh tokens to Direct clients (browser-based apps).
 					</t>
 				</section>
 			</section>
