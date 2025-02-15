@@ -1343,10 +1343,11 @@ DNp00J6AbY6w",
 					servers.
 				</t>
 
-				<section anchor="JWTBearerTokens" title="JWT Bearer Tokens">
+				<section anchor="JWTokens" title="JSON Web Tokens (JWT)">
 					<t>All iGov-compliant authorization servers issue
 						cryptographically signed sender-constrained tokens in the JSON Web Token (JWT)
-						format.
+						format as defined in <xref target="RFC9068">JSON Web Token (JWT) Profile for OAuth 
+						2.0 Access Tokens</xref>.
 						The information carried in the JWT is intended to allow a
 						protected
 						resource to quickly test the integrity of the token
@@ -1368,7 +1369,7 @@ DNp00J6AbY6w",
 								token
 							</t>
 
-							<t hangText="azp">The client id of the client to whom this token
+							<t hangText="client_id">The client id of the client to whom this token
 								was
 								issued
 							</t>
@@ -1411,9 +1412,23 @@ DNp00J6AbY6w",
 								resources at which
 								a token may be used.
 							</t>
+							
+							<t hangText="scope">The value of the scope claim is a JSON string containing a 
+								space-separated list of scopes associated with the token, in the format 
+								described in Section 3.3 of <xref target="RFC6749">The OAuth 2.0 Authorization 
+								Framework</xref>.</t>
+								
+							<t hangText="iat">The "iat" (issued at) claim identifies the time at which the JWT 
+								was issued.  This claim can be used to determine the age of the JWT.  Its value MUST 
+								be a number containing a NumericDate value.
+							</t>
+							
 						</list>
 					</t>
-		                     <t>Additionally, if the client uses <xref target="RFC8705">mTLS</xref> for client authentication or to sender-constrain tokens, the server MUST include the following claim in the access token.
+		                    <t>In order to support backwards compatibility, AS MAY include the azp claim while resource servers 
+							modernize.</t>
+							
+							<t>Additionally, if the client uses <xref target="RFC8705">mTLS</xref> for client authentication or to sender-constrain tokens, the server MUST include the following claim in the access token.
                                              </t>
                                         
                         <list style="hanging">
@@ -1934,8 +1949,6 @@ https://https://client.example.org/cb?
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7591"/>
 
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7636"/>
-
-      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7009"/>
 
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7662"/>
 
