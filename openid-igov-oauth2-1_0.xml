@@ -55,7 +55,7 @@
 			</address>
 		</author>
 
-		<date day="15" month="February" year="2025"/>
+		<date day="21" month="February" year="2025"/>
 
 		<workgroup>OpenID iGov Working Group</workgroup>
 
@@ -1872,6 +1872,8 @@ https://https://client.example.org/cb?
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7800"/>
 
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8414"/>
+	  
+	  <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8252"/>
 
 	  <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8705"/>
 	  
