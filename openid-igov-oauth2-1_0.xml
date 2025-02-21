@@ -263,140 +263,57 @@
 
 		<section anchor="ClientProfiles" title="Client Profiles">
 			<t/>
-			<section anchor="ClientTypes" title="Client Types">
-				<t>
-					The following profile descriptions give patterns of deployment
-					for
-					use in different types of client applications based on the OAuth
-					grant type.
-					Additional grant types, such as assertions,
-					chained tokens, or other
-					mechanisms, are out of scope of this
-					profile and must be covered
-					separately by appropriate profile
-					documents.
-				</t>
+<section anchor="ClientTypes" title="Client Types">
+                <t>
+                    OAuth defines two client types, based on their ability to
+                       authenticate securely with the authorization server
+                </t>
+                <t>
+                    <list style="hanging">
+                        <t hangText="confidential clients:">Clients that have credentials with the authorization server.</t>
+                        <t hangText="public clients:">Clients without credentials.
+                            </t>
+                        </list>
+                    </t>
 
-				<section anchor="FullClient" title="Full Client with User Delegation">
-					<t>This client type applies to clients that act on behalf of a
-						particular resource owner and require delegation of that
-						user's authority to access the protected resource.
-						Furthermore, these clients are capable of interacting with a
-						separate web browser application to facilitate the resource
-						owner's interaction with the authentication endpoint of the
-						authorization server.
-					</t>
+            </section> <!-- End of ClientTypes section -->
 
-					<t>These clients MUST use the authorization code flow of OAuth 2.0
-						by sending the resource owner to the authorization endpoint to
-						obtain authorization. The user MUST authenticate to the
-						authorization endpoint using either private_key_jwt or
-						<xref target="RFC8705">mTLS</xref> authentication.
-						 
-						The user's web browser is then redirected back to a URI hosted by the client 
-						service, from which the client can obtain an authorization code passed as 
-						a query parameter. The client then presents that authorization code along
-						with its own credentials (private_key_jwt or mTLS) to the authorization
-						server's token endpoint to obtain an access token. 
-						A non-person entity PKI SHOULD be used rather than a self-signed TLS client certificate if available.
-						The PKI method provides security value by
-						allowing the authorization server to rely upon externally validated client entity
-						identifiers and attributes, and simplifies lifecycle management, including key rotation.
-					</t>
+            <section anchor="UseCases" title="Client Type Use Cases">
+                <t>This specification has been designed around the following client use cases:</t>
+                
+                <t>
+                    <list style="hanging">
+                        <t hangText="web application:">A web application is a client running on a web
+                               server.  Resource owners access the client via an HTML user
+                               interface rendered in a user agent on the device used by the
+                               resource owner.  The client credentials as well as any access
+                               tokens issued to the client are stored on the web server and are
+                               not exposed to or accessible by the resource owner. In this use case, web applications are confidential clients.
+                        </t>
 
-					<t>
-						These clients MUST be associated with a unique public key, as
-						described in
-						<xref target="ClientRegistration"/>
-						.
-					</t>
-
-					<t>This client type MAY request and be issued a refresh token if
-						the security parameters of the access request allow for it.
-					</t>
-				</section>
-
-				<section title="Native Client with User Delegation">
-					<t>This client type applies to clients that act on behalf of a
-						particular resource owner, such as an app on a mobile platform
-						or a Single Page App (SPA), and require delegation of that user's
-						authority to access the
-						protected resource. Furthermore, these
-						clients are capable of
-						interacting with a separate web browser
-						application to facilitate
-						the resource owner's interaction with
-						the authentication endpoint
-						of the authorization server. In
-						particular, this client type runs
-						natively on the resource
-						owner's
-						device, often leading to many
-						identical instances of a piece of
-						software operating in different
-						environments and running
-						simultaneously for different end users.
-					</t>
-
-					<t>These clients MUST use the authorization code flow of OAuth 2.0
-						by sending the resource owner to the authorization endpoint to
-						obtain authorization. The user MUST authenticate to the
-						authorization endpoint. The user is then
-						redirected back to a URI hosted by the client, from which the
-						client can obtain an authorization code passed as a query
-						parameter. The client then presents that authorization code along
-						to the authorization server's token endpoint to obtain an access
-						token.
-					</t>
-
-
-					<t>Native clients MUST either:</t>
-
-					<t>
-						<list style="symbols">
-							<t>use dynamic client registration to obtain a separate client
-								id for each instance, or
-							</t>
-
-							<t>
-								act as a public client by using a common client id.
-							</t>
-						</list>
-					</t>
-					<t>Native applications using dynamic registration SHOULD generate
-						a unique public and private key pair on the device and register
-						that public key value with the authorization server, or
-						obtain a certificate from a trusted Certificate Authority.
-					</t>
-
-					<t>Public Clients do not authenticate with the Token Endpoint.
-					</t>
-
-				</section>
-
-				<section anchor="DirectClient" title="Direct Access Client">
-				
-					<t>This client type MUST NOT request or be issued a refresh
-						token.
-					</t>
-					
-					<t>This profile applies to clients that connect directly to
-						protected resources and do not act on behalf of a particular
-						resource owner, such as those clients that facilitate bulk
-						transfers.
-					</t>
-
-					<t>These clients MUST use the client credentials flow of OAuth 2.0 by
-						sending a request to the token endpoint with the client's
-						credentials and obtaining an access token in the response. Since
-						this profile does not involve an authenticated user, this flow is
-						appropriate only for trusted applications, such as those that
-						would traditionally use a developer key. For example, a partner
-						system that performs bulk data transfers between two systems
-						would be considered a direct access client.
-					</t>
-				</section> <!-- End of DirectClient section -->
-			</section> <!-- End of ClientTypes section -->
+                        <t hangText="native application:">A native application is a client installed and
+                            executed on the device used by the resource owner.  Protocol data
+                            and credentials are accessible to the resource owner.  It is
+                            assumed that any client authentication credentials included in the
+                            application can be extracted.  Dynamically issued access tokens
+                            and refresh tokens can receive an acceptable level of protection.
+                            On some platforms, these credentials are protected from other
+                            applications residing on the same device. Best current practices for native applications are detailed in <xref target="RFC8252">OAuth 2.0 for Native Apps</xref>. In this use case, native applications are public clients.
+                        </t>
+                        
+                        <t hangText="browser-based application:">A browser-based application is a client
+                  in which the client code is downloaded from a web server and
+                  executes within a user agent (e.g., web browser) on the device
+                  used by the resource owner.  Protocol data and credentials are
+                  easily accessible (and often visible) to the resource owner.  If
+                  such applications wish to use client credentials, it is
+                  recommended to utilize the backend for frontend pattern.  Since
+                  such applications reside within the user agent, they can make
+                  seamless use of the user agent capabilities when requesting
+                  authorization. This use case is out of scope due to the inherent lack of security provided by browser-based applications. However, best current practices are detailed in .</t>
+                        </list>
+                    </t>
+                </section>
 
 
             <section anchor="PoPTokens" title="Sender-constrained Tokens">
