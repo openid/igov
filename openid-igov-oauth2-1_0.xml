@@ -1790,10 +1790,17 @@ https://https://client.example.org/cb?
 		
 				<!--  Need to add data from John's RFC regarding registration security -->
 			<section title="DNSSEC Considerations">
-                <t> For a comprehensive protection against network attackers, all endpoints should additionally use DNSSEC to protect 
+                <t>For a comprehensive protection against network attackers, all endpoints should additionally use DNSSEC to protect 
 				 against DNS spoofing attacks that can lead to the issuance of rogue domain-validated TLS certificates.
             	</t>
-
+			</section>
+			
+			<section title="Protected Resource Metadata">
+				<t><xref target="Resource.Metadata">OAuth 2.0 Protected Resource Metadata</xref>defines a metadata format that an 
+				OAuth 2.0 client or authorization server can use to obtain the information needed to interact with an OAuth 2.0 protected resource,
+				which may facilitate enhanced interoperability and security, including advertisement and discovery of a protected resource's public key
+				via its jwks_uri.
+				</t>
 			</section>
 			
 			<section title="Best Practices">
@@ -2067,7 +2074,16 @@ https://https://client.example.org/cb?
 				</front>
 			</reference>
 
-
+			<reference anchor="Resource.Metadata" target="https://datatracker.ietf.org/doc/draft-ietf-oauth-resource-metadata/">
+				<front>
+					<title>OAuth 2.0 Protected Resource Metadata</title>
+					<author fullname="Mike Jones" initials="M." surname="Jones"/>
+					<author fullname="Phil Hunt" initials="P." surname="Hunt"/>
+					<author fullname="Aaron Parecki" initials="A." surname="Parecki"/>
+					<date day="15" month="October" year="2024"/>
+				</front>
+			</reference>
+			
 			<reference anchor="SAM" target="https://danielfett.de/2020/05/16/pkce-vs-nonce-equivalent-or-not/">
 				<front>
 					<title>PKCE vs. Nonce: Equivalent or Not?</title>
