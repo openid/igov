@@ -298,7 +298,8 @@
                             application can be extracted.  Dynamically issued access tokens
                             and refresh tokens can receive an acceptable level of protection.
                             On some platforms, these credentials are protected from other
-                            applications residing on the same device. Best current practices for native applications are detailed in <xref target="RFC8252">OAuth 2.0 for Native Apps</xref>. In this use case, native applications are public clients.
+                            applications residing on the same device. Best current practices for native applications are detailed in 
+							<xref target="RFC8252">OAuth 2.0 for Native Apps</xref>. In this use case, native applications are public clients.
                         </t>
                         
                         <t hangText="browser-based application:">A browser-based application is a client
@@ -310,7 +311,8 @@
                   recommended to utilize the backend for frontend pattern.  Since
                   such applications reside within the user agent, they can make
                   seamless use of the user agent capabilities when requesting
-                  authorization. This use case is out of scope due to the inherent lack of security provided by browser-based applications. However, best current practices are detailed in .</t>
+                  authorization. This use case is out of scope due to the inherent lack of security provided by browser-based applications. 
+				  However, best current practices are detailed in <xref target="browser-based-apps">OAuth 2.0 for Browser-Based Applications</xref>..</t>
                         </list>
                     </t>
                 </section>
@@ -941,10 +943,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 
 							<t hangText="client_name">human-readable name of the client</t>
 
-							<t hangText="acr_values_supported">indicates the authorization server will understand and honor the acr_values and max_age
-   								parameters in incoming authorization requests, and handle insufficient_user_authentication error messages in conformance
-								with <xref target="RFC9470">OAuth 2.0 Step Up Authentication Challenge Protocol</xref>.</t>
-								
+	
 							<t hangText="client_uri">URL of a web page containing further
 								information
 								about the client
@@ -952,9 +951,13 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                             <t hangText="tls_client_certificate_bound_access_tokens">
                                 REQUIRED. Boolean value indicating server support for mutual-TLS client certificate-bound access tokens.
                                                         </t>
+														
+							<t hangText="acr_values_supported">OPTIONAL. Indicates the client will include the acr_values and max_age
+   								parameters in authorization requests, and send insufficient_user_authentication error messages in conformance
+								with <xref target="RFC9470">OAuth 2.0 Step Up Authentication Challenge Protocol</xref>.</t>
                                                         
                             <t hangText="dpop_signing_alg_values_supported">
-                                REQUIRED. A JSON array containing a list of the JWS alg values supported by the authorization server for DPoP proof JWTs.
+                                REQUIRED. A JSON array containing a list of the JWS alg values supported by the client for DPoP proof JWTs.
                                                         </t>
 
 							<t hangText="jwks_uri or jwks">client's public key in a JWK Set [RFC7517], or
@@ -1077,6 +1080,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 							</t>
 						</list>
 					</t>
+						
 					<t>If the TLS method for client authentication is used, exactly one authentication method metadata value MUST be included.  
 						<list style="hanging">
 							<t hangText="tls_client_auth">Indicates that client authentication to the authorization server will occur with mutual TLS 
@@ -2071,6 +2075,17 @@ https://https://client.example.org/cb?
 					<date day="16" month="May" year="2020"/>
 				</front>
 			</reference>
+
+<reference anchor="browser-based-apps" target=https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps>
+                <front>
+                    <title>OAuth 2.0 for Browser-Based Applications</title>
+                    <author fullname="Aaron Parecki" initials="A." surname="Parecki"/>
+                    <author fullname="David Waite" initials="D." surname="Waite"/>
+                    <author fullname="Philippe De Ryck" initials="P." surname="De Ryck"/>
+                    <date day="17" month="January" year="2025"/>
+                </front>
+            </reference>
+
 
 		</references>
 
