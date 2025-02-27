@@ -2092,7 +2092,7 @@ https://https://client.example.org/cb?
 				</front>
 			</reference>
 
-<reference anchor="browser-based-apps" target=https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps>
+			<reference anchor="browser-based-apps" target="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps">
                 <front>
                     <title>OAuth 2.0 for Browser-Based Applications</title>
                     <author fullname="Aaron Parecki" initials="A." surname="Parecki"/>
