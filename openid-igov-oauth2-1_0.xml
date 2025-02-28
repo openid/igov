@@ -12,7 +12,7 @@
 <rfc 
   category="std" 
   
-  docName="openid-igov-oauth2-1_05" 
+  docName="openid-igov-oauth2-1_06" 
   
   ipr="none" 
   
@@ -38,7 +38,7 @@
   
 	<front>
 		<title abbrev="iGov OAuth 2.0">International Government Assurance Profile (iGov)
-			for OAuth 2.0 - draft 05</title>
+			for OAuth 2.0 - draft 06</title>
 
 		<author fullname="Kelley Burgin" initials="K." role="editor" surname="Burgin">
 			<organization abbrev="MITRE">The MITRE Corporation</organization>
@@ -55,7 +55,7 @@
 			</address>
 		</author>
 
-		<date day="27" month="February" year="2025"/>
+		<date day="28" month="February" year="2025"/>
 
 		<workgroup>OpenID iGov Working Group</workgroup>
 
@@ -406,8 +406,6 @@
 						</list>
 					</t>
 
-					<t>Clients SHOULD NOT have multiple redirect URIs on different domains. [NEED EXPLANATORY TEXT]
-					</t>
 					<t>Clients MUST use a unique redirect URI for each logical authorization server.
 					</t>
 
@@ -1763,7 +1761,7 @@ https://https://client.example.org/cb?
 				</t>
 
 				<t>Protected resources MUST define and document which scopes are
-					required for access to the resource.
+					required for access to the resource and any authentication strength or recency requirements for each scope.
 				</t>
 
 				<t> If a client uses the <xref target="RFC8705">mTLS</xref> method to sender-constrain tokens, the protected resource 
