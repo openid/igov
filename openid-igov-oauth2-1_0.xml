@@ -55,7 +55,7 @@
 			</address>
 		</author>
 
-		<date day="21" month="February" year="2025"/>
+		<date day="27" month="February" year="2025"/>
 
 		<workgroup>OpenID iGov Working Group</workgroup>
 
@@ -1666,6 +1666,8 @@ https://https://client.example.org/cb?
 
 		<section title="Protected Resource Profile">
 			<section anchor="ProtectingResources" title="Protecting Resources">
+			
+			<section anchor="TrustLevels" title="Trust Levels and Scopes">
 				<t>Protected Resources grant access to clients if they present a valid sender-constrained
 					<spanx style="verb">access_token</spanx> with the appropriate 
 					<spanx style="verb">scope</spanx>. Resource servers trust the 
@@ -1673,27 +1675,31 @@ https://https://client.example.org/cb?
 					for the importance, risk, and value level of the protected 
 					resource scope.
 				</t>
-				<t> Protected resources that require a higher end-user authentication trust
-				    level to access certain resources MUST associate those resources with a 
-				    unique scope.   
+
+
+				<t> If a protected resources requires a higher end-user authentication trust
+				    level to access certain resources, the protected resource MUST associate those resources with a 
+				    unique scope and MUST associate acceptable acr values for each scope as descibed in
+					<xref target="RFC9470">OAuth 2.0 Step Up Authentication Challenge Protocol"</xref>.
+					Protected Resources may also specify a max_age for each scope.
 				</t>
+				
 				<t>
 					Clients wishing access to these higher level resources MUST include the
-					higher level scope in their authorization request to the authorization server.  
+					higher level scope and acr_values in their authorization request to the authorization server.  
 				</t>
-				<t> Authorization servers MUST authenticate the end-user with the appropriate
-					trust level before providing an <spanx style="verb">authorization_code</spanx>
-					or associated <spanx style="verb">access_token</spanx> to the client.
-				</t>
+
 				<t> Authorization servers MUST only grant access to higher level scope resources to 
-					clients that have permission to request these scope levels. Client authorization 
+					clients that have permission to request these scope levels and have met . Client authorization 
 					requests containing 
 					scopes that are outside their permission MUST be rejected.
 				</t>
+		
 				<t>Authorization servers MAY set the expiry time (<spanx style="verb">exp</spanx>)
 				   of access_tokens associated with higher level resources to be shorter than 
 				   access_tokens for less sensitive resources. 
 				</t>
+				
 				<t>Authorization servers MAY allow a <spanx style="verb">refresh_token</spanx>
 				 issued at a higher level to be
 					used to obtain an access_token for a lower level resource scope with an 
@@ -1702,22 +1708,36 @@ https://https://client.example.org/cb?
 					continue accessing lower level resources after the higher level resource access
 					has expired -- without requiring an additional user authentication/authorization.
 				</t>
-				<t>For example: a resource server has resources classified as "public" and "sensitive".
-					"Sensitive" resources require the user to perform a two-factor authentication, 
-					and those access grants are short-lived: 15 minutes. 
+			</section>
+
+			<section anchor="TrustExample" title="Trust Levels Example">	
+				<t>For example: a resource server has resources classified as "public" and "sensitive" and assocaites
+					scopes of the same name with those resources.
+					Access to resources with scope "sensitive" requires the user to perform a two-factor authentication 
+					and limits those access grants to only 15 minutes. 
+					The resource server associates scope "sensitive" with acr="MFA".
+					</t>
+					<t>
 					For a client to obtain access to both "public" and "sensitive" resources, 
 					it makes an authorization request to the authorization server with 
-					<spanx style="verb">scope=public+sensitive</spanx>. The authorization
+					<spanx style="verb">scope=public+sensitive</spanx>, acr_values="MFA", and 
+					max_age=900. The authorization
 					server authenticates the end-user as required to meet the required trust level
 					(two-factor authentication or some approved equivalent) and issues an 
 					<spanx style="verb">access_token</spanx> for the "public" and "sensitive" scopes
 					with an expiry time of 15mins, and a <spanx style="verb">refresh_token</spanx>
-					for the "public" scope with an expiry time of 24 hrs. The client can access both 
+					for the "public" scope with an expiry time of 24 hrs. 
+					</t>
+					<t>
+					The client can access both 
 					"public" and "sensitive" resources for 15mins with the access_token. When the 
 					access_token expires, the client will NOT be able to access "public" or "sensitive"
 					resources any longer as the access_token has expired, and must obtain a 
-					new access_token. The client makes a 
-					access grant request (as described in <xref target="RFC6749">OAuth 2.0</xref> 
+					new access_token. 
+					</t>
+					<t>
+					The client makes a 
+					refresh token request (as described in <xref target="RFC6749">OAuth 2.0</xref> 
 					section 6) with the refresh_token, 
 					and the reduced scope of just "public". The token endpoint validates the refresh_token,
 					and issues a new access_token for just the "public" scope with an expiry time set to 24hrs.
@@ -1728,6 +1748,7 @@ https://https://client.example.org/cb?
 				<t> In this manner, protected resources and authorization servers work together to meet
 					risk tolerance levels for sensitive resources and end-user authentication.
 				</t>
+				</section>
 
 			</section>
 			<section title="Connections with Clients">
