@@ -12,7 +12,7 @@
 <rfc 
   category="std" 
   
-  docName="openid-igov-oauth2-1_0" 
+  docName="openid-igov-oauth2-1_06" 
   
   ipr="none" 
   
@@ -38,7 +38,7 @@
   
 	<front>
 		<title abbrev="iGov OAuth 2.0">International Government Assurance Profile (iGov)
-			for OAuth 2.0 - draft 05</title>
+			for OAuth 2.0 - draft 06</title>
 
 		<author fullname="Kelley Burgin" initials="K." role="editor" surname="Burgin">
 			<organization abbrev="MITRE">The MITRE Corporation</organization>
@@ -55,7 +55,7 @@
 			</address>
 		</author>
 
-		<date day="30" month="January" year="2025"/>
+		<date day="28" month="February" year="2025"/>
 
 		<workgroup>OpenID iGov Working Group</workgroup>
 
@@ -263,142 +263,59 @@
 
 		<section anchor="ClientProfiles" title="Client Profiles">
 			<t/>
-			<section anchor="ClientTypes" title="Client Types">
-				<t>
-					The following profile descriptions give patterns of deployment
-					for
-					use in different types of client applications based on the OAuth
-					grant type.
-					Additional grant types, such as assertions,
-					chained tokens, or other
-					mechanisms, are out of scope of this
-					profile and must be covered
-					separately by appropriate profile
-					documents.
-				</t>
+<section anchor="ClientTypes" title="Client Types">
+                <t>
+                    OAuth defines two client types, based on their ability to
+                       authenticate securely with the authorization server
+                </t>
+                <t>
+                    <list style="hanging">
+                        <t hangText="confidential clients:">Clients that have credentials with the authorization server.</t>
+                        <t hangText="public clients:">Clients without credentials.
+                            </t>
+                        </list>
+                    </t>
 
-				<section anchor="FullClient" title="Full Client with User Delegation">
-					<t>This client type applies to clients that act on behalf of a
-						particular resource owner and require delegation of that
-						user's authority to access the protected resource.
-						Furthermore, these clients are capable of interacting with a
-						separate web browser application to facilitate the resource
-						owner's interaction with the authentication endpoint of the
-						authorization server.
-					</t>
+            </section> <!-- End of ClientTypes section -->
 
-					<t>These clients MUST use the authorization code flow of OAuth 2.0
-						by sending the resource owner to the authorization endpoint to
-						obtain authorization. The user MUST authenticate to the
-						authorization endpoint using either private_key_jwt or
-						<xref target="RFC8705">mTLS</xref> authentication.
-						 
-						The user's web browser is then redirected back to a URI hosted by the client 
-						service, from which the client can obtain an authorization code passed as 
-						a query parameter. The client then presents that authorization code along
-						with its own credentials (private_key_jwt or mTLS) to the authorization
-						server's token endpoint to obtain an access token. 
-						A non-person entity PKI SHOULD be used rather than a self-signed TLS client certificate if available.
-						The PKI method provides security value by
-						allowing the authorization server to rely upon externally validated client entity
-						identifiers and attributes, and simplifies lifecycle management, including key rotation.
-					</t>
+            <section anchor="UseCases" title="Client Type Use Cases">
+                <t>This specification has been designed around the following client use cases:</t>
+                
+                <t>
+                    <list style="hanging">
+                        <t hangText="web application:">A web application is a client running on a web
+                               server.  Resource owners access the client via an HTML user
+                               interface rendered in a user agent on the device used by the
+                               resource owner.  The client credentials as well as any access
+                               tokens issued to the client are stored on the web server and are
+                               not exposed to or accessible by the resource owner. In this use case, web applications are confidential clients.
+                        </t>
 
-					<t>
-						These clients MUST be associated with a unique public key, as
-						described in
-						<xref target="ClientRegistration"/>
-						.
-					</t>
-
-					<t>This client type MAY request and be issued a refresh token if
-						the security parameters of the access request allow for it.
-					</t>
-				</section>
-
-				<section title="Native Client with User Delegation">
-					<t>This client type applies to clients that act on behalf of a
-						particular resource owner, such as an app on a mobile platform,
-						and require delegation of that user's
-						authority to access the
-						protected resource. Furthermore, these
-						clients are capable of
-						interacting with a separate web browser
-						application to facilitate
-						the resource owner's interaction with
-						the authentication endpoint
-						of the authorization server. In
-						particular, this client type runs
-						natively on the resource
-						owner's
-						device, often leading to many
-						identical instances of a piece of
-						software operating in different
-						environments and running
-						simultaneously for different end users.
-					</t>
-
-					<t>These clients MUST use the authorization code flow of OAuth 2.0
-						by sending the resource owner to the authorization endpoint to
-						obtain authorization. The user MUST authenticate to the
-						authorization endpoint. The user is then
-						redirected back to a URI hosted by the client, from which the
-						client can obtain an authorization code passed as a query
-						parameter. The client then presents that authorization code along
-						to the authorization server's token endpoint to obtain an access
-						token.
-					</t>
-
-
-					<t>Native clients MUST either:</t>
-
-					<t>
-						<list style="symbols">
-							<t>use dynamic client registration to obtain a separate client
-								id for each instance, or
-							</t>
-
-							<t>
-								act as a public client by using a common client id and use
-								<xref target="RFC7636">PKCE</xref> to protect calls to the
-								token endpoint.
-							</t>
-						</list>
-					</t>
-					<t>Native applications using dynamic registration SHOULD generate
-						a unique public and private key pair on the device and register
-						that public key value with the authorization server, or
-						obtain a certificate from a trusted Certificate Authority.
-					</t>
-
-					<t>Public Clients do not authenticate with the Token Endpoint.
-					</t>
-
-				</section>
-
-				<section anchor="DirectClient" title="Direct Access Client">
-				
-					<t>This client type MUST NOT request or be issued a refresh
-						token.
-					</t>
-					
-					<t>This profile applies to clients that connect directly to
-						protected resources and do not act on behalf of a particular
-						resource owner, such as those clients that facilitate bulk
-						transfers.
-					</t>
-
-					<t>These clients use the client credentials flow of OAuth 2.0 by
-						sending a request to the token endpoint with the client's
-						credentials and obtaining an access token in the response. Since
-						this profile does not involve an authenticated user, this flow is
-						appropriate only for trusted applications, such as those that
-						would traditionally use a developer key. For example, a partner
-						system that performs bulk data transfers between two systems
-						would be considered a direct access client.
-					</t>
-				</section> <!-- End of DirectClient section -->
-			</section> <!-- End of ClientTypes section -->
+                        <t hangText="native application:">A native application is a client installed and
+                            executed on the device used by the resource owner.  Protocol data
+                            and credentials are accessible to the resource owner.  It is
+                            assumed that any client authentication credentials included in the
+                            application can be extracted.  Dynamically issued access tokens
+                            and refresh tokens can receive an acceptable level of protection.
+                            On some platforms, these credentials are protected from other
+                            applications residing on the same device. Best current practices for native applications are detailed in 
+							<xref target="RFC8252">OAuth 2.0 for Native Apps</xref>. In this use case, native applications are public clients.
+                        </t>
+                        
+                        <t hangText="browser-based application:">A browser-based application is a client
+                  in which the client code is downloaded from a web server and
+                  executes within a user agent (e.g., web browser) on the device
+                  used by the resource owner.  Protocol data and credentials are
+                  easily accessible (and often visible) to the resource owner.  If
+                  such applications wish to use client credentials, it is
+                  recommended to utilize the backend for frontend pattern.  Since
+                  such applications reside within the user agent, they can make
+                  seamless use of the user agent capabilities when requesting
+                  authorization. This use case is out of scope due to the inherent lack of security provided by browser-based applications. 
+				  However, best current practices are detailed in <xref target="browser-based-apps">OAuth 2.0 for Browser-Based Applications</xref>..</t>
+                        </list>
+                    </t>
+                </section>
 
 
             <section anchor="PoPTokens" title="Sender-constrained Tokens">
@@ -408,7 +325,7 @@
 				presents the token to the protected resource, it is also required to demonstrate possession of the corresponding key.
             		</t>
 
-             	<t>As described in <xref target="SecBCP">OAuth 2.0 Security Best Common Practices</xref>, sender-constrained tokens could
+             	<t>As described in <xref target="BCP240">Best Current Practice for OAuth 2.0 Security</xref>, sender-constrained tokens could
                 prevent a number of attacks on OAuth that entail the misuse of stolen and leaked access tokens by unauthorized parties. 
 				The attacker would need to obtain the legitimate client's cryptographic key along with the access
                 token to gain access to protected resources.
@@ -440,10 +357,9 @@
 				<t>All clients MUST register with the authorization server. For
 					client software that may be installed on multiple client
 					instances,
-					such as native applications or web application software,
+					such as native applications or single page app (SPA),
 					each client	instance MAY receive a unique client identifier from
-					the	authorization server. Clients that share client identifiers are
-					considered public clients. 
+					the	authorization server. 
 				</t>
 				
 				<t>Client registration MAY be completed by either static configuration 
@@ -490,8 +406,6 @@
 						</list>
 					</t>
 
-					<t>Clients SHOULD NOT have multiple redirect URIs on different domains.
-					</t>
 					<t>Clients MUST use a unique redirect URI for each logical authorization server.
 					</t>
 
@@ -499,6 +413,9 @@
 						URIs to other arbitrary or user-provided URIs (a practice known
 						as
 						an "open redirector").</t>
+					<t>Refer to <xref target="BCP240">Best Current Practice for OAuth 2.0 Security</xref> Section 2.4.1
+					for additional guidance for implementation of edge cases.
+					</t>
 				</section>
 			</section>
 
@@ -511,7 +428,7 @@
 					The PKCE code_verifier value MUST contain at least 128 bits of entropy.
 					</t>
 					<t>
-						Full clients and browser-embedded clients making a request to the
+						Clients making a request to the
 						authorization endpoint MUST use an unpredictable value for the
 						state
 						parameter with at least 128 bits of entropy. Clients MUST
@@ -536,8 +453,28 @@
 						values and MUST reject requests with an invalid or missing redirect
 						URI.
 					</t>
-
-					<t>The following is a sample response from a web-based client to
+					
+ 					<t>The client MAY specify a strength of authentication and maximum age to the authorization server that should be met 
+						when issuing an access token for the requesting client by including parameters in the authorization request:</t>
+						<list style="hanging">
+							<t hangText="acr_values"> a space-separated string listing the authentication context class reference values in order of preference.  
+							The protected resource requires one of these values for the authentication event associated with the access token.  As defined
+							in Section 1.2 of <xref target="OpenID.Core">OpenID Connect Core 1.0 </xref>, the authentication context conveys information about how 
+							authentication takes place (e.g., what authentication 
+							method(s) or assurance level to meet).  It is out of scope of this document to determine how an organization semantically maps their 
+							digital identity practices to acr values that identify levels of assurance. 
+							</t>
+							<t hangText="max_age"> a non-negative integer value that indicates the allowable elapsed time in seconds since the last active authentication event 
+							associated with the access token. 
+							</t>
+							</list>
+							
+						<t>Furthermore, if the authorization request is a follow-up to a prior request that did not meet the resource server's initial or subsequent 
+						authentication strength or recency requirements, the client should include the acr_values and/or max_age values sent by the resource server with 
+						the insuffient_user_authentication error code that specify expected strength and recency requirements to be provided to the authentication provider, 
+						such as the OpenID Provider, in a new authentication request.</t>
+						
+					<t>The following is a sample response from a client to
 						the
 						end user's browser for the purpose of redirecting the end
 						user
@@ -555,9 +492,8 @@ Content-Type: text/plain; charset=UTF-8
 Date: Wed, 07 Jan 2015 20:24:15 GMT
 Location: \
   https://idp-p.example.com/authorize?client_id=55f9f559-2496-49d4-b\
-6c3-351a586b7484&nonce=cd567ed4d958042f721a7cdca557c30d&response_typ\
-e=code&scope=openid+email&redirect_uri=https%3A%2F%2Fclient.example.\
-org%2Fcb
+6c3-351a586b7484&response_type=code&scope=openid+email&redirect_uri=\
+https%3A%2F%2Fclient.example.org%2Fcb&acr_values=myACR&max_age=1800\
 Status: 302 Found
 ]]></artwork>
 					</figure>
@@ -596,7 +532,7 @@ Host: idp-p.example.com
 						<xref target="RFC7523">JWT Profile for OAuth 2.0 Client Authentication and Authorization Grants</xref>.
 						If using the mTLS method, the request must be made over a mutually authenticated TLS channel.
 
-						For both methods, the request MUST include the following claims:
+						For both methods, the request MUST include the following parameters:
 					</t>
 
 					<t>
@@ -609,7 +545,7 @@ Host: idp-p.example.com
 								token
 							</t>
 
-							<t hangText="aud">the URL of the authorization server's token
+							<t hangText="aud">the URL of the authorization server's issuer
 								endpoint
 							</t>
 
@@ -633,24 +569,7 @@ Host: idp-p.example.com
 						</list>
 						</t>
 
- 						<t>The client MAY specify a strength of authentication and maximum age to the authorization server that should be met 
-						when issuing an access token for the requesting client by including the following claims:</t>
-						<list style="hanging">
-							<t hangText="acr_values"> a space-separated string listing the authentication context class reference values in order of preference.  
-							The protected resource requires one of these values for the authentication event associated with the access token.  As defined
-							in Section 1.2 of <xref target="OpenID.Core">OpenID Connect Core 1.0 </xref>, the authentication context conveys information about how 
-							authentication takes place (e.g., what authentication 
-							method(s) or assurance level to meet).  It is out of scope of this document to determine how an organization semantically maps their 
-							digital identity practices to acr values that identify levels of assurance. 
-							</t>
-							<t hangText="max_age"> a non-negative integer value that indicates the allowable elapsed time in seconds since the last active authentication event 
-							associated with the access token. 
-							</t>
-							</list>
-						<t>Furthermore, if the authorization request is a follow-up to a prior request that did not meet the client's initial or subsequent authentication 
-						strength or recency requirements, the client should include the insuffient_user_authentication error code, along with acr_values or max_age 
-						values that specify expected strength and recency requirements to be provided to the authentication provider, such as the OpenID Provider, in a new 
-						authentication request.</t>
+
 
 						<t>Additionally, if the client uses <xref target="RFC8705">mTLS</xref> for client authentication or to sender-constrain 
 						tokens, the client MUST include the following claim in the client assertion.
@@ -897,6 +816,25 @@ Mk5qjUWMyn2I4Nu2s-R20aCA-7T5dunr0iWCkLQnVnaXMfA22RlRiU87nl21zappYb1_\
 EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 ]]></artwork>
 					</figure>
+					</section>
+<section anchor="ResponseFromProtectedResource" title="Response From the Protected Resource">
+	<t>If the authentication event associated with the access token does not satisfy the requirements of the resource server for the given request, 
+	the protected resource MUST return a 401 Unauthorized status code along with a WWW-Authenticate header as defined in <xref target="RFC9470">OAuth 
+	2.0 Step Up Authentication Challenge Protocol</xref>. This header MUST include the insufficient_user_authentication error code to indicate that the 
+	presented access token is inadequate. </t>
+	
+	<t>Additionally, the response MUST include the acr_values and/or max_age auth-params to communicate the necessary authentication context 
+	class reference values and the allowable elapsed time since the last active authentication event, respectively. The acr_values parameter 
+	should list the required authentication context class reference values in order of preference, while the max_age parameter should indicate 
+	the maximum permissible time in seconds since the last user authentication.</t> 
+	
+	<t>The mechanisms by which the protected resource determines whether the authentication requirements are met are outside the scope of this profile.</t>
+	<t>Furthermore, if both acr_values and max_age are relevant, they may be included together in the response.</t>
+	
+	<t>The protected resource may also include the scope parameter if additional scopes are required to access the resource, as per Section 3.1 of 
+	<xref target="RFC6750">The OAuth 2.0 Authorization Framework: Bearer Token Usage</xref>.
+	</t>
+		
 				</section>
 		</section> <!-- End of Connections to Protected Resource section -->
 
@@ -916,7 +854,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 
 			<t>The authorization server MUST protect all communications to and
 				from
-				its OAuth endpoints using TLS.
+				its OAuth endpoints using TLS as described in Section 1.4.
 			</t>
 
 
@@ -932,7 +870,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 						<xref target="ClientProfiles"/>. The
 						authorization server MUST limit each registered client
 						(identified
-						by a client ID) to a single grant type only, since a
+						by a client ID) to a single client type only, since a
 						single piece of
 						software will be functioning at runtime in only one
 						of the modes
@@ -947,7 +885,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 				<section title="Client authentication">
 					<t>The authorization server MUST enforce client authentication as
 						described above for the authorization code and client credentials
-						grant types. Public client cannot authenticate to the authorization server.
+						grant types. Public clients cannot authenticate to the authorization server.
 					</t> 
 
 					<t> The authorization server MUST validate all redirect
@@ -1003,10 +941,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 
 							<t hangText="client_name">human-readable name of the client</t>
 
-							<t hangText="acr_values_supported">indicates the authorization server will understand and honor the acr_values and max_age
-   								parameters in incoming authorization requests, and handle insufficient_user_authentication error messages in conformance
-								with <xref target="RFC9470">OAuth 2.0 Step Up Authentication Challenge Protocol</xref>.</t>
-								
+	
 							<t hangText="client_uri">URL of a web page containing further
 								information
 								about the client
@@ -1014,9 +949,13 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                             <t hangText="tls_client_certificate_bound_access_tokens">
                                 REQUIRED. Boolean value indicating server support for mutual-TLS client certificate-bound access tokens.
                                                         </t>
+														
+							<t hangText="acr_values_supported">OPTIONAL. Indicates the client will include the acr_values and max_age
+   								parameters in authorization requests, and send insufficient_user_authentication error messages in conformance
+								with <xref target="RFC9470">OAuth 2.0 Step Up Authentication Challenge Protocol</xref>.</t>
                                                         
                             <t hangText="dpop_signing_alg_values_supported">
-                                REQUIRED. A JSON array containing a list of the JWS alg values supported by the authorization server for DPoP proof JWTs.
+                                REQUIRED. A JSON array containing a list of the JWS alg values supported by the client for DPoP proof JWTs.
                                                         </t>
 
 							<t hangText="jwks_uri or jwks">client's public key in a JWK Set [RFC7517], or
@@ -1039,7 +978,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 					</t>
 				</section>
 
-				<section title="Client Approval">
+				<section anchor="ClientApproval" title="Client Approval">
 					<t>When prompting the end user with an interactive approval page,
 						the authorization server MUST indicate to the user:
 					</t>
@@ -1139,6 +1078,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 							</t>
 						</list>
 					</t>
+						
 					<t>If the TLS method for client authentication is used, exactly one authentication method metadata value MUST be included.  
 						<list style="hanging">
 							<t hangText="tls_client_auth">Indicates that client authentication to the authorization server will occur with mutual TLS 
@@ -1263,10 +1203,16 @@ DNp00J6AbY6w",
 				</section>
 
 				<section title="Revocation">
+ 
 					<t>Token revocation allows a client to signal to an authorization
 						server that a given token will no longer be used.
 					</t>
-
+					<t>Authorization Servers MUST support token revocation as follows.</t>
+					<t>The AS MUST provide a revocation endpoint URL as
+					specified in <xref target="RFC7009">OAuth 2.0 Token Revocation</xref>
+					for end users to view a list of clients that have been granted access to resources on the 
+					user's behalf, and for end users to revoke this access.</t>
+					
 					<t>An authorization server MUST revoke the token if the client
 						requesting the revocation is the client to which the token was
 						issued, the client has permission to revoke tokens, and the token
@@ -1297,29 +1243,24 @@ DNp00J6AbY6w",
 						authorization request using an exact string match.
 					</t>
 				</section>
-				<section title="RefreshTokens">
-					<t>Authorization Servers MAY issue refresh tokens to clients under the 
-						following context:
+				<section title="Refresh Tokens">
+					<t>AS MAY issue refresh tokens to Full (confidential) and Native (public) clients.
 					</t>
-					<t>Clients MUST be registered with the Authorization Server. </t>
-					<t>Clients MUST present a valid client_id. Confidential clients MUST present a signed client_assertion with their associated keypair.</t>
-					<t>Clients using the Direct Credentials method MUST NOT be issued refresh_tokens. 
-						These clients MUST present their client credentials with a new access_token request
-						and the desired scope.
+
+					<t>AS MUST NOT issue refresh tokens to Direct clients (browser-based apps).
 					</t>
 				</section>
 			</section>
 
-			<section title="Connections with protected resources">
-				<t>Unlike the core OAuth protocol, the iGov profile intends to allow
-					compliant protected resources to connect to compliant authorization
-					servers.
+			<section title="Connections between authorization servers and protected resources">
+				<t>This profile defines interoperability requirements between authorization servers and resource servers.
 				</t>
 
-				<section anchor="JWTBearerTokens" title="JWT Bearer Tokens">
-					<t>All iGov-compliant authorization servers issue
+				<section anchor="JWTokens" title="JSON Web Tokens (JWT)">
+					<t>All iGov-compliant authorization servers MUST issue
 						cryptographically signed sender-constrained tokens in the JSON Web Token (JWT)
-						format.
+						format as defined in <xref target="RFC9068">JSON Web Token (JWT) Profile for OAuth 
+						2.0 Access Tokens</xref>.
 						The information carried in the JWT is intended to allow a
 						protected
 						resource to quickly test the integrity of the token
@@ -1341,7 +1282,7 @@ DNp00J6AbY6w",
 								token
 							</t>
 
-							<t hangText="azp">The client id of the client to whom this token
+							<t hangText="client_id">The client id of the client to whom this token
 								was
 								issued
 							</t>
@@ -1384,9 +1325,23 @@ DNp00J6AbY6w",
 								resources at which
 								a token may be used.
 							</t>
+							
+							<t hangText="scope">The value of the scope claim is a JSON string containing a 
+								space-separated list of scopes associated with the token, in the format 
+								described in Section 3.3 of <xref target="RFC6749">The OAuth 2.0 Authorization 
+								Framework</xref>.</t>
+								
+							<t hangText="iat">The "iat" (issued at) claim identifies the time at which the JWT 
+								was issued.  This claim can be used to determine the age of the JWT.  Its value MUST 
+								be a number containing a NumericDate value.
+							</t>
+							
 						</list>
 					</t>
-		                     <t>Additionally, if the client uses <xref target="RFC8705">mTLS</xref> for client authentication or to sender-constrain tokens, the server MUST include the following claim in the access token.
+		                    <t>In order to support backwards compatibility, AS MAY include the azp claim while resource servers 
+							modernize.</t>
+							
+							<t>Additionally, if the client uses <xref target="RFC8705">mTLS</xref> for client authentication or to sender-constrain tokens, the server MUST include the following claim in the access token.
                                              </t>
                                         
                         <list style="hanging">
@@ -1406,10 +1361,13 @@ DNp00J6AbY6w",
 					<figure>
 						<artwork><![CDATA[{
    "exp": 1418702388,
+   "client_id": "55f9f559-2496-49d4-b6c3-351a586b7484",
    "azp": "55f9f559-2496-49d4-b6c3-351a586b7484",
    "iss": "https://idp-p.example.com/",
+   "sub" : "93ff28e3-3982-c34b-f2a4-98bb3d42b277",
    "jti": "2402f87c-b6ce-45c4-95b0-7a3f2904997f",
    "iat": 1418698788,
+   "scope" : "MyResource1 MyResource2",
    "acr": "myACR",
    "auth_time": 16463400198,
    "cnf": {
@@ -1420,7 +1378,6 @@ DNp00J6AbY6w",
 					</figure>
 
 					<t>
-<!-- Need to look at RFC8725 and FAPI 2 Security 5.4 Cryptography new section? -->
 						The access tokens MUST be signed with
 						<xref target="RFC7515">JWS</xref>
 						. If private_key_jwt is used, the authorization server MUST support
@@ -1482,7 +1439,7 @@ pXDaLyyY-4HT9XHT9V73fKF8rLWJu9grrA
 						the protected
 						resource. Encrypted refresh tokens MUST be encrypted
 						using the
-						authorization server's public key.
+						authorization server's public key. 
 					</t>
 				</section>
 
@@ -1600,13 +1557,16 @@ Connection: close
 					</figure>
 
 					<t>
-						The authorization server MUST require authentication for both the
-						revocation and introspection endpoints as described in
+						The authorization server MUST require authentication of resource servers
+						for both the
+						revocation and introspection endpoints, using either private_key_jwt or Mutual-TLS
+						methods as described for clients in
 						<xref target="RequestsToTokenEndpoint"/>. Protected resources calling the
 						introspection endpoint MUST use
 						credentials distinct from any other
 						OAuth client registered at the
-						server.
+						server. Authorization servers MUST NOT allow authorization clients to 
+						use token introspection endpoints.
 					</t>
 
 					<t>A protected resource MAY cache the response from the
@@ -1623,9 +1583,9 @@ Connection: close
 
 			<section title="Response to Authorization Requests">
 				<t> The following data will be sent as an Authorization Response to
-					the Authorization Code Flow as described above. The authentication
+					the Authorization Code Flow as described <xref target="ClientProfiles" />. The authentication
 					response is sent via HTTP redirect to the redirect URI specified in
-					the request.</t>
+					the request, consistent with <xref target="RFC6749">The OAuth 2.0 Authorization Framework</xref>.</t>
 
 				<t>
 					The following fields MUST be included in the response:
@@ -1659,11 +1619,6 @@ https://https://client.example.org/cb?
 					than twenty-four hours. Specific applications MAY issue tokens with different lifetimes. 
 					Any active token MAY be revoked at any time.
 				</t>
-				
-				<t>In addition to the lifetime of the token, protected resources may specify a maximum age of the
-				authentication events that led to access tokens they receive by including the max_age claim
-				in authorization requests and examining the auth_time claim value in access tokens. 
-				</t> 
 
 			</section>
 
@@ -1699,12 +1654,18 @@ https://https://client.example.org/cb?
 					use by
 					dynamically registered systems or public clients.
 				</t>
+				
+				<t>Refer to <xref target="ClientApproval"/> for further information about
+				displaying scopes to end users.
+				</t>
 			</section>
 			
 		</section>
 
 		<section title="Protected Resource Profile">
 			<section anchor="ProtectingResources" title="Protecting Resources">
+			
+			<section anchor="TrustLevels" title="Trust Levels and Scopes">
 				<t>Protected Resources grant access to clients if they present a valid sender-constrained
 					<spanx style="verb">access_token</spanx> with the appropriate 
 					<spanx style="verb">scope</spanx>. Resource servers trust the 
@@ -1712,27 +1673,31 @@ https://https://client.example.org/cb?
 					for the importance, risk, and value level of the protected 
 					resource scope.
 				</t>
-				<t> Protected resources that require a higher end-user authentication trust
-				    level to access certain resources MUST associate those resources with a 
-				    unique scope.   
+
+
+				<t> If a protected resources requires a higher end-user authentication trust
+				    level to access certain resources, the protected resource MUST associate those resources with a 
+				    unique scope and MUST associate acceptable acr values for each scope as descibed in
+					<xref target="RFC9470">OAuth 2.0 Step Up Authentication Challenge Protocol"</xref>.
+					Protected Resources may also specify a max_age for each scope.
 				</t>
+				
 				<t>
 					Clients wishing access to these higher level resources MUST include the
-					higher level scope in their authorization request to the authorization server.  
+					higher level scope and acr_values in their authorization request to the authorization server.  
 				</t>
-				<t> Authorization servers MUST authenticate the end-user with the appropriate
-					trust level before providing an <spanx style="verb">authorization_code</spanx>
-					or associated <spanx style="verb">access_token</spanx> to the client.
-				</t>
+
 				<t> Authorization servers MUST only grant access to higher level scope resources to 
-					clients that have permission to request these scope levels. Client authorization 
+					clients that have permission to request these scope levels and have met . Client authorization 
 					requests containing 
 					scopes that are outside their permission MUST be rejected.
 				</t>
+		
 				<t>Authorization servers MAY set the expiry time (<spanx style="verb">exp</spanx>)
 				   of access_tokens associated with higher level resources to be shorter than 
 				   access_tokens for less sensitive resources. 
 				</t>
+				
 				<t>Authorization servers MAY allow a <spanx style="verb">refresh_token</spanx>
 				 issued at a higher level to be
 					used to obtain an access_token for a lower level resource scope with an 
@@ -1741,22 +1706,36 @@ https://https://client.example.org/cb?
 					continue accessing lower level resources after the higher level resource access
 					has expired -- without requiring an additional user authentication/authorization.
 				</t>
-				<t>For example: a resource server has resources classified as "public" and "sensitive".
-					"Sensitive" resources require the user to perform a two-factor authentication, 
-					and those access grants are short-lived: 15 minutes. 
+			</section>
+
+			<section anchor="TrustExample" title="Trust Levels Example">	
+				<t>For example: a resource server has resources classified as "public" and "sensitive" and assocaites
+					scopes of the same name with those resources.
+					Access to resources with scope "sensitive" requires the user to perform a two-factor authentication 
+					and limits those access grants to only 15 minutes. 
+					The resource server associates scope "sensitive" with acr="MFA".
+					</t>
+					<t>
 					For a client to obtain access to both "public" and "sensitive" resources, 
 					it makes an authorization request to the authorization server with 
-					<spanx style="verb">scope=public+sensitive</spanx>. The authorization
+					<spanx style="verb">scope=public+sensitive</spanx>, acr_values="MFA", and 
+					max_age=900. The authorization
 					server authenticates the end-user as required to meet the required trust level
 					(two-factor authentication or some approved equivalent) and issues an 
 					<spanx style="verb">access_token</spanx> for the "public" and "sensitive" scopes
 					with an expiry time of 15mins, and a <spanx style="verb">refresh_token</spanx>
-					for the "public" scope with an expiry time of 24 hrs. The client can access both 
+					for the "public" scope with an expiry time of 24 hrs. 
+					</t>
+					<t>
+					The client can access both 
 					"public" and "sensitive" resources for 15mins with the access_token. When the 
 					access_token expires, the client will NOT be able to access "public" or "sensitive"
 					resources any longer as the access_token has expired, and must obtain a 
-					new access_token. The client makes a 
-					access grant request (as described in <xref target="RFC6749">OAuth 2.0</xref> 
+					new access_token. 
+					</t>
+					<t>
+					The client makes a 
+					refresh token request (as described in <xref target="RFC6749">OAuth 2.0</xref> 
 					section 6) with the refresh_token, 
 					and the reduced scope of just "public". The token endpoint validates the refresh_token,
 					and issues a new access_token for just the "public" scope with an expiry time set to 24hrs.
@@ -1767,6 +1746,7 @@ https://https://client.example.org/cb?
 				<t> In this manner, protected resources and authorization servers work together to meet
 					risk tolerance levels for sensitive resources and end-user authentication.
 				</t>
+				</section>
 
 			</section>
 			<section title="Connections with Clients">
@@ -1781,7 +1761,7 @@ https://https://client.example.org/cb?
 				</t>
 
 				<t>Protected resources MUST define and document which scopes are
-					required for access to the resource.
+					required for access to the resource and any authentication strength or recency requirements for each scope.
 				</t>
 
 				<t> If a client uses the <xref target="RFC8705">mTLS</xref> method to sender-constrain tokens, the protected resource 
@@ -1825,24 +1805,26 @@ https://https://client.example.org/cb?
 			</section>
 		</section>
 
-
-
-
-
-
 		<section title="Security Considerations">
 		
 				<!--  Need to add data from John's RFC regarding registration security -->
 			<section title="DNSSEC Considerations">
-                <t> For a comprehensive protection against network attackers, all endpoints should additionally use DNSSEC to protect 
+                <t>For a comprehensive protection against network attackers, all endpoints should additionally use DNSSEC to protect 
 				 against DNS spoofing attacks that can lead to the issuance of rogue domain-validated TLS certificates.
             	</t>
-
+			</section>
+			
+			<section title="Protected Resource Metadata">
+				<t><xref target="Resource.Metadata">OAuth 2.0 Protected Resource Metadata</xref>defines a metadata format that an 
+				OAuth 2.0 client or authorization server can use to obtain the information needed to interact with an OAuth 2.0 protected resource,
+				which may facilitate enhanced interoperability and security, including advertisement and discovery of a protected resource's public key
+				via its jwks_uri.
+				</t>
 			</section>
 			
 			<section title="Best Practices">
 				<t>Authorization servers, clients, and protected resources SHOULD consider internet best practices from 
-					<xref target="SecBCP">OAuth 2.0 Security Best Current Practice</xref>, 
+					<xref target="BCP240">Best Current Practice for OAuth 2.0 Security</xref>, 
 					<xref target="RFC8725">JSON Web Token Best Current Practices</xref> and
 					<xref target="RFC9068">JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens</xref> that are not
 					explicitly REQUIRED or RECOMMENDED in this profile.
@@ -1897,6 +1879,8 @@ https://https://client.example.org/cb?
 
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6973"/>  
 
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7009"/>
+	  
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7515"/>
 
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7516"/>
@@ -1911,8 +1895,6 @@ https://https://client.example.org/cb?
 
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7636"/>
 
-      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7009"/>
-
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7662"/>
 
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7518"/>
@@ -1920,6 +1902,8 @@ https://https://client.example.org/cb?
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7800"/>
 
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8414"/>
+	  
+	  <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8252"/>
 
 	  <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8705"/>
 	  
@@ -1931,7 +1915,7 @@ https://https://client.example.org/cb?
 	  
 	  <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9470"/>
 	  
-			<reference anchor="BCP195" target="http://www.rfc-editor.org/info/bcp195">
+	  <reference anchor="BCP195" target="http://www.rfc-editor.org/info/bcp195">
 				<front>
 					<title>Recommendations for Secure Use of Transport Layer Security
 						(TLS) and Datagram Transport Layer Security (DTLS)</title>
@@ -1969,8 +1953,48 @@ https://https://client.example.org/cb?
 				<seriesInfo name="BCP" value="195"/>
 
 				<seriesInfo name="RFC" value="7525"/>
-
+				
 				<seriesInfo name="DOI" value="10.17487/RFC7525"/>
+
+				<format octets="60283" type="ASCII"/>
+			</reference>
+
+	  <reference anchor="BCP240" target="http://www.rfc-editor.org/info/bcp240">
+				<front>
+					<title>Best Current Practice for OAuth 2.0 Security</title>
+
+					<author fullname="Torsten Lodderstedt" initials="T." surname="Lodderstedt">
+											<organization/>
+					</author>
+					<author fullname="John Bradley" initials="J." surname="Bradley">
+											<organization/>
+					</author>
+					<author fullname="Andrey Labunets" initials="A." surname="Labunets">
+											<organization/>
+					</author>
+					<author fullname="Daniel Fett" initials="D." surname="Fett">
+											<organization/>
+					</author>
+
+					<date month="January" year="2025"/>
+
+					<abstract>
+						<t>   This document describes best current security practice for OAuth 2.0.
+							   It updates and extends the threat model and security advice given in
+							   RFCs 6749, 6750, and 6819 to incorporate practical experiences
+							   gathered since OAuth 2.0 was published and covers new threats
+							   relevant due to the broader application of OAuth 2.0.  Further, it
+							   deprecates some modes of operation that are deemed less secure or
+							   even insecure.
+						</t>
+					</abstract>
+				</front>
+
+				<seriesInfo name="BCP" value="240"/>
+
+				<seriesInfo name="RFC" value="9700"/>
+				
+				<seriesInfo name="DOI" value="10.17487/RFC9700"/>
 
 				<format octets="60283" type="ASCII"/>
 			</reference>
@@ -2069,17 +2093,16 @@ https://https://client.example.org/cb?
 				</front>
 			</reference>
 
-			<reference anchor="SecBCP" target="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics">
+			<reference anchor="Resource.Metadata" target="https://datatracker.ietf.org/doc/draft-ietf-oauth-resource-metadata/">
 				<front>
-					<title>OAuth 2.0 Security Best Current Practice</title>
-					<author fullname="Torsten Lodderstedt" initials="T." surname="Lodderstedt"/>
-					<author fullname="John Bradley" initials="J." surname="Bradley"/>
-					<author fullname="Andrey Labunets" initials="A." surname="Labunets"/>
-					<author fullname="Daniel Fett" initials="D." surname="Fett"/>
-					<date day="5" month="December" year="2024"/>
+					<title>OAuth 2.0 Protected Resource Metadata</title>
+					<author fullname="Mike Jones" initials="M." surname="Jones"/>
+					<author fullname="Phil Hunt" initials="P." surname="Hunt"/>
+					<author fullname="Aaron Parecki" initials="A." surname="Parecki"/>
+					<date day="15" month="October" year="2024"/>
 				</front>
 			</reference>
-
+			
 			<reference anchor="SAM" target="https://danielfett.de/2020/05/16/pkce-vs-nonce-equivalent-or-not/">
 				<front>
 					<title>PKCE vs. Nonce: Equivalent or Not?</title>
@@ -2087,6 +2110,17 @@ https://https://client.example.org/cb?
 					<date day="16" month="May" year="2020"/>
 				</front>
 			</reference>
+
+			<reference anchor="browser-based-apps" target="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps">
+                <front>
+                    <title>OAuth 2.0 for Browser-Based Applications</title>
+                    <author fullname="Aaron Parecki" initials="A." surname="Parecki"/>
+                    <author fullname="David Waite" initials="D." surname="Waite"/>
+                    <author fullname="Philippe De Ryck" initials="P." surname="De Ryck"/>
+                    <date day="17" month="January" year="2025"/>
+                </front>
+            </reference>
+
 
 		</references>
 
@@ -2096,7 +2130,7 @@ https://https://client.example.org/cb?
 				Pulvermacher, David Hill, Dale Moberg, Adrian Gropper, Eve Maler,
 				Danny van Leeuwen, John Moehrke, Aaron Seib, John Bradley, Debbie
 				Bucci, Josh Mandel, Sarah Cecchetti, Giuseppe De Marco, Joseph Heenan, 
-				Jim Fenton, Ryan Galluzzo, Bjorn Hjelm, and Michael B. Jones.
+				Jim Fenton, Ryan Galluzzo, Bjorn Hjelm, Aaron Parecki, and Michael B. Jones.
 			</t>
 			<t> Special thank you to the original iGov Profile editors: Paul Grassi, Justin Richer,
 			    and Michael Varley.
