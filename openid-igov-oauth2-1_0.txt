@@ -5,12 +5,12 @@
 OpenID iGov Working Group                                 K. Burgin, Ed.
                                                           T. Clancy, Ed.
                                                                    MITRE
-                                                         30 January 2025
+                                                        28 February 2025
 
 
 International Government Assurance Profile (iGov) for OAuth 2.0 - draft
-                                   05
-                         openid-igov-oauth2-1_0
+                                   06
+                        openid-igov-oauth2-1_06
 
 Abstract
 
@@ -32,60 +32,63 @@ Table of Contents
      1.4.  Global Requirements . . . . . . . . . . . . . . . . . . .   4
    2.  Client Profiles . . . . . . . . . . . . . . . . . . . . . . .   5
      2.1.  Client Types  . . . . . . . . . . . . . . . . . . . . . .   5
-       2.1.1.  Full Client with User Delegation  . . . . . . . . . .   5
-       2.1.2.  Native Client with User Delegation  . . . . . . . . .   6
-       2.1.3.  Direct Access Client  . . . . . . . . . . . . . . . .   7
-     2.2.  Sender-constrained Tokens . . . . . . . . . . . . . . . .   7
-     2.3.  Authentication Context and Step-Up Authentication Challenge
-           Protocol Support  . . . . . . . . . . . . . . . . . . . .   7
-     2.4.  Client Registration . . . . . . . . . . . . . . . . . . .   8
-       2.4.1.  Redirect URI  . . . . . . . . . . . . . . . . . . . .   9
-     2.5.  Connection to the Authorization Server  . . . . . . . . .   9
-       2.5.1.  Requests to the Authorization Endpoint  . . . . . . .   9
-       2.5.2.  Requests to the Token Endpoint  . . . . . . . . . . .  10
-       2.5.3.  Client Keys . . . . . . . . . . . . . . . . . . . . .  14
-     2.6.  Connection to the Protected Resource  . . . . . . . . . .  15
-       2.6.1.  Requests to the Protected Resource  . . . . . . . . .  15
-   3.  Authorization Server Profile  . . . . . . . . . . . . . . . .  16
-     3.1.  Connections with clients  . . . . . . . . . . . . . . . .  16
+     2.2.  Client Type Use Cases . . . . . . . . . . . . . . . . . .   5
+     2.3.  Sender-constrained Tokens . . . . . . . . . . . . . . . .   6
+     2.4.  Authentication Context and Step-Up Authentication Challenge
+           Protocol Support  . . . . . . . . . . . . . . . . . . . .   6
+     2.5.  Client Registration . . . . . . . . . . . . . . . . . . .   7
+       2.5.1.  Redirect URI  . . . . . . . . . . . . . . . . . . . .   8
+     2.6.  Connection to the Authorization Server  . . . . . . . . .   8
+       2.6.1.  Requests to the Authorization Endpoint  . . . . . . .   8
+       2.6.2.  Requests to the Token Endpoint  . . . . . . . . . . .  10
+       2.6.3.  Client Keys . . . . . . . . . . . . . . . . . . . . .  13
+     2.7.  Connection to the Protected Resource  . . . . . . . . . .  14
+       2.7.1.  Requests to the Protected Resource  . . . . . . . . .  14
+       2.7.2.  Response From the Protected Resource  . . . . . . . .  15
+   3.  Authorization Server Profile  . . . . . . . . . . . . . . . .  15
+     3.1.  Connections with clients  . . . . . . . . . . . . . . . .  15
        3.1.1.  Grant types . . . . . . . . . . . . . . . . . . . . .  16
        3.1.2.  Client authentication . . . . . . . . . . . . . . . .  16
+       3.1.3.  Dynamic Registration  . . . . . . . . . . . . . . . .  16
 
 
 
 Burgin & Clancy              Standards Track                    [Page 1]
 
-                             iGov OAuth 2.0                 January 2025
+                             iGov OAuth 2.0                February 2025
 
 
-       3.1.3.  Dynamic Registration  . . . . . . . . . . . . . . . .  16
        3.1.4.  Client Approval . . . . . . . . . . . . . . . . . . .  18
        3.1.5.  Sender-constrained Tokens . . . . . . . . . . . . . .  18
-       3.1.6.  Discovery . . . . . . . . . . . . . . . . . . . . . .  19
-       3.1.7.  Revocation  . . . . . . . . . . . . . . . . . . . . .  22
-       3.1.8.  PKCE  . . . . . . . . . . . . . . . . . . . . . . . .  23
-       3.1.9.  Redirect URIs . . . . . . . . . . . . . . . . . . . .  23
-       3.1.10. RefreshTokens . . . . . . . . . . . . . . . . . . . .  23
-     3.2.  Connections with protected resources  . . . . . . . . . .  23
-       3.2.1.  JWT Bearer Tokens . . . . . . . . . . . . . . . . . .  23
-       3.2.2.  Introspection . . . . . . . . . . . . . . . . . . . .  26
+       3.1.6.  Discovery . . . . . . . . . . . . . . . . . . . . . .  18
+       3.1.7.  Revocation  . . . . . . . . . . . . . . . . . . . . .  21
+       3.1.8.  PKCE  . . . . . . . . . . . . . . . . . . . . . . . .  22
+       3.1.9.  Redirect URIs . . . . . . . . . . . . . . . . . . . .  22
+       3.1.10. Refresh Tokens  . . . . . . . . . . . . . . . . . . .  22
+     3.2.  Connections between authorization servers and protected
+           resources . . . . . . . . . . . . . . . . . . . . . . . .  22
+       3.2.1.  JSON Web Tokens (JWT) . . . . . . . . . . . . . . . .  23
+       3.2.2.  Introspection . . . . . . . . . . . . . . . . . . . .  25
      3.3.  Response to Authorization Requests  . . . . . . . . . . .  28
      3.4.  Token Lifetimes . . . . . . . . . . . . . . . . . . . . .  28
      3.5.  Scopes  . . . . . . . . . . . . . . . . . . . . . . . . .  28
    4.  Protected Resource Profile  . . . . . . . . . . . . . . . . .  29
      4.1.  Protecting Resources  . . . . . . . . . . . . . . . . . .  29
-     4.2.  Connections with Clients  . . . . . . . . . . . . . . . .  30
+       4.1.1.  Trust Levels and Scopes . . . . . . . . . . . . . . .  29
+       4.1.2.  Trust Levels Example  . . . . . . . . . . . . . . . .  30
+     4.2.  Connections with Clients  . . . . . . . . . . . . . . . .  31
      4.3.  Connections with Authorization Servers  . . . . . . . . .  31
    5.  Security Considerations . . . . . . . . . . . . . . . . . . .  31
      5.1.  DNSSEC Considerations . . . . . . . . . . . . . . . . . .  31
-     5.2.  Best Practices  . . . . . . . . . . . . . . . . . . . . .  31
-     5.3.  Other Considerations  . . . . . . . . . . . . . . . . . .  31
-   6.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  32
-   7.  Normative References  . . . . . . . . . . . . . . . . . . . .  32
-   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  36
-   Appendix B.  Notices  . . . . . . . . . . . . . . . . . . . . . .  36
-   Appendix C.  Document History . . . . . . . . . . . . . . . . . .  37
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  38
+     5.2.  Protected Resource Metadata . . . . . . . . . . . . . . .  32
+     5.3.  Best Practices  . . . . . . . . . . . . . . . . . . . . .  32
+     5.4.  Other Considerations  . . . . . . . . . . . . . . . . . .  32
+   6.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  33
+   7.  Normative References  . . . . . . . . . . . . . . . . . . . .  33
+   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  37
+   Appendix B.  Notices  . . . . . . . . . . . . . . . . . . . . . .  37
+   Appendix C.  Document History . . . . . . . . . . . . . . . . . .  38
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  39
 
 1.  Introduction
 
@@ -102,17 +105,17 @@ Burgin & Clancy              Standards Track                    [Page 1]
        a wide range of government use cases, while maintaining
        reasonable ease of implementation and functionality
 
-   2.  Identify optional, advanced security controls for sensitive use
-       cases where increased risk justifies more stringent controls.
-
 
 
 
 
 Burgin & Clancy              Standards Track                    [Page 2]
 
-                             iGov OAuth 2.0                 January 2025
+                             iGov OAuth 2.0                February 2025
 
+
+   2.  Identify optional, advanced security controls for sensitive use
+       cases where increased risk justifies more stringent controls.
 
    This OAuth profile is intended to be shared broadly, and has been
    greatly influenced by the HEART OAuth2 Profile [HEART.OAuth2].
@@ -162,12 +165,9 @@ Burgin & Clancy              Standards Track                    [Page 2]
 
 
 
-
-
-
 Burgin & Clancy              Standards Track                    [Page 3]
 
-                             iGov OAuth 2.0                 January 2025
+                             iGov OAuth 2.0                February 2025
 
 
    When an iGov-compliant component is interacting with other iGov-
@@ -223,7 +223,7 @@ Burgin & Clancy              Standards Track                    [Page 3]
 
 Burgin & Clancy              Standards Track                    [Page 4]
 
-                             iGov OAuth 2.0                 January 2025
+                             iGov OAuth 2.0                February 2025
 
 
    For the authorization_endpoint, the authorization server MAY allow
@@ -248,114 +248,62 @@ Burgin & Clancy              Standards Track                    [Page 4]
 
 2.1.  Client Types
 
-   The following profile descriptions give patterns of deployment for
-   use in different types of client applications based on the OAuth
-   grant type.  Additional grant types, such as assertions, chained
-   tokens, or other mechanisms, are out of scope of this profile and
-   must be covered separately by appropriate profile documents.
+   OAuth defines two client types, based on their ability to
+   authenticate securely with the authorization server
 
-2.1.1.  Full Client with User Delegation
+   confidential clients:  Clients that have credentials with the
+      authorization server.
 
-   This client type applies to clients that act on behalf of a
-   particular resource owner and require delegation of that user's
-   authority to access the protected resource.  Furthermore, these
-   clients are capable of interacting with a separate web browser
-   application to facilitate the resource owner's interaction with the
-   authentication endpoint of the authorization server.
+   public clients:  Clients without credentials.
 
-   These clients MUST use the authorization code flow of OAuth 2.0 by
-   sending the resource owner to the authorization endpoint to obtain
-   authorization.  The user MUST authenticate to the authorization
-   endpoint using either private_key_jwt or mTLS [RFC8705]
-   authentication.  The user's web browser is then redirected back to a
-   URI hosted by the client service, from which the client can obtain an
-   authorization code passed as a query parameter.  The client then
-   presents that authorization code along with its own credentials
-   (private_key_jwt or mTLS) to the authorization server's token
-   endpoint to obtain an access token.  A non-person entity PKI SHOULD
-   be used rather than a self-signed TLS client certificate if
+2.2.  Client Type Use Cases
+
+   This specification has been designed around the following client use
+   cases:
+
+   web application:  A web application is a client running on a web
+      server.  Resource owners access the client via an HTML user
+      interface rendered in a user agent on the device used by the
+      resource owner.  The client credentials as well as any access
+      tokens issued to the client are stored on the web server and are
+      not exposed to or accessible by the resource owner.  In this use
+      case, web applications are confidential clients.
+
+   native application:  A native application is a client installed and
+      executed on the device used by the resource owner.  Protocol data
+      and credentials are accessible to the resource owner.  It is
+      assumed that any client authentication credentials included in the
+      application can be extracted.  Dynamically issued access tokens
 
 
 
 Burgin & Clancy              Standards Track                    [Page 5]
 
-                             iGov OAuth 2.0                 January 2025
+                             iGov OAuth 2.0                February 2025
 
 
-   available.  The PKI method provides security value by allowing the
-   authorization server to rely upon externally validated client entity
-   identifiers and attributes, and simplifies lifecycle management,
-   including key rotation.
+      and refresh tokens can receive an acceptable level of protection.
+      On some platforms, these credentials are protected from other
+      applications residing on the same device.  Best current practices
+      for native applications are detailed in OAuth 2.0 for Native Apps
+      [RFC8252].  In this use case, native applications are public
+      clients.
 
-   These clients MUST be associated with a unique public key, as
-   described in Section 2.4 .
+   browser-based application:  A browser-based application is a client
+      in which the client code is downloaded from a web server and
+      executes within a user agent (e.g., web browser) on the device
+      used by the resource owner.  Protocol data and credentials are
+      easily accessible (and often visible) to the resource owner.  If
+      such applications wish to use client credentials, it is
+      recommended to utilize the backend for frontend pattern.  Since
+      such applications reside within the user agent, they can make
+      seamless use of the user agent capabilities when requesting
+      authorization.  This use case is out of scope due to the inherent
+      lack of security provided by browser-based applications.  However,
+      best current practices are detailed in OAuth 2.0 for Browser-Based
+      Applications [browser-based-apps]..
 
-   This client type MAY request and be issued a refresh token if the
-   security parameters of the access request allow for it.
-
-2.1.2.  Native Client with User Delegation
-
-   This client type applies to clients that act on behalf of a
-   particular resource owner, such as an app on a mobile platform, and
-   require delegation of that user's authority to access the protected
-   resource.  Furthermore, these clients are capable of interacting with
-   a separate web browser application to facilitate the resource owner's
-   interaction with the authentication endpoint of the authorization
-   server.  In particular, this client type runs natively on the
-   resource owner's device, often leading to many identical instances of
-   a piece of software operating in different environments and running
-   simultaneously for different end users.
-
-   These clients MUST use the authorization code flow of OAuth 2.0 by
-   sending the resource owner to the authorization endpoint to obtain
-   authorization.  The user MUST authenticate to the authorization
-   endpoint.  The user is then redirected back to a URI hosted by the
-   client, from which the client can obtain an authorization code passed
-   as a query parameter.  The client then presents that authorization
-   code along to the authorization server's token endpoint to obtain an
-   access token.
-
-   Native clients MUST either:
-
-   *  use dynamic client registration to obtain a separate client id for
-      each instance, or
-
-   *  act as a public client by using a common client id and use PKCE
-      [RFC7636] to protect calls to the token endpoint.
-
-   Native applications using dynamic registration SHOULD generate a
-   unique public and private key pair on the device and register that
-   public key value with the authorization server, or obtain a
-   certificate from a trusted Certificate Authority.
-
-   Public Clients do not authenticate with the Token Endpoint.
-
-
-
-
-Burgin & Clancy              Standards Track                    [Page 6]
-
-                             iGov OAuth 2.0                 January 2025
-
-
-2.1.3.  Direct Access Client
-
-   This client type MUST NOT request or be issued a refresh token.
-
-   This profile applies to clients that connect directly to protected
-   resources and do not act on behalf of a particular resource owner,
-   such as those clients that facilitate bulk transfers.
-
-   These clients use the client credentials flow of OAuth 2.0 by sending
-   a request to the token endpoint with the client's credentials and
-   obtaining an access token in the response.  Since this profile does
-   not involve an authenticated user, this flow is appropriate only for
-   trusted applications, such as those that would traditionally use a
-   developer key.  For example, a partner system that performs bulk data
-   transfers between two systems would be considered a direct access
-   client.
-
-2.2.  Sender-constrained Tokens
+2.3.  Sender-constrained Tokens
 
    While a bearer token can be used by anyone in possession of the
    token, a sender-constrained token is bound to a particular symmetric
@@ -365,9 +313,9 @@ Burgin & Clancy              Standards Track                    [Page 6]
    protected resource, it is also required to demonstrate possession of
    the corresponding key.
 
-   As described in OAuth 2.0 Security Best Common Practices [SecBCP],
-   sender-constrained tokens could prevent a number of attacks on OAuth
-   that entail the misuse of stolen and leaked access tokens by
+   As described in Best Current Practice for OAuth 2.0 Security
+   [BCP240], sender-constrained tokens could prevent a number of attacks
+   on OAuth that entail the misuse of stolen and leaked access tokens by
    unauthorized parties.  The attacker would need to obtain the
    legitimate client's cryptographic key along with the access token to
    gain access to protected resources.
@@ -375,7 +323,7 @@ Burgin & Clancy              Standards Track                    [Page 6]
    All clients MUST use proof of possession to sender-constrain access
    tokens using either mTLS [RFC8705] or DPoP [RFC9449].
 
-2.3.  Authentication Context and Step-Up Authentication Challenge
+2.4.  Authentication Context and Step-Up Authentication Challenge
       Protocol Support
 
    OAuth 2.0 clients and Authorization Servers MUST support the
@@ -383,16 +331,15 @@ Burgin & Clancy              Standards Track                    [Page 6]
    Protocol" [RFC9470] to communicate authentication context and
    implement interoperable step up authentication.
 
+
+
+Burgin & Clancy              Standards Track                    [Page 6]
+
+                             iGov OAuth 2.0                February 2025
+
+
    Protected resources MAY use authentication context or step up
    authentication to implement access controls.
-
-
-
-
-Burgin & Clancy              Standards Track                    [Page 7]
-
-                             iGov OAuth 2.0                 January 2025
-
 
    This profile acknowledges government use cases will likely operate
    within an ecosystem of authentication methods of highly variable
@@ -418,13 +365,12 @@ Burgin & Clancy              Standards Track                    [Page 7]
    the identity authentication layer for iGov OAuth 2.0 delegated access
    use cases.
 
-2.4.  Client Registration
+2.5.  Client Registration
 
    All clients MUST register with the authorization server.  For client
    software that may be installed on multiple client instances, such as
-   native applications or web application software, each client instance
+   native applications or single page app (SPA), each client instance
    MAY receive a unique client identifier from the authorization server.
-   Clients that share client identifiers are considered public clients.
 
    Client registration MAY be completed by either static configuration
    (out-of-band, through an administrator, etc...) or dynamically.
@@ -438,19 +384,22 @@ Burgin & Clancy              Standards Track                    [Page 7]
    client MUST include the dpop_bound_access_tokens parameter in its
    registration metadata.
 
+
+
+
+
+
+Burgin & Clancy              Standards Track                    [Page 7]
+
+                             iGov OAuth 2.0                February 2025
+
+
    Clients using mTLS for client authentication or to sender-constrain
    tokens MUST register their TLS certificate's subject DN with the
    authorization server.  Clients using self-signed certificate option
    are not guaranteed uniqueness of their certificate fingerprint.
 
-
-
-Burgin & Clancy              Standards Track                    [Page 8]
-
-                             iGov OAuth 2.0                 January 2025
-
-
-2.4.1.  Redirect URI
+2.5.1.  Redirect URI
 
    Clients using the authorization code grant type MUST register their
    full redirect URIs.  The Authorization Server MUST validate the
@@ -468,8 +417,6 @@ Burgin & Clancy              Standards Track                    [Page 8]
 
    *  Hosted on the local domain of the client (e.g., http://localhost/)
 
-   Clients SHOULD NOT have multiple redirect URIs on different domains.
-
    Clients MUST use a unique redirect URI for each logical authorization
    server.
 
@@ -477,9 +424,13 @@ Burgin & Clancy              Standards Track                    [Page 8]
    other arbitrary or user-provided URIs (a practice known as an "open
    redirector").
 
-2.5.  Connection to the Authorization Server
+   Refer to Best Current Practice for OAuth 2.0 Security [BCP240]
+   Section 2.4.1 for additional guidance for implementation of edge
+   cases.
 
-2.5.1.  Requests to the Authorization Endpoint
+2.6.  Connection to the Authorization Server
+
+2.6.1.  Requests to the Authorization Endpoint
 
    All clients MUST use the PKCE S256 code challenge method as described
    in Proof Key for Code Exchange by OAuth Public Clients [RFC7636] and
@@ -487,24 +438,21 @@ Burgin & Clancy              Standards Track                    [Page 8]
    set to "S256", in the authorization request.  The PKCE code_verifier
    value MUST contain at least 128 bits of entropy.
 
-   Full clients and browser-embedded clients making a request to the
-   authorization endpoint MUST use an unpredictable value for the state
-   parameter with at least 128 bits of entropy.  Clients MUST validate
-   the value of the state parameter upon return to the redirect URI and
-   MUST ensure that the state value is securely tied to the user's
-   current session (e.g., by relating the state value to a session
-   identifier issued by the client software to the browser).
+   Clients making a request to the authorization endpoint MUST use an
+   unpredictable value for the state parameter with at least 128 bits of
+   entropy.  Clients MUST validate the value of the state parameter upon
+   return to the redirect URI and MUST ensure that the state value is
 
 
 
-
-
-
-
-Burgin & Clancy              Standards Track                    [Page 9]
+Burgin & Clancy              Standards Track                    [Page 8]
 
-                             iGov OAuth 2.0                 January 2025
+                             iGov OAuth 2.0                February 2025
 
+
+   securely tied to the user's current session (e.g., by relating the
+   state value to a session identifier issued by the client software to
+   the browser).
 
    Clients MUST include their full redirect URI in the authorization
    request.  To prevent open redirection and other injection attacks,
@@ -512,80 +460,10 @@ Burgin & Clancy              Standards Track                    [Page 9]
    direct string comparison against registered values and MUST reject
    requests with an invalid or missing redirect URI.
 
-   The following is a sample response from a web-based client to the end
-   user's browser for the purpose of redirecting the end user to the
-   authorization server's authorization endpoint:
-
-   NOTE: '\' line wrapping per RFC 8792
-
-   HTTP/1.2 302 Found
-   Cache-Control: no-cache
-   Connection: close
-   Content-Type: text/plain; charset=UTF-8
-   Date: Wed, 07 Jan 2015 20:24:15 GMT
-   Location: \
-     https://idp-p.example.com/authorize?client_id=55f9f559-2496-49d4-b\
-   6c3-351a586b7484&nonce=cd567ed4d958042f721a7cdca557c30d&response_typ\
-   e=code&scope=openid+email&redirect_uri=https%3A%2F%2Fclient.example.\
-   org%2Fcb
-   Status: 302 Found
-
-   This causes the browser to send the following (non-normative) request
-   to the authorization endpoint (inline wraps for display purposes
-   only):
-
-   NOTE: '\' line wrapping per RFC 8792
-
-   GET /authorize?
-      client_id=55f9f559-2496-49d4-b6c3-351a586b7484
-     &nonce=cd567ed4d958042f721a7cdca557c30d
-     &response_type=code
-     &scope=openid+email
-     &redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb HTTP/1.1
-   Host: idp-p.example.com
-
-2.5.2.  Requests to the Token Endpoint
-
-   Full clients, native clients with dynamically registered keys, and
-   direct access clients as defined above MUST authenticate to the
-   authorization server's token endpoint using either the
-   private_key_jwt method as defined in OpenID Connect Core
-   [OpenID.Core] or the mutually-authenticated transport layer security
-   (MTLS) request method defined in OAuth 2.0 Mutual-TLS Client
-   Authentication and Certificate-Bound Access Tokens [RFC8705].  If
-   using the private_key_jwt method, the request MUST be a JWT assertion
-
-
-
-Burgin & Clancy              Standards Track                   [Page 10]
-
-                             iGov OAuth 2.0                 January 2025
-
-
-   as defined by the JWT Profile for OAuth 2.0 Client Authentication and
-   Authorization Grants [RFC7523].  If using the mTLS method, the
-   request must be made over a mutually authenticated TLS channel.  For
-   both methods, the request MUST include the following claims:
-
-   iss  the client ID of the client creating the token
-
-   sub  the client ID of the client creating the token
-
-   aud  the URL of the authorization server's token endpoint
-
-   iat  the time that the token was created by the client
-
-   exp  the expiration time, after which the token MUST be considered
-      invalid
-
-   jti  a unique identifier generated by the client for this
-      authentication.  This identifier MUST contain at least 128 bits of
-      entropy and MUST NOT be re-used by any subsequent authentication
-      token.
-
    The client MAY specify a strength of authentication and maximum age
    to the authorization server that should be met when issuing an access
-   token for the requesting client by including the following claims:
+   token for the requesting client by including parameters in the
+   authorization request:
 
    acr_values  a space-separated string listing the authentication
       context class reference values in order of preference.  The
@@ -604,19 +482,95 @@ Burgin & Clancy              Standards Track                   [Page 10]
       associated with the access token.
 
    Furthermore, if the authorization request is a follow-up to a prior
-   request that did not meet the client's initial or subsequent
+   request that did not meet the resource server's initial or subsequent
    authentication strength or recency requirements, the client should
-   include the insuffient_user_authentication error code, along with
-   acr_values or max_age values that specify expected strength and
-   recency requirements to be provided to the authentication provider,
-   such as the OpenID Provider, in a new authentication request.
+   include the acr_values and/or max_age values sent by the resource
+   server with the insuffient_user_authentication error code that
+   specify expected strength and recency requirements to be provided to
+   the authentication provider, such as the OpenID Provider, in a new
+   authentication request.
+
+   The following is a sample response from a client to the end user's
+   browser for the purpose of redirecting the end user to the
+   authorization server's authorization endpoint:
 
 
 
-Burgin & Clancy              Standards Track                   [Page 11]
+
+
+
+
+
+Burgin & Clancy              Standards Track                    [Page 9]
 
-                             iGov OAuth 2.0                 January 2025
+                             iGov OAuth 2.0                February 2025
 
+
+   NOTE: '\' line wrapping per RFC 8792
+
+   HTTP/1.2 302 Found
+   Cache-Control: no-cache
+   Connection: close
+   Content-Type: text/plain; charset=UTF-8
+   Date: Wed, 07 Jan 2015 20:24:15 GMT
+   Location: \
+     https://idp-p.example.com/authorize?client_id=55f9f559-2496-49d4-b\
+   6c3-351a586b7484&response_type=code&scope=openid+email&redirect_uri=\
+   https%3A%2F%2Fclient.example.org%2Fcb&acr_values=myACR&max_age=1800\
+   Status: 302 Found
+
+   This causes the browser to send the following (non-normative) request
+   to the authorization endpoint (inline wraps for display purposes
+   only):
+
+   NOTE: '\' line wrapping per RFC 8792
+
+   GET /authorize?
+      client_id=55f9f559-2496-49d4-b6c3-351a586b7484
+     &nonce=cd567ed4d958042f721a7cdca557c30d
+     &response_type=code
+     &scope=openid+email
+     &redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb HTTP/1.1
+   Host: idp-p.example.com
+
+2.6.2.  Requests to the Token Endpoint
+
+   Full clients, native clients with dynamically registered keys, and
+   direct access clients as defined above MUST authenticate to the
+   authorization server's token endpoint using either the
+   private_key_jwt method as defined in OpenID Connect Core
+   [OpenID.Core] or the mutually-authenticated transport layer security
+   (MTLS) request method defined in OAuth 2.0 Mutual-TLS Client
+   Authentication and Certificate-Bound Access Tokens [RFC8705].  If
+   using the private_key_jwt method, the request MUST be a JWT assertion
+   as defined by the JWT Profile for OAuth 2.0 Client Authentication and
+   Authorization Grants [RFC7523].  If using the mTLS method, the
+   request must be made over a mutually authenticated TLS channel.  For
+   both methods, the request MUST include the following parameters:
+
+   iss  the client ID of the client creating the token
+
+   sub  the client ID of the client creating the token
+
+   aud  the URL of the authorization server's issuer endpoint
+
+
+
+
+Burgin & Clancy              Standards Track                   [Page 10]
+
+                             iGov OAuth 2.0                February 2025
+
+
+   iat  the time that the token was created by the client
+
+   exp  the expiration time, after which the token MUST be considered
+      invalid
+
+   jti  a unique identifier generated by the client for this
+      authentication.  This identifier MUST contain at least 128 bits of
+      entropy and MUST NOT be re-used by any subsequent authentication
+      token.
 
    Additionally, if the client uses mTLS [RFC8705] for client
    authentication or to sender-constrain tokens, the client MUST include
@@ -647,32 +601,26 @@ Burgin & Clancy              Standards Track                   [Page 11]
               }
 
    The JWT assertion MUST be signed by the client using the client's
-   private key.  See Section 2.4 for mechanisms by which the client can
+   private key.  See Section 2.5 for mechanisms by which the client can
    make its public key known to the server.  The authorization server
    MUST support the RS256 signature method (the Rivest, Shamir, and
    Adleman (RSA) signature algorithm with a 256-bit hash) and MAY use
    other asymmetric signature methods listed in the JSON Web Algorithms
    (JWA [RFC7518]) ) specification.
 
+
+
+
+
+
+Burgin & Clancy              Standards Track                   [Page 11]
+
+                             iGov OAuth 2.0                February 2025
+
+
    The following sample JWT contains the above claims and has been
    signed using the RS256 JWS algorithm and the client's own private key
    (with line breaks for display purposes only):
-
-
-
-
-
-
-
-
-
-
-
-
-Burgin & Clancy              Standards Track                   [Page 12]
-
-                             iGov OAuth 2.0                 January 2025
-
 
    NOTE: '\' line wrapping per RFC 8792
 
@@ -721,16 +669,12 @@ Burgin & Clancy              Standards Track                   [Page 12]
 
 
 
-
-
-
-
-Burgin & Clancy              Standards Track                   [Page 13]
+Burgin & Clancy              Standards Track                   [Page 12]
 
-                             iGov OAuth 2.0                 January 2025
+                             iGov OAuth 2.0                February 2025
 
 
-2.5.3.  Client Keys
+2.6.3.  Client Keys
 
    Clients using the authorization code grant type or direct access
    clients using the client credentials grant type MUST have a public
@@ -781,9 +725,9 @@ Burgin & Clancy              Standards Track                   [Page 13]
 
 
 
-Burgin & Clancy              Standards Track                   [Page 14]
+Burgin & Clancy              Standards Track                   [Page 13]
 
-                             iGov OAuth 2.0                 January 2025
+                             iGov OAuth 2.0                February 2025
 
 
    NOTE: '\' line wrapping per RFC 8792
@@ -810,9 +754,9 @@ Burgin & Clancy              Standards Track                   [Page 14]
    Note that the second example contains both the public and private
    keys, while the first example contains the public key only.
 
-2.6.  Connection to the Protected Resource
+2.7.  Connection to the Protected Resource
 
-2.6.1.  Requests to the Protected Resource
+2.7.1.  Requests to the Protected Resource
 
    Clients MUST use the authorization request header field mechanism to
    send bearer tokens as defined by [RFC6750].
@@ -837,10 +781,41 @@ Burgin & Clancy              Standards Track                   [Page 14]
 
 
 
-Burgin & Clancy              Standards Track                   [Page 15]
+Burgin & Clancy              Standards Track                   [Page 14]
 
-                             iGov OAuth 2.0                 January 2025
+                             iGov OAuth 2.0                February 2025
 
+
+2.7.2.  Response From the Protected Resource
+
+   If the authentication event associated with the access token does not
+   satisfy the requirements of the resource server for the given
+   request, the protected resource MUST return a 401 Unauthorized status
+   code along with a WWW-Authenticate header as defined in OAuth 2.0
+   Step Up Authentication Challenge Protocol [RFC9470].  This header
+   MUST include the insufficient_user_authentication error code to
+   indicate that the presented access token is inadequate.
+
+   Additionally, the response MUST include the acr_values and/or max_age
+   auth-params to communicate the necessary authentication context class
+   reference values and the allowable elapsed time since the last active
+   authentication event, respectively.  The acr_values parameter should
+   list the required authentication context class reference values in
+   order of preference, while the max_age parameter should indicate the
+   maximum permissible time in seconds since the last user
+   authentication.
+
+   The mechanisms by which the protected resource determines whether the
+   authentication requirements are met are outside the scope of this
+   profile.
+
+   Furthermore, if both acr_values and max_age are relevant, they may be
+   included together in the response.
+
+   The protected resource may also include the scope parameter if
+   additional scopes are required to access the resource, as per
+   Section 3.1 of The OAuth 2.0 Authorization Framework: Bearer Token
+   Usage [RFC6750].
 
 3.  Authorization Server Profile
 
@@ -849,9 +824,22 @@ Burgin & Clancy              Standards Track                   [Page 15]
    OAuth Threat Model Document [RFC6819].
 
    The authorization server MUST protect all communications to and from
-   its OAuth endpoints using TLS.
+   its OAuth endpoints using TLS as described in Section 1.4.
 
 3.1.  Connections with clients
+
+
+
+
+
+
+
+
+
+
+Burgin & Clancy              Standards Track                   [Page 15]
+
+                             iGov OAuth 2.0                February 2025
 
 
 3.1.1.  Grant types
@@ -859,7 +847,7 @@ Burgin & Clancy              Standards Track                   [Page 15]
    The authorization server MUST support the authorization_code, and MAY
    support the client_credentials grant types as described in Section 2.
    The authorization server MUST limit each registered client
-   (identified by a client ID) to a single grant type only, since a
+   (identified by a client ID) to a single client type only, since a
    single piece of software will be functioning at runtime in only one
    of the modes described in Section 2.  Clients that have multiple
    modes of operation MUST have a separate client ID for each mode.
@@ -868,7 +856,7 @@ Burgin & Clancy              Standards Track                   [Page 15]
 
    The authorization server MUST enforce client authentication as
    described above for the authorization code and client credentials
-   grant types.  Public client cannot authenticate to the authorization
+   grant types.  Public clients cannot authenticate to the authorization
    server.
 
    The authorization server MUST validate all redirect URIs for
@@ -890,14 +878,6 @@ Burgin & Clancy              Standards Track                   [Page 15]
    servers MAY limit the scopes available to dynamically registered
    clients.
 
-
-
-
-Burgin & Clancy              Standards Track                   [Page 16]
-
-                             iGov OAuth 2.0                 January 2025
-
-
    Authorization servers MAY protect their Dynamic Registration
    endpoints by requiring clients to present credentials that the
    authorization server would recognize as authorized participants.
@@ -910,19 +890,20 @@ Burgin & Clancy              Standards Track                   [Page 16]
    parameters:
 
    redirect_uris  array of redirect URIs used by the client; subject to
-      the requirements listed in Section 2.4.1
+
+
+
+Burgin & Clancy              Standards Track                   [Page 16]
+
+                             iGov OAuth 2.0                February 2025
+
+
+      the requirements listed in Section 2.5.1
 
    grant_types  grant type used by the client; must be
       "authorization_code" or "client_credentials"
 
    client_name  human-readable name of the client
-
-   acr_values_supported  indicates the authorization server will
-      understand and honor the acr_values and max_age parameters in
-      incoming authorization requests, and handle
-      insufficient_user_authentication error messages in conformance
-      with OAuth 2.0 Step Up Authentication Challenge Protocol
-      [RFC9470].
 
    client_uri  URL of a web page containing further information about
       the client
@@ -931,9 +912,15 @@ Burgin & Clancy              Standards Track                   [Page 16]
       indicating server support for mutual-TLS client certificate-bound
       access tokens.
 
+   acr_values_supported  OPTIONAL.  Indicates the client will include
+      the acr_values and max_age parameters in authorization requests,
+      and send insufficient_user_authentication error messages in
+      conformance with OAuth 2.0 Step Up Authentication Challenge
+      Protocol [RFC9470].
+
    dpop_signing_alg_values_supported  REQUIRED.  A JSON array containing
-      a list of the JWS alg values supported by the authorization server
-      for DPoP proof JWTs.
+      a list of the JWS alg values supported by the client for DPoP
+      proof JWTs.
 
    jwks_uri or jwks  client's public key in a JWK Set [RFC7517], or if
       jwks_uri is used it MUST be reachable by the Authorization Server
@@ -942,17 +929,6 @@ Burgin & Clancy              Standards Track                   [Page 16]
       trusted Certificate Authority.  If either the self-signed mTLS
       method or private_key_jwt method for client authentication is
       used, the jwks MUST include a certificate.
-
-
-
-
-
-
-
-Burgin & Clancy              Standards Track                   [Page 17]
-
-                             iGov OAuth 2.0                 January 2025
-
 
    A client using the tls_client_auth authentication method MUST use
    exactly one of the below metadata parameters to indicate the
@@ -970,6 +946,13 @@ Burgin & Clancy              Standards Track                   [Page 17]
 
    tls_client_auth_san_ip  String value specifying the expected
       iPAddress SAN entry in the client certificate.
+
+
+
+Burgin & Clancy              Standards Track                   [Page 17]
+
+                             iGov OAuth 2.0                February 2025
+
 
    tls_client_auth_san_email  String value specifying the expected
       rfc822Name SAN entry in the client certificate.
@@ -1000,16 +983,6 @@ Burgin & Clancy              Standards Track                   [Page 17]
    The authorization server MUST support and verify sender-constraining
    tokens using mTLS [RFC8705] and DPoP [RFC9449].
 
-
-
-
-
-
-Burgin & Clancy              Standards Track                   [Page 18]
-
-                             iGov OAuth 2.0                 January 2025
-
-
    The Authorization Server MUST NOT issue the client an access token if
    the client included the tls_client_certificate_bound_access_tokens
    parameter in its registration metadata and makes a request to the
@@ -1028,6 +1001,14 @@ Burgin & Clancy              Standards Track                   [Page 18]
 
    token_endpoint  REQUIRED.  The fully qualified URL of the server's
       token endpoint defined by OAuth 2.0 [RFC6749]
+
+
+
+
+Burgin & Clancy              Standards Track                   [Page 18]
+
+                             iGov OAuth 2.0                February 2025
+
 
    token_endpoint_auth_method  REQUIRED.  String of values corresponding
       to permitted methods for client authentication to the
@@ -1058,14 +1039,6 @@ Burgin & Clancy              Standards Track                   [Page 18]
       the self_signed_tls_auth method is used, a jwks_uri MUST be
       registered and MUST include a certificate.
 
-
-
-
-Burgin & Clancy              Standards Track                   [Page 19]
-
-                             iGov OAuth 2.0                 January 2025
-
-
    If the TLS method for client authentication is used, exactly one
    authentication method metadata value MUST be included.
 
@@ -1088,38 +1061,9 @@ Burgin & Clancy              Standards Track                   [Page 19]
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Burgin & Clancy              Standards Track                   [Page 20]
+Burgin & Clancy              Standards Track                   [Page 19]
 
-                             iGov OAuth 2.0                 January 2025
+                             iGov OAuth 2.0                February 2025
 
 
   {
@@ -1173,9 +1117,9 @@ Burgin & Clancy              Standards Track                   [Page 20]
 
 
 
-Burgin & Clancy              Standards Track                   [Page 21]
+Burgin & Clancy              Standards Track                   [Page 20]
 
-                             iGov OAuth 2.0                 January 2025
+                             iGov OAuth 2.0                February 2025
 
 
    Clients and protected resources SHOULD cache this discovery
@@ -1222,17 +1166,27 @@ Burgin & Clancy              Standards Track                   [Page 21]
    Token revocation allows a client to signal to an authorization server
    that a given token will no longer be used.
 
+   Authorization Servers MUST support token revocation as follows.
+
+
+
+
+
+
+Burgin & Clancy              Standards Track                   [Page 21]
+
+                             iGov OAuth 2.0                February 2025
+
+
+   The AS MUST provide a revocation endpoint URL as specified in OAuth
+   2.0 Token Revocation [RFC7009] for end users to view a list of
+   clients that have been granted access to resources on the user's
+   behalf, and for end users to revoke this access.
+
    An authorization server MUST revoke the token if the client
    requesting the revocation is the client to which the token was
    issued, the client has permission to revoke tokens, and the token is
    revocable.
-
-
-
-Burgin & Clancy              Standards Track                   [Page 22]
-
-                             iGov OAuth 2.0                 January 2025
-
 
    A client MUST immediately discard the token and not use it again
    after revoking it.
@@ -1252,50 +1206,53 @@ Burgin & Clancy              Standards Track                   [Page 22]
    URIs with the redirect URI presented during an authorization request
    using an exact string match.
 
-3.1.10.  RefreshTokens
+3.1.10.  Refresh Tokens
 
-   Authorization Servers MAY issue refresh tokens to clients under the
-   following context:
+   AS MAY issue refresh tokens to Full (confidential) and Native
+   (public) clients.
 
-   Clients MUST be registered with the Authorization Server.
+   AS MUST NOT issue refresh tokens to Direct clients (browser-based
+   apps).
 
-   Clients MUST present a valid client_id.  Confidential clients MUST
-   present a signed client_assertion with their associated keypair.
+3.2.  Connections between authorization servers and protected resources
 
-   Clients using the Direct Credentials method MUST NOT be issued
-   refresh_tokens.  These clients MUST present their client credentials
-   with a new access_token request and the desired scope.
-
-3.2.  Connections with protected resources
-
-   Unlike the core OAuth protocol, the iGov profile intends to allow
-   compliant protected resources to connect to compliant authorization
-   servers.
-
-3.2.1.  JWT Bearer Tokens
-
-   All iGov-compliant authorization servers issue cryptographically
-   signed sender-constrained tokens in the JSON Web Token (JWT) format.
-   The information carried in the JWT is intended to allow a protected
-   resource to quickly test the integrity of the token without
-   additional network calls, and to allow the protected resource to
-   determine which authorization server issued the token.  The protected
-   resource MAY use the authorization server token introspection service
-   to retrieve additional security information about the token.
+   This profile defines interoperability requirements between
+   authorization servers and resource servers.
 
 
 
-Burgin & Clancy              Standards Track                   [Page 23]
+
+
+
+
+
+
+
+
+Burgin & Clancy              Standards Track                   [Page 22]
 
-                             iGov OAuth 2.0                 January 2025
+                             iGov OAuth 2.0                February 2025
 
+
+3.2.1.  JSON Web Tokens (JWT)
+
+   All iGov-compliant authorization servers MUST issue cryptographically
+   signed sender-constrained tokens in the JSON Web Token (JWT) format
+   as defined in JSON Web Token (JWT) Profile for OAuth 2.0 Access
+   Tokens [RFC9068].  The information carried in the JWT is intended to
+   allow a protected resource to quickly test the integrity of the token
+   without additional network calls, and to allow the protected resource
+   to determine which authorization server issued the token.  The
+   protected resource MAY use the authorization server token
+   introspection service to retrieve additional security information
+   about the token.
 
    The server MUST issue tokens as JWTs with, at minimum, the following
    claims:
 
    iss  The issuer URL of the server that issued the token
 
-   azp  The client id of the client to whom this token was issued
+   client_id  The client id of the client to whom this token was issued
 
    exp  The expiration time (integer number of seconds since from
       1970-01-01T00:00:00Z UTC), after which the token MUST be
@@ -1320,6 +1277,26 @@ Burgin & Clancy              Standards Track                   [Page 23]
       at runtime, the authorization server may not know the identifiers
       of all possible protected resources at which a token may be used.
 
+   scope  The value of the scope claim is a JSON string containing a
+      space-separated list of scopes associated with the token, in the
+      format described in Section 3.3 of The OAuth 2.0 Authorization
+      Framework [RFC6749].
+
+
+
+
+Burgin & Clancy              Standards Track                   [Page 23]
+
+                             iGov OAuth 2.0                February 2025
+
+
+   iat  The "iat" (issued at) claim identifies the time at which the JWT
+      was issued.  This claim can be used to determine the age of the
+      JWT.  Its value MUST be a number containing a NumericDate value.
+
+   In order to support backwards compatibility, AS MAY include the azp
+   claim while resource servers modernize.
+
    Additionally, if the client uses mTLS [RFC8705] for client
    authentication or to sender-constrain tokens, the server MUST include
    the following claim in the access token.
@@ -1335,23 +1312,15 @@ Burgin & Clancy              Standards Track                   [Page 23]
    claims for an access token as defined in this profile; additional
    claims MAY be included in the claim set:
 
-
-
-
-
-
-
-Burgin & Clancy              Standards Track                   [Page 24]
-
-                             iGov OAuth 2.0                 January 2025
-
-
    {
       "exp": 1418702388,
+      "client_id": "55f9f559-2496-49d4-b6c3-351a586b7484",
       "azp": "55f9f559-2496-49d4-b6c3-351a586b7484",
       "iss": "https://idp-p.example.com/",
+      "sub" : "93ff28e3-3982-c34b-f2a4-98bb3d42b277",
       "jti": "2402f87c-b6ce-45c4-95b0-7a3f2904997f",
       "iat": 1418698788,
+      "scope" : "MyResource1 MyResource2",
       "acr": "myACR",
       "auth_time": 16463400198,
       "cnf": {
@@ -1367,6 +1336,15 @@ Burgin & Clancy              Standards Track                   [Page 24]
    contain the following fields:
 
    kid  The key ID of the key pair used to sign this token
+
+
+
+
+
+Burgin & Clancy              Standards Track                   [Page 24]
+
+                             iGov OAuth 2.0                February 2025
+
 
    This example access token has been signed with the server's private
    key using RS256:
@@ -1392,6 +1370,28 @@ Burgin & Clancy              Standards Track                   [Page 24]
    the public key of the protected resource.  Encrypted refresh tokens
    MUST be encrypted using the authorization server's public key.
 
+3.2.2.  Introspection
+
+   Token introspection allows a protected resource to query the
+   authorization server for metadata about a token.  The protected
+   resource makes a request over a mutually authenticated TLS connection
+   like the following to the token introspection endpoint:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1399,15 +1399,8 @@ Burgin & Clancy              Standards Track                   [Page 24]
 
 Burgin & Clancy              Standards Track                   [Page 25]
 
-                             iGov OAuth 2.0                 January 2025
+                             iGov OAuth 2.0                February 2025
 
-
-3.2.2.  Introspection
-
-   Token introspection allows a protected resource to query the
-   authorization server for metadata about a token.  The protected
-   resource makes a request over a mutually authenticated TLS connection
-   like the following to the token introspection endpoint:
 
    NOTE: '\' line wrapping per RFC 8792
 
@@ -1445,18 +1438,11 @@ Burgin & Clancy              Standards Track                   [Page 25]
    sB3HhF2vFdL6D_lLeHRy-H2g2OzF59eMIsM_Ccs4G47862w
 
    The client assertion parameter is structured as described in
-   Section 2.5.2 .
+   Section 2.6.2 .
 
    The server responds to an introspection request with a JSON object
    representing the token containing the following fields as defined in
    the token introspection specification:
-
-
-
-Burgin & Clancy              Standards Track                   [Page 26]
-
-                             iGov OAuth 2.0                 January 2025
-
 
    active  Boolean value indicating whether or not this token is
       currently active at this authorization server.  Tokens that have
@@ -1464,6 +1450,14 @@ Burgin & Clancy              Standards Track                   [Page 26]
       authorization server are considered non-active.
 
    scope  Space-separated list of OAuth 2.0 scope values represented as
+
+
+
+Burgin & Clancy              Standards Track                   [Page 26]
+
+                             iGov OAuth 2.0                February 2025
+
+
       a single string.
 
    exp  Timestamp of when this token expires (integer number of seconds
@@ -1495,11 +1489,13 @@ Burgin & Clancy              Standards Track                   [Page 26]
     "token_type": "Bearer"
  }
 
-   The authorization server MUST require authentication for both the
-   revocation and introspection endpoints as described in Section 2.5.2.
-   Protected resources calling the introspection endpoint MUST use
-   credentials distinct from any other OAuth client registered at the
-   server.
+   The authorization server MUST require authentication of resource
+   servers for both the revocation and introspection endpoints, using
+   either private_key_jwt or Mutual-TLS methods as described for clients
+   in Section 2.6.2.  Protected resources calling the introspection
+   endpoint MUST use credentials distinct from any other OAuth client
+   registered at the server.  Authorization servers MUST NOT allow
+   authorization clients to use token introspection endpoints.
 
    A protected resource MAY cache the response from the introspection
    endpoint for a period of time no greater than half the lifetime of
@@ -1509,17 +1505,22 @@ Burgin & Clancy              Standards Track                   [Page 26]
 
 
 
+
+
+
+
 Burgin & Clancy              Standards Track                   [Page 27]
 
-                             iGov OAuth 2.0                 January 2025
+                             iGov OAuth 2.0                February 2025
 
 
 3.3.  Response to Authorization Requests
 
    The following data will be sent as an Authorization Response to the
-   Authorization Code Flow as described above.  The authentication
+   Authorization Code Flow as described Section 2.  The authentication
    response is sent via HTTP redirect to the redirect URI specified in
-   the request.
+   the request, consistent with The OAuth 2.0 Authorization Framework
+   [RFC6749].
 
    The following fields MUST be included in the response:
 
@@ -1547,11 +1548,6 @@ Burgin & Clancy              Standards Track                   [Page 27]
    tokens with different lifetimes.  Any active token MAY be revoked at
    any time.
 
-   In addition to the lifetime of the token, protected resources may
-   specify a maximum age of the authentication events that led to access
-   tokens they receive by including the max_age claim in authorization
-   requests and examining the auth_time claim value in access tokens.
-
 3.5.  Scopes
 
    Scopes define individual pieces of authority that can be requested by
@@ -1561,18 +1557,18 @@ Burgin & Clancy              Standards Track                   [Page 27]
    OpenID Connect, for example, defines scope values to enable access to
    different attributes of user profiles.
 
+   Authorization servers SHOULD define and document default scope values
+   that will be used if an authorization request does not specify a
+   requested set of scopes.
+
 
 
 
 
 Burgin & Clancy              Standards Track                   [Page 28]
 
-                             iGov OAuth 2.0                 January 2025
+                             iGov OAuth 2.0                February 2025
 
-
-   Authorization servers SHOULD define and document default scope values
-   that will be used if an authorization request does not specify a
-   requested set of scopes.
 
    To facilitate general use across a wide variety of protected
    resources, authorization servers SHOULD allow for the use of
@@ -1581,9 +1577,14 @@ Burgin & Clancy              Standards Track                   [Page 28]
    Authorization servers MAY restrict certain scopes from use by
    dynamically registered systems or public clients.
 
+   Refer to Section 3.1.4 for further information about displaying
+   scopes to end users.
+
 4.  Protected Resource Profile
 
 4.1.  Protecting Resources
+
+4.1.1.  Trust Levels and Scopes
 
    Protected Resources grant access to clients if they present a valid
    sender-constrained access_token with the appropriate scope.  Resource
@@ -1591,22 +1592,21 @@ Burgin & Clancy              Standards Track                   [Page 28]
    and client appropriately for the importance, risk, and value level of
    the protected resource scope.
 
-   Protected resources that require a higher end-user authentication
-   trust level to access certain resources MUST associate those
-   resources with a unique scope.
+   If a protected resources requires a higher end-user authentication
+   trust level to access certain resources, the protected resource MUST
+   associate those resources with a unique scope and MUST associate
+   acceptable acr values for each scope as descibed in OAuth 2.0 Step Up
+   Authentication Challenge Protocol" [RFC9470].  Protected Resources
+   may also specify a max_age for each scope.
 
    Clients wishing access to these higher level resources MUST include
-   the higher level scope in their authorization request to the
-   authorization server.
-
-   Authorization servers MUST authenticate the end-user with the
-   appropriate trust level before providing an authorization_code or
-   associated access_token to the client.
+   the higher level scope and acr_values in their authorization request
+   to the authorization server.
 
    Authorization servers MUST only grant access to higher level scope
    resources to clients that have permission to request these scope
-   levels.  Client authorization requests containing scopes that are
-   outside their permission MUST be rejected.
+   levels and have met . Client authorization requests containing scopes
+   that are outside their permission MUST be rejected.
 
    Authorization servers MAY set the expiry time (exp) of access_tokens
    associated with higher level resources to be shorter than
@@ -1623,7 +1623,7 @@ Burgin & Clancy              Standards Track                   [Page 28]
 
 Burgin & Clancy              Standards Track                   [Page 29]
 
-                             iGov OAuth 2.0                 January 2025
+                             iGov OAuth 2.0                February 2025
 
 
    Authorization servers MAY allow a refresh_token issued at a higher
@@ -1635,33 +1635,52 @@ Burgin & Clancy              Standards Track                   [Page 29]
    expired -- without requiring an additional user authentication/
    authorization.
 
+4.1.2.  Trust Levels Example
+
    For example: a resource server has resources classified as "public"
-   and "sensitive".  "Sensitive" resources require the user to perform a
-   two-factor authentication, and those access grants are short-lived:
-   15 minutes.  For a client to obtain access to both "public" and
-   "sensitive" resources, it makes an authorization request to the
-   authorization server with scope=public+sensitive.  The authorization
-   server authenticates the end-user as required to meet the required
-   trust level (two-factor authentication or some approved equivalent)
-   and issues an access_token for the "public" and "sensitive" scopes
-   with an expiry time of 15mins, and a refresh_token for the "public"
-   scope with an expiry time of 24 hrs.  The client can access both
-   "public" and "sensitive" resources for 15mins with the access_token.
-   When the access_token expires, the client will NOT be able to access
-   "public" or "sensitive" resources any longer as the access_token has
-   expired, and must obtain a new access_token.  The client makes a
-   access grant request (as described in OAuth 2.0 [RFC6749] section 6)
-   with the refresh_token, and the reduced scope of just "public".  The
-   token endpoint validates the refresh_token, and issues a new
-   access_token for just the "public" scope with an expiry time set to
-   24hrs.  An access grant request for a new access_token with the
-   "sensitive" scope would be rejected, and require the client to get
-   the end-user to re-authenticate/authorize the "sensitive" scope
-   request.
+   and "sensitive" and assocaites scopes of the same name with those
+   resources.  Access to resources with scope "sensitive" requires the
+   user to perform a two-factor authentication and limits those access
+   grants to only 15 minutes.  The resource server associates scope
+   "sensitive" with acr="MFA".
+
+   For a client to obtain access to both "public" and "sensitive"
+   resources, it makes an authorization request to the authorization
+   server with scope=public+sensitive, acr_values="MFA", and
+   max_age=900.  The authorization server authenticates the end-user as
+   required to meet the required trust level (two-factor authentication
+   or some approved equivalent) and issues an access_token for the
+   "public" and "sensitive" scopes with an expiry time of 15mins, and a
+   refresh_token for the "public" scope with an expiry time of 24 hrs.
+
+   The client can access both "public" and "sensitive" resources for
+   15mins with the access_token.  When the access_token expires, the
+   client will NOT be able to access "public" or "sensitive" resources
+   any longer as the access_token has expired, and must obtain a new
+   access_token.
+
+   The client makes a refresh token request (as described in OAuth 2.0
+   [RFC6749] section 6) with the refresh_token, and the reduced scope of
+   just "public".  The token endpoint validates the refresh_token, and
+   issues a new access_token for just the "public" scope with an expiry
+   time set to 24hrs.  An access grant request for a new access_token
+   with the "sensitive" scope would be rejected, and require the client
+   to get the end-user to re-authenticate/authorize the "sensitive"
+   scope request.
 
    In this manner, protected resources and authorization servers work
    together to meet risk tolerance levels for sensitive resources and
    end-user authentication.
+
+
+
+
+
+
+Burgin & Clancy              Standards Track                   [Page 30]
+
+                             iGov OAuth 2.0                February 2025
+
 
 4.2.  Connections with Clients
 
@@ -1671,16 +1690,8 @@ Burgin & Clancy              Standards Track                   [Page 29]
    parameter methods.
 
    Protected resources MUST define and document which scopes are
-   required for access to the resource.
-
-
-
-
-
-Burgin & Clancy              Standards Track                   [Page 30]
-
-                             iGov OAuth 2.0                 January 2025
-
+   required for access to the resource and any authentication strength
+   or recency requirements for each scope.
 
    If a client uses the mTLS [RFC8705] method to sender-constrain
    tokens, the protected resource MUST verify that the certificate
@@ -1716,27 +1727,40 @@ Burgin & Clancy              Standards Track                   [Page 30]
    spoofing attacks that can lead to the issuance of rogue domain-
    validated TLS certificates.
 
-5.2.  Best Practices
 
-   Authorization servers, clients, and protected resources SHOULD
-   consider internet best practices from OAuth 2.0 Security Best Current
-   Practice [SecBCP], JSON Web Token Best Current Practices [RFC8725]
-   and JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens
-   [RFC9068] that are not explicitly REQUIRED or RECOMMENDED in this
-   profile.
 
-5.3.  Other Considerations
 
-   Authorization Servers SHOULD take into account device posture when
-   dealing with native apps if possible.  Some examples of device
-   posture include:
 
 
 
 Burgin & Clancy              Standards Track                   [Page 31]
 
-                             iGov OAuth 2.0                 January 2025
+                             iGov OAuth 2.0                February 2025
 
+
+5.2.  Protected Resource Metadata
+
+   OAuth 2.0 Protected Resource Metadata [Resource.Metadata]defines a
+   metadata format that an OAuth 2.0 client or authorization server can
+   use to obtain the information needed to interact with an OAuth 2.0
+   protected resource, which may facilitate enhanced interoperability
+   and security, including advertisement and discovery of a protected
+   resource's public key via its jwks_uri.
+
+5.3.  Best Practices
+
+   Authorization servers, clients, and protected resources SHOULD
+   consider internet best practices from Best Current Practice for OAuth
+   2.0 Security [BCP240], JSON Web Token Best Current Practices
+   [RFC8725] and JSON Web Token (JWT) Profile for OAuth 2.0 Access
+   Tokens [RFC9068] that are not explicitly REQUIRED or RECOMMENDED in
+   this profile.
+
+5.4.  Other Considerations
+
+   Authorization Servers SHOULD take into account device posture when
+   dealing with native apps if possible.  Some examples of device
+   posture include:
 
    *  the user's lock screen setting
 
@@ -1756,6 +1780,19 @@ Burgin & Clancy              Standards Track                   [Page 31]
    using request object signatures would provide mitigation, this
    profile does not require request object signatures because of the
    lack of available implementations.
+
+
+
+
+
+
+
+
+
+Burgin & Clancy              Standards Track                   [Page 32]
+
+                             iGov OAuth 2.0                February 2025
+
 
 6.  Privacy Considerations
 
@@ -1777,6 +1814,17 @@ Burgin & Clancy              Standards Track                   [Page 31]
               (DTLS)", BCP 195, RFC 7525, DOI 10.17487/RFC7525, May
               2015, <http://www.rfc-editor.org/info/bcp195>.
 
+   [BCP240]   Lodderstedt, T., Bradley, J., Labunets, A., and D. Fett,
+              "Best Current Practice for OAuth 2.0 Security", BCP 240,
+              RFC 9700, DOI 10.17487/RFC9700, January 2025,
+              <http://www.rfc-editor.org/info/bcp240>.
+
+   [browser-based-apps]
+              Parecki, A., Waite, D., and P. De Ryck, "OAuth 2.0 for
+              Browser-Based Applications", 17 January 2025,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-oauth-
+              browser-based-apps>.
+
    [HEART.OAuth2]
               Richer, J., "Health Relationship Trust Profile for OAuth
               2.0", 25 April 2017, <http://openid.net/specs/openid-
@@ -1786,20 +1834,21 @@ Burgin & Clancy              Standards Track                   [Page 31]
               "JSON Web Signature and Encryption Algorithms registry", 8
               August 2016.
 
-
-
-
-Burgin & Clancy              Standards Track                   [Page 32]
-
-                             iGov OAuth 2.0                 January 2025
-
-
    [mlkem.ikev2]
               Kampanakis, P. and G. Ravago, "Post-quantum Hybrid Key
               Exchange with ML-KEM in the Internet Key Exchange Protocol
               Version 2 (IKEv2)", 4 November 2024,
               <https://datatracker.ietf.org/doc/draft-kampanakis-ml-kem-
               ikev2/>.
+
+
+
+
+
+Burgin & Clancy              Standards Track                   [Page 33]
+
+                             iGov OAuth 2.0                February 2025
+
 
    [OpenID.Core]
               Sakimura, N., Bradley, J., Jones, M.B., de Medeiros, B.,
@@ -1818,6 +1867,12 @@ Burgin & Clancy              Standards Track                   [Page 32]
               Assurance Profile (iGov) for OpenID Connect 1.0", 3 August
               2023, <https://openid.net/specs/openid-igov-openid-
               connect-1_0.html>.
+
+   [Resource.Metadata]
+              Jones, M., Hunt, P., and A. Parecki, "OAuth 2.0 Protected
+              Resource Metadata", 15 October 2024,
+              <https://datatracker.ietf.org/doc/draft-ietf-oauth-
+              resource-metadata/>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1845,9 +1900,10 @@ Burgin & Clancy              Standards Track                   [Page 32]
 
 
 
-Burgin & Clancy              Standards Track                   [Page 33]
+
+Burgin & Clancy              Standards Track                   [Page 34]
 
-                             iGov OAuth 2.0                 January 2025
+                             iGov OAuth 2.0                February 2025
 
 
    [RFC6973]  Cooper, A., Tschofenig, H., Aboba, B., Peterson, J.,
@@ -1901,15 +1957,19 @@ Burgin & Clancy              Standards Track                   [Page 33]
 
 
 
-Burgin & Clancy              Standards Track                   [Page 34]
+Burgin & Clancy              Standards Track                   [Page 35]
 
-                             iGov OAuth 2.0                 January 2025
+                             iGov OAuth 2.0                February 2025
 
 
    [RFC7800]  Jones, M., Bradley, J., and H. Tschofenig, "Proof-of-
               Possession Key Semantics for JSON Web Tokens (JWTs)",
               RFC 7800, DOI 10.17487/RFC7800, April 2016,
               <https://www.rfc-editor.org/info/rfc7800>.
+
+   [RFC8252]  Denniss, W. and J. Bradley, "OAuth 2.0 for Native Apps",
+              BCP 212, RFC 8252, DOI 10.17487/RFC8252, October 2017,
+              <https://www.rfc-editor.org/info/rfc8252>.
 
    [RFC8414]  Jones, M., Sakimura, N., and J. Bradley, "OAuth 2.0
               Authorization Server Metadata", RFC 8414,
@@ -1945,10 +2005,6 @@ Burgin & Clancy              Standards Track                   [Page 34]
               2020, <https://danielfett.de/2020/05/16/pkce-vs-nonce-
               equivalent-or-not/>.
 
-   [SecBCP]   Lodderstedt, T., Bradley, J., Labunets, A., and D. Fett,
-              "OAuth 2.0 Security Best Current Practice", 5 December
-              2024, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              oauth-security-topics>.
 
 
 
@@ -1957,9 +2013,9 @@ Burgin & Clancy              Standards Track                   [Page 34]
 
 
 
-Burgin & Clancy              Standards Track                   [Page 35]
+Burgin & Clancy              Standards Track                   [Page 36]
 
-                             iGov OAuth 2.0                 January 2025
+                             iGov OAuth 2.0                February 2025
 
 
 Appendix A.  Acknowledgements
@@ -1969,8 +2025,8 @@ Appendix A.  Acknowledgements
    Pulvermacher, David Hill, Dale Moberg, Adrian Gropper, Eve Maler,
    Danny van Leeuwen, John Moehrke, Aaron Seib, John Bradley, Debbie
    Bucci, Josh Mandel, Sarah Cecchetti, Giuseppe De Marco, Joseph
-   Heenan, Jim Fenton, Ryan Galluzzo, Bjorn Hjelm, and Michael B.
-   Jones.
+   Heenan, Jim Fenton, Ryan Galluzzo, Bjorn Hjelm, Aaron Parecki, and
+   Michael B.  Jones.
 
    Special thank you to the original iGov Profile editors: Paul Grassi,
    Justin Richer, and Michael Varley.
@@ -2013,9 +2069,9 @@ Appendix B.  Notices
 
 
 
-Burgin & Clancy              Standards Track                   [Page 36]
+Burgin & Clancy              Standards Track                   [Page 37]
 
-                             iGov OAuth 2.0                 January 2025
+                             iGov OAuth 2.0                February 2025
 
 
    specification is assumed by the implementer.  The OpenID Intellectual
@@ -2069,9 +2125,9 @@ Appendix C.  Document History
 
 
 
-Burgin & Clancy              Standards Track                   [Page 37]
+Burgin & Clancy              Standards Track                   [Page 38]
 
-                             iGov OAuth 2.0                 January 2025
+                             iGov OAuth 2.0                February 2025
 
 
 Authors' Addresses
@@ -2125,4 +2181,4 @@ Authors' Addresses
 
 
 
-Burgin & Clancy              Standards Track                   [Page 38]
+Burgin & Clancy              Standards Track                   [Page 39]
