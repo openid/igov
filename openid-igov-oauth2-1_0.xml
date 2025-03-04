@@ -1380,7 +1380,7 @@ DNp00J6AbY6w",
 					<t>
 						The access tokens MUST be signed with
 						<xref target="RFC7515">JWS</xref>
-						. If private_key_jwt is used, the authorization server MUST support
+						. The authorization server MUST support
 						the RS256 signature method
 						for tokens and MAY use other asymmetric
 						signing methods as defined
