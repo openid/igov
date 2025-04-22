@@ -322,13 +322,16 @@
                 
                 <t>Client registration MAY be completed by either out-of-band configuration or using the <xref target="RFC7591">Dynamic Client Registration Protocol</xref>.</t>
 
-                <t> If a client uses <xref target="RFC8705">mTLS</xref> for client authentication or to sender-constrain tokens, the client MUST include the tls_client_certificate_bound_access_tokens parameter in its registration metadata.
+                <t> If a client uses <xref target="RFC8705">mTLS</xref> for client authentication or to sender-constrain tokens, the client MUST include the 
+                tls_client_certificate_bound_access_tokens parameter in its registration metadata.
                     </t>
                 
-                <t> If a client uses <xref target="RFC9449">DPoP</xref> to sender constrain tokens, the client MUST include the dpop_bound_access_tokens parameter in its registration metadata.
+                <t> If a client uses <xref target="RFC9449">DPoP</xref> to sender constrain tokens, the client MUST include the dpop_bound_access_tokens parameter 
+                in its registration metadata.
                     </t>
                   
-                <t>Clients using mTLS for client authentication or to sender-constrain tokens MUST register their TLS certificate's subject DN with the authorization server.
+                <t>Clients using mTLS for client authentication or to sender-constrain tokens MUST register their TLS certificate's subject DN with the 
+                authorization server.
                 Clients using self-signed certificate option are not guaranteed uniqueness of their certificate fingerprint.</t>
                 
                 <section anchor="RedirectURI" title="Redirect URI">
@@ -379,7 +382,8 @@
                 token to gain access to protected resources.
                     </t>
             
-            <t> All clients MUST use proof of possession to sender-constrain access tokens using either <xref target="RFC8705">OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens</xref> or
+            <t> All clients MUST use proof of possession to sender-constrain access tokens using either <xref target="RFC8705">OAuth 2.0 Mutual-TLS 
+            Client Authentication and Certificate-Bound Access Tokens</xref> or
             <xref target="RFC9449">OAuth 2.0 Demonstrating Proof of Possession (DPoP)</xref>.
                 </t>
                 
@@ -394,12 +398,14 @@
                 requirements for authentication strength and recency to supporting authorization clients and servers, as well as the capability to enforce access
                 policies using access tokens augmented with the strength and recency of the authentication event that led to the issuance of each specific access token.</t>
                 
-                <t>This profile leverages the supporting server metadata, request, token claims and values, and error messages from <xref target="RFC9470">OAuth 2.0 Step Up Authentication Challenge
+                <t>This profile leverages the supporting server metadata, request, token claims and values, and error messages from <xref target="RFC9470">OAuth 2.0 
+                Step Up Authentication Challenge
                 Protocol</xref> and <xref target="OpenID.Core">OpenID Connect Core 1.0</xref>.</t>
                 
                 <t>Digital identity policies and semantic mappings to string values are necessary for implementation but are out of scope for this profile.</t>
                 
-                <t>OAuth 2.0 MUST NOT be used as an authentication protocol. Use of the <xref target="OpenID.iGov">International Government Assurance Profile (iGov) for OpenID Connect 1.0</xref> is RECOMMENDED to provide the identity
+                <t>OAuth 2.0 MUST NOT be used as an authentication protocol. Use of the <xref target="OpenID.iGov">International Government Assurance Profile (iGov) 
+                for OpenID Connect 1.0</xref> is RECOMMENDED to provide the identity
                 authentication layer for iGov OAuth 2.0 delegated access use cases.
                 </t>
                 
@@ -511,8 +517,8 @@ Host: idp-p.example.com
                         defined in
                         <xref target="RFC8705">OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens</xref>.</t>
                         <t>If using the private_key_jwt method, the request MUST be a JWT assertion as defined by the
-                        <xref target="RFC7523">JWT Profile for OAuth 2.0 Client Authentication and Authorization Grants</xref>. The JWT assertion MUST be signed by the client using the client's
-                        private key.
+                        <xref target="RFC7523">JWT Profile for OAuth 2.0 Client Authentication and Authorization Grants</xref>. The JWT assertion MUST be signed 
+                        by the client using the client's private key.
                         If using <xref target="RFC8705">mTLS</xref>, the request MUST be made over a mutually authenticated TLS channel.</t>
 
             </section>
@@ -693,9 +699,9 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                 </section>
 
                 <section title="Client authentication">
-                    <t>Authorization servers MUST enforce client authentication for confidential clients. Public clients cannot authenticate to the authorization server.
-                        The
-                        authorization server MUST support the RS256
+                    <t>Authorization servers MUST enforce client authentication for confidential clients. 
+                        Public clients cannot authenticate to the authorization server.
+                        The authorization server MUST support the RS256
                         signature method (the
                         Rivest, Shamir, and Adleman (RSA) signature
                         algorithm with a
@@ -714,7 +720,8 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                     </t>
                     
                     <t> Authorization servers MUST only grant access to higher level scope resources to
-                        clients that have permission to request these scope levels. Authorization servers MUST reject client authorization requests containing scopes that are outside their permission.
+                        clients that have permission to request these scope levels. Authorization servers MUST reject client authorization requests 
+                        containing scopes that are outside their permission.
                     </t>
             
                     <t>Authorization servers MAY set the expiry time (<spanx style="verb">exp</spanx>)
@@ -730,12 +737,17 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                         continue accessing lower level resources after the higher level resource access
                         has expired -- without requiring an additional user authentication/authorization.
                     </t>
-                    <t>When a client requests both a higher level scope and a lower level scope in the original authorization request, Authorization servers MAY allow refresh tokens issued at the higher level to be used to obtain an access_token for a lower level resource scope with an extended expiry time. This allows clients to continue accessing lower level resources after the higher level resource access has expired without requiring an additional user authentication/authorization. </t>
+                    <t>When a client requests both a higher level scope and a lower level scope in the original authorization request, Authorization 
+                    servers MAY allow refresh tokens issued at the higher level to be used to obtain an access_token for a lower level resource scope 
+                    with an extended expiry time. This allows clients to continue accessing lower level resources after the higher level resource 
+                    access has expired without requiring an additional user authentication/authorization. </t>
                 </section>
 
                 <section anchor="DynamicRegistration" title="Dynamic Registration">
                     <t>
-                        Dynamic Registration allows for authorized Clients to on-board programmatically without administrative intervention. This is particularly important in ecosystems with many potential Clients, including Mobile Apps acting as independent Clients. Authorization servers MUST support dynamic client registration,
+                        Dynamic Registration allows for authorized Clients to on-board programmatically without administrative intervention. 
+                        This is particularly important in ecosystems with many potential Clients, including Mobile Apps acting as independent Clients. 
+                        Authorization servers MUST support dynamic client registration,
                         and clients MAY register using the
                         <xref target="RFC7591">Dynamic
                             Client Registration Protocol</xref>
@@ -752,7 +764,9 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 
                     <t>    Authorization
                         <!-- Should we make this a MUST? -->
-                        servers MAY protect their Dynamic Registration endpoints by requiring clients to present credentials that the authorization server would recognize as authorized participants. Authorization servers MAY accept signed software statements as described in <xref target="RFC7591"/>
+                        servers MAY protect their Dynamic Registration endpoints by requiring clients to present credentials that the authorization 
+                        server would recognize as authorized participants. Authorization servers MAY accept signed software statements as described 
+                        in <xref target="RFC7591"/>
                         issued to client software developers from a
                         trusted registration
                         entity. The software statement can be used to
@@ -884,7 +898,8 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                             <t hangText="token_endpoint_auth_method">
                                 REQUIRED. String of values corresponding to permitted methods for client authentication to the authorization server
                                 as defined in <xref target="RFC7591">OAuth 2.0 Dynamic Client Registration Protocol</xref>.
-                                Within this profile, the server MUST provide one or more of the following values: "private_key_jwt", "tls_client_auth", and "self_signed_tls_auth".
+                                Within this profile, the server MUST provide one or more of the following values: "private_key_jwt", "tls_client_auth", 
+                                and "self_signed_tls_auth".
                             </t>
                             
                             <t hangText="introspection_endpoint">
@@ -917,7 +932,8 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                         </list>
                     </t>
                         
-                    <t>If a client uses <xref target="RFC8705">OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens</xref>S for client authentication, exactly one authentication method metadata value MUST be included.
+                    <t>If a client uses <xref target="RFC8705">OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens</xref>S for 
+                    client authentication, exactly one authentication method metadata value MUST be included.
                         <list style="hanging">
                             <t hangText="tls_client_auth">Indicates that client authentication to the authorization server will occur with mutual TLS
                                 utilizing the PKI method of associating a certificate to a client.</t>
@@ -987,9 +1003,11 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 ]]></artwork>
                     </figure>
                     
-                    <t>It is RECOMMENDED that authorization servers provide cache information through HTTP headers and make the cache valid for at least one week. This allows clients and protected resources to cache the discovery information.</t>
+                    <t>It is RECOMMENDED that authorization servers provide cache information through HTTP headers and make the cache valid for at 
+                    least one week. This allows clients and protected resources to cache the discovery information.</t>
                     
-                    <t> Authorization servers MUST support the RS256 signature method (the Rivest, Shamir, and Adleman (RSA) signature algorithm with a 256-bit hash) and MAY use other asymmetric signature methods listed in the JSON Web Algorithms (JWA [RFC7518]) ) specification.</t>
+                    <t> Authorization servers MUST support the RS256 signature method (the Rivest, Shamir, and Adleman (RSA) signature algorithm 
+                    with a 256-bit hash) and MAY use other asymmetric signature methods listed in the JSON Web Algorithms (JWA [RFC7518]) ) specification.</t>
 
                     <t>The authorization server MUST provide its public key in JWK Set format. The
                         key
@@ -1059,8 +1077,9 @@ DNp00J6AbY6w",
                 <section title="PKCE">
                     <t>Authorization servers MUST require use of PKCE
                         (<xref target="RFC7636">Proof Key for Code Exchange by OAuth Public Clients</xref>) by all clients
-                        and reject requests to the authorization endpoint from clients that do not contain a code challenge</t>
-                        <t>Authorization servers MUST support the S256 code challenge method. Authorization servers MUST NOT allow a client to use the plain code challenge method.</t>
+                        and reject requests to the authorization endpoint from clients that do not contain a code challenge.</t>
+                        <t>Authorization servers MUST support the S256 code challenge method. Authorization servers MUST NOT allow a 
+                        client to use the plain code challenge method.</t>
                         <t>The PKCE code_verifier value MUST contain at least 128 bits of entropy.</t>
                         
                         <t>Authorization servers MUST confirm thumbprints of client keys.</t>
@@ -1072,7 +1091,8 @@ DNp00J6AbY6w",
 
                 <section title="Redirect URIs">
                     <t>The authorization server MUST validate all redirect URIs for authorization code grant types.</t>
-                    <t> To prevent open redirection and other injection attacks, the authorization server MUST match the entire redirect URI using an exact string match against registered values and MUST reject requests with an invalid or missing redirect URI.</t>
+                    <t> To prevent open redirection and other injection attacks, the authorization server MUST match the entire redirect 
+                    URI using an exact string match against registered values and MUST reject requests with an invalid or missing redirect URI.</t>
                 </section>
                 <section title="Refresh Tokens">
                     <t>Authorization servers MAY issue refresh tokens to clients.
@@ -1081,7 +1101,8 @@ DNp00J6AbY6w",
             </section>
 
             <section title="Response to Authorization Requests">
-                <t> Authorization servers respond to an Authorization Request from a client with an Authorization Response. The following fields MUST be included in the response:
+                <t> Authorization servers respond to an Authorization Request from a client with an Authorization Response. 
+                The following fields MUST be included in the response:
                     <list style="hanging">
 
                         <t hangText="state"> REQUIRED. The value of the state parameter passed in in the
@@ -1187,12 +1208,16 @@ https://https://client.example.org/cb?
                         </t>
                         <t hangText="cnf">The confirmation claim, as defined in <xref target="RFC7800">Proof-of-Possession Key Semantics
                                             for JSON Web Tokens (JWTs)</xref> and <xref target="RFC8705">OAuth 2.0 Mutual-TLS
-                                            Client Authentication and Certificate-Bound Access Tokens</xref> is used in a JWT to contain members used to identify the proof-of-possession key.</t>
+                                            Client Authentication and Certificate-Bound Access Tokens</xref> is used in a JWT to contain 
+                                            members used to identify the proof-of-possession key.</t>
                                             <t>When <xref target="RFC8705">OAuth 2.0 Mutual-TLS
-                                            Client Authentication and Certificate-Bound Access Tokens</xref>is used, the confirmation claim value MUST be computed using the
+                                            Client Authentication and Certificate-Bound Access Tokens</xref>is used, the confirmation 
+                                            claim value MUST be computed using the
                                             X.509 Certificate SHA-256 Thumbprint and include confirmation
                                             method value "x5t#256".</t>
-                                            <t>When <xref target="RFC9449">OAuth 2.0 Demonstrating Proof of Possession (DPoP)</xref> is used, the confirmation claim value MUST be computed using the <xref target="RFC7638">JWK SHA-256 Thumbprint</xref> of the DPoP public key and include conformation methd value jkt.
+                                            <t>When <xref target="RFC9449">OAuth 2.0 Demonstrating Proof of Possession (DPoP)</xref> 
+                                            is used, the confirmation claim value MUST be computed using the <xref target="RFC7638">JWK SHA-256 
+                                            Thumbprint</xref> of the DPoP public key and include conformation method value jkt.
                                         </t>
                         
                     </list>
@@ -1200,9 +1225,6 @@ https://https://client.example.org/cb?
                         <t>In order to support backwards compatibility, AS MAY include the azp claim while resource servers
                         modernize.</t>
                         
-                        <t>Additionally, if the client uses <xref target="RFC8705">mTLS</xref> for client authentication or to sender-constrain tokens, the server MUST include the following claim in the access token.
-                                         </t>
-    
 
                 <t>The following sample claim set illustrates the use of the
                     required claims for an access token as defined in this profile;
@@ -1292,6 +1314,8 @@ pXDaLyyY-4HT9XHT9V73fKF8rLWJu9grrA
                     using the
                     authorization server's public key.
                 </t>
+                <t>The client SHOULD use a certificate to sender-constrain tokens that is distinct from the certificate used to connect
+                to the protected resource.</t>
             </section>
            
            <section anchor="TokenLifetimes" title="Token Lifetimes">
@@ -1537,7 +1561,8 @@ Connection: close
                     <xref target="RFC9470">OAuth 2.0 Step Up Authentication Challenge Protocol</xref>.
                     Protected Resources may also specify a max_age for each scope.
                 </t>
-                <t>Protected resources MAY include the scope parameter if additional scopes are required to access the resource, as per Section 3.1 of <xref target="RFC6750">The OAuth 2.0 Authorization Framework: Bearer Token Usage</xref>.</t>
+                <t>Protected resources MAY include the scope parameter if additional scopes are required to access the resource, as per Section 3.1 of 
+                <xref target="RFC6750">The OAuth 2.0 Authorization Framework: Bearer Token Usage</xref>.</t>
  
             </section>
 
@@ -1588,7 +1613,8 @@ Connection: close
             </section>
             <section title="Connections with Authorization Servers">
 
-                <t>Protected resources MUST provide a JWKS URI endpoint to distribute public keys to support signing, encryption, and authentication to authorization server revocation and introspection endpoints</t>
+                <t>Protected resources MUST provide a JWKS URI endpoint to distribute public keys to support signing, encryption, and 
+                authentication to authorization server revocation and introspection endpoints</t>
                 
                 <t>Protected resources calling the
                 introspection endpoint MUST use
@@ -1640,8 +1666,10 @@ Connection: close
             </section>
             
             <section title="Protected Resource Metadata">
-                <t><xref target="draft-resource-metadata">OAuth 2.0 Protected Resource Metadata</xref> defines a metadata format that a client or authorization server can use to obtain the information needed to interact with a protected resource.
-                This metadata facilitates enhanced interoperability and security, including advertizement and discovery of a protected resource's public key via its jwks_uri.
+                <t><xref target="draft-resource-metadata">OAuth 2.0 Protected Resource Metadata</xref> defines a metadata format that a 
+                client or authorization server can use to obtain the information needed to interact with a protected resource.
+                This metadata facilitates enhanced interoperability and security, including advertisement and discovery of a protected 
+                resource's public key via its jwks_uri.
                 </t>
             </section>
             
