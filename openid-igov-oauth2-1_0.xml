@@ -1504,10 +1504,10 @@ Connection: close
                     includes the protected resource's identifier.</t>
                 
                 <t>
-                    Protected resources MUST accept bearer tokens passed in the
+                    Protected resources MUST accept tokens passed in the
                     authorization header as described in
                     <xref target="RFC6750"/>. A
-                    protected resource MUST NOT accept bearer tokens passed in the
+                    protected resource MUST NOT accept tokens passed in the
                     form
                     parameter or query parameter methods.
                 </t>
@@ -1614,7 +1614,11 @@ Connection: close
             <section title="Connections with Authorization Servers">
 
                 <t>Protected resources MUST provide a JWKS URI endpoint to distribute public keys to support signing, encryption, and 
-                authentication to authorization server revocation and introspection endpoints</t>
+                authentication to authorization server revocation and introspection endpoints. <xref target="draft-resource-metadata">OAuth 2.0 Protected Resource Metadata</xref> 
+                defines a metadata format that a client or authorization server can use to obtain the information needed to interact with a protected resource.
+                This metadata facilitates enhanced interoperability and security, including advertisement and discovery of a protected 
+                resource's public key via its jwks_uri.
+                </t>
                 
                 <t>Protected resources calling the
                 introspection endpoint MUST use
@@ -1665,14 +1669,7 @@ Connection: close
                 </t>
             </section>
             
-            <section title="Protected Resource Metadata">
-                <t><xref target="draft-resource-metadata">OAuth 2.0 Protected Resource Metadata</xref> defines a metadata format that a 
-                client or authorization server can use to obtain the information needed to interact with a protected resource.
-                This metadata facilitates enhanced interoperability and security, including advertisement and discovery of a protected 
-                resource's public key via its jwks_uri.
-                </t>
-            </section>
-            
+           
             <section title="Best Practices">
                 <t>Authorization server, client, and protected resource implementations SHOULD consider including requirements from
                     <xref target="BCP240">Best Current Practice for OAuth 2.0 Security</xref>,
