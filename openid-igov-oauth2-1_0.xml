@@ -38,7 +38,7 @@
   
     <front>
         <title abbrev="iGov OAuth 2.0">International Government Assurance Profile (iGov)
-            for OAuth 2.0 - draft 06</title>
+            for OAuth 2.0 - draft 07</title>
 
         <author fullname="Kelley Burgin" initials="K." role="editor" surname="Burgin">
             <organization abbrev="MITRE">The MITRE Corporation</organization>
@@ -55,7 +55,7 @@
             </address>
         </author>
 
-        <date day="22" month="April" year="2025"/>
+        <date day="26" month="April" year="2025"/>
 
         <workgroup>OpenID iGov Working Group</workgroup>
 
