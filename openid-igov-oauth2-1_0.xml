@@ -826,13 +826,12 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 
                         </list>
                         A client using the tls_client_auth authentication method MUST use exactly one of the below metadata parameters to indicate the certificate
-                        subject value that the authorization server is to expect when authenticating the respective client:
+                        subject value that the authorization server is to expect when authenticating the respective client. AS MUST NOT use IP address or email address to identify 
+                        authenticating clients, and MUST NOT use tls_client_auth_san_ip or tls_client_auth_san_email metadata values:
                         <list style="hanging">
                             <t hangText="tls_client_auth_subject_dn">String value specifying the expected subject DN of the client certificate.</t>
                             <t hangText="tls_client_auth_san_dns">String value specifying the expected dNSName SAN entry in the client certificate.</t>
                             <t hangText="tls_client_auth_san_uri">String value specifying the expected uniformResourceIdentifier SAN entry in the client certificate.</t>
-                            <t hangText="tls_client_auth_san_ip">String value specifying the expected iPAddress SAN entry in the client certificate.</t>
-                            <t hangText="tls_client_auth_san_email">String value specifying the expected rfc822Name SAN entry in the client certificate.</t>
                         </list>
                     </t>
                 </section>
