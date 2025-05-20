@@ -55,7 +55,7 @@
             </address>
         </author>
 
-        <date day="22" month="April" year="2025"/>
+        <date day="19" month="May" year="2025"/>
 
         <workgroup>OpenID iGov Working Group</workgroup>
 
@@ -1619,7 +1619,7 @@ Connection: close
             <section title="Connections with Authorization Servers">
 
                 <t>Protected resources MUST provide a JWKS URI endpoint to distribute public keys to support signing, encryption, and 
-                authentication to authorization server revocation and introspection endpoints. <xref target="draft-resource-metadata">OAuth 2.0 Protected Resource Metadata</xref> 
+                authentication to authorization server revocation and introspection endpoints. <xref target="RFC9728">OAuth 2.0 Protected Resource Metadata</xref> 
                 defines a metadata format that a client or authorization server can use to obtain the information needed to interact with a protected resource.
                 This metadata facilitates enhanced interoperability and security, including advertisement and discovery of a protected 
                 resource's public key via its jwks_uri.
@@ -1770,7 +1770,9 @@ Connection: close
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9449"/>
       
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9470"/>
-      
+  
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9728"/>
+        
       <reference anchor="BCP195" target="http://www.rfc-editor.org/info/bcp195">
                 <front>
                     <title>Recommendations for Secure Use of Transport Layer Security
@@ -1936,16 +1938,6 @@ Connection: close
                     <author fullname="Panos Kampanakis" initials="P." surname="Kampanakis"/>
                     <author fullname="Gerardo Ravago" initials="G." surname="Ravago"/>
                     <date day="4" month="November" year="2024"/>
-                </front>
-            </reference>
-
-            <reference anchor="draft-resource-metadata" target="https://datatracker.ietf.org/doc/draft-ietf-oauth-resource-metadata/">
-                <front>
-                    <title>OAuth 2.0 Protected Resource Metadata</title>
-                    <author fullname="Mike Jones" initials="M." surname="Jones"/>
-                    <author fullname="Phil Hunt" initials="P." surname="Hunt"/>
-                    <author fullname="Aaron Parecki" initials="A." surname="Parecki"/>
-                    <date day="15" month="October" year="2024"/>
                 </front>
             </reference>
             
