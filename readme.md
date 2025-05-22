@@ -23,9 +23,9 @@ The iGov WG operates under the following charter:
 Since its inception, the iGov WG has made significant progress in advancing OpenID standards for government use cases. Key achievements include:
 
 1. **Development of the iGov Profile:** A tailored profile of OpenID Connect designed to meet the security, privacy, and interoperability requirements of government identity systems.
-    [Current iGov Specifications](https://openid.net/wg/igov/specifications/)
-    [Editor's Drafts of iGov Specifications](https://openid.bitbucket.io/iGov/)
-    [Working Group listserv archive](https://lists.openid.net/pipermail/openid-specs-igov/)
++    [Current iGov Specifications](https://openid.net/wg/igov/specifications/)
++    [Editor's Drafts of iGov Specifications](https://openid.bitbucket.io/iGov/)
++    [Working Group listserv archive](https://lists.openid.net/pipermail/openid-specs-igov/)
 2. **Collaborative Research:** Extensive collaboration with government agencies, industry experts, and standards organizations to identify common challenges and solutions.
 3. **Implementation Guidance:** Creation of best practices and technical documentation to support the adoption of OpenID standards in public sector environments.
 4. **Community Engagement:** Hosting workshops, webinars, and discussions to gather feedback and foster collaboration among stakeholders.
@@ -34,16 +34,16 @@ The iGov WG continues to evolve and refine its work, driven by the needs of the 
 
 ## Downstream iGov Profiles and Implementations
 + ITL eID [OpenID Connect](https://italia.github.io/spid-cie-oidc-docs/en/)
-+ NL OpenID NLGov [OIDC](https://gitdocumentatie.logius.nl/publicatie/api/oidc/) [OAuth 2.0](https://gitdocumentatie.logius.nl/publicatie/api/oauth/) 
++ NL OpenID NLGov [OpenID Connect](https://gitdocumentatie.logius.nl/publicatie/api/oidc/) [OAuth 2.0](https://gitdocumentatie.logius.nl/publicatie/api/oauth/) 
 + AUS TDIF [OpenID Connect](https://www.digitalidsystem.gov.au/sites/default/files/2023-07/tdif_06b_openid_connect_1.0_profile_-_release_4.8_-_finance_1.pdf) 
-+ CAN CATS Deployment Profile of [OIDC](https://canada-ca.github.io/CATS-STAE/oidc1-en.pdf)
++ CAN CATS Deployment Profile of [OpenID Connect](https://canada-ca.github.io/CATS-STAE/oidc1-en.pdf)
 + MITRE Enterprise Mission-Tailored Profiles [OpenID Connect](https://www.mitre.org/sites/default/files/2021-11/pr-19-3123-enterprise-tailored-openid-connect-profile.pdf) and [OAuth](https://www.mitre.org/sites/default/files/2021-11/pr-19-3213-enterprise-tailored-oauth-profile.pdf) 
 + US Login.gov [OpenID Connect](https://developers.login.gov/oidc/getting-started/) https://secure.login.gov/.well-known/openid-configuration 
 
 ## Current Focus
 
 The iGov WG has been focused on updating the OAuth 2.0 profile specification to create a new Implementer's Draft.
-You can review the open issues on the OAuth 2.0 specification to be resolved before a Working Group Last Call toward Foundationwide review, [here](
+You can review the open issues on the OAuth 2.0 specification to be resolved before a Working Group Last Call toward Foundationwide review, [here](https://bitbucket.org/openid/igov/issues?status=new&status=open&status=submitted&priority=blocker).
 
 ## Get Involved
 
