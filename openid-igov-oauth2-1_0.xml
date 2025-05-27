@@ -445,6 +445,8 @@
                         the client
                         software to the browser).
                     </t>
+                    
+                    <t>Clients that have multiple client types MUST have a separate client ID for each client type.</t>
 
                     <t>Clients MUST include their full redirect URI in the
                         authorization request.
@@ -695,28 +697,16 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                         <spanx style="verb">authorization_code</spanx> grant type and MAY support the
                         <spanx style="verb">client_credentials</spanx>
                         grant type. The implicit grant type MUST NOT be used.</t>
-                    <t>Authorization servers MUST limit each registered client
-                        (identified
-                        by a client ID) to a single client type only, since a
-                        single piece of
-                        software will be functioning at runtime as only one client type. Clients that have
-                        multiple client types MUST have a
-                        separate client ID for each client type.
+                    <t>Authorization servers MUST limit each registered client (identified by a client ID) 
+                    to a single client type only, since a single piece of software will be functioning at runtime as only one client type.
                     </t>
                 </section>
 
                 <section title="Client authentication">
-                    <t>Authorization servers MUST enforce client authentication for confidential clients. 
-                        Public clients cannot authenticate to the authorization server.
-                        The authorization server MUST support the RS256
-                        signature method (the
-                        Rivest, Shamir, and Adleman (RSA) signature
-                        algorithm with a
-                        256-bit
-                        hash) and MAY use other asymmetric
-                        signature methods listed in the
-                        JSON Web Algorithms (<xref target="RFC7518">JWA</xref>)
-                        specification.
+                    <t>Authorization servers MUST enforce client authentication for confidential clients. Public clients cannot authenticate 
+                    to the authorization server. Authorization servers MUST support the RS256 signature method (the Rivest, Shamir, and Adleman 
+                    (RSA) signature algorithm with a 256-bit hash) and MAY use other asymmetric signature methods listed in
+                    <xref target="RFC7518">JSON Web Algorithms (JWA) [RFC7518]</xref>.
                     </t>
                     
                     
