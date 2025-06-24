@@ -701,15 +701,8 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                 <section title="Client authentication">
                     <t>Authorization servers MUST enforce client authentication for confidential clients. 
                         Public clients cannot authenticate to the authorization server.
-                        The authorization server MUST support the RS256
-                        signature method (the
-                        Rivest, Shamir, and Adleman (RSA) signature
-                        algorithm with a
-                        256-bit
-                        hash) and MAY use other asymmetric
-                        signature methods listed in the
-                        JSON Web Algorithms (<xref target="RFC7518">JWA</xref>)
-                        specification.
+                        The authorization server MUST support the PS256 or ES256
+                        signature methods.
                     </t>
                     
                     
