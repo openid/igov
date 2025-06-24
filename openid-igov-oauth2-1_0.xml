@@ -825,6 +825,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                             <t hangText="tls_client_auth_san_dns">String value specifying the expected dNSName SAN entry in the client certificate.</t>
                             <t hangText="tls_client_auth_san_uri">String value specifying the expected uniformResourceIdentifier SAN entry in the client certificate.</t>
                             </list>
+                            <t> Clients MUST NOT use the tls_client_auth_san_ip or tls_client_auth_san_email metadata parameters.</t>
                     </t>
                 </section>
 
