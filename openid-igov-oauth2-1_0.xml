@@ -824,9 +824,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                             <t hangText="tls_client_auth_subject_dn">String value specifying the expected subject DN of the client certificate.</t>
                             <t hangText="tls_client_auth_san_dns">String value specifying the expected dNSName SAN entry in the client certificate.</t>
                             <t hangText="tls_client_auth_san_uri">String value specifying the expected uniformResourceIdentifier SAN entry in the client certificate.</t>
-                            <t hangText="tls_client_auth_san_ip">String value specifying the expected iPAddress SAN entry in the client certificate.</t>
-                            <t hangText="tls_client_auth_san_email">String value specifying the expected rfc822Name SAN entry in the client certificate.</t>
-                        </list>
+                            </list>
                     </t>
                 </section>
 
