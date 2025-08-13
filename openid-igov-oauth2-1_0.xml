@@ -265,7 +265,7 @@
                 <t>
                     <list style="hanging">
                         <t hangText="confidential clients:">Clients that have credentials with the authorization server.</t>
-                        <t hangText="public clients:">Clients without credentials.
+                        <t hangText="public clients:">Clients without credentials. Public client use cases are out of scope for this profile.
                             </t>
                         </list>
                     </t>
@@ -282,7 +282,8 @@
                                interface rendered in a user agent on the device used by the
                                resource owner.  The client credentials as well as any access
                                tokens issued to the client are stored on the web server and are
-                               not exposed to or accessible by the resource owner. In this use case, web applications are confidential clients.
+                               not exposed to or accessible by the resource owner. 
+                               In this use case, web applications are confidential clients and in-scope for this profile.
                         </t>
 
                         <t hangText="native application:">A native application is a client installed and
@@ -292,30 +293,36 @@
                             application can be extracted.  Dynamically issued access tokens
                             and refresh tokens can receive an acceptable level of protection.
                             On some platforms, these credentials are protected from other
-                            applications residing on the same device. Best current practices for native applications are detailed in
+                            applications residing on the same device. 
+                            In this use case, native applications are public clients and out of scope for this profile.
+                            However, best current practices for native applications are detailed in
                             <xref target="RFC8252">OAuth 2.0 for Native Apps</xref>. In this use case, native applications are public clients.
                         </t>
                         
                         <t hangText="browser-based application:">A browser-based application is a client
-                  in which the client code is downloaded from a web server and
-                  executes within a user agent (e.g., web browser) on the device
-                  used by the resource owner.  Protocol data and credentials are
-                  easily accessible (and often visible) to the resource owner.  If
-                  such applications wish to use client credentials, it is
-                  recommended to utilize the backend for frontend pattern.  Since
-                  such applications reside within the user agent, they can make
-                  seamless use of the user agent capabilities when requesting
-                  authorization. This use case is out of scope due to the inherent lack of security provided by browser-based applications.
-                  However, best current practices are detailed in <xref target="browser-based-apps">OAuth 2.0 for Browser-Based Applications</xref>.</t>
+                          in which the client code is downloaded from a web server and
+                          executes within a user agent (e.g., web browser) on the device
+                          used by the resource owner.  Protocol data and credentials are
+                          easily accessible (and often visible) to the resource owner.  If
+                          such applications wish to use client credentials, it is
+                          recommended to utilize the backend for frontend pattern.  Since
+                          such applications reside within the user agent, they can make
+                          seamless use of the user agent capabilities when requesting
+                          authorization. 
+                          In this use case, browser-based applications are public clients and out of scope for this profile.
+                          However, best current practices are detailed in <xref target="browser-based-apps">OAuth 2.0 for Browser-Based Applications</xref>.</t>
                         </list>
                     </t>
+                    	<t>This profile establishes requirements that can only be met by confidential clients. 
+						Government implementers with public client use cases are encouraged to consult the best practices
+						identified above for those use cases.
+						</t>
                 </section>
                 
                 <section anchor="ClientRegistration" title="Client Registration">
                 <t>All clients MUST register with the authorization server. For
                     client software that may be installed on multiple client
                     instances,
-                    such as native applications,
                     each client instance MAY receive a unique client identifier from
                     the authorization server.
                 </t>
@@ -438,6 +445,8 @@
                         the client
                         software to the browser).
                     </t>
+                    
+                    <t>Clients that have multiple client types MUST have a separate client ID for each client type.</t>
 
                     <t>Clients MUST include their full redirect URI in the
                         authorization request.
@@ -508,7 +517,7 @@ Host: idp-p.example.com
 
             <section anchor="RequestsToTokenEndpoint" title="Requests to the Token Endpoint">
                     <t>
-                        Confidential clients MUST
+                        Clients MUST
                         authenticate to the authorization server's token endpoint using either
                         the private_key_jwt method as defined in
                         <xref target="OpenID.Core">OpenID Connect Core</xref>
@@ -688,28 +697,16 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                         <spanx style="verb">authorization_code</spanx> grant type and MAY support the
                         <spanx style="verb">client_credentials</spanx>
                         grant type. The implicit grant type MUST NOT be used.</t>
-                    <t>Authorization servers MUST limit each registered client
-                        (identified
-                        by a client ID) to a single client type only, since a
-                        single piece of
-                        software will be functioning at runtime as only one client type. Clients that have
-                        multiple client types MUST have a
-                        separate client ID for each client type.
+                    <t>Authorization servers MUST limit each registered client (identified by a client ID) 
+                    to a single client type only, since a single piece of software will be functioning at runtime as only one client type.
                     </t>
                 </section>
 
                 <section title="Client authentication">
-                    <t>Authorization servers MUST enforce client authentication for confidential clients. 
-                        Public clients cannot authenticate to the authorization server.
-                        The authorization server MUST support the RS256
-                        signature method (the
-                        Rivest, Shamir, and Adleman (RSA) signature
-                        algorithm with a
-                        256-bit
-                        hash) and MAY use other asymmetric
-                        signature methods listed in the
-                        JSON Web Algorithms (<xref target="RFC7518">JWA</xref>)
-                        specification.
+                    <t>Authorization servers MUST enforce client authentication for confidential clients. Public clients cannot authenticate 
+                    to the authorization server. Authorization servers MUST support the RS256 signature method (the Rivest, Shamir, and Adleman 
+                    (RSA) signature algorithm with a 256-bit hash) and MAY use other asymmetric signature methods listed in
+                    <xref target="RFC7518">JSON Web Algorithms (JWA) [RFC7518]</xref>.
                     </t>
                     
                     
@@ -819,13 +816,12 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 
                         </list>
                         A client using the tls_client_auth authentication method MUST use exactly one of the below metadata parameters to indicate the certificate
-                        subject value that the authorization server is to expect when authenticating the respective client:
+                        subject value that the authorization server is to expect when authenticating the respective client. AS MUST NOT use IP address or email address to identify 
+                        authenticating clients, and MUST NOT use tls_client_auth_san_ip or tls_client_auth_san_email metadata values:
                         <list style="hanging">
                             <t hangText="tls_client_auth_subject_dn">String value specifying the expected subject DN of the client certificate.</t>
                             <t hangText="tls_client_auth_san_dns">String value specifying the expected dNSName SAN entry in the client certificate.</t>
                             <t hangText="tls_client_auth_san_uri">String value specifying the expected uniformResourceIdentifier SAN entry in the client certificate.</t>
-                            <t hangText="tls_client_auth_san_ip">String value specifying the expected iPAddress SAN entry in the client certificate.</t>
-                            <t hangText="tls_client_auth_san_email">String value specifying the expected rfc822Name SAN entry in the client certificate.</t>
                         </list>
                     </t>
                 </section>
@@ -838,7 +834,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                     <t>
                         <list style="symbols">
                             <t>Whether the client was dynamically registered, or else
-                                statically registered by a trusted administrator, or a public client.
+                                statically registered by a trusted administrator.
                             </t>
 
                             <t>Whether the client is associated with a software statement,
@@ -853,11 +849,9 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                         </list>
                     </t>
                     
-                    <t>For example, for
-                        public clients, a message indicating a new App installation has been
-                        registered as a client can help users determine if this is the expected
-                        behavior. This signal helps users protect themselves from potentially
-                        rogue clients.
+                    <t>For example, if the user believes they are authorizing a very limited type of access,
+                     providing the access level at the consent screen may help the user make informed decisions about
+                     sharing sensitive information.
                     </t>
                 </section>
 
@@ -1614,7 +1608,7 @@ Connection: close
             <section title="Connections with Authorization Servers">
 
                 <t>Protected resources MUST provide a JWKS URI endpoint to distribute public keys to support signing, encryption, and 
-                authentication to authorization server revocation and introspection endpoints. <xref target="draft-resource-metadata">OAuth 2.0 Protected Resource Metadata</xref> 
+                authentication to authorization server revocation and introspection endpoints. <xref target="RFC9728">OAuth 2.0 Protected Resource Metadata</xref> 
                 defines a metadata format that a client or authorization server can use to obtain the information needed to interact with a protected resource.
                 This metadata facilitates enhanced interoperability and security, including advertisement and discovery of a protected 
                 resource's public key via its jwks_uri.
@@ -1681,13 +1675,12 @@ Connection: close
             
             <section title="Other Considerations">
 
-                <t> Authorization Servers SHOULD take into account device posture when dealing
-                    with native apps if possible. Some examples of device posture include:</t>
+                <t> Authorization Servers SHOULD take device posture into account, when possible. Some examples of device posture include:</t>
                     <t><list style="symbols">
                     <t>the user's lock screen setting</t>
-                    <t>the app's level of privilege over the device operating system (e.g. if the app has 'root access', the
+                    <t>the client's level of privilege over the device operating system (e.g. if the client has 'root access', the
                     device operating system may be compromised to gain additional privileges not intended by the vendor)</t>
-                    <t>the availability of a device attestation to validate the app</t>
+                    <t>the availability of a device attestation to validate the client</t>
                     </list></t>
                 <t>
                     Specific policies or capabilities are outside the scope of this specification.
@@ -1766,7 +1759,9 @@ Connection: close
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9449"/>
       
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9470"/>
-      
+  
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9728"/>
+        
       <reference anchor="BCP195" target="http://www.rfc-editor.org/info/bcp195">
                 <front>
                     <title>Recommendations for Secure Use of Transport Layer Security
@@ -1932,16 +1927,6 @@ Connection: close
                     <author fullname="Panos Kampanakis" initials="P." surname="Kampanakis"/>
                     <author fullname="Gerardo Ravago" initials="G." surname="Ravago"/>
                     <date day="4" month="November" year="2024"/>
-                </front>
-            </reference>
-
-            <reference anchor="draft-resource-metadata" target="https://datatracker.ietf.org/doc/draft-ietf-oauth-resource-metadata/">
-                <front>
-                    <title>OAuth 2.0 Protected Resource Metadata</title>
-                    <author fullname="Mike Jones" initials="M." surname="Jones"/>
-                    <author fullname="Phil Hunt" initials="P." surname="Hunt"/>
-                    <author fullname="Aaron Parecki" initials="A." surname="Parecki"/>
-                    <date day="15" month="October" year="2024"/>
                 </front>
             </reference>
             
