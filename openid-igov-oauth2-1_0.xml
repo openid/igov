@@ -397,7 +397,7 @@
             </section>
 
             <section anchor="AuthNContext" title="Authentication Context and Step-Up Authentication Challenge Protocol Support">
-                <t>Clients MUST support the mechanism specified in <xref target="RFC9470">OAuth 2.0 Step Up Authentication Challenge
+                <t>Clients SHOULD support the mechanism specified in <xref target="RFC9470">OAuth 2.0 Step Up Authentication Challenge
                 Protocol"</xref> to communicate authentication context and implement interoperable step up authentication.</t>
                 
                 <t>This profile acknowledges government use cases will likely operate within an ecosystem of authentication methods of highly variable security
