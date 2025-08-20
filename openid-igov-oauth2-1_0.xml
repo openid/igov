@@ -12,7 +12,7 @@
 <rfc
   category="std"
   
-  docName="openid-igov-oauth2-1_06"
+  docName="openid-igov-oauth2-1_08"
   
   ipr="none"
   
@@ -55,7 +55,7 @@
             </address>
         </author>
 
-        <date day="22" month="May" year="2025"/>
+        <date day="20" month="August" year="2025"/>
 
         <workgroup>OpenID iGov Working Group</workgroup>
 
@@ -1992,6 +1992,40 @@ Connection: close
         <section anchor="History" title="Document History">
       <t>[[ To be removed from the final specification ]]</t>
  
+ <t>
+    -08
+    <list style="symbols">
+    <t>
+        Added description of resource server requirements for authentication context and step-up
+      </t>
+      <t>
+        Restructured the document so the text flows better
+      </t>
+      <t>
+        Added a method to securely discover or declare JWKS-URI for PR/RS
+      </t>
+      <t>
+        Removed public clients to align with FAPI
+      </t>
+      <t>
+        Moved requirements to correct section
+      </t>
+      <t>
+        Realigned requirements among AS, client, and PR/RS
+      </t>
+      <t>
+        Changed date, version, and document history
+      </t>
+      </list>
+      </t>
+      <t>
+    -06-07
+    <list style="symbols">
+      <t>
+        Addressed comments from WGLC request Jan 31, 2025
+      </t>
+      </list>
+      </t>
      <t>
     -05
     <list style="symbols">
