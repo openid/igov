@@ -5,12 +5,12 @@
 OpenID iGov Working Group                                 K. Burgin, Ed.
                                                           T. Clancy, Ed.
                                                                    MITRE
-                                                             22 May 2025
+                                                          20 August 2025
 
 
 International Government Assurance Profile (iGov) for OAuth 2.0 - draft
                                    07
-                        openid-igov-oauth2-1_06
+                        openid-igov-oauth2-1_08
 
 Abstract
 
@@ -55,7 +55,7 @@ Table of Contents
 
 Burgin & Clancy              Standards Track                    [Page 1]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
        3.1.5.  Sender-constrained Tokens . . . . . . . . . . . . . .  16
@@ -86,7 +86,7 @@ Burgin & Clancy              Standards Track                    [Page 1]
    Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  34
    Appendix B.  Notices  . . . . . . . . . . . . . . . . . . . . . .  35
    Appendix C.  Document History . . . . . . . . . . . . . . . . . .  36
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  36
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  37
 
 1.  Introduction
 
@@ -111,7 +111,7 @@ Burgin & Clancy              Standards Track                    [Page 1]
 
 Burgin & Clancy              Standards Track                    [Page 2]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
 1.1.  Requirements Notation and Conventions
@@ -167,7 +167,7 @@ Burgin & Clancy              Standards Track                    [Page 2]
 
 Burgin & Clancy              Standards Track                    [Page 3]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
    An iGov-compliant OAuth 2.0 authorization server MUST support all
@@ -223,7 +223,7 @@ Burgin & Clancy              Standards Track                    [Page 3]
 
 Burgin & Clancy              Standards Track                    [Page 4]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
    Endpoints for use by web browsers MUST use mechanisms to ensure that
@@ -279,7 +279,7 @@ Burgin & Clancy              Standards Track                    [Page 4]
 
 Burgin & Clancy              Standards Track                    [Page 5]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
       executed on the device used by the resource owner.  Protocol data
@@ -335,7 +335,7 @@ Burgin & Clancy              Standards Track                    [Page 5]
 
 Burgin & Clancy              Standards Track                    [Page 6]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
    If a client uses DPoP [RFC9449] to sender constrain tokens, the
@@ -391,7 +391,7 @@ Burgin & Clancy              Standards Track                    [Page 6]
 
 Burgin & Clancy              Standards Track                    [Page 7]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
    As described in Best Current Practice for OAuth 2.0 Security
@@ -447,7 +447,7 @@ Burgin & Clancy              Standards Track                    [Page 7]
 
 Burgin & Clancy              Standards Track                    [Page 8]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
 2.6.1.  Requests to the Authorization Endpoint
@@ -503,7 +503,7 @@ Burgin & Clancy              Standards Track                    [Page 8]
 
 Burgin & Clancy              Standards Track                    [Page 9]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
    Furthermore, if the authorization request is a follow-up to a prior
@@ -559,7 +559,7 @@ Burgin & Clancy              Standards Track                    [Page 9]
 
 Burgin & Clancy              Standards Track                   [Page 10]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
    If using the private_key_jwt method, the request MUST be a JWT
@@ -615,7 +615,7 @@ Burgin & Clancy              Standards Track                   [Page 10]
 
 Burgin & Clancy              Standards Track                   [Page 11]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
    NOTE: '\' line wrapping per RFC 8792
@@ -671,7 +671,7 @@ Burgin & Clancy              Standards Track                   [Page 11]
 
 Burgin & Clancy              Standards Track                   [Page 12]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
 3.  Authorization Server Profile
@@ -727,7 +727,7 @@ Burgin & Clancy              Standards Track                   [Page 12]
 
 Burgin & Clancy              Standards Track                   [Page 13]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
    higher level scope and lower level scope in the original
@@ -783,7 +783,7 @@ Burgin & Clancy              Standards Track                   [Page 13]
 
 Burgin & Clancy              Standards Track                   [Page 14]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
       the client
@@ -839,7 +839,7 @@ Burgin & Clancy              Standards Track                   [Page 14]
 
 Burgin & Clancy              Standards Track                   [Page 15]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
    *  Whether the client is associated with a software statement, and in
@@ -895,7 +895,7 @@ Burgin & Clancy              Standards Track                   [Page 15]
 
 Burgin & Clancy              Standards Track                   [Page 16]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
    revocation_endpoint  OPTIONAL.  The fully qualified URL of the
@@ -951,7 +951,7 @@ Burgin & Clancy              Standards Track                   [Page 16]
 
 Burgin & Clancy              Standards Track                   [Page 17]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
   {
@@ -1007,7 +1007,7 @@ Burgin & Clancy              Standards Track                   [Page 17]
 
 Burgin & Clancy              Standards Track                   [Page 18]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
    It is RECOMMENDED that authorization servers provide cache
@@ -1063,7 +1063,7 @@ Burgin & Clancy              Standards Track                   [Page 18]
 
 Burgin & Clancy              Standards Track                   [Page 19]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
    Authorization servers MUST provide a revocation endpoint URL as
@@ -1119,7 +1119,7 @@ Burgin & Clancy              Standards Track                   [Page 19]
 
 Burgin & Clancy              Standards Track                   [Page 20]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
    state  REQUIRED.  The value of the state parameter passed in in the
@@ -1175,7 +1175,7 @@ Burgin & Clancy              Standards Track                   [Page 20]
 
 Burgin & Clancy              Standards Track                   [Page 21]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
       the client id of a client acting on its own behalf (such as a bulk
@@ -1231,7 +1231,7 @@ Burgin & Clancy              Standards Track                   [Page 21]
 
 Burgin & Clancy              Standards Track                   [Page 22]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
    {
@@ -1287,7 +1287,7 @@ Burgin & Clancy              Standards Track                   [Page 22]
 
 Burgin & Clancy              Standards Track                   [Page 23]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
    The client SHOULD use a certificate to sender-constrain tokens that
@@ -1343,7 +1343,7 @@ Burgin & Clancy              Standards Track                   [Page 23]
 
 Burgin & Clancy              Standards Track                   [Page 24]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
    NOTE: '\' line wrapping per RFC 8792
@@ -1399,7 +1399,7 @@ Burgin & Clancy              Standards Track                   [Page 24]
 
 Burgin & Clancy              Standards Track                   [Page 25]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
       a single string.
@@ -1455,7 +1455,7 @@ Burgin & Clancy              Standards Track                   [Page 25]
 
 Burgin & Clancy              Standards Track                   [Page 26]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
    Protected resources MUST accept tokens passed in the authorization
@@ -1511,7 +1511,7 @@ Burgin & Clancy              Standards Track                   [Page 26]
 
 Burgin & Clancy              Standards Track                   [Page 27]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
 4.2.  Protecting Resources
@@ -1567,7 +1567,7 @@ Burgin & Clancy              Standards Track                   [Page 27]
 
 Burgin & Clancy              Standards Track                   [Page 28]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
    The client makes a refresh token request (as described in OAuth 2.0
@@ -1623,7 +1623,7 @@ Burgin & Clancy              Standards Track                   [Page 28]
 
 Burgin & Clancy              Standards Track                   [Page 29]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
 5.  Security Considerations
@@ -1679,7 +1679,7 @@ Burgin & Clancy              Standards Track                   [Page 29]
 
 Burgin & Clancy              Standards Track                   [Page 30]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
    In OpenID Connect implementations, cilents and servers SHOULD
@@ -1735,7 +1735,7 @@ Burgin & Clancy              Standards Track                   [Page 30]
 
 Burgin & Clancy              Standards Track                   [Page 31]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
    [OpenID.iGov]
@@ -1791,7 +1791,7 @@ Burgin & Clancy              Standards Track                   [Page 31]
 
 Burgin & Clancy              Standards Track                   [Page 32]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
    [RFC7516]  Jones, M. and J. Hildebrand, "JSON Web Encryption (JWE)",
@@ -1847,7 +1847,7 @@ Burgin & Clancy              Standards Track                   [Page 32]
 
 Burgin & Clancy              Standards Track                   [Page 33]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
    [RFC8414]  Jones, M., Sakimura, N., and J. Bradley, "OAuth 2.0
@@ -1903,7 +1903,7 @@ Appendix A.  Acknowledgements
 
 Burgin & Clancy              Standards Track                   [Page 34]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
    Special thank you to the original iGov Profile editors: Paul Grassi,
@@ -1959,12 +1959,33 @@ Appendix B.  Notices
 
 Burgin & Clancy              Standards Track                   [Page 35]
 
-                             iGov OAuth 2.0                     May 2025
+                             iGov OAuth 2.0                  August 2025
 
 
 Appendix C.  Document History
 
    [[ To be removed from the final specification ]]
+
+   -08
+
+   *  Added description of resource server requirements for
+      authentication context and step-up
+
+   *  Restructured the document so the text flows better
+
+   *  Added a method to securely discover or declare JWKS-URI for PR/RS
+
+   *  Removed public clients to align with FAPI
+
+   *  Moved requirements to correct section
+
+   *  Realigned requirements among AS, client, and PR/RS
+
+   *  Changed date, version, and document history
+
+   -06-07
+
+   *  Addressed comments from WGLC request Jan 31, 2025
 
    -05
 
@@ -1990,6 +2011,13 @@ Appendix C.  Document History
 
    *  First Implementer's Draft
 
+
+
+Burgin & Clancy              Standards Track                   [Page 36]
+
+                             iGov OAuth 2.0                  August 2025
+
+
    -2017-06-01
 
    *  Aligned with prior version of iGov.
@@ -2010,37 +2038,9 @@ Authors' Addresses
    Email: kburgin@mitre.org
 
 
-
-
-
-Burgin & Clancy              Standards Track                   [Page 36]
-
-                             iGov OAuth 2.0                     May 2025
-
-
    Tom Clancy (editor)
    The MITRE Corporation
    Email: tclancy@mitre.org
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
