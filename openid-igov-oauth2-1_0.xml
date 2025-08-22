@@ -816,13 +816,14 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 
                         </list>
                         A client using the tls_client_auth authentication method MUST use exactly one of the below metadata parameters to indicate the certificate
-                        subject value that the authorization server is to expect when authenticating the respective client. AS MUST NOT use IP address or email address to identify 
-                        authenticating clients, and MUST NOT use tls_client_auth_san_ip or tls_client_auth_san_email metadata values:
+                        subject value that the authorization server is to expect when authenticating the respective client:
                         <list style="hanging">
                             <t hangText="tls_client_auth_subject_dn">String value specifying the expected subject DN of the client certificate.</t>
                             <t hangText="tls_client_auth_san_dns">String value specifying the expected dNSName SAN entry in the client certificate.</t>
                             <t hangText="tls_client_auth_san_uri">String value specifying the expected uniformResourceIdentifier SAN entry in the client certificate.</t>
                         </list>
+                        It is NOT RECOMMENDED that authorization servers use IP address or email address to identify 
+                        authenticating clients. It is also NOT RECOMMENDED that authorization servers use tls_client_auth_san_ip or tls_client_auth_san_email metadata values
                     </t>
                 </section>
 
@@ -1607,7 +1608,7 @@ Connection: close
             </section>
             <section title="Connections with Authorization Servers">
 
-                <t>Protected resources MAY provide a JWKS URI endpoint to distribute public keys to support signing, encryption, and 
+                <t>Protected resources MUST provide a JWKS URI endpoint to distribute public keys to support signing, encryption, and 
                 authentication to authorization server revocation and introspection endpoints. <xref target="RFC9728">OAuth 2.0 Protected Resource Metadata</xref> 
                 defines a metadata format that a client or authorization server can use to obtain the information needed to interact with a protected resource.
                 This metadata facilitates enhanced interoperability and security, including advertisement and discovery of a protected 
