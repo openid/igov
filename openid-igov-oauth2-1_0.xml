@@ -12,7 +12,7 @@
 <rfc
   category="std"
   
-  docName="openid-igov-oauth2-1_06"
+  docName="openid-igov-oauth2-1_08"
   
   ipr="none"
   
@@ -55,7 +55,7 @@
             </address>
         </author>
 
-        <date day="22" month="May" year="2025"/>
+        <date day="20" month="August" year="2025"/>
 
         <workgroup>OpenID iGov Working Group</workgroup>
 
@@ -397,7 +397,7 @@
             </section>
 
             <section anchor="AuthNContext" title="Authentication Context and Step-Up Authentication Challenge Protocol Support">
-                <t>Clients MUST support the mechanism specified in <xref target="RFC9470">OAuth 2.0 Step Up Authentication Challenge
+                <t>Clients SHOULD support the mechanism specified in <xref target="RFC9470">OAuth 2.0 Step Up Authentication Challenge
                 Protocol"</xref> to communicate authentication context and implement interoperable step up authentication.</t>
                 
                 <t>This profile acknowledges government use cases will likely operate within an ecosystem of authentication methods of highly variable security
@@ -816,13 +816,14 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 
                         </list>
                         A client using the tls_client_auth authentication method MUST use exactly one of the below metadata parameters to indicate the certificate
-                        subject value that the authorization server is to expect when authenticating the respective client. AS MUST NOT use IP address or email address to identify 
-                        authenticating clients, and MUST NOT use tls_client_auth_san_ip or tls_client_auth_san_email metadata values:
+                        subject value that the authorization server is to expect when authenticating the respective client:
                         <list style="hanging">
                             <t hangText="tls_client_auth_subject_dn">String value specifying the expected subject DN of the client certificate.</t>
                             <t hangText="tls_client_auth_san_dns">String value specifying the expected dNSName SAN entry in the client certificate.</t>
                             <t hangText="tls_client_auth_san_uri">String value specifying the expected uniformResourceIdentifier SAN entry in the client certificate.</t>
                         </list>
+                        It is NOT RECOMMENDED that authorization servers use IP address or email address to identify 
+                        authenticating clients. It is also NOT RECOMMENDED that authorization servers use tls_client_auth_san_ip or tls_client_auth_san_email metadata values
                     </t>
                 </section>
 
@@ -1753,7 +1754,7 @@ Connection: close
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8725"/>
       
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9068"/>
-      
+       
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9364"/>
       
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9449"/>
@@ -1957,7 +1958,7 @@ Connection: close
                 Pulvermacher, David Hill, Dale Moberg, Adrian Gropper, Eve Maler,
                 Danny van Leeuwen, John Moehrke, Aaron Seib, John Bradley, Debbie
                 Bucci, Josh Mandel, Sarah Cecchetti, Giuseppe De Marco, Joseph Heenan,
-                Jim Fenton, Ryan Galluzzo, Bjorn Hjelm, Aaron Parecki, and Michael B. Jones.
+                Jim Fenton, Ryan Galluzzo, Bjorn Hjelm, Aaron Parecki, Michael B. Jones, and Stas Mironov.
             </t>
             <t> Special thank you to the original iGov Profile editors: Paul Grassi, Justin Richer,
                 and Michael Varley.
@@ -1992,6 +1993,40 @@ Connection: close
         <section anchor="History" title="Document History">
       <t>[[ To be removed from the final specification ]]</t>
  
+ <t>
+    -08
+    <list style="symbols">
+    <t>
+        Added description of resource server requirements for authentication context and step-up
+      </t>
+      <t>
+        Restructured the document so the text flows better
+      </t>
+      <t>
+        Added a method to securely discover or declare JWKS-URI for PR/RS
+      </t>
+      <t>
+        Removed public clients to align with FAPI
+      </t>
+      <t>
+        Moved requirements to correct section
+      </t>
+      <t>
+        Realigned requirements among AS, client, and PR/RS
+      </t>
+      <t>
+        Changed date, version, and document history
+      </t>
+      </list>
+      </t>
+      <t>
+    -06-07
+    <list style="symbols">
+      <t>
+        Addressed comments from WGLC request Jan 31, 2025
+      </t>
+      </list>
+      </t>
      <t>
     -05
     <list style="symbols">

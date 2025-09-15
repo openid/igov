@@ -19,21 +19,21 @@
                 consumer-to-government deployments.
        
     " name="description">
-<meta content="xml2rfc 3.28.1" name="generator">
-<meta content="openid-igov-oauth2-1_06" name="ietf.draft">
+<meta content="xml2rfc 3.30.0" name="generator">
+<meta content="openid-igov-oauth2-1_08" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.28.1
+  xml2rfc 3.30.0
     Python 3.12.3
-    ConfigArgParse 1.7
+    ConfigArgParse 1.7.1
     google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.6
-    lxml 5.3.1
-    platformdirs 4.3.7
+    lxml 6.0.0
+    platformdirs 4.3.8
     pycountry 24.6.1
     PyYAML 6.0.2
-    requests 2.32.3
-    setuptools 78.1.0
+    requests 2.32.4
+    setuptools 80.9.0
     wcwidth 0.2.13
     weasyprint 65.0
 -->
@@ -168,6 +168,12 @@ div {
 }
 svg {
   display: block;
+}
+@media print {
+  svg {
+    max-height: 850px;
+    max-width: 660px;
+  }
 }
 svg[font-family~="serif" i], svg [font-family~="serif" i] {
   font-family: var(--font-serif);
@@ -1191,6 +1197,7 @@ dl > dd > dl {
 /* This should match the element list in writer.text.TextWriter.render_dl() */
 dd > div.artwork:first-child,
 dd > aside:first-child,
+dd > blockquote:first-child,
 dd > figure:first-child,
 dd > ol:first-child,
 dd > div.sourcecode:first-child,
@@ -1220,7 +1227,7 @@ li > p:last-of-type:only-child {
 <thead><tr>
 <td class="left"></td>
 <td class="center">iGov OAuth 2.0</td>
-<td class="right">May 2025</td>
+<td class="right">August 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Burgin &amp; Clancy</td>
@@ -1235,7 +1242,7 @@ li > p:last-of-type:only-child {
 <dd class="workgroup">OpenID iGov Working Group</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-05-22" class="published">22 May 2025</time>
+<time datetime="2025-08-20" class="published">20 August 2025</time>
     </dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
@@ -1647,7 +1654,7 @@ li > p:last-of-type:only-child {
 </dd>
           <dd class="break"></dd>
 <dt id="section-2.1-2.3">public clients:</dt>
-          <dd style="margin-left: 1.5em" id="section-2.1-2.4">Clients without credentials.<a href="#section-2.1-2.4" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-2.1-2.4">Clients without credentials. Public client use cases are out of scope for this profile.<a href="#section-2.1-2.4" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
 </dl>
@@ -1666,7 +1673,8 @@ li > p:last-of-type:only-child {
                                interface rendered in a user agent on the device used by the
                                resource owner.  The client credentials as well as any access
                                tokens issued to the client are stored on the web server and are
-                               not exposed to or accessible by the resource owner. In this use case, web applications are confidential clients.<a href="#section-2.2-2.2" class="pilcrow">¶</a>
+                               not exposed to or accessible by the resource owner.
+                               In this use case, web applications are confidential clients and in-scope for this profile.<a href="#section-2.2-2.2" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-2.2-2.3">native application:</dt>
@@ -1677,25 +1685,31 @@ li > p:last-of-type:only-child {
                             application can be extracted.  Dynamically issued access tokens
                             and refresh tokens can receive an acceptable level of protection.
                             On some platforms, these credentials are protected from other
-                            applications residing on the same device. Best current practices for native applications are detailed in
+                            applications residing on the same device.
+                            In this use case, native applications are public clients and out of scope for this profile.
+                            However, best current practices for native applications are detailed in
                             <span><a href="#RFC8252" class="internal xref">OAuth 2.0 for Native Apps</a> [<a href="#RFC8252" class="cite xref">RFC8252</a>]</span>. In this use case, native applications are public clients.<a href="#section-2.2-2.4" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-2.2-2.5">browser-based application:</dt>
           <dd style="margin-left: 1.5em" id="section-2.2-2.6">A browser-based application is a client
-                  in which the client code is downloaded from a web server and
-                  executes within a user agent (e.g., web browser) on the device
-                  used by the resource owner.  Protocol data and credentials are
-                  easily accessible (and often visible) to the resource owner.  If
-                  such applications wish to use client credentials, it is
-                  recommended to utilize the backend for frontend pattern.  Since
-                  such applications reside within the user agent, they can make
-                  seamless use of the user agent capabilities when requesting
-                  authorization. This use case is out of scope due to the inherent lack of security provided by browser-based applications.
-                  However, best current practices are detailed in <span><a href="#browser-based-apps" class="internal xref">OAuth 2.0 for Browser-Based Applications</a> [<a href="#browser-based-apps" class="cite xref">browser-based-apps</a>]</span>.<a href="#section-2.2-2.6" class="pilcrow">¶</a>
+                          in which the client code is downloaded from a web server and
+                          executes within a user agent (e.g., web browser) on the device
+                          used by the resource owner.  Protocol data and credentials are
+                          easily accessible (and often visible) to the resource owner.  If
+                          such applications wish to use client credentials, it is
+                          recommended to utilize the backend for frontend pattern.  Since
+                          such applications reside within the user agent, they can make
+                          seamless use of the user agent capabilities when requesting
+                          authorization.
+                          In this use case, browser-based applications are public clients and out of scope for this profile.
+                          However, best current practices are detailed in <span><a href="#browser-based-apps" class="internal xref">OAuth 2.0 for Browser-Based Applications</a> [<a href="#browser-based-apps" class="cite xref">browser-based-apps</a>]</span>.<a href="#section-2.2-2.6" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
 </dl>
+<p id="section-2.2-3">This profile establishes requirements that can only be met by confidential clients.
+                        Government implementers with public client use cases are encouraged to consult the best practices
+                        identified above for those use cases.<a href="#section-2.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="ClientRegistration">
@@ -1706,15 +1720,14 @@ li > p:last-of-type:only-child {
 <p id="section-2.3-1">All clients MUST register with the authorization server. For
                     client software that may be installed on multiple client
                     instances,
-                    such as native applications,
                     each client instance MAY receive a unique client identifier from
                     the authorization server.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
 <p id="section-2.3-2">Client registration MAY be completed by either out-of-band configuration or using the <span><a href="#RFC7591" class="internal xref">Dynamic Client Registration Protocol</a> [<a href="#RFC7591" class="cite xref">RFC7591</a>]</span>.<a href="#section-2.3-2" class="pilcrow">¶</a></p>
-<p id="section-2.3-3"> If a client uses <span><a href="#RFC8705" class="internal xref">mTLS</a> [<a href="#RFC8705" class="cite xref">RFC8705</a>]</span> for client authentication or to sender-constrain tokens, the client MUST include the 
+<p id="section-2.3-3"> If a client uses <span><a href="#RFC8705" class="internal xref">mTLS</a> [<a href="#RFC8705" class="cite xref">RFC8705</a>]</span> for client authentication or to sender-constrain tokens, the client MUST include the
                 tls_client_certificate_bound_access_tokens parameter in its registration metadata.<a href="#section-2.3-3" class="pilcrow">¶</a></p>
-<p id="section-2.3-4"> If a client uses <span><a href="#RFC9449" class="internal xref">DPoP</a> [<a href="#RFC9449" class="cite xref">RFC9449</a>]</span> to sender constrain tokens, the client MUST include the dpop_bound_access_tokens parameter 
+<p id="section-2.3-4"> If a client uses <span><a href="#RFC9449" class="internal xref">DPoP</a> [<a href="#RFC9449" class="cite xref">RFC9449</a>]</span> to sender constrain tokens, the client MUST include the dpop_bound_access_tokens parameter
                 in its registration metadata.<a href="#section-2.3-4" class="pilcrow">¶</a></p>
-<p id="section-2.3-5">Clients using mTLS for client authentication or to sender-constrain tokens MUST register their TLS certificate's subject DN with the 
+<p id="section-2.3-5">Clients using mTLS for client authentication or to sender-constrain tokens MUST register their TLS certificate's subject DN with the
                 authorization server.
                 Clients using self-signed certificate option are not guaranteed uniqueness of their certificate fingerprint.<a href="#section-2.3-5" class="pilcrow">¶</a></p>
 <div id="RedirectURI">
@@ -1760,7 +1773,7 @@ li > p:last-of-type:only-child {
                 prevent a number of attacks on OAuth that entail the misuse of stolen and leaked access tokens by unauthorized parties.
                 The attacker would need to obtain the legitimate client's cryptographic key along with the access
                 token to gain access to protected resources.<a href="#section-2.4-2" class="pilcrow">¶</a></p>
-<p id="section-2.4-3"> All clients MUST use proof of possession to sender-constrain access tokens using either <span><a href="#RFC8705" class="internal xref">OAuth 2.0 Mutual-TLS 
+<p id="section-2.4-3"> All clients MUST use proof of possession to sender-constrain access tokens using either <span><a href="#RFC8705" class="internal xref">OAuth 2.0 Mutual-TLS
             Client Authentication and Certificate-Bound Access Tokens</a> [<a href="#RFC8705" class="cite xref">RFC8705</a>]</span> or
             <span><a href="#RFC9449" class="internal xref">OAuth 2.0 Demonstrating Proof of Possession (DPoP)</a> [<a href="#RFC9449" class="cite xref">RFC9449</a>]</span>.<a href="#section-2.4-3" class="pilcrow">¶</a></p>
 </section>
@@ -1770,17 +1783,17 @@ li > p:last-of-type:only-child {
         <h3 id="name-authentication-context-and-">
 <a href="#section-2.5" class="section-number selfRef">2.5. </a><a href="#name-authentication-context-and-" class="section-name selfRef">Authentication Context and Step-Up Authentication Challenge Protocol Support</a>
         </h3>
-<p id="section-2.5-1">Clients MUST support the mechanism specified in <span><a href="#RFC9470" class="internal xref">OAuth 2.0 Step Up Authentication Challenge
+<p id="section-2.5-1">Clients SHOULD support the mechanism specified in <span><a href="#RFC9470" class="internal xref">OAuth 2.0 Step Up Authentication Challenge
                 Protocol"</a> [<a href="#RFC9470" class="cite xref">RFC9470</a>]</span> to communicate authentication context and implement interoperable step up authentication.<a href="#section-2.5-1" class="pilcrow">¶</a></p>
 <p id="section-2.5-2">This profile acknowledges government use cases will likely operate within an ecosystem of authentication methods of highly variable security
                 value for the foreseeable future by imposing requirements to enable protected resources with basic capabilities to communicate
                 requirements for authentication strength and recency to supporting authorization clients and servers, as well as the capability to enforce access
                 policies using access tokens augmented with the strength and recency of the authentication event that led to the issuance of each specific access token.<a href="#section-2.5-2" class="pilcrow">¶</a></p>
-<p id="section-2.5-3">This profile leverages the supporting server metadata, request, token claims and values, and error messages from <span><a href="#RFC9470" class="internal xref">OAuth 2.0 
+<p id="section-2.5-3">This profile leverages the supporting server metadata, request, token claims and values, and error messages from <span><a href="#RFC9470" class="internal xref">OAuth 2.0
                 Step Up Authentication Challenge
                 Protocol</a> [<a href="#RFC9470" class="cite xref">RFC9470</a>]</span> and <span><a href="#OpenID.Core" class="internal xref">OpenID Connect Core 1.0</a> [<a href="#OpenID.Core" class="cite xref">OpenID.Core</a>]</span>.<a href="#section-2.5-3" class="pilcrow">¶</a></p>
 <p id="section-2.5-4">Digital identity policies and semantic mappings to string values are necessary for implementation but are out of scope for this profile.<a href="#section-2.5-4" class="pilcrow">¶</a></p>
-<p id="section-2.5-5">OAuth 2.0 MUST NOT be used as an authentication protocol. Use of the <span><a href="#OpenID.iGov" class="internal xref">International Government Assurance Profile (iGov) 
+<p id="section-2.5-5">OAuth 2.0 MUST NOT be used as an authentication protocol. Use of the <span><a href="#OpenID.iGov" class="internal xref">International Government Assurance Profile (iGov)
                 for OpenID Connect 1.0</a> [<a href="#OpenID.iGov" class="cite xref">OpenID.iGov</a>]</span> is RECOMMENDED to provide the identity
                 authentication layer for iGov OAuth 2.0 delegated access use cases.<a href="#section-2.5-5" class="pilcrow">¶</a></p>
 </section>
@@ -1815,36 +1828,37 @@ li > p:last-of-type:only-child {
                         the state value to a session identifier issued by
                         the client
                         software to the browser).<a href="#section-2.6.1-2" class="pilcrow">¶</a></p>
-<p id="section-2.6.1-3">Clients MUST include their full redirect URI in the
-                        authorization request.<a href="#section-2.6.1-3" class="pilcrow">¶</a></p>
-<p id="section-2.6.1-4">The client MAY specify a strength of authentication and maximum age to the authorization server that should be met
-                        when issuing an access token for the requesting client by including parameters in the authorization request:<a href="#section-2.6.1-4" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlParallel" id="section-2.6.1-5">
-            <dt id="section-2.6.1-5.1">acr_values</dt>
-            <dd style="margin-left: 1.5em" id="section-2.6.1-5.2"> a space-separated string listing the authentication context class reference values in order of preference.
+<p id="section-2.6.1-3">Clients that have multiple client types MUST have a separate client ID for each client type.<a href="#section-2.6.1-3" class="pilcrow">¶</a></p>
+<p id="section-2.6.1-4">Clients MUST include their full redirect URI in the
+                        authorization request.<a href="#section-2.6.1-4" class="pilcrow">¶</a></p>
+<p id="section-2.6.1-5">The client MAY specify a strength of authentication and maximum age to the authorization server that should be met
+                        when issuing an access token for the requesting client by including parameters in the authorization request:<a href="#section-2.6.1-5" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-2.6.1-6">
+            <dt id="section-2.6.1-6.1">acr_values</dt>
+            <dd style="margin-left: 1.5em" id="section-2.6.1-6.2"> a space-separated string listing the authentication context class reference values in order of preference.
                             The protected resource requires one of these values for the authentication event associated with the access token.  As defined
                             in Section 1.2 of <span><a href="#OpenID.Core" class="internal xref">OpenID Connect Core 1.0</a> [<a href="#OpenID.Core" class="cite xref">OpenID.Core</a>]</span>, the authentication context conveys information about how
                             authentication takes place (e.g., what authentication
                             method(s) or assurance level to meet).  It is out of scope of this document to determine how an organization semantically maps their
-                            digital identity practices to acr values that identify levels of assurance.<a href="#section-2.6.1-5.2" class="pilcrow">¶</a>
+                            digital identity practices to acr values that identify levels of assurance.<a href="#section-2.6.1-6.2" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
-<dt id="section-2.6.1-5.3">max_age</dt>
-            <dd style="margin-left: 1.5em" id="section-2.6.1-5.4"> a non-negative integer value that indicates the allowable elapsed time in seconds since the last active authentication event
-                            associated with the access token.<a href="#section-2.6.1-5.4" class="pilcrow">¶</a>
+<dt id="section-2.6.1-6.3">max_age</dt>
+            <dd style="margin-left: 1.5em" id="section-2.6.1-6.4"> a non-negative integer value that indicates the allowable elapsed time in seconds since the last active authentication event
+                            associated with the access token.<a href="#section-2.6.1-6.4" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 </dl>
-<p id="section-2.6.1-6">Furthermore, if the authorization request is a follow-up to a prior request that did not meet the resource server's initial or subsequent
+<p id="section-2.6.1-7">Furthermore, if the authorization request is a follow-up to a prior request that did not meet the resource server's initial or subsequent
                         authentication strength or recency requirements, the client should include the acr_values and/or max_age values sent by the resource server with
                         the insuffient_user_authentication error code that specify expected strength and recency requirements to be provided to the authentication provider,
-                        such as the OpenID Provider, in a new authentication request.<a href="#section-2.6.1-6" class="pilcrow">¶</a></p>
-<p id="section-2.6.1-7">The following is a sample response from a client to
+                        such as the OpenID Provider, in a new authentication request.<a href="#section-2.6.1-7" class="pilcrow">¶</a></p>
+<p id="section-2.6.1-8">The following is a sample response from a client to
                         the
                         end user's browser for the purpose of redirecting the end
                         user
-                        to the authorization server's authorization endpoint:<a href="#section-2.6.1-7" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-2.6.1-8">
+                        to the authorization server's authorization endpoint:<a href="#section-2.6.1-8" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-2.6.1-9">
 <pre>
 NOTE: '\' line wrapping per RFC 8792
 
@@ -1858,11 +1872,11 @@ Location: \
 6c3-351a586b7484&amp;response_type=code&amp;scope=openid+email&amp;redirect_uri=\
 https%3A%2F%2Fclient.example.org%2Fcb&amp;acr_values=myACR&amp;max_age=1800\
 Status: 302 Found
-</pre><a href="#section-2.6.1-8" class="pilcrow">¶</a>
+</pre><a href="#section-2.6.1-9" class="pilcrow">¶</a>
 </div>
-<p id="section-2.6.1-9">This causes the browser to send the following (non-normative) request to the
-                        authorization endpoint (inline wraps for display purposes only):<a href="#section-2.6.1-9" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-2.6.1-10">
+<p id="section-2.6.1-10">This causes the browser to send the following (non-normative) request to the
+                        authorization endpoint (inline wraps for display purposes only):<a href="#section-2.6.1-10" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-2.6.1-11">
 <pre>
 NOTE: '\' line wrapping per RFC 8792
 
@@ -1873,7 +1887,7 @@ GET /authorize?
   &amp;scope=openid+email
   &amp;redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb HTTP/1.1
 Host: idp-p.example.com
-</pre><a href="#section-2.6.1-10" class="pilcrow">¶</a>
+</pre><a href="#section-2.6.1-11" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
@@ -1883,7 +1897,7 @@ Host: idp-p.example.com
 <a href="#section-2.6.2" class="section-number selfRef">2.6.2. </a><a href="#name-requests-to-the-token-endpo" class="section-name selfRef">Requests to the Token Endpoint</a>
           </h4>
 <p id="section-2.6.2-1">
-                        Confidential clients MUST
+                        Clients MUST
                         authenticate to the authorization server's token endpoint using either
                         the private_key_jwt method as defined in
                         <span><a href="#OpenID.Core" class="internal xref">OpenID Connect Core</a> [<a href="#OpenID.Core" class="cite xref">OpenID.Core</a>]</span>
@@ -1892,7 +1906,7 @@ Host: idp-p.example.com
                         defined in
                         <span><a href="#RFC8705" class="internal xref">OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens</a> [<a href="#RFC8705" class="cite xref">RFC8705</a>]</span>.<a href="#section-2.6.2-1" class="pilcrow">¶</a></p>
 <p id="section-2.6.2-2">If using the private_key_jwt method, the request MUST be a JWT assertion as defined by the
-                        <span><a href="#RFC7523" class="internal xref">JWT Profile for OAuth 2.0 Client Authentication and Authorization Grants</a> [<a href="#RFC7523" class="cite xref">RFC7523</a>]</span>. The JWT assertion MUST be signed 
+                        <span><a href="#RFC7523" class="internal xref">JWT Profile for OAuth 2.0 Client Authentication and Authorization Grants</a> [<a href="#RFC7523" class="cite xref">RFC7523</a>]</span>. The JWT assertion MUST be signed
                         by the client using the client's private key.
                         If using <span><a href="#RFC8705" class="internal xref">mTLS</a> [<a href="#RFC8705" class="cite xref">RFC8705</a>]</span>, the request MUST be made over a mutually authenticated TLS channel.<a href="#section-2.6.2-2" class="pilcrow">¶</a></p>
 </section>
@@ -2055,34 +2069,22 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                         <code>authorization_code</code> grant type and MAY support the
                         <code>client_credentials</code>
                         grant type. The implicit grant type MUST NOT be used.<a href="#section-3.1.1-1" class="pilcrow">¶</a></p>
-<p id="section-3.1.1-2">Authorization servers MUST limit each registered client
-                        (identified
-                        by a client ID) to a single client type only, since a
-                        single piece of
-                        software will be functioning at runtime as only one client type. Clients that have
-                        multiple client types MUST have a
-                        separate client ID for each client type.<a href="#section-3.1.1-2" class="pilcrow">¶</a></p>
+<p id="section-3.1.1-2">Authorization servers MUST limit each registered client (identified by a client ID)
+                    to a single client type only, since a single piece of software will be functioning at runtime as only one client type.<a href="#section-3.1.1-2" class="pilcrow">¶</a></p>
 </section>
 <section id="section-3.1.2">
           <h4 id="name-client-authentication">
 <a href="#section-3.1.2" class="section-number selfRef">3.1.2. </a><a href="#name-client-authentication" class="section-name selfRef">Client authentication</a>
           </h4>
-<p id="section-3.1.2-1">Authorization servers MUST enforce client authentication for confidential clients. 
-                        Public clients cannot authenticate to the authorization server.
-                        The authorization server MUST support the RS256
-                        signature method (the
-                        Rivest, Shamir, and Adleman (RSA) signature
-                        algorithm with a
-                        256-bit
-                        hash) and MAY use other asymmetric
-                        signature methods listed in the
-                        JSON Web Algorithms (<span><a href="#RFC7518" class="internal xref">JWA</a> [<a href="#RFC7518" class="cite xref">RFC7518</a>]</span>)
-                        specification.<a href="#section-3.1.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.1.2-1">Authorization servers MUST enforce client authentication for confidential clients. Public clients cannot authenticate
+                    to the authorization server. Authorization servers MUST support the RS256 signature method (the Rivest, Shamir, and Adleman
+                    (RSA) signature algorithm with a 256-bit hash) and MAY use other asymmetric signature methods listed in
+                    <span><a href="#RFC7518" class="internal xref">JSON Web Algorithms (JWA) [RFC7518]</a> [<a href="#RFC7518" class="cite xref">RFC7518</a>]</span>.<a href="#section-3.1.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.1.2-2"> The authorization server MUST validate all redirect
                         URIs for authorization code grant types.<a href="#section-3.1.2-2" class="pilcrow">¶</a></p>
 <p id="section-3.1.2-3"> The authorization server MUST confirm thumbprints of client keys.<a href="#section-3.1.2-3" class="pilcrow">¶</a></p>
 <p id="section-3.1.2-4"> Authorization servers MUST only grant access to higher level scope resources to
-                        clients that have permission to request these scope levels. Authorization servers MUST reject client authorization requests 
+                        clients that have permission to request these scope levels. Authorization servers MUST reject client authorization requests
                         containing scopes that are outside their permission.<a href="#section-3.1.2-4" class="pilcrow">¶</a></p>
 <p id="section-3.1.2-5">Authorization servers MAY set the expiry time (<code>exp</code>)
                        of access_tokens associated with higher level resources to be shorter than
@@ -2094,9 +2096,9 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                         lower level scope in the original authorization request. This allows clients to
                         continue accessing lower level resources after the higher level resource access
                         has expired -- without requiring an additional user authentication/authorization.<a href="#section-3.1.2-6" class="pilcrow">¶</a></p>
-<p id="section-3.1.2-7">When a client requests both a higher level scope and a lower level scope in the original authorization request, Authorization 
-                    servers MAY allow refresh tokens issued at the higher level to be used to obtain an access_token for a lower level resource scope 
-                    with an extended expiry time. This allows clients to continue accessing lower level resources after the higher level resource 
+<p id="section-3.1.2-7">When a client requests both a higher level scope and a lower level scope in the original authorization request, Authorization
+                    servers MAY allow refresh tokens issued at the higher level to be used to obtain an access_token for a lower level resource scope
+                    with an extended expiry time. This allows clients to continue accessing lower level resources after the higher level resource
                     access has expired without requiring an additional user authentication/authorization.<a href="#section-3.1.2-7" class="pilcrow">¶</a></p>
 </section>
 <div id="DynamicRegistration">
@@ -2105,8 +2107,8 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 <a href="#section-3.1.3" class="section-number selfRef">3.1.3. </a><a href="#name-dynamic-registration" class="section-name selfRef">Dynamic Registration</a>
           </h4>
 <p id="section-3.1.3-1">
-                        Dynamic Registration allows for authorized Clients to on-board programmatically without administrative intervention. 
-                        This is particularly important in ecosystems with many potential Clients, including Mobile Apps acting as independent Clients. 
+                        Dynamic Registration allows for authorized Clients to on-board programmatically without administrative intervention.
+                        This is particularly important in ecosystems with many potential Clients, including Mobile Apps acting as independent Clients.
                         Authorization servers MUST support dynamic client registration,
                         and clients MAY register using the
                         <span><a href="#RFC7591" class="internal xref">Dynamic
@@ -2122,8 +2124,8 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                         clients.<a href="#section-3.1.3-1" class="pilcrow">¶</a></p>
 <p id="section-3.1.3-2">    Authorization
                         
-                        servers MAY protect their Dynamic Registration endpoints by requiring clients to present credentials that the authorization 
-                        server would recognize as authorized participants. Authorization servers MAY accept signed software statements as described 
+                        servers MAY protect their Dynamic Registration endpoints by requiring clients to present credentials that the authorization
+                        server would recognize as authorized participants. Authorization servers MAY accept signed software statements as described
                         in <span>[<a href="#RFC7591" class="cite xref">RFC7591</a>]</span>
                         issued to client software developers from a
                         trusted registration
@@ -2186,7 +2188,8 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 </dl>
 <p id="section-3.1.3-4">
                         A client using the tls_client_auth authentication method MUST use exactly one of the below metadata parameters to indicate the certificate
-                        subject value that the authorization server is to expect when authenticating the respective client:<a href="#section-3.1.3-4" class="pilcrow">¶</a></p>
+                        subject value that the authorization server is to expect when authenticating the respective client. AS MUST NOT use IP address or email address to identify
+                        authenticating clients, and MUST NOT use tls_client_auth_san_ip or tls_client_auth_san_email metadata values:<a href="#section-3.1.3-4" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-3.1.3-5">
             <dt id="section-3.1.3-5.1">tls_client_auth_subject_dn</dt>
             <dd style="margin-left: 1.5em" id="section-3.1.3-5.2">String value specifying the expected subject DN of the client certificate.<a href="#section-3.1.3-5.2" class="pilcrow">¶</a>
@@ -2198,14 +2201,6 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
             <dd class="break"></dd>
 <dt id="section-3.1.3-5.5">tls_client_auth_san_uri</dt>
             <dd style="margin-left: 1.5em" id="section-3.1.3-5.6">String value specifying the expected uniformResourceIdentifier SAN entry in the client certificate.<a href="#section-3.1.3-5.6" class="pilcrow">¶</a>
-</dd>
-            <dd class="break"></dd>
-<dt id="section-3.1.3-5.7">tls_client_auth_san_ip</dt>
-            <dd style="margin-left: 1.5em" id="section-3.1.3-5.8">String value specifying the expected iPAddress SAN entry in the client certificate.<a href="#section-3.1.3-5.8" class="pilcrow">¶</a>
-</dd>
-            <dd class="break"></dd>
-<dt id="section-3.1.3-5.9">tls_client_auth_san_email</dt>
-            <dd style="margin-left: 1.5em" id="section-3.1.3-5.10">String value specifying the expected rfc822Name SAN entry in the client certificate.<a href="#section-3.1.3-5.10" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 </dl>
@@ -2221,7 +2216,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 <ul class="normal">
 <li class="normal" id="section-3.1.4-2.1">
               <p id="section-3.1.4-2.1.1">Whether the client was dynamically registered, or else
-                                statically registered by a trusted administrator, or a public client.<a href="#section-3.1.4-2.1.1" class="pilcrow">¶</a></p>
+                                statically registered by a trusted administrator.<a href="#section-3.1.4-2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.1.4-2.2">
               <p id="section-3.1.4-2.2.1">Whether the client is associated with a software statement,
@@ -2234,11 +2229,9 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                                 and access duration.<a href="#section-3.1.4-2.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-3.1.4-3">For example, for
-                        public clients, a message indicating a new App installation has been
-                        registered as a client can help users determine if this is the expected
-                        behavior. This signal helps users protect themselves from potentially
-                        rogue clients.<a href="#section-3.1.4-3" class="pilcrow">¶</a></p>
+<p id="section-3.1.4-3">For example, if the user believes they are authorizing a very limited type of access,
+                     providing the access level at the consent screen may help the user make informed decisions about
+                     sharing sensitive information.<a href="#section-3.1.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <section id="section-3.1.5">
@@ -2285,7 +2278,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
             <dd style="margin-left: 1.5em" id="section-3.1.6-2.8">
                                 REQUIRED. String of values corresponding to permitted methods for client authentication to the authorization server
                                 as defined in <span><a href="#RFC7591" class="internal xref">OAuth 2.0 Dynamic Client Registration Protocol</a> [<a href="#RFC7591" class="cite xref">RFC7591</a>]</span>.
-                                Within this profile, the server MUST provide one or more of the following values: "private_key_jwt", "tls_client_auth", 
+                                Within this profile, the server MUST provide one or more of the following values: "private_key_jwt", "tls_client_auth",
                                 and "self_signed_tls_auth".<a href="#section-3.1.6-2.8" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
@@ -2324,7 +2317,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 </dd>
           <dd class="break"></dd>
 </dl>
-<p id="section-3.1.6-3">If a client uses <span><a href="#RFC8705" class="internal xref">OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens</a> [<a href="#RFC8705" class="cite xref">RFC8705</a>]</span>S for 
+<p id="section-3.1.6-3">If a client uses <span><a href="#RFC8705" class="internal xref">OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens</a> [<a href="#RFC8705" class="cite xref">RFC8705</a>]</span>S for
                     client authentication, exactly one authentication method metadata value MUST be included.<a href="#section-3.1.6-3" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-3.1.6-4">
             <dt id="section-3.1.6-4.1">tls_client_auth</dt>
@@ -2394,9 +2387,9 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 }
 </pre><a href="#section-3.1.6-7" class="pilcrow">¶</a>
 </div>
-<p id="section-3.1.6-8">It is RECOMMENDED that authorization servers provide cache information through HTTP headers and make the cache valid for at 
+<p id="section-3.1.6-8">It is RECOMMENDED that authorization servers provide cache information through HTTP headers and make the cache valid for at
                     least one week. This allows clients and protected resources to cache the discovery information.<a href="#section-3.1.6-8" class="pilcrow">¶</a></p>
-<p id="section-3.1.6-9"> Authorization servers MUST support the RS256 signature method (the Rivest, Shamir, and Adleman (RSA) signature algorithm 
+<p id="section-3.1.6-9"> Authorization servers MUST support the RS256 signature method (the Rivest, Shamir, and Adleman (RSA) signature algorithm
                     with a 256-bit hash) and MAY use other asymmetric signature methods listed in the JSON Web Algorithms (JWA [RFC7518]) ) specification.<a href="#section-3.1.6-9" class="pilcrow">¶</a></p>
 <p id="section-3.1.6-10">The authorization server MUST provide its public key in JWK Set format. The
                         key
@@ -2464,7 +2457,7 @@ DNp00J6AbY6w",
 <p id="section-3.1.8-1">Authorization servers MUST require use of PKCE
                         (<span><a href="#RFC7636" class="internal xref">Proof Key for Code Exchange by OAuth Public Clients</a> [<a href="#RFC7636" class="cite xref">RFC7636</a>]</span>) by all clients
                         and reject requests to the authorization endpoint from clients that do not contain a code challenge.<a href="#section-3.1.8-1" class="pilcrow">¶</a></p>
-<p id="section-3.1.8-2">Authorization servers MUST support the S256 code challenge method. Authorization servers MUST NOT allow a 
+<p id="section-3.1.8-2">Authorization servers MUST support the S256 code challenge method. Authorization servers MUST NOT allow a
                         client to use the plain code challenge method.<a href="#section-3.1.8-2" class="pilcrow">¶</a></p>
 <p id="section-3.1.8-3">The PKCE code_verifier value MUST contain at least 128 bits of entropy.<a href="#section-3.1.8-3" class="pilcrow">¶</a></p>
 <p id="section-3.1.8-4">Authorization servers MUST confirm thumbprints of client keys.<a href="#section-3.1.8-4" class="pilcrow">¶</a></p>
@@ -2474,7 +2467,7 @@ DNp00J6AbY6w",
 <a href="#section-3.1.9" class="section-number selfRef">3.1.9. </a><a href="#name-redirect-uris" class="section-name selfRef">Redirect URIs</a>
           </h4>
 <p id="section-3.1.9-1">The authorization server MUST validate all redirect URIs for authorization code grant types.<a href="#section-3.1.9-1" class="pilcrow">¶</a></p>
-<p id="section-3.1.9-2"> To prevent open redirection and other injection attacks, the authorization server MUST match the entire redirect 
+<p id="section-3.1.9-2"> To prevent open redirection and other injection attacks, the authorization server MUST match the entire redirect
                     URI using an exact string match against registered values and MUST reject requests with an invalid or missing redirect URI.<a href="#section-3.1.9-2" class="pilcrow">¶</a></p>
 </section>
 <section id="section-3.1.10">
@@ -2488,7 +2481,7 @@ DNp00J6AbY6w",
         <h3 id="name-response-to-authorization-r">
 <a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-response-to-authorization-r" class="section-name selfRef">Response to Authorization Requests</a>
         </h3>
-<p id="section-3.2-1"> Authorization servers respond to an Authorization Request from a client with an Authorization Response. 
+<p id="section-3.2-1"> Authorization servers respond to an Authorization Request from a client with an Authorization Response.
                 The following fields MUST be included in the response:<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-3.2-2">
           <dt id="section-3.2-2.1">state</dt>
@@ -2605,21 +2598,21 @@ https://https://client.example.org/cb?
 <dt id="section-3.3-3.17">cnf</dt>
           <dd style="margin-left: 1.5em" id="section-3.3-3.18">The confirmation claim, as defined in <span><a href="#RFC7800" class="internal xref">Proof-of-Possession Key Semantics
                                             for JSON Web Tokens (JWTs)</a> [<a href="#RFC7800" class="cite xref">RFC7800</a>]</span> and <span><a href="#RFC8705" class="internal xref">OAuth 2.0 Mutual-TLS
-                                            Client Authentication and Certificate-Bound Access Tokens</a> [<a href="#RFC8705" class="cite xref">RFC8705</a>]</span> is used in a JWT to contain 
+                                            Client Authentication and Certificate-Bound Access Tokens</a> [<a href="#RFC8705" class="cite xref">RFC8705</a>]</span> is used in a JWT to contain
                                             members used to identify the proof-of-possession key.<a href="#section-3.3-3.18" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-3.3-3.19"></dt>
           <dd style="margin-left: 1.5em" id="section-3.3-3.20">When <span><a href="#RFC8705" class="internal xref">OAuth 2.0 Mutual-TLS
-                                            Client Authentication and Certificate-Bound Access Tokens</a> [<a href="#RFC8705" class="cite xref">RFC8705</a>]</span>is used, the confirmation 
+                                            Client Authentication and Certificate-Bound Access Tokens</a> [<a href="#RFC8705" class="cite xref">RFC8705</a>]</span>is used, the confirmation
                                             claim value MUST be computed using the
                                             X.509 Certificate SHA-256 Thumbprint and include confirmation
                                             method value "x5t#256".<a href="#section-3.3-3.20" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-3.3-3.21"></dt>
-          <dd style="margin-left: 1.5em" id="section-3.3-3.22">When <span><a href="#RFC9449" class="internal xref">OAuth 2.0 Demonstrating Proof of Possession (DPoP)</a> [<a href="#RFC9449" class="cite xref">RFC9449</a>]</span> 
-                                            is used, the confirmation claim value MUST be computed using the <span><a href="#RFC7638" class="internal xref">JWK SHA-256 
+          <dd style="margin-left: 1.5em" id="section-3.3-3.22">When <span><a href="#RFC9449" class="internal xref">OAuth 2.0 Demonstrating Proof of Possession (DPoP)</a> [<a href="#RFC9449" class="cite xref">RFC9449</a>]</span>
+                                            is used, the confirmation claim value MUST be computed using the <span><a href="#RFC7638" class="internal xref">JWK SHA-256
                                             Thumbprint</a> [<a href="#RFC7638" class="cite xref">RFC7638</a>]</span> of the DPoP public key and include conformation method value jkt.<a href="#section-3.3-3.22" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
@@ -2936,7 +2929,7 @@ Connection: close
                     unique scope and MUST associate acceptable acr values for each scope as descibed in
                     <span><a href="#RFC9470" class="internal xref">OAuth 2.0 Step Up Authentication Challenge Protocol</a> [<a href="#RFC9470" class="cite xref">RFC9470</a>]</span>.
                     Protected Resources may also specify a max_age for each scope.<a href="#section-4.2.1-3" class="pilcrow">¶</a></p>
-<p id="section-4.2.1-4">Protected resources MAY include the scope parameter if additional scopes are required to access the resource, as per Section 3.1 of 
+<p id="section-4.2.1-4">Protected resources MAY include the scope parameter if additional scopes are required to access the resource, as per Section 3.1 of
                 <span><a href="#RFC6750" class="internal xref">The OAuth 2.0 Authorization Framework: Bearer Token Usage</a> [<a href="#RFC6750" class="cite xref">RFC6750</a>]</span>.<a href="#section-4.2.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -2985,10 +2978,10 @@ Connection: close
         <h3 id="name-connections-with-authorizat">
 <a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-connections-with-authorizat" class="section-name selfRef">Connections with Authorization Servers</a>
         </h3>
-<p id="section-4.3-1">Protected resources MUST provide a JWKS URI endpoint to distribute public keys to support signing, encryption, and 
-                authentication to authorization server revocation and introspection endpoints. <span><a href="#draft-resource-metadata" class="internal xref">OAuth 2.0 Protected Resource Metadata</a> [<a href="#draft-resource-metadata" class="cite xref">draft-resource-metadata</a>]</span> 
+<p id="section-4.3-1">Protected resources MAY provide a JWKS URI endpoint to distribute public keys to support signing, encryption, and
+                authentication to authorization server revocation and introspection endpoints. <span><a href="#RFC9728" class="internal xref">OAuth 2.0 Protected Resource Metadata</a> [<a href="#RFC9728" class="cite xref">RFC9728</a>]</span>
                 defines a metadata format that a client or authorization server can use to obtain the information needed to interact with a protected resource.
-                This metadata facilitates enhanced interoperability and security, including advertisement and discovery of a protected 
+                This metadata facilitates enhanced interoperability and security, including advertisement and discovery of a protected
                 resource's public key via its jwks_uri.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
 <p id="section-4.3-2">Protected resources calling the
                 introspection endpoint MUST use
@@ -3046,18 +3039,17 @@ Connection: close
         <h3 id="name-other-considerations">
 <a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-other-considerations" class="section-name selfRef">Other Considerations</a>
         </h3>
-<p id="section-5.3-1"> Authorization Servers SHOULD take into account device posture when dealing
-                    with native apps if possible. Some examples of device posture include:<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+<p id="section-5.3-1"> Authorization Servers SHOULD take device posture into account, when possible. Some examples of device posture include:<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.3-2.1">
             <p id="section-5.3-2.1.1">the user's lock screen setting<a href="#section-5.3-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.3-2.2">
-            <p id="section-5.3-2.2.1">the app's level of privilege over the device operating system (e.g. if the app has 'root access', the
+            <p id="section-5.3-2.2.1">the client's level of privilege over the device operating system (e.g. if the client has 'root access', the
                     device operating system may be compromised to gain additional privileges not intended by the vendor)<a href="#section-5.3-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.3-2.3">
-            <p id="section-5.3-2.3.1">the availability of a device attestation to validate the app<a href="#section-5.3-2.3.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-2.3.1">the availability of a device attestation to validate the client<a href="#section-5.3-2.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-5.3-3">
@@ -3096,10 +3088,6 @@ Connection: close
 <dt id="browser-based-apps">[browser-based-apps]</dt>
       <dd>
 <span class="refAuthor">Parecki, A.</span>, <span class="refAuthor">Waite, D.</span>, and <span class="refAuthor">P. De Ryck</span>, <span class="refTitle">"OAuth 2.0 for Browser-Based Applications"</span>, <time datetime="2025-01-17" class="refDate">17 January 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps">https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="draft-resource-metadata">[draft-resource-metadata]</dt>
-      <dd>
-<span class="refAuthor">Jones, M.</span>, <span class="refAuthor">Hunt, P.</span>, and <span class="refAuthor">A. Parecki</span>, <span class="refTitle">"OAuth 2.0 Protected Resource Metadata"</span>, <time datetime="2024-10-15" class="refDate">15 October 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-ietf-oauth-resource-metadata/">https://datatracker.ietf.org/doc/draft-ietf-oauth-resource-metadata/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="JWS.JWE.Algs">[JWS.JWE.Algs]</dt>
       <dd>
@@ -3226,8 +3214,12 @@ Connection: close
 <span class="refAuthor">Fett, D.</span>, <span class="refAuthor">Campbell, B.</span>, <span class="refAuthor">Bradley, J.</span>, <span class="refAuthor">Lodderstedt, T.</span>, <span class="refAuthor">Jones, M.</span>, and <span class="refAuthor">D. Waite</span>, <span class="refTitle">"OAuth 2.0 Demonstrating Proof of Possession (DPoP)"</span>, <span class="seriesInfo">RFC 9449</span>, <span class="seriesInfo">DOI 10.17487/RFC9449</span>, <time datetime="2023-09" class="refDate">September 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9449">https://www.rfc-editor.org/info/rfc9449</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9470">[RFC9470]</dt>
-    <dd>
+      <dd>
 <span class="refAuthor">Bertocci, V.</span> and <span class="refAuthor">B. Campbell</span>, <span class="refTitle">"OAuth 2.0 Step Up Authentication Challenge Protocol"</span>, <span class="seriesInfo">RFC 9470</span>, <span class="seriesInfo">DOI 10.17487/RFC9470</span>, <time datetime="2023-09" class="refDate">September 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9470">https://www.rfc-editor.org/info/rfc9470</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9728">[RFC9728]</dt>
+    <dd>
+<span class="refAuthor">Jones, M.B.</span>, <span class="refAuthor">Hunt, P.</span>, and <span class="refAuthor">A. Parecki</span>, <span class="refTitle">"OAuth 2.0 Protected Resource Metadata"</span>, <span class="seriesInfo">RFC 9728</span>, <span class="seriesInfo">DOI 10.17487/RFC9728</span>, <time datetime="2025-04" class="refDate">April 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9728">https://www.rfc-editor.org/info/rfc9728</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -3278,65 +3270,105 @@ Connection: close
       </h2>
 <p id="appendix-C-1">[[ To be removed from the final specification ]]<a href="#appendix-C-1" class="pilcrow">¶</a></p>
 <p id="appendix-C-2">
-    -05<a href="#appendix-C-2" class="pilcrow">¶</a></p>
+    -08<a href="#appendix-C-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-3.1">
           <p id="appendix-C-3.1.1">
-        Updated BCP mitigations, aligned with FAPI<a href="#appendix-C-3.1.1" class="pilcrow">¶</a></p>
+        Added description of resource server requirements for authentication context and step-up<a href="#appendix-C-3.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-3.2">
           <p id="appendix-C-3.2.1">
-        Harmonized cryptography, sender constrained tokens with FAPI<a href="#appendix-C-3.2.1" class="pilcrow">¶</a></p>
+        Restructured the document so the text flows better<a href="#appendix-C-3.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-3.3">
           <p id="appendix-C-3.3.1">
-        Added requirement and optionality for authentication context and support for Step-up (RFC 9470)<a href="#appendix-C-3.3.1" class="pilcrow">¶</a></p>
+        Added a method to securely discover or declare JWKS-URI for PR/RS<a href="#appendix-C-3.3.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-3.4">
           <p id="appendix-C-3.4.1">
-        Added Privacy Considerations (RFC 6973)<a href="#appendix-C-3.4.1" class="pilcrow">¶</a></p>
+        Removed public clients to align with FAPI<a href="#appendix-C-3.4.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-3.5">
           <p id="appendix-C-3.5.1">
-        Added optionality to support enterprise tailoring, especially RFC 8705 mTLS with PKI<a href="#appendix-C-3.5.1" class="pilcrow">¶</a></p>
+        Moved requirements to correct section<a href="#appendix-C-3.5.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-3.6">
+          <p id="appendix-C-3.6.1">
+        Realigned requirements among AS, client, and PR/RS<a href="#appendix-C-3.6.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-3.7">
+          <p id="appendix-C-3.7.1">
+        Changed date, version, and document history<a href="#appendix-C-3.7.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="appendix-C-4">
-    -04<a href="#appendix-C-4" class="pilcrow">¶</a></p>
+    -06-07<a href="#appendix-C-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-5.1">
           <p id="appendix-C-5.1.1">
-        Enable building with https://author-tools.ietf.org/.<a href="#appendix-C-5.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-5.2">
-          <p id="appendix-C-5.2.1">
-        Applied OpenID specification conventions.<a href="#appendix-C-5.2.1" class="pilcrow">¶</a></p>
+        Addressed comments from WGLC request Jan 31, 2025<a href="#appendix-C-5.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="appendix-C-6">
-    -03<a href="#appendix-C-6" class="pilcrow">¶</a></p>
+    -05<a href="#appendix-C-6" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-7.1">
           <p id="appendix-C-7.1.1">
-        First Implementer's Draft<a href="#appendix-C-7.1.1" class="pilcrow">¶</a></p>
+        Updated BCP mitigations, aligned with FAPI<a href="#appendix-C-7.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-7.2">
+          <p id="appendix-C-7.2.1">
+        Harmonized cryptography, sender constrained tokens with FAPI<a href="#appendix-C-7.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-7.3">
+          <p id="appendix-C-7.3.1">
+        Added requirement and optionality for authentication context and support for Step-up (RFC 9470)<a href="#appendix-C-7.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-7.4">
+          <p id="appendix-C-7.4.1">
+        Added Privacy Considerations (RFC 6973)<a href="#appendix-C-7.4.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-7.5">
+          <p id="appendix-C-7.5.1">
+        Added optionality to support enterprise tailoring, especially RFC 8705 mTLS with PKI<a href="#appendix-C-7.5.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-8">-2017-06-01<a href="#appendix-C-8" class="pilcrow">¶</a></p>
+<p id="appendix-C-8">
+    -04<a href="#appendix-C-8" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-9.1">
-          <p id="appendix-C-9.1.1">Aligned with prior version of iGov.<a href="#appendix-C-9.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-9.1.1">
+        Enable building with https://author-tools.ietf.org/.<a href="#appendix-C-9.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-9.2">
-          <p id="appendix-C-9.2.1">Added guidance text around using scopes and refresh_tokens to protect sensitive resources.<a href="#appendix-C-9.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-9.3">
-          <p id="appendix-C-9.3.1">Removed ACR reference.<a href="#appendix-C-9.3.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-9.2.1">
+        Applied OpenID specification conventions.<a href="#appendix-C-9.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-10">-2018-05-07<a href="#appendix-C-10" class="pilcrow">¶</a></p>
+<p id="appendix-C-10">
+    -03<a href="#appendix-C-10" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-11.1">
-          <p id="appendix-C-11.1.1">Imported content from HEART OAuth profile.<a href="#appendix-C-11.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-11.1.1">
+        First Implementer's Draft<a href="#appendix-C-11.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="appendix-C-12">-2017-06-01<a href="#appendix-C-12" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-C-13.1">
+          <p id="appendix-C-13.1.1">Aligned with prior version of iGov.<a href="#appendix-C-13.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-13.2">
+          <p id="appendix-C-13.2.1">Added guidance text around using scopes and refresh_tokens to protect sensitive resources.<a href="#appendix-C-13.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-13.3">
+          <p id="appendix-C-13.3.1">Removed ACR reference.<a href="#appendix-C-13.3.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="appendix-C-14">-2018-05-07<a href="#appendix-C-14" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-C-15.1">
+          <p id="appendix-C-15.1.1">Imported content from HEART OAuth profile.<a href="#appendix-C-15.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
