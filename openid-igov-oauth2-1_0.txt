@@ -813,10 +813,7 @@ Burgin & Clancy              Standards Track                   [Page 14]
    A client using the tls_client_auth authentication method MUST use
    exactly one of the below metadata parameters to indicate the
    certificate subject value that the authorization server is to expect
-   when authenticating the respective client.  AS MUST NOT use IP
-   address or email address to identify authenticating clients, and MUST
-   NOT use tls_client_auth_san_ip or tls_client_auth_san_email metadata
-   values:
+   when authenticating the respective client:
 
    tls_client_auth_subject_dn  String value specifying the expected
       subject DN of the client certificate.
@@ -827,13 +824,16 @@ Burgin & Clancy              Standards Track                   [Page 14]
    tls_client_auth_san_uri  String value specifying the expected
       uniformResourceIdentifier SAN entry in the client certificate.
 
+   It is NOT RECOMMENDED that authorization servers use IP address or
+   email address to identify authenticating clients.  It is also NOT
+   RECOMMENDED that authorization servers use tls_client_auth_san_ip or
+   tls_client_auth_san_email metadata values
+
 3.1.4.  Client Approval
 
    When prompting the end user with an interactive approval page, the
    authorization server MUST indicate to the user:
 
-   *  Whether the client was dynamically registered, or else statically
-      registered by a trusted administrator.
 
 
 
@@ -841,6 +841,9 @@ Burgin & Clancy              Standards Track                   [Page 15]
 
                              iGov OAuth 2.0                  August 2025
 
+
+   *  Whether the client was dynamically registered, or else statically
+      registered by a trusted administrator.
 
    *  Whether the client is associated with a software statement, and in
       which case provide information about the trusted issuer of the
@@ -887,9 +890,6 @@ Burgin & Clancy              Standards Track                   [Page 15]
       "private_key_jwt", "tls_client_auth", and "self_signed_tls_auth".
 
    introspection_endpoint  OPTIONAL.  The fully qualified URL of the
-      server's introspection endpoint defined by OAuth Token
-      Introspection [RFC7662]
-
 
 
 
@@ -897,6 +897,9 @@ Burgin & Clancy              Standards Track                   [Page 16]
 
                              iGov OAuth 2.0                  August 2025
 
+
+      server's introspection endpoint defined by OAuth Token
+      Introspection [RFC7662]
 
    revocation_endpoint  OPTIONAL.  The fully qualified URL of the
       server's revocation endpoint defined by OAuth 2.0 Token Revocation
@@ -934,9 +937,6 @@ Burgin & Clancy              Standards Track                   [Page 16]
 
    The following example shows a JSON document found at the discovery
    endpoint for an authorization server:
-
-
-
 
 
 
@@ -1585,7 +1585,7 @@ Burgin & Clancy              Standards Track                   [Page 28]
 
 4.3.  Connections with Authorization Servers
 
-   Protected resources MAY provide a JWKS URI endpoint to distribute
+   Protected resources MUST provide a JWKS URI endpoint to distribute
    public keys to support signing, encryption, and authentication to
    authorization server revocation and introspection endpoints.  OAuth
    2.0 Protected Resource Metadata [RFC9728] defines a metadata format
@@ -1896,8 +1896,8 @@ Appendix A.  Acknowledgements
    Pulvermacher, David Hill, Dale Moberg, Adrian Gropper, Eve Maler,
    Danny van Leeuwen, John Moehrke, Aaron Seib, John Bradley, Debbie
    Bucci, Josh Mandel, Sarah Cecchetti, Giuseppe De Marco, Joseph
-   Heenan, Jim Fenton, Ryan Galluzzo, Bjorn Hjelm, Aaron Parecki, and
-   Michael B.  Jones.
+   Heenan, Jim Fenton, Ryan Galluzzo, Bjorn Hjelm, Aaron Parecki,
+   Michael B.  Jones, and Stas Mironov.
 
 
 
