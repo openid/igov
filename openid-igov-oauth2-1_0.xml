@@ -227,7 +227,10 @@
                     <t>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384</t>
                     </list>
                   </t>
-                  <t>Implementers of this profile SHOULD monitor the progress of specifications of post-quantum
+                 <t>Authorization servers, clients, and resource servers, when creating or processing JWTs shall adhere to [RFC8725];
+                    use PS256, ES256, or EdDSA (using the Ed25519 variant) algorithms; and, MUST NOT use or accept the 
+                    <spanx style="verb">none</spanx> algorithm.</t>
+                 <t>Implementers of this profile SHOULD monitor the progress of specifications of post-quantum
                  cryptography for TLS implementations.
                  Implementers MAY adopt a cipher suite not included in <xref target="BCP195">BCP195</xref> when post quantum safety
                  is required if the cipher suite is supported in the implementation environment.
