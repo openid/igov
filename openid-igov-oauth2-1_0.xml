@@ -227,9 +227,13 @@
                     <t>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384</t>
                     </list>
                   </t>
-                 <t>Authorization servers, clients, and resource servers, when creating or processing JWTs shall adhere to [RFC8725];
-                    use PS256, ES256, or EdDSA (using the Ed25519 variant) algorithms; and, MUST NOT use or accept the 
-                    <spanx style="verb">none</spanx> algorithm.</t>
+                 <t>Authorization servers, clients, and resource servers, when creating or processing JWTs shall
+                 <list>
+                 <t>1. adhere to [RFC8725]</t>
+                 <t>2. use PS256, ES256, or Ed25519</t>
+                 <t>3. or, use RSA 256, 384 or 512 algorithms with FIPS 140-3 compliant key parameters</t>
+                 <t>4. MUST NOT use or accept the <spanx style="verb">none</spanx> algorithm.</t>
+                 </list></t>
                  <t>Implementers of this profile SHOULD monitor the progress of specifications of post-quantum
                  cryptography for TLS implementations.
                  Implementers MAY adopt a cipher suite not included in <xref target="BCP195">BCP195</xref> when post quantum safety
@@ -1762,6 +1766,8 @@ Connection: close
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9470"/>
   
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9728"/>
+      
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9864"/>      
         
       <reference anchor="BCP195" target="http://www.rfc-editor.org/info/bcp195">
                 <front>
