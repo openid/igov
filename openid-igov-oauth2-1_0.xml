@@ -231,11 +231,14 @@
                  <list>
                  <t>1. adhere to [RFC8725]</t>
                  <t>2. use PS256, ES256, or Ed25519</t>
-                 <t>3. or, use RSA 256, 384 or 512 algorithms with FIPS 140-3 compliant key parameters</t>
-                 <t>4. MUST NOT use or accept the <spanx style="verb">none</spanx> algorithm.</t>
+                 <t>3. MUST NOT use or accept the <spanx style="verb">none</spanx> algorithm.</t>
                  </list></t>
-                 <t>Implementers of this profile SHOULD monitor the progress of specifications of post-quantum
-                 cryptography for TLS implementations.
+                 <t>RSA keys shall have a minimum length of 2048 bits.</t>
+                 <t>Elliptic curve keys shall have a minimum length of 224 bits.</t>
+
+                 <t>iGov implementations SHOULD be crypto‑agile, enabling rapid substitution of algorithms and 
+                 keys so services remain secure as threats and standards evolve. Implementers of this profile SHOULD monitor the 
+                 progress of specifications of post-quantum cryptography for TLS implementations.
                  Implementers MAY adopt a cipher suite not included in <xref target="BCP195">BCP195</xref> when post quantum safety
                  is required if the cipher suite is supported in the implementation environment.
                  </t>
@@ -1933,7 +1936,7 @@ Connection: close
                     <title>Post-quantum Hybrid Key Exchange with ML-KEM in the Internet Key Exchange Protocol Version 2 (IKEv2)</title>
                     <author fullname="Panos Kampanakis" initials="P." surname="Kampanakis"/>
                     <author fullname="Gerardo Ravago" initials="G." surname="Ravago"/>
-                    <date day="4" month="November" year="2024"/>
+                    <date day="4" month="September" year="2025"/>
                 </front>
             </reference>
             
