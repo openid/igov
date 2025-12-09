@@ -55,7 +55,7 @@
             </address>
         </author>
 
-        <date day="15" month="September" year="2025"/>
+        <date day="9" month="December" year="2025"/>
 
         <workgroup>OpenID iGov Working Group</workgroup>
 
@@ -227,9 +227,16 @@
                     <t>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384</t>
                     </list>
                   </t>
-                  <t>Implementers of this profile SHOULD monitor the progress of specifications of post-quantum
-                 cryptography for TLS implementations.
-                 Implementers MAY adopt a cipher suite not included in <xref target="BCP195">BCP195</xref> when post quantum safety
+                  <t>Authorization servers, clients, and resource servers, when creating or processing JWTs shall
+                     <list>
+                         <t>1. adhere to [RFC8725]</t>
+                         <t>2. use PS256, ES256, or Ed25519</t>
+                         <t>3. MUST NOT use or accept the <spanx style="verb">none</spanx> algorithm.</t>
+                     </list></t>
+                 <t>RSA keys shall have a minimum length of 2048 bits.</t>
+                 <t>Elliptic curve keys shall have a minimum length of 224 bits.</t>
+                 <t>iGov implementations SHOULD be crypto-agile, enabling rapid substitution of algorithms and keys so services remain secure as threats and standards evolve. Implementers of this profile SHOULD monitor the progress of specifications of post-quantum
+                 cryptography for TLS implementations. Implementers MAY adopt a cipher suite not included in <xref target="BCP195">BCP195</xref> when post quantum safety
                  is required if the cipher suite is supported in the implementation environment.
                  </t>
                  <t>An example of an emerging PQ cipher suite that is broadly supported at the time of writing is X25519MLKEM768, specified by
@@ -748,11 +755,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                         and clients MAY register using the
                         <xref target="RFC7591">Dynamic
                             Client Registration Protocol</xref>
-                        for authorization code grant types. Clients MUST NOT
-                        dynamically
-                        register for the
-                        client credentials grant type.
-                        Authorization
+                        for authorization code grant types. Authorization
                         servers MAY limit the
                         scopes available to dynamically
                         registered
@@ -1762,6 +1765,8 @@ Connection: close
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9470"/>
   
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9728"/>
+      
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9864"/>      
         
       <reference anchor="BCP195" target="http://www.rfc-editor.org/info/bcp195">
                 <front>
@@ -1927,7 +1932,7 @@ Connection: close
                     <title>Post-quantum Hybrid Key Exchange with ML-KEM in the Internet Key Exchange Protocol Version 2 (IKEv2)</title>
                     <author fullname="Panos Kampanakis" initials="P." surname="Kampanakis"/>
                     <author fullname="Gerardo Ravago" initials="G." surname="Ravago"/>
-                    <date day="4" month="November" year="2024"/>
+                    <date day="4" month="September" year="2025"/>
                 </front>
             </reference>
             
