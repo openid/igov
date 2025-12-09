@@ -227,10 +227,10 @@
                     <t>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384</t>
                     </list>
                   </t>
-                  <t>Authorization servers, clients, and resource servers, when creating or processing JWTs shall
+                  <t>Authorization servers, clients, and resource servers, when creating or processing JWTs
                      <list>
-                         <t>1. adhere to [RFC8725]</t>
-                         <t>2. use PS256, ES256, or Ed25519</t>
+                         <t>1. MUST adhere to [RFC8725]</t>
+                         <t>2. MUST use PS256, ES256, or Ed25519</t>
                          <t>3. MUST NOT use or accept the <spanx style="verb">none</spanx> algorithm.</t>
                      </list></t>
                  <t>RSA keys shall have a minimum length of 2048 bits.</t>
