@@ -201,13 +201,13 @@ Burgin & Clancy              Standards Track                    [Page 3]
       TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
 
    Authorization servers, clients, and resource servers, when creating
-   or processing JWTs shall
+   or processing JWTs
 
-      1. adhere to [RFC8725]
+      1. MUST adhere to [RFC8725]
 
-      2. use PS256, ES256, or Ed25519
+      2. MUST use PS256, ES256, or Ed25519
 
-      3.  MUST NOT use or accept the none algorithm.
+      3. MUST NOT use or accept the none algorithm.
 
    RSA keys shall have a minimum length of 2048 bits.
 
