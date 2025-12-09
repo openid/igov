@@ -1624,9 +1624,10 @@ li > p:last-of-type:only-child {
             <p id="section-1.4-4.3.1">3. MUST NOT use or accept the <code>none</code> algorithm.<a href="#section-1.4-4.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-1.4-5">RSA keys shall have a minimum length of 2048 bits.<a href="#section-1.4-5" class="pilcrow">¶</a></p>
-<p id="section-1.4-6">Elliptic curve keys shall have a minimum length of 224 bits.<a href="#section-1.4-6" class="pilcrow">¶</a></p>
-<p id="section-1.4-7">iGov implementations SHOULD be crypto-agile, enabling rapid substitution of algorithms and keys so services remain secure as threats and standards evolve. Implementers of this profile SHOULD monitor the progress of specifications of post-quantum cryptography for TLS implementations. Implementers MAY adopt a cipher suite not included in <span><a href="#BCP195" class="internal xref">BCP195</a> [<a href="#BCP195" class="cite xref">BCP195</a>]</span> when post quantum safety is required if the cipher suite is supported in the implementation environment.<a href="#section-1.4-7" class="pilcrow">¶</a></p>
+<p id="section-1.4-5">RSA keys MUST have a minimum length of 2048 bits.<a href="#section-1.4-5" class="pilcrow">¶</a></p>
+<p id="section-1.4-6">Elliptic curve keys MUST have a minimum length of 224 bits.<a href="#section-1.4-6" class="pilcrow">¶</a></p>
+<p id="section-1.4-7">iGov implementations SHOULD be crypto-agile, enabling rapid substitution of algorithms and keys so services remain secure as threats and standards evolve. Implementers of this profile SHOULD monitor the progress of specifications of post-quantum
+                 cryptography. When post quantum safety is required, implementers SHOULD adopt a cipher suite included in <span><a href="#NISTPQC" class="internal xref">NIST Post-Quantum Cryptography Standards</a> [<a href="#NISTPQC" class="cite xref">NISTPQC</a>]</span>.<a href="#section-1.4-7" class="pilcrow">¶</a></p>
 <p id="section-1.4-8">An example of an emerging PQ cipher suite that is broadly supported at the time of writing is X25519MLKEM768, specified by
                  <span><a href="#mlkem.ikev2" class="internal xref">Post-quantum Hybrid Key Exchange with ML-KEM in the Internet Key Exchange Protocol Version 2 (IKEv2)</a> [<a href="#mlkem.ikev2" class="cite xref">mlkem.ikev2</a>]</span>.<a href="#section-1.4-8" class="pilcrow">¶</a></p>
 <p id="section-1.4-9">
@@ -2122,11 +2123,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                         and clients MAY register using the
                         <span><a href="#RFC7591" class="internal xref">Dynamic
                             Client Registration Protocol</a> [<a href="#RFC7591" class="cite xref">RFC7591</a>]</span>
-                        for authorization code grant types. Clients MUST NOT
-                        dynamically
-                        register for the
-                        client credentials grant type.
-                        Authorization
+                        for authorization code grant types. Authorization
                         servers MAY limit the
                         scopes available to dynamically
                         registered
@@ -3106,7 +3103,11 @@ Connection: close
 <dd class="break"></dd>
 <dt id="mlkem.ikev2">[mlkem.ikev2]</dt>
       <dd>
-<span class="refAuthor">Kampanakis, P.</span> and <span class="refAuthor">G. Ravago</span>, <span class="refTitle">"Post-quantum Hybrid Key Exchange with ML-KEM in the Internet Key Exchange Protocol Version 2 (IKEv2)"</span>, <time datetime="2024-11-04" class="refDate">4 November 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-kampanakis-ml-kem-ikev2/">https://datatracker.ietf.org/doc/draft-kampanakis-ml-kem-ikev2/</a>&gt;</span>. </dd>
+<span class="refAuthor">Kampanakis, P.</span> and <span class="refAuthor">G. Ravago</span>, <span class="refTitle">"Post-quantum Hybrid Key Exchange with ML-KEM in the Internet Key Exchange Protocol Version 2 (IKEv2)"</span>, <time datetime="2025-09-04" class="refDate">4 September 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-kampanakis-ml-kem-ikev2/">https://datatracker.ietf.org/doc/draft-kampanakis-ml-kem-ikev2/</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="NISTPQC">[NISTPQC]</dt>
+      <dd>
+<span class="refTitle">"Post-Quantum Cryptography"</span>, <time datetime="2025-12" class="refDate">December 2025</time>, <span>&lt;<a href="https://csrc.nist.gov/projects/post-quantum-cryptography">https://csrc.nist.gov/projects/post-quantum-cryptography</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="OpenID.Core">[OpenID.Core]</dt>
       <dd>
@@ -3229,8 +3230,12 @@ Connection: close
 <span class="refAuthor">Bertocci, V.</span> and <span class="refAuthor">B. Campbell</span>, <span class="refTitle">"OAuth 2.0 Step Up Authentication Challenge Protocol"</span>, <span class="seriesInfo">RFC 9470</span>, <span class="seriesInfo">DOI 10.17487/RFC9470</span>, <time datetime="2023-09" class="refDate">September 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9470">https://www.rfc-editor.org/info/rfc9470</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9728">[RFC9728]</dt>
-    <dd>
+      <dd>
 <span class="refAuthor">Jones, M.B.</span>, <span class="refAuthor">Hunt, P.</span>, and <span class="refAuthor">A. Parecki</span>, <span class="refTitle">"OAuth 2.0 Protected Resource Metadata"</span>, <span class="seriesInfo">RFC 9728</span>, <span class="seriesInfo">DOI 10.17487/RFC9728</span>, <time datetime="2025-04" class="refDate">April 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9728">https://www.rfc-editor.org/info/rfc9728</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9864">[RFC9864]</dt>
+    <dd>
+<span class="refAuthor">Jones, M.B.</span> and <span class="refAuthor">O. Steele</span>, <span class="refTitle">"Fully-Specified Algorithms for JSON Object Signing and Encryption (JOSE) and CBOR Object Signing and Encryption (COSE)"</span>, <span class="seriesInfo">RFC 9864</span>, <span class="seriesInfo">DOI 10.17487/RFC9864</span>, <time datetime="2025-10" class="refDate">October 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9864">https://www.rfc-editor.org/info/rfc9864</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
