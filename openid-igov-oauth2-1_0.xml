@@ -217,9 +217,11 @@
 
             <section title="Global Requirements">
              
+                 <t>iGov implementations SHOULD be crypto-agile, enabling rapid substitution of algorithms and keys so services remain secure as threats and standards evolve. Implementers of this profile SHOULD monitor the progress of specifications of post-quantum
+                 cryptography.</t>
                  <t>All network connections MUST be made using TLS 1.3 or above.
                  Each originator of a TLS connection MUST verify the destination's certificate.
-                 Additionally, the following four TLS 1.2 cipher suites MAY be used:
+                 However, the following four TLS 1.2 cipher suites MAY be used when interoperability is required:
                       <list>
                       <t>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256</t>
                     <t>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</t>
@@ -227,6 +229,12 @@
                     <t>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384</t>
                     </list>
                   </t>
+                <t> When post quantum safety is required for TLS, implementers SHOULD adopt a cipher suite included in 
+                <xref target="NISTPQC">NIST Post-Quantum Cryptography Standards</xref>,
+                 such as X25519MLKEM768 or SecP256r1MLKEM768, as specified in 
+                 <xref target="ECDHE.MLKEM">Post-quantum hybrid ECDHE-MLKEM Key Agreement for TLSv1.3</xref>.
+                 Of these, X25519MLKEM768 is broadly supported at the time of writing.
+                 </t>
                   <t>Authorization servers, clients, and resource servers, when creating or processing JWTs
                      <list>
                          <t>1. MUST adhere to [RFC8725]</t>
@@ -235,12 +243,7 @@
                      </list></t>
                  <t>RSA keys MUST have a minimum length of 2048 bits.</t>
                  <t>Elliptic curve keys MUST have a minimum length of 224 bits.</t>
-                 <t>iGov implementations SHOULD be crypto-agile, enabling rapid substitution of algorithms and keys so services remain secure as threats and standards evolve. Implementers of this profile SHOULD monitor the progress of specifications of post-quantum
-                 cryptography. When post quantum safety is required, implementers SHOULD adopt a cipher suite included in <xref target="NISTPQC">NIST Post-Quantum Cryptography Standards</xref>.
-                 </t>
-                 <t>An example of an emerging PQ cipher suite that is broadly supported at the time of writing is X25519MLKEM768, specified by
-                 <xref target="mlkem.ikev2">Post-quantum Hybrid Key Exchange with ML-KEM in the Internet Key Exchange Protocol Version 2 (IKEv2)</xref>.
-                 </t>
+
                  <t>
                  For the authorization_endpoint, the authorization server MAY allow
                  additional cipher suites that are permitted by the latest version of <xref target="BCP195">BCP195</xref>,
@@ -584,7 +587,7 @@ NOTE: '\' line wrapping per RFC 8792
 {
    "keys": [
      {
-       "alg": "RS256",
+       "alg": "PS256",
        "e": "AQAB",
       "n": "kAMYD62n_f2rUcR4awJX4uccDt0zcXRssq_mDch5-ifcShx9aTtTVza2\
 3PTn3KaKrsBXwWcfioXR6zQn5eYdZQVGNBfOR4rxF5i7t3hfb4WkS50EK1gBYk2lO9NS\
@@ -610,7 +613,7 @@ _ZUmxhz5Z-gTlQ",
 NOTE: '\' line wrapping per RFC 8792
 
 {
-  "alg": "RS256",
+  "alg": "PS256",
   "d": "PjIX4i2NsBQuOVIw74ZDjqthYsoFvaoah9GP-cPrai5s5VUIlLoadEAdGbBr\
 ss_6dR58x_pRlPHWh04vLQsFBuwQNc9SN3O6TAaai9Jg5TlCi6V0d4O6lUoTYpMR0cxF\
 IU-xFMwII--_OZRgmAxiYiAXQj7TKMKvgSvVO7-9-YdhMwHoD-UrJkfnZckMKSs0BoAb\
@@ -952,7 +955,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
   "request_parameter_supported": true,
   "registration_endpoint": "https://idp-p.example.com/register",
   "userinfo_signing_alg_values_supported": [
-    "HS256", "HS384", "HS512", "RS256", "RS384", "RS512"
+    "HS256", "HS384", "HS512", "PS256", "RS384", "RS512"
   ],
   "token_endpoint": "https://idp-p.example.com/token",
   "request_uri_parameter_supported": false,
@@ -969,18 +972,18 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
   "require_request_uri_registration": false,
   "introspection_endpoint": "https://idp-p.example.com/introspect",
   "request_object_encryption_alg_values_supported": [
-    "RSA-OAEP", ?RSA1_5", "RSA-OAEP-256"
+    "RSA-OAEP", "RSA1_5", "RSA-OAEP-256"
   ],
   "service_documentation": "https://idp-p.example.com/about",
   "response_types_supported": [
     "code", "token"
   ],
   "token_endpoint_auth_signing_alg_values_supported": [
-    "HS256", "HS384", "HS512", "RS256", "RS384", "RS512"
+    "HS256", "HS384", "HS512", "PS256", "RS384", "RS512"
   ],
   "revocation_endpoint": "https://idp-p.example.com/revoke",
   "request_object_signing_alg_values_supported": [
-    "HS256", "HS384", "HS512", "RS256", "RS384", "RS512"
+    "HS256", "HS384", "HS512", "PS256", "RS384", "RS512"
   ],
   "grant_types_supported": [
     "authorization_code",
@@ -1026,7 +1029,7 @@ NOTE: '\' line wrapping per RFC 8792
 
 "keys": [
    {
-     "alg": "RS256",
+     "alg": "PS256",
      "e": "AQAB",
      "n": "o80vbR0ZfMhjZWfqwPUGNkcIeUcweFyzB2S2T-hje83IOVct8gVg9FxvHP\
 K1ReEW3-p7-A8GNcLAuFP_8jPhiL6LyJC3F10aV9KPQFF-w6Eq6VtpEgYSfzvFegNiPt\
@@ -1258,7 +1261,7 @@ https://https://client.example.org/cb?
                 </t>
 
                 <t>This example access token has been signed with the server's
-                    private key using RS256:
+                    private key using PS256:
                 </t>
 
                 <figure>
@@ -1912,12 +1915,14 @@ Connection: close
                           
                       </front>
                   </reference>
-            <reference anchor="mlkem.ikev2" target="https://datatracker.ietf.org/doc/draft-kampanakis-ml-kem-ikev2/">
+            <reference anchor="ECDHE.MLKEM" target="https://datatracker.ietf.org/doc/draft-ietf-tls-ecdhe-mlkem/">
                 <front>
-                    <title>Post-quantum Hybrid Key Exchange with ML-KEM in the Internet Key Exchange Protocol Version 2 (IKEv2)</title>
+                    <title>Post-quantum hybrid ECDHE-MLKEM Key Agreement for TLSv1.3</title>
+                    <author fullname="Kris Kwiatkowski" initials="K." surname="Kwiatkowski"/>
                     <author fullname="Panos Kampanakis" initials="P." surname="Kampanakis"/>
-                    <author fullname="Gerardo Ravago" initials="G." surname="Ravago"/>
-                    <date day="4" month="September" year="2025"/>
+                    <author fullname="Bas Westerbaan" initials="B." surname="Westerbaan"/>
+                    <author fullname="Douglas Stebila" initials="D." surname="Stebila"/>
+                    <date day="23" month="November" year="2025"/>
                 </front>
             </reference>
             
