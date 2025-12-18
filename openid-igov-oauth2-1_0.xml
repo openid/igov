@@ -12,7 +12,7 @@
 <rfc
   category="std"
   
-  docName="openid-igov-oauth2-1_08"
+  docName="openid-igov-oauth2-1_09"
   
   ipr="none"
   
@@ -55,7 +55,7 @@
             </address>
         </author>
 
-        <date day="9" month="December" year="2025"/>
+        <date day="18" month="December" year="2025"/>
 
         <workgroup>OpenID iGov Working Group</workgroup>
 
@@ -1953,7 +1953,8 @@ Connection: close
                 Pulvermacher, David Hill, Dale Moberg, Adrian Gropper, Eve Maler,
                 Danny van Leeuwen, John Moehrke, Aaron Seib, John Bradley, Debbie
                 Bucci, Josh Mandel, Sarah Cecchetti, Giuseppe De Marco, Joseph Heenan,
-                Jim Fenton, Ryan Galluzzo, Bjorn Hjelm, Aaron Parecki, Michael B. Jones, and Stas Mironov.
+                Jim Fenton, Ryan Galluzzo, Bjorn Hjelm, Aaron Parecki, Michael B. Jones, 
+                Stas Mironov, and Andy Regenscheid.
             </t>
             <t> Special thank you to the original iGov Profile editors: Paul Grassi, Justin Richer,
                 and Michael Varley.
@@ -1988,6 +1989,26 @@ Connection: close
         <section anchor="History" title="Document History">
       <t>[[ To be removed from the final specification ]]</t>
  
+  <t>
+    -09
+    <list style="symbols">
+    <t>
+        Revised Global Requirements for cryptography to emphasize crypto-agility and align with FAPI
+      </t>
+      <t>
+        Revised Post-Quantum guidance with NIST references and ECDHE-MLKEM draft
+      </t>
+      <t>
+        Eliminated RS256 requirements throughout and partially updated examples with PS256
+      </t>
+      <t>
+        Fixed typos and eliminated redundant or orphaned requirements
+      </t>
+      <t>
+        Changed date, version, and document history
+      </t>
+      </list>
+      </t>
  <t>
     -08
     <list style="symbols">
