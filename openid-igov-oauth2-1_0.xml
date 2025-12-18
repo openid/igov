@@ -1728,8 +1728,6 @@ Connection: close
 
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7662"/>
 
-      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7518"/>
-
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7638"/>
 
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.7800"/>
@@ -1901,19 +1899,7 @@ Connection: close
                     <date day="3" month="August" year="2023"/>
                 </front>
             </reference>
-
-            <reference anchor="JWS.JWE.Algs">
-                <front>
-                    <title>JSON Web Signature and Encryption Algorithms registry</title>
-
-                    <author>
-                        <organization/>
-                    </author>
-
-                    <date day="8" month="August" year="2016"/>
-                </front>
-            </reference>
-            
+          
             <reference anchor="NISTPQC" target="https://csrc.nist.gov/projects/post-quantum-cryptography">
                       <front>
                           <title>Post-Quantum Cryptography</title>
