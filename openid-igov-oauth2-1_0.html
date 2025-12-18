@@ -20,7 +20,7 @@
        
     " name="description">
 <meta content="xml2rfc 3.31.0" name="generator">
-<meta content="openid-igov-oauth2-1_08" name="ietf.draft">
+<meta content="openid-igov-oauth2-1_09" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.31.0
     Python 3.12.3
@@ -1240,7 +1240,7 @@ li > p:last-of-type:only-child {
 <dd class="workgroup">OpenID iGov Working Group</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-12-09" class="published">9 December 2025</time>
+<time datetime="2025-12-18" class="published">18 December 2025</time>
     </dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
@@ -1595,41 +1595,44 @@ li > p:last-of-type:only-child {
         <h3 id="name-global-requirements">
 <a href="#section-1.4" class="section-number selfRef">1.4. </a><a href="#name-global-requirements" class="section-name selfRef">Global Requirements</a>
         </h3>
-<p id="section-1.4-1">All network connections MUST be made using TLS 1.3 or above.
+<p id="section-1.4-1">iGov implementations SHOULD be crypto-agile, enabling rapid substitution of algorithms and keys so services remain secure as threats and standards evolve. Implementers of this profile SHOULD monitor the progress of specifications of post-quantum
+                 cryptography.<a href="#section-1.4-1" class="pilcrow">¶</a></p>
+<p id="section-1.4-2">All network connections MUST be made using TLS 1.3 or above.
                  Each originator of a TLS connection MUST verify the destination's certificate.
-                 Additionally, the following four TLS 1.2 cipher suites MAY be used:<a href="#section-1.4-1" class="pilcrow">¶</a></p>
+                 However, the following four TLS 1.2 cipher suites MAY be used when interoperability is required:<a href="#section-1.4-2" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-1.4-2.1">
-            <p id="section-1.4-2.1.1">TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256<a href="#section-1.4-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-1.4-3.1">
+            <p id="section-1.4-3.1.1">TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256<a href="#section-1.4-3.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal ulEmpty" id="section-1.4-2.2">
-            <p id="section-1.4-2.2.1">TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384<a href="#section-1.4-2.2.1" class="pilcrow">¶</a></p>
+          <li class="normal ulEmpty" id="section-1.4-3.2">
+            <p id="section-1.4-3.2.1">TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384<a href="#section-1.4-3.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal ulEmpty" id="section-1.4-2.3">
-            <p id="section-1.4-2.3.1">TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256<a href="#section-1.4-2.3.1" class="pilcrow">¶</a></p>
+          <li class="normal ulEmpty" id="section-1.4-3.3">
+            <p id="section-1.4-3.3.1">TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256<a href="#section-1.4-3.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal ulEmpty" id="section-1.4-2.4">
-            <p id="section-1.4-2.4.1">TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384<a href="#section-1.4-2.4.1" class="pilcrow">¶</a></p>
+          <li class="normal ulEmpty" id="section-1.4-3.4">
+            <p id="section-1.4-3.4.1">TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384<a href="#section-1.4-3.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-1.4-3">Authorization servers, clients, and resource servers, when creating or processing JWTs<a href="#section-1.4-3" class="pilcrow">¶</a></p>
+<p id="section-1.4-4"> When post quantum safety is required for TLS, implementers SHOULD adopt a cipher suite included in 
+                <span><a href="#NISTPQC" class="internal xref">NIST Post-Quantum Cryptography Standards</a> [<a href="#NISTPQC" class="cite xref">NISTPQC</a>]</span>,
+                 such as X25519MLKEM768 or SecP256r1MLKEM768, as specified in 
+                 <span><a href="#ECDHE.MLKEM" class="internal xref">Post-quantum hybrid ECDHE-MLKEM Key Agreement for TLSv1.3</a> [<a href="#ECDHE.MLKEM" class="cite xref">ECDHE.MLKEM</a>]</span>.
+                 Of these, X25519MLKEM768 is broadly supported at the time of writing.<a href="#section-1.4-4" class="pilcrow">¶</a></p>
+<p id="section-1.4-5">Authorization servers, clients, and resource servers, when creating or processing JWTs<a href="#section-1.4-5" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-1.4-4.1">
-            <p id="section-1.4-4.1.1">1. MUST adhere to [RFC8725]<a href="#section-1.4-4.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-1.4-6.1">
+            <p id="section-1.4-6.1.1">1. MUST adhere to [RFC8725]<a href="#section-1.4-6.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal ulEmpty" id="section-1.4-4.2">
-            <p id="section-1.4-4.2.1">2. MUST use PS256, ES256, or Ed25519<a href="#section-1.4-4.2.1" class="pilcrow">¶</a></p>
+          <li class="normal ulEmpty" id="section-1.4-6.2">
+            <p id="section-1.4-6.2.1">2. MUST use PS256, ES256, or Ed25519<a href="#section-1.4-6.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal ulEmpty" id="section-1.4-4.3">
-            <p id="section-1.4-4.3.1">3. MUST NOT use or accept the <code>none</code> algorithm.<a href="#section-1.4-4.3.1" class="pilcrow">¶</a></p>
+          <li class="normal ulEmpty" id="section-1.4-6.3">
+            <p id="section-1.4-6.3.1">3. MUST NOT use or accept the <code>none</code> algorithm.<a href="#section-1.4-6.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-1.4-5">RSA keys MUST have a minimum length of 2048 bits.<a href="#section-1.4-5" class="pilcrow">¶</a></p>
-<p id="section-1.4-6">Elliptic curve keys MUST have a minimum length of 224 bits.<a href="#section-1.4-6" class="pilcrow">¶</a></p>
-<p id="section-1.4-7">iGov implementations SHOULD be crypto-agile, enabling rapid substitution of algorithms and keys so services remain secure as threats and standards evolve. Implementers of this profile SHOULD monitor the progress of specifications of post-quantum
-                 cryptography. When post quantum safety is required, implementers SHOULD adopt a cipher suite included in <span><a href="#NISTPQC" class="internal xref">NIST Post-Quantum Cryptography Standards</a> [<a href="#NISTPQC" class="cite xref">NISTPQC</a>]</span>.<a href="#section-1.4-7" class="pilcrow">¶</a></p>
-<p id="section-1.4-8">An example of an emerging PQ cipher suite that is broadly supported at the time of writing is X25519MLKEM768, specified by
-                 <span><a href="#mlkem.ikev2" class="internal xref">Post-quantum Hybrid Key Exchange with ML-KEM in the Internet Key Exchange Protocol Version 2 (IKEv2)</a> [<a href="#mlkem.ikev2" class="cite xref">mlkem.ikev2</a>]</span>.<a href="#section-1.4-8" class="pilcrow">¶</a></p>
+<p id="section-1.4-7">RSA keys MUST have a minimum length of 2048 bits.<a href="#section-1.4-7" class="pilcrow">¶</a></p>
+<p id="section-1.4-8">Elliptic curve keys MUST have a minimum length of 224 bits.<a href="#section-1.4-8" class="pilcrow">¶</a></p>
 <p id="section-1.4-9">
                  For the authorization_endpoint, the authorization server MAY allow
                  additional cipher suites that are permitted by the latest version of <span><a href="#BCP195" class="internal xref">BCP195</a> [<a href="#BCP195" class="cite xref">BCP195</a>]</span>,
@@ -1965,7 +1968,7 @@ NOTE: '\' line wrapping per RFC 8792
 {
    "keys": [
      {
-       "alg": "RS256",
+       "alg": "PS256",
        "e": "AQAB",
       "n": "kAMYD62n_f2rUcR4awJX4uccDt0zcXRssq_mDch5-ifcShx9aTtTVza2\
 3PTn3KaKrsBXwWcfioXR6zQn5eYdZQVGNBfOR4rxF5i7t3hfb4WkS50EK1gBYk2lO9NS\
@@ -1988,7 +1991,7 @@ _ZUmxhz5Z-gTlQ",
 NOTE: '\' line wrapping per RFC 8792
 
 {
-  "alg": "RS256",
+  "alg": "PS256",
   "d": "PjIX4i2NsBQuOVIw74ZDjqthYsoFvaoah9GP-cPrai5s5VUIlLoadEAdGbBr\
 ss_6dR58x_pRlPHWh04vLQsFBuwQNc9SN3O6TAaai9Jg5TlCi6V0d4O6lUoTYpMR0cxF\
 IU-xFMwII--_OZRgmAxiYiAXQj7TKMKvgSvVO7-9-YdhMwHoD-UrJkfnZckMKSs0BoAb\
@@ -2087,9 +2090,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 <a href="#section-3.1.2" class="section-number selfRef">3.1.2. </a><a href="#name-client-authentication" class="section-name selfRef">Client authentication</a>
           </h4>
 <p id="section-3.1.2-1">Authorization servers MUST enforce client authentication for confidential clients. Public clients cannot authenticate
-                    to the authorization server. Authorization servers MUST support the RS256 signature method (the Rivest, Shamir, and Adleman
-                    (RSA) signature algorithm with a 256-bit hash) and MAY use other asymmetric signature methods listed in
-                    <span><a href="#RFC7518" class="internal xref">JSON Web Algorithms (JWA) [RFC7518]</a> [<a href="#RFC7518" class="cite xref">RFC7518</a>]</span>.<a href="#section-3.1.2-1" class="pilcrow">¶</a></p>
+                    to the authorization server.<a href="#section-3.1.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.1.2-2"> The authorization server MUST validate all redirect
                         URIs for authorization code grant types.<a href="#section-3.1.2-2" class="pilcrow">¶</a></p>
 <p id="section-3.1.2-3"> The authorization server MUST confirm thumbprints of client keys.<a href="#section-3.1.2-3" class="pilcrow">¶</a></p>
@@ -2350,7 +2351,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
   "request_parameter_supported": true,
   "registration_endpoint": "https://idp-p.example.com/register",
   "userinfo_signing_alg_values_supported": [
-    "HS256", "HS384", "HS512", "RS256", "RS384", "RS512"
+    "HS256", "HS384", "HS512", "PS256", "RS384", "RS512"
   ],
   "token_endpoint": "https://idp-p.example.com/token",
   "request_uri_parameter_supported": false,
@@ -2367,18 +2368,18 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
   "require_request_uri_registration": false,
   "introspection_endpoint": "https://idp-p.example.com/introspect",
   "request_object_encryption_alg_values_supported": [
-    "RSA-OAEP", ?RSA1_5", "RSA-OAEP-256"
+    "RSA-OAEP", "RSA1_5", "RSA-OAEP-256"
   ],
   "service_documentation": "https://idp-p.example.com/about",
   "response_types_supported": [
     "code", "token"
   ],
   "token_endpoint_auth_signing_alg_values_supported": [
-    "HS256", "HS384", "HS512", "RS256", "RS384", "RS512"
+    "HS256", "HS384", "HS512", "PS256", "RS384", "RS512"
   ],
   "revocation_endpoint": "https://idp-p.example.com/revoke",
   "request_object_signing_alg_values_supported": [
-    "HS256", "HS384", "HS512", "RS256", "RS384", "RS512"
+    "HS256", "HS384", "HS512", "PS256", "RS384", "RS512"
   ],
   "grant_types_supported": [
     "authorization_code",
@@ -2397,34 +2398,32 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 </div>
 <p id="section-3.1.6-8">It is RECOMMENDED that authorization servers provide cache information through HTTP headers and make the cache valid for at
                     least one week. This allows clients and protected resources to cache the discovery information.<a href="#section-3.1.6-8" class="pilcrow">¶</a></p>
-<p id="section-3.1.6-9"> Authorization servers MUST support the RS256 signature method (the Rivest, Shamir, and Adleman (RSA) signature algorithm
-                    with a 256-bit hash) and MAY use other asymmetric signature methods listed in the JSON Web Algorithms (JWA [RFC7518]) ) specification.<a href="#section-3.1.6-9" class="pilcrow">¶</a></p>
-<p id="section-3.1.6-10">The authorization server MUST provide its public key in JWK Set format. The
+<p id="section-3.1.6-9">The authorization server MUST provide its public key in JWK Set format. The
                         key
-                        MUST contain the following fields:<a href="#section-3.1.6-10" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlParallel" id="section-3.1.6-11">
-            <dt id="section-3.1.6-11.1">kid</dt>
-            <dd style="margin-left: 1.5em" id="section-3.1.6-11.2">The key ID of the key pair used to sign this
-                                token<a href="#section-3.1.6-11.2" class="pilcrow">¶</a>
+                        MUST contain the following fields:<a href="#section-3.1.6-9" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-3.1.6-10">
+            <dt id="section-3.1.6-10.1">kid</dt>
+            <dd style="margin-left: 1.5em" id="section-3.1.6-10.2">The key ID of the key pair used to sign this
+                                token<a href="#section-3.1.6-10.2" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
-<dt id="section-3.1.6-11.3">kty</dt>
-            <dd style="margin-left: 1.5em" id="section-3.1.6-11.4">The key type<a href="#section-3.1.6-11.4" class="pilcrow">¶</a>
+<dt id="section-3.1.6-10.3">kty</dt>
+            <dd style="margin-left: 1.5em" id="section-3.1.6-10.4">The key type<a href="#section-3.1.6-10.4" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
-<dt id="section-3.1.6-11.5">alg</dt>
-            <dd style="margin-left: 1.5em" id="section-3.1.6-11.6">The default algorithm used for this key<a href="#section-3.1.6-11.6" class="pilcrow">¶</a>
+<dt id="section-3.1.6-10.5">alg</dt>
+            <dd style="margin-left: 1.5em" id="section-3.1.6-10.6">The default algorithm used for this key<a href="#section-3.1.6-10.6" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 </dl>
-<p id="section-3.1.6-12">The following is an example of a 2048-bit RSA public key:<a href="#section-3.1.6-12" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.1.6-13">
+<p id="section-3.1.6-11">The following is an example of a 2048-bit RSA public key:<a href="#section-3.1.6-11" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.1.6-12">
 <pre>{
 NOTE: '\' line wrapping per RFC 8792
 
 "keys": [
    {
-     "alg": "RS256",
+     "alg": "PS256",
      "e": "AQAB",
      "n": "o80vbR0ZfMhjZWfqwPUGNkcIeUcweFyzB2S2T-hje83IOVct8gVg9FxvHP\
 K1ReEW3-p7-A8GNcLAuFP_8jPhiL6LyJC3F10aV9KPQFF-w6Eq6VtpEgYSfzvFegNiPt\
@@ -2437,7 +2436,7 @@ DNp00J6AbY6w",
     }
   ]
 }
-</pre><a href="#section-3.1.6-13" class="pilcrow">¶</a>
+</pre><a href="#section-3.1.6-12" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
@@ -2651,14 +2650,6 @@ https://https://client.example.org/cb?
 <p id="section-3.3-7">
                     The access tokens MUST be signed with
                     <span><a href="#RFC7515" class="internal xref">JWS</a> [<a href="#RFC7515" class="cite xref">RFC7515</a>]</span>
-                    . If private_key_jwt is used, the authorization server MUST support
-                    the RS256 signature method
-                    for tokens and MAY use other asymmetric
-                    signing methods as defined
-                    in the
-                    <span><a href="#JWS.JWE.Algs" class="internal xref">IANA
-                        JSON Web Signatures and Encryption
-                        Algorithms registry</a> [<a href="#JWS.JWE.Algs" class="cite xref">JWS.JWE.Algs</a>]</span>
                     . The
                     JWS header MUST contain the following fields:<a href="#section-3.3-7" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-3.3-8">
@@ -2669,7 +2660,7 @@ https://https://client.example.org/cb?
         <dd class="break"></dd>
 </dl>
 <p id="section-3.3-9">This example access token has been signed with the server's
-                    private key using RS256:<a href="#section-3.3-9" class="pilcrow">¶</a></p>
+                    private key using PS256:<a href="#section-3.3-9" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3.3-10">
 <pre>
 NOTE: '\' line wrapping per RFC 8792
@@ -3097,13 +3088,9 @@ Connection: close
       <dd>
 <span class="refAuthor">Parecki, A.</span>, <span class="refAuthor">Waite, D.</span>, and <span class="refAuthor">P. De Ryck</span>, <span class="refTitle">"OAuth 2.0 for Browser-Based Applications"</span>, <time datetime="2025-01-17" class="refDate">17 January 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps">https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="JWS.JWE.Algs">[JWS.JWE.Algs]</dt>
+<dt id="ECDHE.MLKEM">[ECDHE.MLKEM]</dt>
       <dd>
-<span class="refTitle">"JSON Web Signature and Encryption Algorithms registry"</span>, <time datetime="2016-08-08" class="refDate">8 August 2016</time>. </dd>
-<dd class="break"></dd>
-<dt id="mlkem.ikev2">[mlkem.ikev2]</dt>
-      <dd>
-<span class="refAuthor">Kampanakis, P.</span> and <span class="refAuthor">G. Ravago</span>, <span class="refTitle">"Post-quantum Hybrid Key Exchange with ML-KEM in the Internet Key Exchange Protocol Version 2 (IKEv2)"</span>, <time datetime="2025-09-04" class="refDate">4 September 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-kampanakis-ml-kem-ikev2/">https://datatracker.ietf.org/doc/draft-kampanakis-ml-kem-ikev2/</a>&gt;</span>. </dd>
+<span class="refAuthor">Kwiatkowski, K.</span>, <span class="refAuthor">Kampanakis, P.</span>, <span class="refAuthor">Westerbaan, B.</span>, and <span class="refAuthor">D. Stebila</span>, <span class="refTitle">"Post-quantum hybrid ECDHE-MLKEM Key Agreement for TLSv1.3"</span>, <time datetime="2025-11-23" class="refDate">23 November 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-ietf-tls-ecdhe-mlkem/">https://datatracker.ietf.org/doc/draft-ietf-tls-ecdhe-mlkem/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="NISTPQC">[NISTPQC]</dt>
       <dd>
@@ -3164,10 +3151,6 @@ Connection: close
 <dt id="RFC7517">[RFC7517]</dt>
       <dd>
 <span class="refAuthor">Jones, M.</span>, <span class="refTitle">"JSON Web Key (JWK)"</span>, <span class="seriesInfo">RFC 7517</span>, <span class="seriesInfo">DOI 10.17487/RFC7517</span>, <time datetime="2015-05" class="refDate">May 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7517">https://www.rfc-editor.org/info/rfc7517</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC7518">[RFC7518]</dt>
-      <dd>
-<span class="refAuthor">Jones, M.</span>, <span class="refTitle">"JSON Web Algorithms (JWA)"</span>, <span class="seriesInfo">RFC 7518</span>, <span class="seriesInfo">DOI 10.17487/RFC7518</span>, <time datetime="2015-05" class="refDate">May 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7518">https://www.rfc-editor.org/info/rfc7518</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC7519">[RFC7519]</dt>
       <dd>
@@ -3249,7 +3232,8 @@ Connection: close
                 Pulvermacher, David Hill, Dale Moberg, Adrian Gropper, Eve Maler,
                 Danny van Leeuwen, John Moehrke, Aaron Seib, John Bradley, Debbie
                 Bucci, Josh Mandel, Sarah Cecchetti, Giuseppe De Marco, Joseph Heenan,
-                Jim Fenton, Ryan Galluzzo, Bjorn Hjelm, Aaron Parecki, Michael B. Jones, and Stas Mironov.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+                Jim Fenton, Ryan Galluzzo, Bjorn Hjelm, Aaron Parecki, Michael B. Jones, 
+                Stas Mironov, and Andy Regenscheid.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 <p id="appendix-A-2"> Special thank you to the original iGov Profile editors: Paul Grassi, Justin Richer,
                 and Michael Varley.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
 <p id="appendix-A-3">The original version of this specification was part of the Secure
@@ -3286,105 +3270,129 @@ Connection: close
       </h2>
 <p id="appendix-C-1">[[ To be removed from the final specification ]]<a href="#appendix-C-1" class="pilcrow">¶</a></p>
 <p id="appendix-C-2">
-    -08<a href="#appendix-C-2" class="pilcrow">¶</a></p>
+    -09<a href="#appendix-C-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-3.1">
           <p id="appendix-C-3.1.1">
-        Added description of resource server requirements for authentication context and step-up<a href="#appendix-C-3.1.1" class="pilcrow">¶</a></p>
+        Revised Global Requirements for cryptography to emphasize crypto-agility and align with FAPI<a href="#appendix-C-3.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-3.2">
           <p id="appendix-C-3.2.1">
-        Restructured the document so the text flows better<a href="#appendix-C-3.2.1" class="pilcrow">¶</a></p>
+        Revised Post-Quantum guidance with NIST references and ECDHE-MLKEM draft<a href="#appendix-C-3.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-3.3">
           <p id="appendix-C-3.3.1">
-        Added a method to securely discover or declare JWKS-URI for PR/RS<a href="#appendix-C-3.3.1" class="pilcrow">¶</a></p>
+        Eliminated RS256 requirements throughout and partially updated examples with PS256<a href="#appendix-C-3.3.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-3.4">
           <p id="appendix-C-3.4.1">
-        Removed public clients to align with FAPI<a href="#appendix-C-3.4.1" class="pilcrow">¶</a></p>
+        Fixed typos and eliminated redundant or orphaned requirements<a href="#appendix-C-3.4.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-3.5">
           <p id="appendix-C-3.5.1">
-        Moved requirements to correct section<a href="#appendix-C-3.5.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-3.6">
-          <p id="appendix-C-3.6.1">
-        Realigned requirements among AS, client, and PR/RS<a href="#appendix-C-3.6.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-3.7">
-          <p id="appendix-C-3.7.1">
-        Changed date, version, and document history<a href="#appendix-C-3.7.1" class="pilcrow">¶</a></p>
+        Changed date, version, and document history<a href="#appendix-C-3.5.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="appendix-C-4">
-    -06-07<a href="#appendix-C-4" class="pilcrow">¶</a></p>
+    -08<a href="#appendix-C-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-5.1">
           <p id="appendix-C-5.1.1">
-        Addressed comments from WGLC request Jan 31, 2025<a href="#appendix-C-5.1.1" class="pilcrow">¶</a></p>
+        Added description of resource server requirements for authentication context and step-up<a href="#appendix-C-5.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-5.2">
+          <p id="appendix-C-5.2.1">
+        Restructured the document so the text flows better<a href="#appendix-C-5.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-5.3">
+          <p id="appendix-C-5.3.1">
+        Added a method to securely discover or declare JWKS-URI for PR/RS<a href="#appendix-C-5.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-5.4">
+          <p id="appendix-C-5.4.1">
+        Removed public clients to align with FAPI<a href="#appendix-C-5.4.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-5.5">
+          <p id="appendix-C-5.5.1">
+        Moved requirements to correct section<a href="#appendix-C-5.5.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-5.6">
+          <p id="appendix-C-5.6.1">
+        Realigned requirements among AS, client, and PR/RS<a href="#appendix-C-5.6.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-5.7">
+          <p id="appendix-C-5.7.1">
+        Changed date, version, and document history<a href="#appendix-C-5.7.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="appendix-C-6">
-    -05<a href="#appendix-C-6" class="pilcrow">¶</a></p>
+    -06-07<a href="#appendix-C-6" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-7.1">
           <p id="appendix-C-7.1.1">
-        Updated BCP mitigations, aligned with FAPI<a href="#appendix-C-7.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-7.2">
-          <p id="appendix-C-7.2.1">
-        Harmonized cryptography, sender constrained tokens with FAPI<a href="#appendix-C-7.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-7.3">
-          <p id="appendix-C-7.3.1">
-        Added requirement and optionality for authentication context and support for Step-up (RFC 9470)<a href="#appendix-C-7.3.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-7.4">
-          <p id="appendix-C-7.4.1">
-        Added Privacy Considerations (RFC 6973)<a href="#appendix-C-7.4.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-7.5">
-          <p id="appendix-C-7.5.1">
-        Added optionality to support enterprise tailoring, especially RFC 8705 mTLS with PKI<a href="#appendix-C-7.5.1" class="pilcrow">¶</a></p>
+        Addressed comments from WGLC request Jan 31, 2025<a href="#appendix-C-7.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="appendix-C-8">
-    -04<a href="#appendix-C-8" class="pilcrow">¶</a></p>
+    -05<a href="#appendix-C-8" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-9.1">
           <p id="appendix-C-9.1.1">
-        Enable building with https://author-tools.ietf.org/.<a href="#appendix-C-9.1.1" class="pilcrow">¶</a></p>
+        Updated BCP mitigations, aligned with FAPI<a href="#appendix-C-9.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-9.2">
           <p id="appendix-C-9.2.1">
-        Applied OpenID specification conventions.<a href="#appendix-C-9.2.1" class="pilcrow">¶</a></p>
+        Harmonized cryptography, sender constrained tokens with FAPI<a href="#appendix-C-9.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-9.3">
+          <p id="appendix-C-9.3.1">
+        Added requirement and optionality for authentication context and support for Step-up (RFC 9470)<a href="#appendix-C-9.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-9.4">
+          <p id="appendix-C-9.4.1">
+        Added Privacy Considerations (RFC 6973)<a href="#appendix-C-9.4.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-9.5">
+          <p id="appendix-C-9.5.1">
+        Added optionality to support enterprise tailoring, especially RFC 8705 mTLS with PKI<a href="#appendix-C-9.5.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="appendix-C-10">
-    -03<a href="#appendix-C-10" class="pilcrow">¶</a></p>
+    -04<a href="#appendix-C-10" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-11.1">
           <p id="appendix-C-11.1.1">
-        First Implementer's Draft<a href="#appendix-C-11.1.1" class="pilcrow">¶</a></p>
+        Enable building with https://author-tools.ietf.org/.<a href="#appendix-C-11.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-11.2">
+          <p id="appendix-C-11.2.1">
+        Applied OpenID specification conventions.<a href="#appendix-C-11.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-12">-2017-06-01<a href="#appendix-C-12" class="pilcrow">¶</a></p>
+<p id="appendix-C-12">
+    -03<a href="#appendix-C-12" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-13.1">
-          <p id="appendix-C-13.1.1">Aligned with prior version of iGov.<a href="#appendix-C-13.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-13.2">
-          <p id="appendix-C-13.2.1">Added guidance text around using scopes and refresh_tokens to protect sensitive resources.<a href="#appendix-C-13.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-13.3">
-          <p id="appendix-C-13.3.1">Removed ACR reference.<a href="#appendix-C-13.3.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-13.1.1">
+        First Implementer's Draft<a href="#appendix-C-13.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-14">-2018-05-07<a href="#appendix-C-14" class="pilcrow">¶</a></p>
+<p id="appendix-C-14">-2017-06-01<a href="#appendix-C-14" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-15.1">
-          <p id="appendix-C-15.1.1">Imported content from HEART OAuth profile.<a href="#appendix-C-15.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-15.1.1">Aligned with prior version of iGov.<a href="#appendix-C-15.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-15.2">
+          <p id="appendix-C-15.2.1">Added guidance text around using scopes and refresh_tokens to protect sensitive resources.<a href="#appendix-C-15.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-15.3">
+          <p id="appendix-C-15.3.1">Removed ACR reference.<a href="#appendix-C-15.3.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="appendix-C-16">-2018-05-07<a href="#appendix-C-16" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-C-17.1">
+          <p id="appendix-C-17.1.1">Imported content from HEART OAuth profile.<a href="#appendix-C-17.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
