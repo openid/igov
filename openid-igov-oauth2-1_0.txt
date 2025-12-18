@@ -9,7 +9,7 @@ OpenID iGov Working Group                                 K. Burgin, Ed.
 
 
 International Government Assurance Profile (iGov) for OAuth 2.0 - draft
-                                   08
+                                   09
                         openid-igov-oauth2-1_08
 
 Abstract
