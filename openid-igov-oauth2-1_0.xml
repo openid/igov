@@ -710,9 +710,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 
                 <section title="Client authentication">
                     <t>Authorization servers MUST enforce client authentication for confidential clients. Public clients cannot authenticate
-                    to the authorization server. Authorization servers MUST support the RS256 signature method (the Rivest, Shamir, and Adleman
-                    (RSA) signature algorithm with a 256-bit hash) and MAY use other asymmetric signature methods listed in
-                    <xref target="RFC7518">JSON Web Algorithms (JWA) [RFC7518]</xref>.
+                    to the authorization server. 
                     </t>
                     
                     
@@ -1002,9 +1000,6 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                     
                     <t>It is RECOMMENDED that authorization servers provide cache information through HTTP headers and make the cache valid for at
                     least one week. This allows clients and protected resources to cache the discovery information.</t>
-                    
-                    <t> Authorization servers MUST support the RS256 signature method (the Rivest, Shamir, and Adleman (RSA) signature algorithm
-                    with a 256-bit hash) and MAY use other asymmetric signature methods listed in the JSON Web Algorithms (JWA [RFC7518]) ) specification.</t>
 
                     <t>The authorization server MUST provide its public key in JWK Set format. The
                         key
@@ -1250,14 +1245,6 @@ https://https://client.example.org/cb?
                 <t>
                     The access tokens MUST be signed with
                     <xref target="RFC7515">JWS</xref>
-                    . If private_key_jwt is used, the authorization server MUST support
-                    the RS256 signature method
-                    for tokens and MAY use other asymmetric
-                    signing methods as defined
-                    in the
-                    <xref target="JWS.JWE.Algs">IANA
-                        JSON Web Signatures and Encryption
-                        Algorithms registry</xref>
                     . The
                     JWS header MUST contain the following fields:
                 </t>
