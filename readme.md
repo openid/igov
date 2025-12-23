@@ -23,9 +23,9 @@ The iGov WG operates under the following charter:
 Since its inception, the iGov WG has made significant progress in advancing OpenID standards for government use cases. Key achievements include:
 
 1. **Development of the iGov Profile:** A tailored profile of OpenID Connect designed to meet the security, privacy, and interoperability requirements of government identity systems.
-    [Current iGov Specifications](https://openid.net/wg/igov/specifications/)
-    [Editor's Drafts of iGov Specifications](https://openid.bitbucket.io/iGov/)
-    [Working Group listserv archive](https://lists.openid.net/pipermail/openid-specs-igov/)
+    + [Current iGov Specifications](https://openid.net/wg/igov/specifications/)
+    + [Editor's Drafts of iGov Specifications](https://openid.bitbucket.io/iGov/)
+    + [Working Group listserv archive](https://lists.openid.net/pipermail/openid-specs-igov/)
 2. **Collaborative Research:** Extensive collaboration with government agencies, industry experts, and standards organizations to identify common challenges and solutions.
 3. **Implementation Guidance:** Creation of best practices and technical documentation to support the adoption of OpenID standards in public sector environments.
 4. **Community Engagement:** Hosting workshops, webinars, and discussions to gather feedback and foster collaboration among stakeholders.
