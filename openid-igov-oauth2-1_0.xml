@@ -1613,16 +1613,6 @@ Connection: close
                 OAuth client registered at the authorization
                 server.</t>
                 
-                <t>Protected resources MAY cache the response from the
-                    introspection endpoint for a period of time no greater than half
-                    the
-                    lifetime of the token. A protected resource MUST NOT accept a
-                    token
-                    that is not active according to the response from the
-                    introspection
-                    endpoint.
-                </t>
-                
                 <t>Protected
                     resources
                     MUST ensure that the rights associated with the token are
