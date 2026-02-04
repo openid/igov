@@ -42,14 +42,14 @@ Table of Contents
        2.6.1.  Requests to the Authorization Endpoint  . . . . . . .   9
        2.6.2.  Requests to the Token Endpoint  . . . . . . . . . . .  10
        2.6.3.  Client Keys . . . . . . . . . . . . . . . . . . . . .  11
-     2.7.  Connection to the Protected Resource  . . . . . . . . . .  12
-       2.7.1.  Requests to the Protected Resource  . . . . . . . . .  12
+     2.7.  Connection to the Protected Resource  . . . . . . . . . .  13
+       2.7.1.  Requests to the Protected Resource  . . . . . . . . .  13
    3.  Authorization Server Profile  . . . . . . . . . . . . . . . .  13
      3.1.  Connections with clients  . . . . . . . . . . . . . . . .  13
        3.1.1.  Grant types . . . . . . . . . . . . . . . . . . . . .  13
-       3.1.2.  Client authentication . . . . . . . . . . . . . . . .  13
+       3.1.2.  Client authentication . . . . . . . . . . . . . . . .  14
        3.1.3.  Dynamic Registration  . . . . . . . . . . . . . . . .  14
-       3.1.4.  Client Approval . . . . . . . . . . . . . . . . . . .  15
+       3.1.4.  Client Approval . . . . . . . . . . . . . . . . . . .  16
 
 
 
@@ -58,13 +58,13 @@ Burgin & Clancy              Standards Track                    [Page 1]
                              iGov OAuth 2.0                December 2025
 
 
-       3.1.5.  Sender-constrained Tokens . . . . . . . . . . . . . .  16
-       3.1.6.  Discovery . . . . . . . . . . . . . . . . . . . . . .  16
-       3.1.7.  Revocation  . . . . . . . . . . . . . . . . . . . . .  19
+       3.1.5.  Discovery . . . . . . . . . . . . . . . . . . . . . .  16
+       3.1.6.  Sender-constrained Tokens . . . . . . . . . . . . . .  19
+       3.1.7.  Revocation  . . . . . . . . . . . . . . . . . . . . .  20
        3.1.8.  PKCE  . . . . . . . . . . . . . . . . . . . . . . . .  20
        3.1.9.  Redirect URIs . . . . . . . . . . . . . . . . . . . .  20
        3.1.10. Refresh Tokens  . . . . . . . . . . . . . . . . . . .  20
-     3.2.  Response to Authorization Requests  . . . . . . . . . . .  20
+     3.2.  Response to Authorization Requests  . . . . . . . . . . .  21
      3.3.  JSON Web Tokens (JWT) . . . . . . . . . . . . . . . . . .  21
      3.4.  Token Lifetimes . . . . . . . . . . . . . . . . . . . . .  24
      3.5.  Scopes  . . . . . . . . . . . . . . . . . . . . . . . . .  24
@@ -569,6 +569,33 @@ Burgin & Clancy              Standards Track                   [Page 10]
    using mTLS [RFC8705], the request MUST be made over a mutually
    authenticated TLS channel.
 
+   If a client uses OAuth 2.0 Mutual-TLS Client Authentication and
+   Certificate-Bound Access Tokens [RFC8705]S for client authentication,
+   exactly one authentication method value MUST be included in the
+   client's metadata parameters.
+
+   tls_client_auth  Indicates that client authentication to the
+      authorization server will occur with mutual TLS utilizing the PKI
+      method of associating a certificate to a client.
+
+   self_signed_tls_client_auth  Indicates that client authentication to
+      the authorization server will occur using mutual TLS with the
+      client utilizing a self-signed certificate.
+
+   A client using the tls_client_auth authentication method MUST use
+   exactly one of the below metadata parameters to indicate the
+   certificate subject value that the authorization server is to expect
+   when authenticating the respective client:
+
+   tls_client_auth_subject_dn  String value specifying the expected
+      subject DN of the client certificate.
+
+   tls_client_auth_san_dns  String value specifying the expected dNSName
+      SAN entry in the client certificate.
+
+   tls_client_auth_san_uri  String value specifying the expected
+      uniformResourceIdentifier SAN entry in the client certificate.
+
 2.6.3.  Client Keys
 
    Confidential clients MUST have a public/private key pair for use in
@@ -578,6 +605,18 @@ Burgin & Clancy              Standards Track                   [Page 10]
    clients use a jwks_uri if possible as this allows for key rotation
    more easily.  This applies to both dynamic and out-of-band client
    registration.
+
+
+
+
+
+
+
+
+Burgin & Clancy              Standards Track                   [Page 11]
+
+                             iGov OAuth 2.0                December 2025
+
 
    The jwks field or the content available from the jwks_uri of a client
    MUST contain a public key in JSON Web Key Set (JWK Set) [RFC7517]
@@ -607,17 +646,6 @@ Burgin & Clancy              Standards Track                   [Page 10]
    For reference, the corresponding public/private key pair for this
    public key is the following (in JWK format):
 
-
-
-
-
-
-
-Burgin & Clancy              Standards Track                   [Page 11]
-
-                             iGov OAuth 2.0                December 2025
-
-
    NOTE: '\' line wrapping per RFC 8792
 
    {
@@ -638,6 +666,13 @@ Burgin & Clancy              Standards Track                   [Page 11]
      "kty": "RSA",
      "kid": "oauth-client"
    }
+
+
+
+Burgin & Clancy              Standards Track                   [Page 12]
+
+                             iGov OAuth 2.0                December 2025
+
 
    Note that the second example contains both the public and private
    keys, while the first example contains the public key only.
@@ -665,15 +700,6 @@ Burgin & Clancy              Standards Track                   [Page 11]
    Mk5qjUWMyn2I4Nu2s-R20aCA-7T5dunr0iWCkLQnVnaXMfA22RlRiU87nl21zappYb1_\
    EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 
-
-
-
-
-Burgin & Clancy              Standards Track                   [Page 12]
-
-                             iGov OAuth 2.0                December 2025
-
-
 3.  Authorization Server Profile
 
    All servers MUST conform to applicable recommendations found in the
@@ -696,6 +722,14 @@ Burgin & Clancy              Standards Track                   [Page 12]
    by a client ID) to a single client type only, since a single piece of
    software will be functioning at runtime as only one client type.
 
+
+
+
+Burgin & Clancy              Standards Track                   [Page 13]
+
+                             iGov OAuth 2.0                December 2025
+
+
 3.1.2.  Client authentication
 
    Authorization servers MUST enforce client authentication for
@@ -715,20 +749,6 @@ Burgin & Clancy              Standards Track                   [Page 12]
    Authorization servers MAY set the expiry time (exp) of access_tokens
    associated with higher level resources to be shorter than
    access_tokens for less sensitive resources.
-
-
-
-
-
-
-
-
-
-
-Burgin & Clancy              Standards Track                   [Page 13]
-
-                             iGov OAuth 2.0                December 2025
-
 
    Authorization servers MAY allow a refresh_token issued at a higher
    level to be used to obtain an access_token for a lower level resource
@@ -759,6 +779,13 @@ Burgin & Clancy              Standards Track                   [Page 13]
    authorization code grant types.  Authorization servers MAY limit the
    scopes available to dynamically registered clients.
 
+
+
+Burgin & Clancy              Standards Track                   [Page 14]
+
+                             iGov OAuth 2.0                December 2025
+
+
    Authorization servers MAY protect their Dynamic Registration
    endpoints by requiring clients to present credentials that the
    authorization server would recognize as authorized participants.
@@ -777,14 +804,6 @@ Burgin & Clancy              Standards Track                   [Page 13]
       "authorization_code" or "client_credentials"
 
    client_name  human-readable name of the client
-
-
-
-
-Burgin & Clancy              Standards Track                   [Page 14]
-
-                             iGov OAuth 2.0                December 2025
-
 
    client_uri  URL of a web page containing further information about
       the client
@@ -811,29 +830,10 @@ Burgin & Clancy              Standards Track                   [Page 14]
       method or private_key_jwt method for client authentication is
       used, the jwks MUST include a certificate.
 
-   A client using the tls_client_auth authentication method MUST use
-   exactly one of the below metadata parameters to indicate the
-   certificate subject value that the authorization server is to expect
-   when authenticating the respective client:
-
-   tls_client_auth_subject_dn  String value specifying the expected
-      subject DN of the client certificate.
-
-   tls_client_auth_san_dns  String value specifying the expected dNSName
-      SAN entry in the client certificate.
-
-   tls_client_auth_san_uri  String value specifying the expected
-      uniformResourceIdentifier SAN entry in the client certificate.
-
    It is NOT RECOMMENDED that authorization servers use IP address or
    email address to identify authenticating clients.  It is also NOT
    RECOMMENDED that authorization servers use tls_client_auth_san_ip or
    tls_client_auth_san_email metadata values
-
-3.1.4.  Client Approval
-
-   When prompting the end user with an interactive approval page, the
-   authorization server MUST indicate to the user:
 
 
 
@@ -841,6 +841,11 @@ Burgin & Clancy              Standards Track                   [Page 15]
 
                              iGov OAuth 2.0                December 2025
 
+
+3.1.4.  Client Approval
+
+   When prompting the end user with an interactive approval page, the
+   authorization server MUST indicate to the user:
 
    *  Whether the client was dynamically registered, or else statically
       registered by a trusted administrator.
@@ -858,38 +863,33 @@ Burgin & Clancy              Standards Track                   [Page 15]
    help the user make informed decisions about sharing sensitive
    information.
 
-3.1.5.  Sender-constrained Tokens
+3.1.5.  Discovery
 
-   The authorization server MUST support and verify sender-constrained
-   tokens.
+   The authorization server MUST provide a JSON document that declares
+   its endpoint locations and authorization server capabilities at a
+   well-known URI as described in Section 3 of OAuth 2.0 Authorization
+   Server Metadata [RFC8414].  This authorization server metadata MUST
+   include the following values defined in OpenID Connect service
+   discovery [OpenID.Discovery].
 
-   The Authorization Server MUST NOT issue the client an access token if
-   the client included the tls_client_certificate_bound_access_tokens
-   parameter in its registration metadata and makes a request to the
-   token endpoint over connection not secured by TLS.
+   issuer  The fully qualified issuer URL of the server
 
-3.1.6.  Discovery
+   authorization_endpoint  The fully qualified URL of the server's
+      authorization endpoint defined by OAuth 2.0 [RFC6749]
 
-   The authorization server MUST provide an OpenID Connect service
-   discovery [OpenID.Discovery] endpoint listing the components relevant
-   to the OAuth 2.0 protocol:
+   token_endpoint  The fully qualified URL of the server's token
+      endpoint defined by OAuth 2.0 [RFC6749]
 
-   issuer  REQUIRED.  The fully qualified issuer URL of the server
+   jwks_uri  The fully qualified URI of the server's JWK as defined in
+      OAuth 2.0 Authorization Server Metadata [RFC8414].  If the
+      self_signed_tls_auth method is used, a jwks_uri MUST be registered
+      and MUST include a certificate.
 
-   authorization_endpoint  REQUIRED.  The fully qualified URL of the
-      server's authorization endpoint defined by OAuth 2.0 [RFC6749]
+   registration_endpoint  The fully qualified URI of the server's URL of
+      the authorization server's OAuth 2.0 Dynamic Client Registration
+      Protocol [RFC7591] endpoint.
 
-   token_endpoint  REQUIRED.  The fully qualified URL of the server's
-      token endpoint defined by OAuth 2.0 [RFC6749]
-
-   token_endpoint_auth_method  REQUIRED.  String of values corresponding
-      to permitted methods for client authentication to the
-      authorization server as defined in OAuth 2.0 Dynamic Client
-      Registration Protocol [RFC7591].  Within this profile, the server
-      MUST provide one or more of the following values:
-      "private_key_jwt", "tls_client_auth", and "self_signed_tls_auth".
-
-   introspection_endpoint  OPTIONAL.  The fully qualified URL of the
+   token_endpoint_auth_methods_supported  JSON array containing a list
 
 
 
@@ -898,38 +898,42 @@ Burgin & Clancy              Standards Track                   [Page 16]
                              iGov OAuth 2.0                December 2025
 
 
-      server's introspection endpoint defined by OAuth Token
-      Introspection [RFC7662]
+      of client authentication methods supported by the token endpoint.
+      Within this profile, the server MUST provide one or more of the
+      following values: "private_key_jwt", "tls_client_auth", and
+      "self_signed_tls_auth".
 
-   revocation_endpoint  OPTIONAL.  The fully qualified URL of the
-      server's revocation endpoint defined by OAuth 2.0 Token Revocation
+   revocation_endpoint  The fully qualified URL of the server's
+      revocation endpoint defined by OAuth 2.0 Token Revocation
       [RFC7009]
 
-   mtls_endpoint_aliases  OPTIONAL.  A JSON object containing
-      alternative authorization server endpoints that, when present, an
-      OAuth client intending to perform mutual TLS uses in preference to
-      the conventional endpoints.  Use of this parameter enables
-      isolation of mTLS behavior to only clients intending to use mTLS
-      for authentication or sender-constraining tokens.  Usage of the
-      parameter is specified in OAuth 2.0 Mutual-TLS Client
+   introspection_endpoint  The fully qualified URL of the server's
+      introspection endpoint defined in OAuth 2.0 Token Introspection
+      [RFC7662]
+
+   tls_client_certificate_bound_access_tokens  Boolean value indicating
+      server support for mutual-TLS client certificate-bound access
+      tokens as defined in OAuth 2.0 Mutual-TLS Client Authentication
+      and Certificate-Bound Access Tokens [RFC8705].  If omitted, the
+      default value is false.
+
+   mtls_endpoint_aliases  A JSON object (a map of key-value pairs)
+      containing alternative authorization server endpoints that, when
+      present, an OAuth client intending to perform mutual TLS uses in
+      preference to the conventional endpoints.  Use of this parameter
+      enables isolation of mTLS behavior to only clients intending to
+      use mTLS for authentication or sender-constraining tokens.  Usage
+      of the parameter is specified in OAuth 2.0 Mutual-TLS Client
       Authentication and Certificate-Bound Access Tokens [RFC8705]
 
-   jwks_uri  REQUIRED.  The fully qualified URI of the server's JWK as
-      defined in OAuth 2.0 Authorization Server Metadata [RFC8414].  If
-      the self_signed_tls_auth method is used, a jwks_uri MUST be
-      registered and MUST include a certificate.
+   dpop_signing_alg_values_supported  A JSON array containing a list of
+      the JWS alg values supported by the authorization server for DPoP
+      proof JWTs.  If omitted, the default value is false.
 
-   If a client uses OAuth 2.0 Mutual-TLS Client Authentication and
-   Certificate-Bound Access Tokens [RFC8705]S for client authentication,
-   exactly one authentication method metadata value MUST be included.
-
-   tls_client_auth  Indicates that client authentication to the
-      authorization server will occur with mutual TLS utilizing the PKI
-      method of associating a certificate to a client.
-
-   self_signed_tls_client_auth  Indicates that client authentication to
-      the authorization server will occur using mutual TLS with the
-      client utilizing a self-signed certificate.
+   If the tls_client_certificate_bound_access_tokens metadata parameter
+   is set to "false", then the authorization server MUST include at
+   least one DPoP signing algorithm in the
+   dpop_signing_alg_values_supported metadata oaremeter.
 
    If the authorization server is also an OpenID Connect Provider, it
    MUST provide a discovery endpoint meeting the requirements listed in
@@ -937,10 +941,6 @@ Burgin & Clancy              Standards Track                   [Page 16]
 
    The following example shows a JSON document found at the discovery
    endpoint for an authorization server:
-
-
-
-
 
 
 
@@ -1045,15 +1045,15 @@ Burgin & Clancy              Standards Track                   [Page 18]
     ]
   }
 
-3.1.7.  Revocation
+3.1.6.  Sender-constrained Tokens
 
-   Token revocation allows a client to signal to an authorization server
-   that a given token will no longer be used.
+   The authorization server MUST support and verify sender-constrained
+   tokens.
 
-   Authorization servers MUST provide a revocation endpoint URL as
-   specified in OAuth 2.0 Token Revocation [RFC7009] for end users to
-   view a list of clients that have been granted access to resources on
-   the user's behalf and for end users to revoke this access.
+   The Authorization Server MUST NOT issue the client an access token if
+   the client included the tls_client_certificate_bound_access_tokens
+   parameter in its registration metadata and makes a request to the
+   token endpoint over connection not secured by TLS.
 
 
 
@@ -1065,6 +1065,16 @@ Burgin & Clancy              Standards Track                   [Page 19]
 
                              iGov OAuth 2.0                December 2025
 
+
+3.1.7.  Revocation
+
+   Token revocation allows a client to signal to an authorization server
+   that a given token will no longer be used.
+
+   Authorization servers MUST provide a revocation endpoint URL as
+   specified in OAuth 2.0 Token Revocation [RFC7009] for end users to
+   view a list of clients that have been granted access to resources on
+   the user's behalf and for end users to revoke this access.
 
    Authorization servers MUST revoke a token if the client requesting
    the revocation is the client to which the token was issued, the
@@ -1104,6 +1114,14 @@ Burgin & Clancy              Standards Track                   [Page 19]
 
    Authorization servers MAY issue refresh tokens to clients.
 
+
+
+
+Burgin & Clancy              Standards Track                   [Page 20]
+
+                             iGov OAuth 2.0                December 2025
+
+
 3.2.  Response to Authorization Requests
 
    Authorization servers respond to an Authorization Request from a
@@ -1114,14 +1132,6 @@ Burgin & Clancy              Standards Track                   [Page 19]
       authentication request.  This value MUST match exactly.
 
    code  REQUIRED.  The authorization code, a random string issued by
-
-
-
-Burgin & Clancy              Standards Track                   [Page 20]
-
-                             iGov OAuth 2.0                December 2025
-
-
       the IdP to be used in the request to the token endpoint.
 
    PKCE parameters MUST be associated with the authorization code as per
@@ -1158,6 +1168,16 @@ Burgin & Clancy              Standards Track                   [Page 20]
       considered invalid
 
    jti  A unique JWT Token ID value with at least 128 bits of entropy.
+
+
+
+
+
+Burgin & Clancy              Standards Track                   [Page 21]
+
+                             iGov OAuth 2.0                December 2025
+
+
       This value MUST NOT be re-used in another token.  Clients MUST
       check for reuse of jti values and reject all tokens issued with
       duplicate jti values.
@@ -1170,14 +1190,6 @@ Burgin & Clancy              Standards Track                   [Page 20]
       audience requires otherwise.
 
    aud  The audience of the token, an array containing the identifier(s)
-
-
-
-Burgin & Clancy              Standards Track                   [Page 21]
-
-                             iGov OAuth 2.0                December 2025
-
-
       of protected resource(s) for which the token is valid, if this
       information is known.  The aud claim may contain multiple values
       if the token is valid for multiple protected resources.  Note that
@@ -1212,18 +1224,6 @@ Burgin & Clancy              Standards Track                   [Page 21]
    In order to support backwards compatibility, AS MAY include the azp
    claim while resource servers modernize.
 
-   The following sample claim set illustrates the use of the required
-   claims for an access token as defined in this profile; additional
-   claims MAY be included in the claim set:
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1233,6 +1233,10 @@ Burgin & Clancy              Standards Track                   [Page 22]
 
                              iGov OAuth 2.0                December 2025
 
+
+   The following sample claim set illustrates the use of the required
+   claims for an access token as defined in this profile; additional
+   claims MAY be included in the claim set:
 
    {
    "exp": 1418702388,
@@ -1279,16 +1283,16 @@ Burgin & Clancy              Standards Track                   [Page 22]
    the public key of the protected resource.  Encrypted refresh tokens
    MUST be encrypted using the authorization server's public key.
 
-   The client SHOULD use a certificate to sender-constrain tokens that
-   is distinct from the certificate used to connect to the protected
-   resource.
-
 
 
 Burgin & Clancy              Standards Track                   [Page 23]
 
                              iGov OAuth 2.0                December 2025
 
+
+   The client SHOULD use a certificate to sender-constrain tokens that
+   is distinct from the certificate used to connect to the protected
+   resource.
 
 3.4.  Token Lifetimes
 
@@ -1332,10 +1336,6 @@ Burgin & Clancy              Standards Track                   [Page 23]
    The protected resource makes a request over a mutually authenticated
    TLS connection like the following to the token introspection
    endpoint:
-
-
-
-
 
 
 
