@@ -77,12 +77,12 @@ Burgin & Clancy              Standards Track                    [Page 1]
        4.2.1.  Trust Levels and Scopes . . . . . . . . . . . . . . .  28
        4.2.2.  Trust Levels Example  . . . . . . . . . . . . . . . .  28
      4.3.  Connections with Authorization Servers  . . . . . . . . .  29
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  30
-     5.1.  DNSSEC Considerations . . . . . . . . . . . . . . . . . .  30
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  29
+     5.1.  DNSSEC Considerations . . . . . . . . . . . . . . . . . .  29
      5.2.  Best Practices  . . . . . . . . . . . . . . . . . . . . .  30
      5.3.  Other Considerations  . . . . . . . . . . . . . . . . . .  30
    6.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  30
-   7.  Normative References  . . . . . . . . . . . . . . . . . . . .  31
+   7.  Normative References  . . . . . . . . . . . . . . . . . . . .  30
    Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  34
    Appendix B.  Notices  . . . . . . . . . . . . . . . . . . . . . .  35
    Appendix C.  Document History . . . . . . . . . . . . . . . . . .  36
@@ -1599,11 +1599,6 @@ Burgin & Clancy              Standards Track                   [Page 28]
    credentials distinct from any other OAuth client registered at the
    authorization server.
 
-   Protected resources MAY cache the response from the introspection
-   endpoint for a period of time no greater than half the lifetime of
-   the token.  A protected resource MUST NOT accept a token that is not
-   active according to the response from the introspection endpoint.
-
    Protected resources MUST ensure that the rights associated with the
    token are sufficient to grant access to the resource.  For example,
    this can be accomplished by querying the scopes and acr value
@@ -1615,17 +1610,6 @@ Burgin & Clancy              Standards Track                   [Page 28]
    using a whitelist of trusted servers, a dynamic policy engine, or
    other means.
 
-
-
-
-
-
-
-Burgin & Clancy              Standards Track                   [Page 29]
-
-                             iGov OAuth 2.0                December 2025
-
-
 5.  Security Considerations
 
 5.1.  DNSSEC Considerations
@@ -1634,6 +1618,13 @@ Burgin & Clancy              Standards Track                   [Page 29]
    endpoints should additionally use DNSSEC [RFC9364] to protect against
    DNS spoofing attacks that can lead to the issuance of rogue domain-
    validated TLS certificates.
+
+
+
+Burgin & Clancy              Standards Track                   [Page 29]
+
+                             iGov OAuth 2.0                December 2025
+
 
 5.2.  Best Practices
 
@@ -1675,18 +1666,21 @@ Burgin & Clancy              Standards Track                   [Page 29]
    requires the use of TLS for all network connections, PKCE, and sender
    constrained tokens to mitigate the threats in [RFC6973]
 
+   In OpenID Connect implementations, cilents and servers SHOULD
+   implement the privacy threat mitigations in Section 17 of OpenID
+   Connect Core 1.0 [OpenID.Core].
+
+7.  Normative References
+
+
+
+
 
 
 Burgin & Clancy              Standards Track                   [Page 30]
 
                              iGov OAuth 2.0                December 2025
 
-
-   In OpenID Connect implementations, cilents and servers SHOULD
-   implement the privacy threat mitigations in Section 17 of OpenID
-   Connect Core 1.0 [OpenID.Core].
-
-7.  Normative References
 
    [BCP195]   Sheffer, Y., Holz, R., and P. Saint-Andre,
               "Recommendations for Secure Use of Transport Layer
@@ -1728,6 +1722,12 @@ Burgin & Clancy              Standards Track                   [Page 30]
               <http://openid.net/specs/openid-connect-discovery-
               1_0.html>.
 
+   [OpenID.iGov]
+              Varley, M. and P. Grassi, "International Government
+              Assurance Profile (iGov) for OpenID Connect 1.0", 3 August
+              2023, <https://openid.net/specs/openid-igov-openid-
+              connect-1_0.html>.
+
 
 
 
@@ -1737,12 +1737,6 @@ Burgin & Clancy              Standards Track                   [Page 31]
 
                              iGov OAuth 2.0                December 2025
 
-
-   [OpenID.iGov]
-              Varley, M. and P. Grassi, "International Government
-              Assurance Profile (iGov) for OpenID Connect 1.0", 3 August
-              2023, <https://openid.net/specs/openid-igov-openid-
-              connect-1_0.html>.
 
    [pkce-vs-nonce]
               Fett, D., "PKCE vs. Nonce: Equivalent or Not?", 16 May
@@ -1787,16 +1781,18 @@ Burgin & Clancy              Standards Track                   [Page 31]
               Signature (JWS)", RFC 7515, DOI 10.17487/RFC7515, May
               2015, <https://www.rfc-editor.org/info/rfc7515>.
 
+   [RFC7516]  Jones, M. and J. Hildebrand, "JSON Web Encryption (JWE)",
+              RFC 7516, DOI 10.17487/RFC7516, May 2015,
+              <https://www.rfc-editor.org/info/rfc7516>.
+
+
+
 
 
 Burgin & Clancy              Standards Track                   [Page 32]
 
                              iGov OAuth 2.0                December 2025
 
-
-   [RFC7516]  Jones, M. and J. Hildebrand, "JSON Web Encryption (JWE)",
-              RFC 7516, DOI 10.17487/RFC7516, May 2015,
-              <https://www.rfc-editor.org/info/rfc7516>.
 
    [RFC7517]  Jones, M., "JSON Web Key (JWK)", RFC 7517,
               DOI 10.17487/RFC7517, May 2015,
@@ -1842,6 +1838,10 @@ Burgin & Clancy              Standards Track                   [Page 32]
               Authorization Server Metadata", RFC 8414,
               DOI 10.17487/RFC8414, June 2018,
               <https://www.rfc-editor.org/info/rfc8414>.
+
+
+
+
 
 
 
