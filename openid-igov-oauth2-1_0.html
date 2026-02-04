@@ -36,7 +36,7 @@
     wcwidth 0.2.14
     weasyprint 65.0
 -->
-<link href="openid-igov-oauth2-1_0.xml" rel="alternate" type="application/rfc+xml">
+<link href="openid-igov-oauth2-1_0-remove-intro-caching.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
 <style type="text/css">/*
 
@@ -1614,9 +1614,9 @@ li > p:last-of-type:only-child {
             <p id="section-1.4-3.4.1">TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384<a href="#section-1.4-3.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-1.4-4"> When post quantum safety is required for TLS, implementers SHOULD adopt a cipher suite included in 
+<p id="section-1.4-4"> When post quantum safety is required for TLS, implementers SHOULD adopt a cipher suite included in
                 <span><a href="#NISTPQC" class="internal xref">NIST Post-Quantum Cryptography Standards</a> [<a href="#NISTPQC" class="cite xref">NISTPQC</a>]</span>,
-                 such as X25519MLKEM768 or SecP256r1MLKEM768, as specified in 
+                 such as X25519MLKEM768 or SecP256r1MLKEM768, as specified in
                  <span><a href="#ECDHE.MLKEM" class="internal xref">Post-quantum hybrid ECDHE-MLKEM Key Agreement for TLSv1.3</a> [<a href="#ECDHE.MLKEM" class="cite xref">ECDHE.MLKEM</a>]</span>.
                  Of these, X25519MLKEM768 is broadly supported at the time of writing.<a href="#section-1.4-4" class="pilcrow">¶</a></p>
 <p id="section-1.4-5">Authorization servers, clients, and resource servers, when creating or processing JWTs<a href="#section-1.4-5" class="pilcrow">¶</a></p>
@@ -2987,15 +2987,7 @@ Connection: close
                 credentials distinct from any other
                 OAuth client registered at the authorization
                 server.<a href="#section-4.3-2" class="pilcrow">¶</a></p>
-<p id="section-4.3-3">Protected resources MAY cache the response from the
-                    introspection endpoint for a period of time no greater than half
-                    the
-                    lifetime of the token. A protected resource MUST NOT accept a
-                    token
-                    that is not active according to the response from the
-                    introspection
-                    endpoint.<a href="#section-4.3-3" class="pilcrow">¶</a></p>
-<p id="section-4.3-4">Protected
+<p id="section-4.3-3">Protected
                     resources
                     MUST ensure that the rights associated with the token are
                     sufficient
@@ -3003,14 +2995,14 @@ Connection: close
                     accomplished
                     by querying the scopes and acr value associated with the token from
                     the
-                    authorization server's token introspection endpoint.<a href="#section-4.3-4" class="pilcrow">¶</a></p>
-<p id="section-4.3-5">Protected resources MUST limit which authorization servers it
+                    authorization server's token introspection endpoint.<a href="#section-4.3-3" class="pilcrow">¶</a></p>
+<p id="section-4.3-4">Protected resources MUST limit which authorization servers it
                     will
                     accept valid tokens from. A resource server MAY accomplish
                     this using
                     a whitelist of trusted servers, a dynamic policy engine,
                     or other
-                    means.<a href="#section-4.3-5" class="pilcrow">¶</a></p>
+                    means.<a href="#section-4.3-4" class="pilcrow">¶</a></p>
 </section>
 </section>
 <section id="section-5">
@@ -3232,7 +3224,7 @@ Connection: close
                 Pulvermacher, David Hill, Dale Moberg, Adrian Gropper, Eve Maler,
                 Danny van Leeuwen, John Moehrke, Aaron Seib, John Bradley, Debbie
                 Bucci, Josh Mandel, Sarah Cecchetti, Giuseppe De Marco, Joseph Heenan,
-                Jim Fenton, Ryan Galluzzo, Bjorn Hjelm, Aaron Parecki, Michael B. Jones, 
+                Jim Fenton, Ryan Galluzzo, Bjorn Hjelm, Aaron Parecki, Michael B. Jones,
                 Stas Mironov, and Andy Regenscheid.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 <p id="appendix-A-2"> Special thank you to the original iGov Profile editors: Paul Grassi, Justin Richer,
                 and Michael Varley.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
