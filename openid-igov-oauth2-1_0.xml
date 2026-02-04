@@ -400,7 +400,7 @@
             
             <t> All clients MUST use proof of possession to sender-constrain access tokens using either <xref target="RFC8705">OAuth 2.0 Mutual-TLS
             Client Authentication and Certificate-Bound Access Tokens</xref> or
-            <xref target="RFC9449">OAuth 2.0 Demonstrating Proof of Possession (DPoP)</xref>.
+            <xref target="RFC9449">OAuth 2.0 Demonstrating Proof of Possession (DPoP)</xref>. 
                 </t>
                 
             </section>
@@ -533,11 +533,33 @@ Host: idp-p.example.com
                         or
                         the mutually-authenticated transport layer security (mTLS) request method
                         defined in
-                        <xref target="RFC8705">OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens</xref>.</t>
+                        <xref target="RFC8705">OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens</xref>.
+                        </t>
+                        
                         <t>If using the private_key_jwt method, the request MUST be a JWT assertion as defined by the
                         <xref target="RFC7523">JWT Profile for OAuth 2.0 Client Authentication and Authorization Grants</xref>. The JWT assertion MUST be signed
                         by the client using the client's private key.
-                        If using <xref target="RFC8705">mTLS</xref>, the request MUST be made over a mutually authenticated TLS channel.</t>
+                        If using <xref target="RFC8705">mTLS</xref>, the request MUST be made over a mutually authenticated TLS channel.
+                        </t>
+                        
+                        <t>If a client uses <xref target="RFC8705">OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens</xref>S for 
+                        client authentication, exactly one authentication method value MUST be included in the client's metadata parameters.
+                        <list style="hanging">
+                            <t hangText="tls_client_auth">Indicates that client authentication to the authorization server will occur with mutual TLS
+                                utilizing the PKI method of associating a certificate to a client.</t>
+                            <t hangText="self_signed_tls_client_auth">Indicates that client authentication to the authorization server will occur using mutual TLS
+                                with the client utilizing a self-signed certificate.</t>
+                        </list>
+                    </t>
+                    
+                    <t> A client using the tls_client_auth authentication method MUST use exactly one of the below metadata parameters to indicate the certificate
+                        subject value that the authorization server is to expect when authenticating the respective client:
+                        <list style="hanging">
+                            <t hangText="tls_client_auth_subject_dn">String value specifying the expected subject DN of the client certificate.</t>
+                            <t hangText="tls_client_auth_san_dns">String value specifying the expected dNSName SAN entry in the client certificate.</t>
+                            <t hangText="tls_client_auth_san_uri">String value specifying the expected uniformResourceIdentifier SAN entry in the client certificate.</t>
+                        </list>
+                        </t>
 
             </section>
 
@@ -818,13 +840,6 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                             </t>
 
                         </list>
-                        A client using the tls_client_auth authentication method MUST use exactly one of the below metadata parameters to indicate the certificate
-                        subject value that the authorization server is to expect when authenticating the respective client:
-                        <list style="hanging">
-                            <t hangText="tls_client_auth_subject_dn">String value specifying the expected subject DN of the client certificate.</t>
-                            <t hangText="tls_client_auth_san_dns">String value specifying the expected dNSName SAN entry in the client certificate.</t>
-                            <t hangText="tls_client_auth_san_uri">String value specifying the expected uniformResourceIdentifier SAN entry in the client certificate.</t>
-                        </list>
                         It is NOT RECOMMENDED that authorization servers use IP address or email address to identify
                         authenticating clients. It is also NOT RECOMMENDED that authorization servers use tls_client_auth_san_ip or tls_client_auth_san_email metadata values
                     </t>
@@ -859,85 +874,88 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                     </t>
                 </section>
 
-                 <section title="Sender-constrained Tokens">
-                    <t> The authorization server MUST support and verify sender-constrained tokens.
-                        </t>
-                    
-                    <t>The Authorization Server MUST NOT issue the client an access token if the client included the
-                    <spanx style="verb">tls_client_certificate_bound_access_tokens</spanx>
-                    parameter in its registration metadata and makes a request to the token endpoint over connection not secured by TLS.
-                        </t>
-                    </section>
-
                 <section anchor="Discovery" title="Discovery">
                     <t>
-                        The authorization server MUST provide an
-                        <xref target="OpenID.Discovery">OpenID Connect service discovery</xref>
-                        endpoint listing the components relevant to the OAuth 2.0 protocol:
+                        The authorization server MUST provide a JSON document that declares its endpoint locations and authorization server 
+                        capabilities at a well-known URI as described in Section 3 of 
+                        <xref target="RFC8414">OAuth 2.0 Authorization Server Metadata</xref>. This authorization server metadata 
+                        MUST include the following values defined in <xref target="OpenID.Discovery">OpenID Connect service discovery</xref>.
                         <list style="hanging">
-                            <t hangText="issuer"> REQUIRED. The fully qualified issuer URL of the
+                            <t hangText="issuer"> The fully qualified issuer URL of the
                                 server
                             </t>
 
                             <t hangText="authorization_endpoint">
-                                REQUIRED. The fully qualified URL of
+                                The fully qualified URL of
                                 the server's authorization endpoint
                                 defined by
                                 <xref target="RFC6749">OAuth 2.0</xref>
                             </t>
 
                             <t hangText="token_endpoint">
-                                REQUIRED. The fully qualified URL of the
+                                The fully qualified URL of the
                                 server's token endpoint defined by
                                 <xref target="RFC6749">OAuth
                                     2.0</xref>
                             </t>
-
-                            <t hangText="token_endpoint_auth_method">
-                                REQUIRED. String of values corresponding to permitted methods for client authentication to the authorization server
-                                as defined in <xref target="RFC7591">OAuth 2.0 Dynamic Client Registration Protocol</xref>.
-                                Within this profile, the server MUST provide one or more of the following values: "private_key_jwt", "tls_client_auth",
+                            
+                            <t hangText="jwks_uri">
+                                The fully qualified URI of the server's
+                                JWK as defined in
+                                <xref target="RFC8414">OAuth 2.0 Authorization Server Metadata</xref>.
+                                If the self_signed_tls_auth method is used, a jwks_uri MUST be registered and MUST include a certificate.
+                            </t>
+                            
+                            <t hangText="registration_endpoint">
+                                The fully qualified URI of the server's
+                                URL of the authorization server's <xref target="RFC7591">OAuth 2.0 Dynamic Client Registration Protocol</xref>
+                                endpoint.
+                            </t>
+                            
+                            <t hangText="token_endpoint_auth_methods_supported">
+                            JSON array containing a list of client authentication methods supported by the token endpoint. 
+                            Within this profile, the server MUST provide one or more of the following values: "private_key_jwt", "tls_client_auth",
                                 and "self_signed_tls_auth".
                             </t>
                             
-                            <t hangText="introspection_endpoint">
-                                OPTIONAL. The fully qualified URL of
-                                the server's introspection endpoint
-                                defined by
-                                <xref target="RFC7662">OAuth Token Introspection</xref>
-                            </t>
-
                             <t hangText="revocation_endpoint">
-                                OPTIONAL. The fully qualified URL of the
+                                The fully qualified URL of the
                                 server's revocation endpoint
                                 defined by
                                 <xref target="RFC7009">OAuth 2.0 Token Revocation</xref>
                             </t>
+                            
+                            <t hangText="introspection_endpoint">
+                                The fully qualified URL of
+                                the server's introspection endpoint
+                                defined in
+                                <xref target="RFC7662">OAuth 2.0 Token Introspection</xref>
+                            </t>
+                            
+                            <t hangText="tls_client_certificate_bound_access_tokens">
+                            Boolean value indicating server support for mutual-TLS client certificate-bound 
+                            access tokens as defined in <xref target="RFC8705">OAuth 2.0 Mutual-TLS Client 
+                            Authentication and Certificate-Bound Access Tokens</xref>. If omitted, the default value is false.
+                            </t>
+
                             <t hangText="mtls_endpoint_aliases">
-                                OPTIONAL. A JSON object containing alternative
+                                A JSON object (a map of key-value pairs) containing alternative
                                 authorization server endpoints that, when present, an OAuth client intending to perform
                                 mutual TLS uses in preference to the conventional endpoints. Use of this parameter enables isolation
                                 of mTLS behavior to only clients intending to use mTLS for authentication or sender-constraining tokens.
                                 Usage of the parameter is specified in
                                 <xref target="RFC8705">OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens</xref>
                             </t>
-                            <t hangText="jwks_uri">
-                                REQUIRED. The fully qualified URI of the server's
-                                JWK as defined in
-                                <xref target="RFC8414">OAuth 2.0 Authorization Server Metadata</xref>.
-                                If the self_signed_tls_auth method is used, a jwks_uri MUST be registered and MUST include a certificate.
+                            
+                            <t hangText="dpop_signing_alg_values_supported">
+                            A JSON array containing a list of the JWS alg values supported by the authorization server for DPoP proof JWTs. 
+                            If omitted, the default value is false.
                             </t>
                         </list>
                     </t>
-                        
-                    <t>If a client uses <xref target="RFC8705">OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens</xref>S for
-                    client authentication, exactly one authentication method metadata value MUST be included.
-                        <list style="hanging">
-                            <t hangText="tls_client_auth">Indicates that client authentication to the authorization server will occur with mutual TLS
-                                utilizing the PKI method of associating a certificate to a client.</t>
-                            <t hangText="self_signed_tls_client_auth">Indicates that client authentication to the authorization server will occur using mutual TLS
-                                with the client utilizing a self-signed certificate.</t>
-                        </list>
+                    
+                    <t> If the tls_client_certificate_bound_access_tokens metadata parameter is set to "false", then the authorization 
+                    server MUST include at least one DPoP signing algorithm in the dpop_signing_alg_values_supported metadata oaremeter.
                     </t>
                     
                     <t>If the authorization server is also an OpenID Connect Provider,
@@ -1046,6 +1064,16 @@ DNp00J6AbY6w",
                     </figure>
 
                 </section>
+                
+                <section title="Sender-constrained Tokens">
+                    <t> The authorization server MUST support and verify sender-constrained tokens.
+                    </t>
+                        
+                    <t> The Authorization Server MUST NOT issue the client an access token if the client included the
+                    <spanx style="verb">tls_client_certificate_bound_access_tokens</spanx>
+                    parameter in its registration metadata and makes a request to the token endpoint over connection not secured by TLS.
+                        </t>
+                    </section>
 
                 <section title="Revocation">
  
