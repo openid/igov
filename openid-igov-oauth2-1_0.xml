@@ -392,7 +392,7 @@
                 presents the token to the protected resource, it is also required to demonstrate possession of the corresponding key.
                     </t>
 
-                 <t>As described in <xref target="BCP240">Best Current Practice for OAuth 2.0 Security</xref>, sender-constrained tokens could
+                 <t>As described in <xref target="RFC9700">Best Current Practice for OAuth 2.0 Security</xref>, sender-constrained tokens could
                 prevent a number of attacks on OAuth that entail the misuse of stolen and leaked access tokens by unauthorized parties.
                 The attacker would need to obtain the legitimate client's cryptographic key along with the access
                 token to gain access to protected resources.
@@ -1613,7 +1613,7 @@ Connection: close
            
             <section title="Best Practices">
                 <t>Authorization server, client, and protected resource implementations SHOULD consider including requirements from
-                    <xref target="BCP240">Best Current Practice for OAuth 2.0 Security</xref>,
+                    <xref target="RFC9700">Best Current Practice for OAuth 2.0 Security</xref>,
                     <xref target="RFC8725">JSON Web Token Best Current Practices</xref> and
                     <xref target="RFC9068">JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens</xref> that are not
                     explicitly mentioned in this profile.
