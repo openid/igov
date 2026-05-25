@@ -238,7 +238,7 @@
                   <t>Authorization servers, clients, and resource servers, when creating or processing JWTs
                      <list>
                          <t>1. MUST adhere to [RFC8725]</t>
-                         <t>2. MUST use PS256, ES256, or Ed25519</t>
+                         <t>2. MUST use PS256, ES256, or Ed25519 (referred to as EdDSA in JOSE)</t>
                          <t>3. MUST NOT use or accept the <spanx style="verb">none</spanx> algorithm.</t>
                      </list></t>
                  <t>RSA keys MUST have a minimum length of 2048 bits.</t>
@@ -893,11 +893,11 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                                     2.0</xref>
                             </t>
 
-                            <t hangText="token_endpoint_auth_method">
+                            <t hangText="token_endpoint_auth_methods_supported">
                                 REQUIRED. String of values corresponding to permitted methods for client authentication to the authorization server
                                 as defined in <xref target="RFC7591">OAuth 2.0 Dynamic Client Registration Protocol</xref>.
                                 Within this profile, the server MUST provide one or more of the following values: "private_key_jwt", "tls_client_auth",
-                                and "self_signed_tls_auth".
+                                and "self_signed_tls_client_auth".
                             </t>
                             
                             <t hangText="introspection_endpoint">
@@ -925,7 +925,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                                 REQUIRED. The fully qualified URI of the server's
                                 JWK as defined in
                                 <xref target="RFC8414">OAuth 2.0 Authorization Server Metadata</xref>.
-                                If the self_signed_tls_auth method is used, a jwks_uri MUST be registered and MUST include a certificate.
+                                If the self_signed_tls_client_auth method is used, a jwks_uri MUST be registered and MUST include a certificate.
                             </t>
                         </list>
                     </t>
