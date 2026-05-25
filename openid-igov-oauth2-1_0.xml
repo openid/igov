@@ -274,7 +274,7 @@
                 <t>
                     <list style="hanging">
                         <t hangText="confidential clients:">Clients that have credentials with the authorization server.</t>
-                        <t hangText="public clients:">Clients without credentials. Public client use cases are out of scope for this profile.
+                        <t hangText="public clients:">Clients without credentials. Public client use cases are out of scope for this profile. An iGov Profile for OAuth 2.0 public clients may be developed in the future.
                             </t>
                         </list>
                     </t>
