@@ -646,7 +646,7 @@ xhz5Z-gTlQ",
             <section anchor="RequestsToProtectedResource" title="Requests to the Protected Resource">
                     <t>
 
-                        Clients MUST use the authorization request header field mechanism to send bearer tokens as defined by
+                        Clients MUST use the authorization request header field mechanism to send sender-constrained tokens as defined by
                         <xref target="RFC6750"/>.
                     </t>
 
