@@ -12,7 +12,7 @@
 <rfc
   category="std"
   
-  docName="openid-igov-oauth2-1_09"
+  docName="openid-igov-oauth2-1_10"
   
   ipr="none"
   
@@ -38,7 +38,7 @@
   
     <front>
         <title abbrev="iGov OAuth 2.0">International Government Assurance Profile (iGov)
-            for OAuth 2.0 - draft 09</title>
+            for OAuth 2.0 - draft 10</title>
 
         <author fullname="Kelley Burgin" initials="K." role="editor" surname="Burgin">
             <organization abbrev="MITRE">The MITRE Corporation</organization>
@@ -55,7 +55,7 @@
             </address>
         </author>
 
-        <date day="18" month="December" year="2025"/>
+        <date day="25" month="May" year="2026"/>
 
         <workgroup>OpenID iGov Working Group</workgroup>
 
@@ -1697,107 +1697,28 @@ Connection: close
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8705"/>
       
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8725"/>
+
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.8996"/>
       
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9068"/>
+
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9325"/>
        
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9364"/>
       
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9449"/>
       
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9470"/>
+
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9700"/>
   
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9728"/>
       
       <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9864"/>
-      
-      
-      <reference anchor="BCP195" target="http://www.rfc-editor.org/info/bcp195">
-                <front>
-                    <title>Recommendations for Secure Use of Transport Layer Security
-                        (TLS) and Datagram Transport Layer Security (DTLS)</title>
-
-                    <author fullname="Y. Sheffer" initials="Y." surname="Sheffer">
-                        <organization/>
-                    </author>
-
-                    <author fullname="R. Holz" initials="R." surname="Holz">
-                        <organization/>
-                    </author>
-
-                    <author fullname="P. Saint-Andre" initials="P." surname="Saint-Andre">
-                        <organization/>
-                    </author>
-
-                    <date month="May" year="2015"/>
-
-                    <abstract>
-                        <t>Transport Layer Security (TLS) and Datagram Transport Layer
-                            Security (DTLS) are widely used to protect data exchanged over
-                            application protocols such as HTTP, SMTP, IMAP, POP, SIP, and
-                            XMPP. Over the last few years, several serious attacks on TLS
-                            have
-                            emerged, including attacks on its most commonly used cipher
-                            suites
-                            and their modes of operation. This document provides
-                            recommendations for improving the security of deployed services
-                            that use TLS and DTLS. The recommendations are applicable to the
-                            majority of use cases.
-                        </t>
-                    </abstract>
-                </front>
-
-                <seriesInfo name="BCP" value="195"/>
-
-                <seriesInfo name="RFC" value="7525"/>
-                
-                <seriesInfo name="DOI" value="10.17487/RFC7525"/>
-
-                <format octets="60283" type="ASCII"/>
-            </reference>
-
-      <reference anchor="BCP240" target="http://www.rfc-editor.org/info/bcp240">
-                <front>
-                    <title>Best Current Practice for OAuth 2.0 Security</title>
-
-                    <author fullname="Torsten Lodderstedt" initials="T." surname="Lodderstedt">
-                                            <organization/>
-                    </author>
-                    <author fullname="John Bradley" initials="J." surname="Bradley">
-                                            <organization/>
-                    </author>
-                    <author fullname="Andrey Labunets" initials="A." surname="Labunets">
-                                            <organization/>
-                    </author>
-                    <author fullname="Daniel Fett" initials="D." surname="Fett">
-                                            <organization/>
-                    </author>
-
-                    <date month="January" year="2025"/>
-
-                    <abstract>
-                        <t>   This document describes best current security practice for OAuth 2.0.
-                               It updates and extends the threat model and security advice given in
-                               RFCs 6749, 6750, and 6819 to incorporate practical experiences
-                               gathered since OAuth 2.0 was published and covers new threats
-                               relevant due to the broader application of OAuth 2.0.  Further, it
-                               deprecates some modes of operation that are deemed less secure or
-                               even insecure.
-                        </t>
-                    </abstract>
-                </front>
-
-                <seriesInfo name="BCP" value="240"/>
-
-                <seriesInfo name="RFC" value="9700"/>
-                
-                <seriesInfo name="DOI" value="10.17487/RFC9700"/>
-
-                <format octets="60283" type="ASCII"/>
-            </reference>
 
             <reference anchor="OpenID.Core" target="http://openid.net/specs/openid-connect-core-1_0.html">
                 <front>
-                    <title>OpenID Connect Core 1.0</title>
+                    <title>OpenID Connect Core 1.0 incorporating errata set 2</title>
 
                     <author fullname="Nat Sakimura" initials="N." surname="Sakimura">
                         <organization abbrev="NRI">Nomura Research Institute,
@@ -1820,13 +1741,13 @@ Connection: close
                         <organization abbrev="Salesforce">Salesforce</organization>
                     </author>
 
-                    <date day="3" month="August" year="2015"/>
+                    <date day="15" month="December" year="2023"/>
                 </front>
             </reference>
 
             <reference anchor="OpenID.Discovery" target="http://openid.net/specs/openid-connect-discovery-1_0.html">
                 <front>
-                    <title>OpenID Connect Discovery 1.0</title>
+                    <title>OpenID Connect Discovery 1.0 incorporating errata set 2</title>
 
                     <author fullname="Nat Sakimura" initials="N." surname="Sakimura">
                         <organization abbrev="NRI">Nomura Research Institute,
@@ -1845,7 +1766,7 @@ Connection: close
                         <organization abbrev="Illumila">IllumilaJSON</organization>
                     </author>
 
-                    <date day="3" month="August" year="2015"/>
+                    <date day="15" month="December" year="2023"/>
                 </front>
             </reference>
 
@@ -1895,7 +1816,7 @@ Connection: close
                     <author fullname="Aaron Parecki" initials="A." surname="Parecki"/>
                     <author fullname="David Waite" initials="D." surname="Waite"/>
                     <author fullname="Philippe De Ryck" initials="P." surname="De Ryck"/>
-                    <date day="17" month="January" year="2025"/>
+                    <date day="4" month="December" year="2025"/>
                 </front>
             </reference>
 
@@ -1944,6 +1865,44 @@ Connection: close
         <section anchor="History" title="Document History">
       <t>[[ To be removed from the final specification ]]</t>
  
+  <t>
+    -10
+    <list style="symbols">
+    <t>
+        Addressed editorial comments by Matt Topper
+      </t>
+      <t>
+        Section 2.1: added text to state that a separate iGov OAuth 2.0 Profile for public clients may be developed in the future
+      </t>
+      <t>
+        Section 1.4: dded that RS256 MAY be used for backwards compatability
+      </t>
+      <t>
+        Section 3.1.3: clarified text to prevent Clients from using Dynamic Client Registration in high-assurance government environments, even though is it required to be supported by Authorization Servers
+      </t>
+      <t>
+        Section 2.3: added text from RFC9449 DPoP that every request MUST validate the htm, htu, check for replay, and check the dpop_jkt
+      </t>
+      <t>
+        Section 3.3: removed "Clients MUST check for reuse of jti values and reject all tokens issued with duplicate jti values." as this may put too much burden on Clients"
+      </t>
+      <t>
+        Section 1.4: changed "All network connections MUST be made using TLS 1.3 or above" to "All network connections MUST be made using TLS 1.2 or above" to avoid conflicting language
+      </t>
+      <t>
+        Sectino 2.7.1: changed "bearer" to "sender constrained"
+      </t>
+      <t>
+        Removed examples and fixed typos
+      </t>
+      <t>
+        Updated references
+      </t>
+      <t>
+        Changed date, version, and document history
+      </t>
+      </list>
+      </t>
   <t>
     -09
     <list style="symbols">
