@@ -246,11 +246,11 @@
 
                  <t>
                  For the authorization_endpoint, the authorization server MAY allow
-                 additional cipher suites that are permitted by the latest version of <xref target="BCP195">BCP195</xref>,
+                 additional cipher suites that are permitted by the latest version of <xref target="RFC8996">Deprecating TLS 1.0 and TLS 1.1</xref>,
                  if necessary to allow sufficient interoperability with users' web browsers or as required by local regulations.
                   </t>
                   <t>
-                 NOTE: Permitted cipher suites are those listed in <xref target="BCP195">BCP195</xref> that do not explicitly say MUST NOT use.
+                 NOTE: Permitted cipher suites are those listed in <xref target="RFC8996">Deprecating TLS 1.0 and TLS 1.1</xref> that do not explicitly say MUST NOT use.
                    </t>
          
                   <t>Endpoints for use by web browsers MUST use mechanisms to ensure that connections cannot be downgraded
@@ -379,7 +379,7 @@
 
                     <t>Clients MUST NOT forward values passed back to their redirect
                         URIs to other arbitrary or user-provided URIs (a practice known as an "open redirector").</t>
-                    <t>Refer to <xref target="BCP240">Best Current Practice for OAuth 2.0 Security</xref> Section 2.4.1
+                    <t>Refer to <xref target="RFC9700">Best Current Practice for OAuth 2.0 Security</xref> Section 2.4.1
                     for additional guidance on implementation of edge cases.
                     </t>
                 </section>
