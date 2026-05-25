@@ -420,8 +420,7 @@
                 
                 <t>Digital identity policies and semantic mappings to string values are necessary for implementation but are out of scope for this profile.</t>
                 
-                <t>OAuth 2.0 MUST NOT be used as an authentication protocol. Use of the <xref target="OpenID.iGov">International Government Assurance Profile (iGov)
-                for OpenID Connect 1.0</xref> is RECOMMENDED to provide the identity
+                <t>OAuth 2.0 MUST NOT be used as an authentication protocol. Use of the <xref target="OpenID.Core">OpenID Connect Core 1.0</xref> is RECOMMENDED to provide the identity
                 authentication layer for iGov OAuth 2.0 delegated access use cases.
                 </t>
                 
@@ -1064,7 +1063,7 @@ DNp00J6AbY6w",
                         is able to be revoked.
                     </t>
 
-                    <t>Authorizatin servers MUST NOT allow a client to use a token
+                    <t>Authorization servers MUST NOT allow a client to use a token
                         after it is revoked.
                     </t>
                 </section>
@@ -1543,7 +1542,7 @@ Connection: close
 
                 <t> If a protected resources requires a higher end-user authentication trust
                     level to access certain resources, the protected resource MUST associate those resources with a
-                    unique scope and MUST associate acceptable acr values for each scope as descibed in
+                    unique scope and MUST associate acceptable acr values for each scope as described in
                     <xref target="RFC9470">OAuth 2.0 Step Up Authentication Challenge Protocol</xref>.
                     Protected Resources may also specify a max_age for each scope.
                 </t>
@@ -1648,7 +1647,7 @@ Connection: close
                 language throughout the document. In particular, this profile requires the use of TLS for all network connections, PKCE, and sender constrained tokens
                 to mitigate the threats in <xref target="RFC6973"></xref>
                 </t>
-                <t>In OpenID Connect implementations, cilents and servers SHOULD implement the privacy threat mitigations in Section 17 of
+                <t>In OpenID Connect implementations, clients and servers SHOULD implement the privacy threat mitigations in Section 17 of
                 <xref target="OpenID.Core">OpenID Connect Core 1.0</xref>.
                 </t>
             </section>
