@@ -219,9 +219,9 @@
              
                  <t>iGov implementations SHOULD be crypto-agile, enabling rapid substitution of algorithms and keys so services remain secure as threats and standards evolve. Implementers of this profile SHOULD monitor the progress of specifications of post-quantum
                  cryptography.</t>
-                 <t>All network connections MUST be made using TLS 1.3 or above.
+                 <t>All network connections MUST be made using TLS 1.2 or above.
                  Each originator of a TLS connection MUST verify the destination's certificate.
-                 However, the following four TLS 1.2 cipher suites MAY be used when interoperability is required:
+                 If TLS 1.2 is used, only the following four TLS 1.2 cipher suites MAY be used when interoperability is required:
                       <list>
                       <t>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256</t>
                     <t>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</t>
