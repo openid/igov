@@ -12,7 +12,7 @@
 <rfc
   category="std"
   
-  docName="openid-igov-oauth2-1_09"
+  docName="openid-igov-oauth2-1_0-ID2"
   
   ipr="none"
   
@@ -38,7 +38,7 @@
   
     <front>
         <title abbrev="iGov OAuth 2.0">International Government Assurance Profile (iGov)
-            for OAuth 2.0 - draft 09</title>
+            for OAuth 2.0 - 1.0 Implementers Draft 2</title>
 
         <author fullname="Kelley Burgin" initials="K." role="editor" surname="Burgin">
             <organization abbrev="MITRE">The MITRE Corporation</organization>
@@ -55,7 +55,7 @@
             </address>
         </author>
 
-        <date day="18" month="December" year="2025"/>
+        <date day="13" month="April" year="2026"/>
 
         <workgroup>OpenID iGov Working Group</workgroup>
 
@@ -1923,7 +1923,7 @@ Connection: close
         </section>
 
         <section anchor="Notices" title="Notices">
-            <t>Copyright (c) 2025 The OpenID Foundation.</t>
+            <t>Copyright (c) 2026 The OpenID Foundation.</t>
 
             <t>The OpenID Foundation (OIDF) grants to any Contributor, developer, implementer, or other interested party a non-exclusive, royalty free, worldwide copyright license to reproduce,
             prepare derivative works from, distribute, perform and display, this Implementers Draft, Final Specification, or Final Specification Incorporating Errata Corrections solely for the
