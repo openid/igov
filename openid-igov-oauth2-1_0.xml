@@ -645,7 +645,6 @@ xhz5Z-gTlQ",
         <section title="Connection to the Protected Resource">
             <section anchor="RequestsToProtectedResource" title="Requests to the Protected Resource">
                     <t>
-
                         Clients MUST use the authorization request header field mechanism to send bearer tokens as defined by
                         <xref target="RFC6750"/>.
                     </t>
@@ -712,9 +711,21 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                 </section>
 
                 <section title="Client authentication">
-                    <t>Authorization servers MUST enforce client authentication for confidential clients. Public clients cannot authenticate
-                    to the authorization server. 
-                    </t>
+                    <t>Authorization servers MUST
+                        authenticate clients using either
+                        the private_key_jwt method as defined in
+                        <xref target="OpenID.Core">OpenID Connect Core</xref>
+                        or
+                        the mutually-authenticated transport layer security (mTLS) request method
+                        defined in
+                        <xref target="RFC8705">OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens</xref>.
+                        </t>
+                        
+                        <t>If the client authenticates with the private_key_jwt method, the client request MUST be a JWT assertion as defined in
+                        <xref target="RFC7523">JWT Profile for OAuth 2.0 Client Authentication and Authorization Grants</xref>. The JWT assertion MUST be signed
+                        by the client using the client's private key.
+                        If using <xref target="RFC8705">mTLS</xref>, the request MUST be made over a mutually authenticated TLS channel.
+                        </t>
                     
                     
                     <t> The authorization server MUST validate all redirect

@@ -49,7 +49,7 @@ Table of Contents
        3.1.1.  Grant types . . . . . . . . . . . . . . . . . . . . .  13
        3.1.2.  Client authentication . . . . . . . . . . . . . . . .  13
        3.1.3.  Dynamic Registration  . . . . . . . . . . . . . . . .  14
-       3.1.4.  Client Approval . . . . . . . . . . . . . . . . . . .  15
+       3.1.4.  Client Approval . . . . . . . . . . . . . . . . . . .  16
 
 
 
@@ -698,9 +698,18 @@ Burgin & Clancy              Standards Track                   [Page 12]
 
 3.1.2.  Client authentication
 
-   Authorization servers MUST enforce client authentication for
-   confidential clients.  Public clients cannot authenticate to the
-   authorization server.
+   Authorization servers MUST authenticate clients using either the
+   private_key_jwt method as defined in OpenID Connect Core
+   [OpenID.Core] or the mutually-authenticated transport layer security
+   (mTLS) request method defined in OAuth 2.0 Mutual-TLS Client
+   Authentication and Certificate-Bound Access Tokens [RFC8705].
+
+   If the client authenticates with the private_key_jwt method, the
+   client request MUST be a JWT assertion as defined in JWT Profile for
+   OAuth 2.0 Client Authentication and Authorization Grants [RFC7523].
+   The JWT assertion MUST be signed by the client using the client's
+   private key.  If using mTLS [RFC8705], the request MUST be made over
+   a mutually authenticated TLS channel.
 
    The authorization server MUST validate all redirect URIs for
    authorization code grant types.
@@ -712,15 +721,6 @@ Burgin & Clancy              Standards Track                   [Page 12]
    levels.  Authorization servers MUST reject client authorization
    requests containing scopes that are outside their permission.
 
-   Authorization servers MAY set the expiry time (exp) of access_tokens
-   associated with higher level resources to be shorter than
-   access_tokens for less sensitive resources.
-
-
-
-
-
-
 
 
 
@@ -729,6 +729,10 @@ Burgin & Clancy              Standards Track                   [Page 13]
 
                              iGov OAuth 2.0                December 2025
 
+
+   Authorization servers MAY set the expiry time (exp) of access_tokens
+   associated with higher level resources to be shorter than
+   access_tokens for less sensitive resources.
 
    Authorization servers MAY allow a refresh_token issued at a higher
    level to be used to obtain an access_token for a lower level resource
@@ -774,10 +778,6 @@ Burgin & Clancy              Standards Track                   [Page 13]
       the requirements listed in Section 2.3.1
 
    grant_types  grant type used by the client; must be
-      "authorization_code" or "client_credentials"
-
-   client_name  human-readable name of the client
-
 
 
 
@@ -785,6 +785,10 @@ Burgin & Clancy              Standards Track                   [Page 14]
 
                              iGov OAuth 2.0                December 2025
 
+
+      "authorization_code" or "client_credentials"
+
+   client_name  human-readable name of the client
 
    client_uri  URL of a web page containing further information about
       the client
@@ -830,10 +834,6 @@ Burgin & Clancy              Standards Track                   [Page 14]
    RECOMMENDED that authorization servers use tls_client_auth_san_ip or
    tls_client_auth_san_email metadata values
 
-3.1.4.  Client Approval
-
-   When prompting the end user with an interactive approval page, the
-   authorization server MUST indicate to the user:
 
 
 
@@ -841,6 +841,11 @@ Burgin & Clancy              Standards Track                   [Page 15]
 
                              iGov OAuth 2.0                December 2025
 
+
+3.1.4.  Client Approval
+
+   When prompting the end user with an interactive approval page, the
+   authorization server MUST indicate to the user:
 
    *  Whether the client was dynamically registered, or else statically
       registered by a trusted administrator.
@@ -883,13 +888,8 @@ Burgin & Clancy              Standards Track                   [Page 15]
       token endpoint defined by OAuth 2.0 [RFC6749]
 
    token_endpoint_auth_method  REQUIRED.  String of values corresponding
-      to permitted methods for client authentication to the
-      authorization server as defined in OAuth 2.0 Dynamic Client
-      Registration Protocol [RFC7591].  Within this profile, the server
-      MUST provide one or more of the following values:
-      "private_key_jwt", "tls_client_auth", and "self_signed_tls_auth".
 
-   introspection_endpoint  OPTIONAL.  The fully qualified URL of the
+
 
 
 
@@ -898,6 +898,13 @@ Burgin & Clancy              Standards Track                   [Page 16]
                              iGov OAuth 2.0                December 2025
 
 
+      to permitted methods for client authentication to the
+      authorization server as defined in OAuth 2.0 Dynamic Client
+      Registration Protocol [RFC7591].  Within this profile, the server
+      MUST provide one or more of the following values:
+      "private_key_jwt", "tls_client_auth", and "self_signed_tls_auth".
+
+   introspection_endpoint  OPTIONAL.  The fully qualified URL of the
       server's introspection endpoint defined by OAuth Token
       Introspection [RFC7662]
 
@@ -937,13 +944,6 @@ Burgin & Clancy              Standards Track                   [Page 16]
 
    The following example shows a JSON document found at the discovery
    endpoint for an authorization server:
-
-
-
-
-
-
-
 
 
 
