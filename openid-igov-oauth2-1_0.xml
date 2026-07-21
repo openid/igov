@@ -878,6 +878,8 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                     <spanx style="verb">tls_client_certificate_bound_access_tokens</spanx>
                     parameter in its registration metadata and makes a request to the token endpoint over connection not secured by TLS.
                         </t>
+                    <t> If a client uses <xref target="RFC9449">DPoP</xref> to sender constrain tokens, the authorization server 
+                MUST validate the htm and htu claims, check for replay, and validate the dpop_jkt parameter.</t>
                     </section>
 
                 <section anchor="Discovery" title="Discovery">
@@ -1511,10 +1513,14 @@ Connection: close
                     required for access to the resource and any authentication strength or recency requirements for each scope.
                 </t>
 
-                <t> If a client <xref target="RFC8705">mTLS</xref> to sender-constrain tokens, the protected resource
+                <t> If a client uses <xref target="RFC8705">mTLS</xref> to sender-constrain tokens, the protected resource
                 MUST verify that the certificate matches the certificate associated with the
                 access token. If they do not match, the resource access attempt MUST be denied.
-                </t>
+                </t> 
+                <t> If a client uses <xref target="RFC9449">DPoP</xref> to sender constrain tokens, the protected resource 
+                MUST validate the htm and htu claims, check for replay, and validate the dpop_jkt parameter.</t>
+
+                <t> 
                 <t>Protected resources MAY use authentication context or step up authentication to implement access controls.
 </t>
 
