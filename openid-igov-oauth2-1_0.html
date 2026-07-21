@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>International Government Assurance Profile (iGov) for OAuth 2.0 - draft 09</title>
+<title>International Government Assurance Profile (iGov) for OAuth 2.0 - draft 10</title>
 <meta content="Kelley Burgin" name="author">
 <meta content="Tom Clancy" name="author">
 <meta content="
@@ -19,24 +19,25 @@
                 consumer-to-government deployments.
        
     " name="description">
-<meta content="xml2rfc 3.31.0" name="generator">
-<meta content="openid-igov-oauth2-1_09" name="ietf.draft">
+<meta content="xml2rfc 3.34.0" name="generator">
+<meta content="openid-igov-oauth2-1_10" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.31.0
+  xml2rfc 3.34.0
     Python 3.12.3
-    ConfigArgParse 1.7.1
+    ConfigArgParse 1.7.5
     google-i18n-address 3.1.1
-    intervaltree 3.1.0
+    intervaltree 3.2.1
     Jinja2 3.1.6
-    lxml 6.0.2
-    platformdirs 4.5.1
-    pycountry 24.6.1
+    lxml 6.1.1
+    natsort 8.4.0
+    platformdirs 4.10.0
+    pycountry 26.2.16
     PyYAML 6.0.3
-    requests 2.32.5
-    wcwidth 0.2.14
-    weasyprint 65.0
+    requests 2.34.2
+    wcwidth 0.8.2
+    weasyprint 69.0
 -->
-<link href="openid-igov-oauth2-1_0-no-public-clients.xml" rel="alternate" type="application/rfc+xml">
+<link href="2026-07-21_openid-igov-oauth2-1_0.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
 <style type="text/css">/*
 
@@ -1225,7 +1226,7 @@ li > p:last-of-type:only-child {
 <thead><tr>
 <td class="left"></td>
 <td class="center">iGov OAuth 2.0</td>
-<td class="right">December 2025</td>
+<td class="right">May 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Burgin &amp; Clancy</td>
@@ -1240,7 +1241,7 @@ li > p:last-of-type:only-child {
 <dd class="workgroup">OpenID iGov Working Group</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-12-18" class="published">18 December 2025</time>
+<time datetime="2026-05-25" class="published">25 May 2026</time>
     </dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
@@ -1257,7 +1258,7 @@ li > p:last-of-type:only-child {
 </dd>
 </dl>
 </div>
-<h1 id="title">International Government Assurance Profile (iGov) for OAuth 2.0 - draft 09</h1>
+<h1 id="title">International Government Assurance Profile (iGov) for OAuth 2.0 - draft 10</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">The OAuth 2.0 protocol framework defines a mechanism to allow a
@@ -1589,9 +1590,9 @@ li > p:last-of-type:only-child {
         </h3>
 <p id="section-1.4-1">iGov implementations SHOULD be crypto-agile, enabling rapid substitution of algorithms and keys so services remain secure as threats and standards evolve. Implementers of this profile SHOULD monitor the progress of specifications of post-quantum
                  cryptography.<a href="#section-1.4-1" class="pilcrow">¶</a></p>
-<p id="section-1.4-2">All network connections MUST be made using TLS 1.3 or above.
+<p id="section-1.4-2">All network connections MUST be made using TLS 1.2 or above.
                  Each originator of a TLS connection MUST verify the destination's certificate.
-                 However, the following four TLS 1.2 cipher suites MAY be used when interoperability is required:<a href="#section-1.4-2" class="pilcrow">¶</a></p>
+                 If TLS 1.2 is used, only the following four TLS 1.2 cipher suites MAY be used when interoperability is required:<a href="#section-1.4-2" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
 <li class="normal ulEmpty" id="section-1.4-3.1">
             <p id="section-1.4-3.1.1">TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256<a href="#section-1.4-3.1.1" class="pilcrow">¶</a></p>
@@ -1617,7 +1618,7 @@ li > p:last-of-type:only-child {
             <p id="section-1.4-6.1.1">1. MUST adhere to [RFC8725]<a href="#section-1.4-6.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal ulEmpty" id="section-1.4-6.2">
-            <p id="section-1.4-6.2.1">2. MUST use PS256, ES256, or Ed25519<a href="#section-1.4-6.2.1" class="pilcrow">¶</a></p>
+            <p id="section-1.4-6.2.1">2. MUST use PS256, ES256, or Ed25519 (referred to as EdDSA in JOSE)<a href="#section-1.4-6.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal ulEmpty" id="section-1.4-6.3">
             <p id="section-1.4-6.3.1">3. MUST NOT use or accept the <code>none</code> algorithm.<a href="#section-1.4-6.3.1" class="pilcrow">¶</a></p>
@@ -1627,10 +1628,10 @@ li > p:last-of-type:only-child {
 <p id="section-1.4-8">Elliptic curve keys MUST have a minimum length of 224 bits.<a href="#section-1.4-8" class="pilcrow">¶</a></p>
 <p id="section-1.4-9">
                  For the authorization_endpoint, the authorization server MAY allow
-                 additional cipher suites that are permitted by the latest version of <span><a href="#BCP195" class="internal xref">BCP195</a> [<a href="#BCP195" class="cite xref">BCP195</a>]</span>,
+                 additional cipher suites that are permitted by the latest version of <span><a href="#RFC8996" class="internal xref">Deprecating TLS 1.0 and TLS 1.1</a> [<a href="#RFC8996" class="cite xref">RFC8996</a>]</span>,
                  if necessary to allow sufficient interoperability with users' web browsers or as required by local regulations.<a href="#section-1.4-9" class="pilcrow">¶</a></p>
 <p id="section-1.4-10">
-                 NOTE: Permitted cipher suites are those listed in <span><a href="#BCP195" class="internal xref">BCP195</a> [<a href="#BCP195" class="cite xref">BCP195</a>]</span> that do not explicitly say MUST NOT use.<a href="#section-1.4-10" class="pilcrow">¶</a></p>
+                 NOTE: Permitted cipher suites are those listed in <span><a href="#RFC8996" class="internal xref">Deprecating TLS 1.0 and TLS 1.1</a> [<a href="#RFC8996" class="cite xref">RFC8996</a>]</span> that do not explicitly say MUST NOT use.<a href="#section-1.4-10" class="pilcrow">¶</a></p>
 <p id="section-1.4-11">Endpoints for use by web browsers MUST use mechanisms to ensure that connections cannot be downgraded
                  using TLS Stripping attacks. Protected resources MAY implement an HTTP Strict Transport Security policy as defined in
                  <span><a href="#RFC6797" class="internal xref">HTTP Strict Transport Security (HSTS)</a> [<a href="#RFC6797" class="cite xref">RFC6797</a>]</span> to mitigate these attacks. Protected resources SHOULD
@@ -1659,7 +1660,7 @@ li > p:last-of-type:only-child {
 </dd>
           <dd class="break"></dd>
 <dt id="section-2.1-2.3">public clients:</dt>
-          <dd style="margin-left: 1.5em" id="section-2.1-2.4">Clients without credentials. Public client use cases are out of scope for this profile.<a href="#section-2.1-2.4" class="pilcrow">¶</a>
+          <dd style="margin-left: 1.5em" id="section-2.1-2.4">Clients without credentials. Public client use cases are out of scope for this profile. An iGov Profile for OAuth 2.0 public clients may be developed in the future.<a href="#section-2.1-2.4" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
 </dl>
@@ -1759,7 +1760,7 @@ li > p:last-of-type:only-child {
 <p id="section-2.3.1-4">Clients MUST use a unique redirect URI for each logical authorization server.<a href="#section-2.3.1-4" class="pilcrow">¶</a></p>
 <p id="section-2.3.1-5">Clients MUST NOT forward values passed back to their redirect
                         URIs to other arbitrary or user-provided URIs (a practice known as an "open redirector").<a href="#section-2.3.1-5" class="pilcrow">¶</a></p>
-<p id="section-2.3.1-6">Refer to <span><a href="#BCP240" class="internal xref">Best Current Practice for OAuth 2.0 Security</a> [<a href="#BCP240" class="cite xref">BCP240</a>]</span> Section 2.4.1
+<p id="section-2.3.1-6">Refer to <span><a href="#RFC9700" class="internal xref">Best Current Practice for OAuth 2.0 Security</a> [<a href="#RFC9700" class="cite xref">RFC9700</a>]</span> Section 2.4.1
                     for additional guidance on implementation of edge cases.<a href="#section-2.3.1-6" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1774,7 +1775,7 @@ li > p:last-of-type:only-child {
                 bound to a particular symmetric or asymmetric key issued to, or already possessed by, the client.
                 The association of the key to the token is also communicated to the protected resource. When the client
                 presents the token to the protected resource, it is also required to demonstrate possession of the corresponding key.<a href="#section-2.4-1" class="pilcrow">¶</a></p>
-<p id="section-2.4-2">As described in <span><a href="#BCP240" class="internal xref">Best Current Practice for OAuth 2.0 Security</a> [<a href="#BCP240" class="cite xref">BCP240</a>]</span>, sender-constrained tokens could
+<p id="section-2.4-2">As described in <span><a href="#RFC9700" class="internal xref">Best Current Practice for OAuth 2.0 Security</a> [<a href="#RFC9700" class="cite xref">RFC9700</a>]</span>, sender-constrained tokens could
                 prevent a number of attacks on OAuth that entail the misuse of stolen and leaked access tokens by unauthorized parties.
                 The attacker would need to obtain the legitimate client's cryptographic key along with the access
                 token to gain access to protected resources.<a href="#section-2.4-2" class="pilcrow">¶</a></p>
@@ -1798,8 +1799,7 @@ li > p:last-of-type:only-child {
                 Step Up Authentication Challenge
                 Protocol</a> [<a href="#RFC9470" class="cite xref">RFC9470</a>]</span> and <span><a href="#OpenID.Core" class="internal xref">OpenID Connect Core 1.0</a> [<a href="#OpenID.Core" class="cite xref">OpenID.Core</a>]</span>.<a href="#section-2.5-3" class="pilcrow">¶</a></p>
 <p id="section-2.5-4">Digital identity policies and semantic mappings to string values are necessary for implementation but are out of scope for this profile.<a href="#section-2.5-4" class="pilcrow">¶</a></p>
-<p id="section-2.5-5">OAuth 2.0 MUST NOT be used as an authentication protocol. Use of the <span><a href="#OpenID.iGov" class="internal xref">International Government Assurance Profile (iGov)
-                for OpenID Connect 1.0</a> [<a href="#OpenID.iGov" class="cite xref">OpenID.iGov</a>]</span> is RECOMMENDED to provide the identity
+<p id="section-2.5-5">OAuth 2.0 MUST NOT be used as an authentication protocol. Use of the <span><a href="#OpenID.Core" class="internal xref">OpenID Connect Core 1.0</a> [<a href="#OpenID.Core" class="cite xref">OpenID.Core</a>]</span> is RECOMMENDED to provide the identity
                 authentication layer for iGov OAuth 2.0 delegated access use cases.<a href="#section-2.5-5" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1858,42 +1858,6 @@ li > p:last-of-type:only-child {
                         authentication strength or recency requirements, the client should include the acr_values and/or max_age values sent by the resource server with
                         the insuffient_user_authentication error code that specify expected strength and recency requirements to be provided to the authentication provider,
                         such as the OpenID Provider, in a new authentication request.<a href="#section-2.6.1-7" class="pilcrow">¶</a></p>
-<p id="section-2.6.1-8">The following is a sample response from a client to
-                        the
-                        end user's browser for the purpose of redirecting the end
-                        user
-                        to the authorization server's authorization endpoint:<a href="#section-2.6.1-8" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-2.6.1-9">
-<pre>
-NOTE: '\' line wrapping per RFC 8792
-
-HTTP/1.2 302 Found
-Cache-Control: no-cache
-Connection: close
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 07 Jan 2015 20:24:15 GMT
-Location: \
-  https://idp-p.example.com/authorize?client_id=55f9f559-2496-49d4-b\
-6c3-351a586b7484&amp;response_type=code&amp;scope=openid+email&amp;redirect_uri=\
-https%3A%2F%2Fclient.example.org%2Fcb&amp;acr_values=myACR&amp;max_age=1800\
-Status: 302 Found
-</pre><a href="#section-2.6.1-9" class="pilcrow">¶</a>
-</div>
-<p id="section-2.6.1-10">This causes the browser to send the following (non-normative) request to the
-                        authorization endpoint (inline wraps for display purposes only):<a href="#section-2.6.1-10" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-2.6.1-11">
-<pre>
-NOTE: '\' line wrapping per RFC 8792
-
-GET /authorize?
-   client_id=55f9f559-2496-49d4-b6c3-351a586b7484
-  &amp;nonce=cd567ed4d958042f721a7cdca557c30d
-  &amp;response_type=code
-  &amp;scope=openid+email
-  &amp;redirect_uri=https%3A%2F%2Fclient.example.org%2Fcb HTTP/1.1
-Host: idp-p.example.com
-</pre><a href="#section-2.6.1-11" class="pilcrow">¶</a>
-</div>
 </section>
 </div>
 <div id="RequestsToTokenEndpoint">
@@ -1951,60 +1915,7 @@ Host: idp-p.example.com
                         content of the
                         client's registered jwks_uri document and verify that
                         it contains a
-                        JWK Set. The following example is of a 2048-bit RSA
-                        key:<a href="#section-2.6.3-2" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-2.6.3-3">
-<pre>
-NOTE: '\' line wrapping per RFC 8792
-
-{
-   "keys": [
-     {
-       "alg": "PS256",
-       "e": "AQAB",
-      "n": "kAMYD62n_f2rUcR4awJX4uccDt0zcXRssq_mDch5-ifcShx9aTtTVza2\
-3PTn3KaKrsBXwWcfioXR6zQn5eYdZQVGNBfOR4rxF5i7t3hfb4WkS50EK1gBYk2lO9NS\
-rQ-xG9QsUsAnN6RHksXqsdOqv-nxjLexDfIJlgbcCN9h6TB-C66ZXv7PVhl19gIYVifS\
-U7liHkLe0l0fw7jUI6rHLHf4d96_neR1HrNIK_xssr99Xpv1EM_ubxpktX0T925-qej9\
-fMEpzzQ5HLmcNt1H2_VQ_Ww1JOLn9vRn-H48FDj7TxlIT74XdTZgTv31w_GRPAOfyxEw\
-_ZUmxhz5Z-gTlQ",
-       "kty": "RSA",
-       "kid": "oauth-client"
-     }
-   ]
-}
-</pre><a href="#section-2.6.3-3" class="pilcrow">¶</a>
-</div>
-<p id="section-2.6.3-4">For reference, the corresponding public/private key pair for
-                        this
-                        public key is the following (in JWK format):<a href="#section-2.6.3-4" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-2.6.3-5">
-<pre>
-NOTE: '\' line wrapping per RFC 8792
-
-{
-  "alg": "PS256",
-  "d": "PjIX4i2NsBQuOVIw74ZDjqthYsoFvaoah9GP-cPrai5s5VUIlLoadEAdGbBr\
-ss_6dR58x_pRlPHWh04vLQsFBuwQNc9SN3O6TAaai9Jg5TlCi6V0d4O6lUoTYpMR0cxF\
-IU-xFMwII--_OZRgmAxiYiAXQj7TKMKvgSvVO7-9-YdhMwHoD-UrJkfnZckMKSs0BoAb\
-jReTski3IV9f1wVJ53_pmr9NBpiZeHYmmG_1QDSbBuY35Zummut4QShF-fey2gSALdp9\
-h9hRk1p1fsTZtH2lwpvmOcjwDkSDv-zO-4Pt8NuOyqNVPFahROBPlsMVxc_zjPck8ltb\
-lalBHPo6AQ",
-  "e": "AQAB",
-  "n": "kAMYD62n_f2rUcR4awJX4uccDt0zcXRssq_mDch5-ifcShx9aTtTVza23PTn\
-3KaKrsBXwWcfioXR6zQn5eYdZQVGNBfOR4rxF5i7t3hfb4WkS50EK1gBYk2lO9NSrQ-x\
-G9QsUsAnN6RHksXqsdOqv-nxjLexDfIJlgbcCN9h6TB-C66ZXv7PVhl19gIYVifSU7li\
-HkLe0l0fw7jUI6rHLHf4d96_neR1HrNIK_xssr99Xpv1EM_ubxpktX0T925-qej9fMEp\
-zzQ5HLmcNt1H2_VQ_Ww1JOLn9vRn-H48FDj7TxlIT74XdTZgTv31w_GRPAOfyxEw_ZUm\
-xhz5Z-gTlQ",
-  "kty": "RSA",
-  "kid": "oauth-client"
-}
-</pre><a href="#section-2.6.3-5" class="pilcrow">¶</a>
-</div>
-<p id="section-2.6.3-6">Note that the second example contains both the public and
-                        private
-                        keys, while the first example contains the public key only.<a href="#section-2.6.3-6" class="pilcrow">¶</a></p>
+                        JWK Set.<a href="#section-2.6.3-2" class="pilcrow">¶</a></p>
 </section>
 </section>
 <section id="section-2.7">
@@ -2019,25 +1930,6 @@ xhz5Z-gTlQ",
 <p id="section-2.7.1-1">
                         Clients MUST use the authorization request header field mechanism to send bearer tokens as defined by
                         <span>[<a href="#RFC6750" class="cite xref">RFC6750</a>]</span>.<a href="#section-2.7.1-1" class="pilcrow">¶</a></p>
-<p id="section-2.7.1-2">An example of an OAuth-protected call to the OpenID Connect
-                        UserInfo endpoint, sending the token in the Authorization header,
-                        follows:<a href="#section-2.7.1-2" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-2.7.1-3">
-<pre>
-NOTE: '\' line wrapping per RFC 8792
-
-GET /userinfo HTTP/1.1
-Authorization: Bearer eyJhbGciOiJSUzI1NiJ9.eyJleHAiOjE0MTg3MDI0MTIsI\
-\mF1ZCI6WyJjMWJjODRlNC00N2VlLTRiNjQtYmI1Mi01Y2RhNmM4MWY3ODgiXSwiaXNz\
-IjoiaHR0cHM6XC9cL2lkcC1wLmV4YW1wbGUuY29tXC8iLCJqdGkiOiJkM2Y3YjQ4Zi1i\
-YzgxLTQwZWMtYTE0MC05NzRhZjc0YzRkZTMiLCJpYXQiOjE0MTg2OTg4MTJ9.iHMz_tz\
-Z90_b0QZS-AXtQtvclZ7M4uDAs1WxCFxpgBfBanolW37X8h1ECrUJexbXMD6rrj_uuWE\
-qPD738oWRo0rOnoKJAgbF1GhXPAYnN5pZRygWSD1a6RcmN85SxUig0H0e7drmdmRkPQg\
-bl2wMhu-6h2Oqize4dKmykN9UX_2drXrooSxpRZqFVYX8PkCvCCBuFy2O-HPRov_SwtJ\
-Mk5qjUWMyn2I4Nu2s-R20aCA-7T5dunr0iWCkLQnVnaXMfA22RlRiU87nl21zappYb1_\
-EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
-</pre><a href="#section-2.7.1-3" class="pilcrow">¶</a>
-</div>
 </section>
 </div>
 </section>
@@ -2252,6 +2144,8 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
 <p id="section-3.1.5-2">The Authorization Server MUST NOT issue the client an access token if the client included the
                     <code>tls_client_certificate_bound_access_tokens</code>
                     parameter in its registration metadata and makes a request to the token endpoint over connection not secured by TLS.<a href="#section-3.1.5-2" class="pilcrow">¶</a></p>
+<p id="section-3.1.5-3"> If a client uses <span><a href="#RFC9449" class="internal xref">DPoP</a> [<a href="#RFC9449" class="cite xref">RFC9449</a>]</span> to sender constrain tokens, the authorization server
+                MUST validate the htm and htu claims, check for replay, and validate the dpop_jkt parameter.<a href="#section-3.1.5-3" class="pilcrow">¶</a></p>
 </section>
 <div id="Discovery">
 <section id="section-3.1.6">
@@ -2284,12 +2178,12 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                                     2.0</a> [<a href="#RFC6749" class="cite xref">RFC6749</a>]</span><a href="#section-3.1.6-2.6" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
-<dt id="section-3.1.6-2.7">token_endpoint_auth_method</dt>
+<dt id="section-3.1.6-2.7">token_endpoint_auth_methods_supported</dt>
             <dd style="margin-left: 1.5em" id="section-3.1.6-2.8">
                                 REQUIRED. String of values corresponding to permitted methods for client authentication to the authorization server
                                 as defined in <span><a href="#RFC7591" class="internal xref">OAuth 2.0 Dynamic Client Registration Protocol</a> [<a href="#RFC7591" class="cite xref">RFC7591</a>]</span>.
                                 Within this profile, the server MUST provide one or more of the following values: "private_key_jwt", "tls_client_auth",
-                                and "self_signed_tls_auth".<a href="#section-3.1.6-2.8" class="pilcrow">¶</a>
+                                and "self_signed_tls_client_auth".<a href="#section-3.1.6-2.8" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
 <dt id="section-3.1.6-2.9">introspection_endpoint</dt>
@@ -2323,7 +2217,7 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                                 REQUIRED. The fully qualified URI of the server's
                                 JWK as defined in
                                 <span><a href="#RFC8414" class="internal xref">OAuth 2.0 Authorization Server Metadata</a> [<a href="#RFC8414" class="cite xref">RFC8414</a>]</span>.
-                                If the self_signed_tls_auth method is used, a jwks_uri MUST be registered and MUST include a certificate.<a href="#section-3.1.6-2.16" class="pilcrow">¶</a>
+                                If the self_signed_tls_client_auth method is used, a jwks_uri MUST be registered and MUST include a certificate.<a href="#section-3.1.6-2.16" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 </dl>
@@ -2345,100 +2239,26 @@ EHF9ePyq3Q353cDUY7vje8m2kKXYTgc_bUAYuW-W3SMSw5UlKa
                         it MUST provide a discovery endpoint meeting the requirements
                         listed
                         in Section 3.6 of <span><a href="#OpenID.Core" class="internal xref">OpenID Connect Core 1.0</a> [<a href="#OpenID.Core" class="cite xref">OpenID.Core</a>]</span>.<a href="#section-3.1.6-5" class="pilcrow">¶</a></p>
-<p id="section-3.1.6-6">The following example shows a JSON document found at the
-                        discovery endpoint for an authorization server:<a href="#section-3.1.6-6" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.1.6-7">
-<pre>{
-  "request_parameter_supported": true,
-  "registration_endpoint": "https://idp-p.example.com/register",
-  "userinfo_signing_alg_values_supported": [
-    "HS256", "HS384", "HS512", "PS256", "RS384", "RS512"
-  ],
-  "token_endpoint": "https://idp-p.example.com/token",
-  "request_uri_parameter_supported": false,
-  "request_object_encryption_enc_values_supported": [
-    "A192CBC-HS384", "A192GCM", "A256CBC+HS512",
-    "A128CBC+HS256", "A256CBC-HS512",
-    "A128CBC-HS256", "A128GCM", "A256GCM"
-  ],
-  "token_endpoint_auth_methods_supported": [
-    "private_key_jwt",
-  ],
-  "jwks_uri": "https://idp-p.example.com/jwk",
-  "authorization_endpoint": "https://idp-p.example.com/authorize",
-  "require_request_uri_registration": false,
-  "introspection_endpoint": "https://idp-p.example.com/introspect",
-  "request_object_encryption_alg_values_supported": [
-    "RSA-OAEP", "RSA1_5", "RSA-OAEP-256"
-  ],
-  "service_documentation": "https://idp-p.example.com/about",
-  "response_types_supported": [
-    "code", "token"
-  ],
-  "token_endpoint_auth_signing_alg_values_supported": [
-    "HS256", "HS384", "HS512", "PS256", "RS384", "RS512"
-  ],
-  "revocation_endpoint": "https://idp-p.example.com/revoke",
-  "request_object_signing_alg_values_supported": [
-    "HS256", "HS384", "HS512", "PS256", "RS384", "RS512"
-  ],
-  "grant_types_supported": [
-    "authorization_code",
-    "client_credentials"
-  ],
-  "scopes_supported": [
-    "profile", "openid", "email", "address", "phone", "offline_access"
-  ],
-  "op_tos_uri": "https://idp-p.example.com/about",
-  "issuer": "https://idp-p.example.com/",
-  "op_policy_uri": "https://idp-p.example.com/about"
-  "tls_client_certificate_bound_access_tokens": "true"
-  "dpop_signing_alg_values_supported": ["PS256", "ES256"]
-}
-</pre><a href="#section-3.1.6-7" class="pilcrow">¶</a>
-</div>
-<p id="section-3.1.6-8">It is RECOMMENDED that authorization servers provide cache information through HTTP headers and make the cache valid for at
-                    least one week. This allows clients and protected resources to cache the discovery information.<a href="#section-3.1.6-8" class="pilcrow">¶</a></p>
-<p id="section-3.1.6-9">The authorization server MUST provide its public key in JWK Set format. The
+<p id="section-3.1.6-6">It is RECOMMENDED that authorization servers provide cache information through HTTP headers and make the cache valid for at
+                    least one week. This allows clients and protected resources to cache the discovery information.<a href="#section-3.1.6-6" class="pilcrow">¶</a></p>
+<p id="section-3.1.6-7">The authorization server MUST provide its public key in JWK Set format. The
                         key
-                        MUST contain the following fields:<a href="#section-3.1.6-9" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlParallel" id="section-3.1.6-10">
-            <dt id="section-3.1.6-10.1">kid</dt>
-            <dd style="margin-left: 1.5em" id="section-3.1.6-10.2">The key ID of the key pair used to sign this
-                                token<a href="#section-3.1.6-10.2" class="pilcrow">¶</a>
+                        MUST contain the following fields:<a href="#section-3.1.6-7" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-3.1.6-8">
+            <dt id="section-3.1.6-8.1">kid</dt>
+            <dd style="margin-left: 1.5em" id="section-3.1.6-8.2">The key ID of the key pair used to sign this
+                                token<a href="#section-3.1.6-8.2" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
-<dt id="section-3.1.6-10.3">kty</dt>
-            <dd style="margin-left: 1.5em" id="section-3.1.6-10.4">The key type<a href="#section-3.1.6-10.4" class="pilcrow">¶</a>
+<dt id="section-3.1.6-8.3">kty</dt>
+            <dd style="margin-left: 1.5em" id="section-3.1.6-8.4">The key type<a href="#section-3.1.6-8.4" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
-<dt id="section-3.1.6-10.5">alg</dt>
-            <dd style="margin-left: 1.5em" id="section-3.1.6-10.6">The default algorithm used for this key<a href="#section-3.1.6-10.6" class="pilcrow">¶</a>
+<dt id="section-3.1.6-8.5">alg</dt>
+            <dd style="margin-left: 1.5em" id="section-3.1.6-8.6">The default algorithm used for this key<a href="#section-3.1.6-8.6" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 </dl>
-<p id="section-3.1.6-11">The following is an example of a 2048-bit RSA public key:<a href="#section-3.1.6-11" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.1.6-12">
-<pre>{
-NOTE: '\' line wrapping per RFC 8792
-
-"keys": [
-   {
-     "alg": "PS256",
-     "e": "AQAB",
-     "n": "o80vbR0ZfMhjZWfqwPUGNkcIeUcweFyzB2S2T-hje83IOVct8gVg9FxvHP\
-K1ReEW3-p7-A8GNcLAuFP_8jPhiL6LyJC3F10aV9KPQFF-w6Eq6VtpEgYSfzvFegNiPt\
-pMWd7C43EDwjQ-GrXMVCLrBYxZC-P1ShyxVBOzeR_5MTC0JGiDTecr_2YT6o_3aE2SIJ\
-u4iNPgGh9MnyxdBo0Uf0TmrqEIabquXA1-V8iUihwfI8qjf3EujkYi7gXXelIo4_gipQ\
-YNjr4DBNlE0__RI0kDU-27mb6esswnP2WgHZQPsk779fTcNDBIcYgyLujlcUATEqfCaP\
-DNp00J6AbY6w",
-     "kty": "RSA",
-     "kid": "rsa1"
-    }
-  ]
-}
-</pre><a href="#section-3.1.6-12" class="pilcrow">¶</a>
-</div>
 </section>
 </div>
 <section id="section-3.1.7">
@@ -2455,7 +2275,7 @@ DNp00J6AbY6w",
                         requesting the revocation is the client to which the token was
                         issued, the client has permission to revoke tokens, and the token
                         is able to be revoked.<a href="#section-3.1.7-3" class="pilcrow">¶</a></p>
-<p id="section-3.1.7-4">Authorizatin servers MUST NOT allow a client to use a token
+<p id="section-3.1.7-4">Authorization servers MUST NOT allow a client to use a token
                         after it is revoked.<a href="#section-3.1.7-4" class="pilcrow">¶</a></p>
 </section>
 <section id="section-3.1.8">
@@ -2506,14 +2326,6 @@ DNp00J6AbY6w",
 <p id="section-3.2-3">
                     PKCE parameters MUST be associated with the authorization code as per Section 4.4 of
                     <span><a href="#RFC7636" class="internal xref">Proof Key for Code Exchange by OAuth Public Clients (PKCE)</a> [<a href="#RFC7636" class="cite xref">RFC7636</a>]</span>.<a href="#section-3.2-3" class="pilcrow">¶</a></p>
-<p id="section-3.2-4"> The following is an example response:<a href="#section-3.2-4" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.2-5">
-<pre>
-https://https://client.example.org/cb?
-    state=2ca3359dfbfd0
-   &amp;code=gOIFJ1hV6Rb1sxUdFhZGACWwR1sMhYbJJcQbVJN0wHA
-</pre><a href="#section-3.2-5" class="pilcrow">¶</a>
-</div>
 </section>
 <div id="JWTokens">
 <section id="section-3.3">
@@ -2557,10 +2369,7 @@ https://https://client.example.org/cb?
           <dd style="margin-left: 1.5em" id="section-3.3-3.8">A unique JWT Token ID value with at least 128
                             bits
                             of entropy. This value MUST NOT be re-used in another
-                            token.
-                            Clients MUST check for reuse of jti values and reject all
-                            tokens
-                            issued with duplicate jti values.<a href="#section-3.3-3.8" class="pilcrow">¶</a>
+                            token.<a href="#section-3.3-3.8" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 <dt id="section-3.3-3.9">sub</dt>
@@ -2627,65 +2436,26 @@ https://https://client.example.org/cb?
 </dl>
 <p id="section-3.3-4">In order to support backwards compatibility, AS MAY include the azp claim while resource servers
                         modernize.<a href="#section-3.3-4" class="pilcrow">¶</a></p>
-<p id="section-3.3-5">The following sample claim set illustrates the use of the
-                    required claims for an access token as defined in this profile;
-                    additional claims MAY be included in the claim set:<a href="#section-3.3-5" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.3-6">
-<pre>{
-"exp": 1418702388,
-"client_id": "55f9f559-2496-49d4-b6c3-351a586b7484",
-"azp": "55f9f559-2496-49d4-b6c3-351a586b7484",
-"iss": "https://idp-p.example.com/",
-"sub" : "93ff28e3-3982-c34b-f2a4-98bb3d42b277",
-"jti": "2402f87c-b6ce-45c4-95b0-7a3f2904997f",
-"iat": 1418698788,
-"scope" : "MyResource1 MyResource2",
-"acr": "myACR",
-"auth_time": 16463400198,
-"cnf": {
-   "x5t#S256":"A4DtL2JmUMhAsvJj5tKyn64SqzmuXbMrJa0n761y5v0"
-   }
-}
-</pre><a href="#section-3.3-6" class="pilcrow">¶</a>
-</div>
-<p id="section-3.3-7">
+<p id="section-3.3-5">
                     The access tokens MUST be signed with
                     <span><a href="#RFC7515" class="internal xref">JWS</a> [<a href="#RFC7515" class="cite xref">RFC7515</a>]</span>
                     . The
-                    JWS header MUST contain the following fields:<a href="#section-3.3-7" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlParallel" id="section-3.3-8">
-          <dt id="section-3.3-8.1">kid</dt>
-          <dd style="margin-left: 1.5em" id="section-3.3-8.2">The key ID of the key pair used to sign this
-                            token<a href="#section-3.3-8.2" class="pilcrow">¶</a>
+                    JWS header MUST contain the following fields:<a href="#section-3.3-5" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-3.3-6">
+          <dt id="section-3.3-6.1">kid</dt>
+          <dd style="margin-left: 1.5em" id="section-3.3-6.2">The key ID of the key pair used to sign this
+                            token<a href="#section-3.3-6.2" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
 </dl>
-<p id="section-3.3-9">This example access token has been signed with the server's
-                    private key using PS256:<a href="#section-3.3-9" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.3-10">
-<pre>
-NOTE: '\' line wrapping per RFC 8792
-
-eyJhbGciOiJSUzI1NiJ9.ew0KICAgImV4cCI6IDE0MTg3MDIzODgsDQogICAiYXpwIjo\
-gIjU1ZjlmNTU5LTI0OTYtNDlkNC1iNmMzLTM1MWE1ODZiNzQ4NCIsDQogICAiaXNzIjo\
-gImh0dHBzOi8vaWRwLXAuZXhhbXBsZS5jb20vIiwNCiAgICJqdGkiOiAiMjQwMmY4N2M\
-tYjZjZS00NWM0LTk1YjAtN2EzZjI5MDQ5OTdmIiwNCiAgICJpYXQiOiAxNDE4Njk4Nzg\
-4LA0KICAgImtpZCI6ICJyc2ExIg0KfQ.iB6Ix8Xeg-L-nMStgE1X75w7zgXabzw7znWU\
-ECOsXpHfnYYqb-CET9Ah5IQyXIDZ20qEyN98UydgsTpiO1YJDDcZV4f4DgY0ZdG3yBW3\
-XqwUQwbgF7Gwza9Z4AdhjHjzQx-lChXAyfL1xz0SBDkVbJdDjtXbvaSIyfF7ueWF3M1C\
-M70-GXuRY4iucKbuytz9e7eW4Egkk4Aagl3iTk9-l5V-tvL6dYu8IlR93GKsaKE8bng0\
-EZ04xcnq8s4V5Yykuc_NARBJENiKTJM8w3wh7xWP2gvMp39Y0XnuCOLyIx-J1ttX83xm\
-pXDaLyyY-4HT9XHT9V73fKF8rLWJu9grrA
-</pre><a href="#section-3.3-10" class="pilcrow">¶</a>
-</div>
-<p id="section-3.3-11">
+<p id="section-3.3-7">
                     Refresh tokens SHOULD be signed with
                     <span><a href="#RFC7515" class="internal xref">JWS</a> [<a href="#RFC7515" class="cite xref">RFC7515</a>]</span>
                     using the same private key and contain
                     the same set of claims as
                     the
-                    access tokens.<a href="#section-3.3-11" class="pilcrow">¶</a></p>
-<p id="section-3.3-12">
+                    access tokens.<a href="#section-3.3-7" class="pilcrow">¶</a></p>
+<p id="section-3.3-8">
                     The authorization server MAY encrypt access tokens and refresh
                     tokens using
                     <span><a href="#RFC7516" class="internal xref">JWE</a> [<a href="#RFC7516" class="cite xref">RFC7516</a>]</span>
@@ -2694,9 +2464,9 @@ pXDaLyyY-4HT9XHT9V73fKF8rLWJu9grrA
                     the protected
                     resource. Encrypted refresh tokens MUST be encrypted
                     using the
-                    authorization server's public key.<a href="#section-3.3-12" class="pilcrow">¶</a></p>
-<p id="section-3.3-13">The client SHOULD use a certificate to sender-constrain tokens that is distinct from the certificate used to connect
-                to the protected resource.<a href="#section-3.3-13" class="pilcrow">¶</a></p>
+                    authorization server's public key.<a href="#section-3.3-8" class="pilcrow">¶</a></p>
+<p id="section-3.3-9">The client SHOULD use a certificate to sender-constrain tokens that is distinct from the certificate used to connect
+                to the protected resource.<a href="#section-3.3-9" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="TokenLifetimes">
@@ -2753,117 +2523,55 @@ pXDaLyyY-4HT9XHT9V73fKF8rLWJu9grrA
           <h4 id="name-introspection">
 <a href="#section-3.6.1" class="section-number selfRef">3.6.1. </a><a href="#name-introspection" class="section-name selfRef">Introspection</a>
           </h4>
-<p id="section-3.6.1-1">Token introspection allows a protected resource to query the
+<p id="section-3.6.1-1">Token introspection allows a protected resource to make a request over a mutually authenticated TLS connection to the
                         authorization server for metadata about a token. Authorization servers MUST NOT allow clients to use token introspection endpoints.<a href="#section-3.6.1-1" class="pilcrow">¶</a></p>
-<p id="section-3.6.1-2">The protected
-                        resource makes a request over a mutually authenticated TLS connection like the following to the token
-                        introspection endpoint:<a href="#section-3.6.1-2" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.6.1-3">
-<pre>
-NOTE: '\' line wrapping per RFC 8792
-
-POST /introspect HTTP/1.1
-User-Agent: Faraday v0.9.0
-Content-Type: application/x-www-form-urlencoded
-Accept-Encoding: gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-Accept: */*
-Connection: close
-Host: as-va.example.com
-Content-Length: 1412
-
-client_assertion=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJhMm\
-MzNjkxOS0wMWZmLTQ4MTAtYTgyOS00MDBmYWQzNTczNTEiLCJzdWIiOiJhMmMzNjkxOS\
-0wMWZmLTQ4MTAtYTgyOS00MDBmYWQzNTczNTEiLCJhdWQiOiJodHRwczovL2FzLXZhLm\
-V4YW1wbGUuY29tL3Rva2VuIiwiaWF0IjoxNDE4Njk4ODE0LCJleHAiOjE0MTg2OTg4Nz\
-QsImp0aSI6IjE0MTg2OTg4MTQvZmNmNDQ2OGY2MDVjNjE1NjliOWYyNGY5ODJlMTZhZW\
-Y2OTU4In0.md7mFdNBaGhiJfE_pFkAAWA5S-JBvDw9Dk7pOOJEWcL08JGgDFoi9UDbg3\
-sHeA5DrrCYGC_zw7fCGc9ovpfMB7W6YN53hGU19LtzzFN3tv9FNRq4KIzhK15pns9jck\
-Ktui3HZ25L_B-BnxHe7xNo3kA1M-p51uYYIM0hw1SRi2pfwBKG5O8WntybLjuJ0R3X97\
-zvqHn2Q7xdVyKlInyNPA8gIZK0HVssXxHOI6yRrAqvdMn_sneDTWPrqVpaR_c7rt8Ddd\
-7drf_nTD1QxESVhYqKTax5Qfd-aq8gZz8gJCzS0yyfQh6DmdhmwgrSCCRC6BUQkeFNvj\
-MVEYHQ9fr0NA
-&amp;client_assertion_type=urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertio\
-n-type%3Ajwt-bearer
-&amp;client_id=a2c36919-01ff-4810-a829-400fad357351
-&amp;token=eyJhbGciOiJSUzI1NiJ9.eyJleHAiOjE0MTg3MDI0MTQsImF1ZCI6WyJlNzFm\
-YjcyYS05NzRmLTQwMDEtYmNiNy1lNjdjMmJjMDAzN2YiXSwiaXNzIjoiaHR0cHM6XC9c\
-L2FzLXZhLmV4YW1wbGUuY29tXC8iLCJqdGkiOiIyMWIxNTk2ZC04NWQzLTQzN2MtYWQ4\
-My1iM2YyY2UyNDcyNDQiLCJpYXQiOjE0MTg2OTg4MTR9.FXDtEzDLbTHzFNroW7w27RL\
-k5m0wprFfFH7h4bdFw5fR3pwiqejKmdfAbJvN3_yfAokBv06we5RARJUbdjmFFfRRW23\
-cMbpGQCIk7Nq4L012X_1J4IewOQXXMLTyWQQ_BcBMjcW3MtPrY1AoOcfBOJPx1k2jwRk\
-YtyVTLWlff6S5gK-ciYf3b0bAdjoQEHd_IvssIPH3xuBJkmtkrTlfWR0Q0pdpeyVePkM\
-SI28XZvDaGnxA4j7QI5loZYeyzGR9h70xQLVzqwwl1P0-F_0JaDFMJFO1yl4IexfpoZZ\
-sB3HhF2vFdL6D_lLeHRy-H2g2OzF59eMIsM_Ccs4G47862w
-</pre><a href="#section-3.6.1-3" class="pilcrow">¶</a>
-</div>
-<p id="section-3.6.1-4">
+<p id="section-3.6.1-2">
                         The client assertion parameter is structured as described in
-                        <a href="#RequestsToTokenEndpoint" class="auto internal xref">Section 2.6.2</a>.<a href="#section-3.6.1-4" class="pilcrow">¶</a></p>
-<p id="section-3.6.1-5">Authorization servers respond to an introspection request with a JSON
+                        <a href="#RequestsToTokenEndpoint" class="auto internal xref">Section 2.6.2</a>.<a href="#section-3.6.1-2" class="pilcrow">¶</a></p>
+<p id="section-3.6.1-3">Authorization servers respond to an introspection request with a JSON
                         object containing the following fields as
-                        defined in <span><a href="#RFC7662" class="internal xref">OAuth 2.0 Token Introspection</a> [<a href="#RFC7662" class="cite xref">RFC7662</a>]</span>.<a href="#section-3.6.1-5" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlParallel" id="section-3.6.1-6">
-            <dt id="section-3.6.1-6.1">active</dt>
-            <dd style="margin-left: 1.5em" id="section-3.6.1-6.2">Boolean value indicating whether or not
+                        defined in <span><a href="#RFC7662" class="internal xref">OAuth 2.0 Token Introspection</a> [<a href="#RFC7662" class="cite xref">RFC7662</a>]</span>.<a href="#section-3.6.1-3" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-3.6.1-4">
+            <dt id="section-3.6.1-4.1">active</dt>
+            <dd style="margin-left: 1.5em" id="section-3.6.1-4.2">Boolean value indicating whether or not
                                 this token
                                 is currently active at this authorization server.
                                 Tokens that
                                 have been revoked, have expired, or were not issued
                                 by this
-                                authorization server are considered non-active.<a href="#section-3.6.1-6.2" class="pilcrow">¶</a>
+                                authorization server are considered non-active.<a href="#section-3.6.1-4.2" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
-<dt id="section-3.6.1-6.3">scope</dt>
-            <dd style="margin-left: 1.5em" id="section-3.6.1-6.4">Space-separated list of OAuth 2.0 scope
-                                values represented as a single string.<a href="#section-3.6.1-6.4" class="pilcrow">¶</a>
+<dt id="section-3.6.1-4.3">scope</dt>
+            <dd style="margin-left: 1.5em" id="section-3.6.1-4.4">Space-separated list of OAuth 2.0 scope
+                                values represented as a single string.<a href="#section-3.6.1-4.4" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
-<dt id="section-3.6.1-6.5">exp</dt>
-            <dd style="margin-left: 1.5em" id="section-3.6.1-6.6">Timestamp of when this token expires (integer
-                                number of seconds since from 1970-01-01T00:00:00Z UTC)<a href="#section-3.6.1-6.6" class="pilcrow">¶</a>
+<dt id="section-3.6.1-4.5">exp</dt>
+            <dd style="margin-left: 1.5em" id="section-3.6.1-4.6">Timestamp of when this token expires (integer
+                                number of seconds since from 1970-01-01T00:00:00Z UTC)<a href="#section-3.6.1-4.6" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
-<dt id="section-3.6.1-6.7">sub</dt>
-            <dd style="margin-left: 1.5em" id="section-3.6.1-6.8">An opaque string that uniquely identifies the
+<dt id="section-3.6.1-4.7">sub</dt>
+            <dd style="margin-left: 1.5em" id="section-3.6.1-4.8">An opaque string that uniquely identifies the
                                 user
                                 who authorized this token at this authorization server (if
-                                applicable). This string MAY be diversified per client.<a href="#section-3.6.1-6.8" class="pilcrow">¶</a>
+                                applicable). This string MAY be diversified per client.<a href="#section-3.6.1-4.8" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
-<dt id="section-3.6.1-6.9">client_id</dt>
-            <dd style="margin-left: 1.5em" id="section-3.6.1-6.10">An opaque string that uniquely
+<dt id="section-3.6.1-4.9">client_id</dt>
+            <dd style="margin-left: 1.5em" id="section-3.6.1-4.10">An opaque string that uniquely
                                 identifies the OAuth
-                                2.0 client that requested this token<a href="#section-3.6.1-6.10" class="pilcrow">¶</a>
+                                2.0 client that requested this token<a href="#section-3.6.1-4.10" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 </dl>
-<p id="section-3.6.1-7">The following example is a response from the introspection
-                        endpoint:<a href="#section-3.6.1-7" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.6.1-8">
-<pre>HTTP/1.1 200 OK
-Date: Tue, 16 Dec 2014 03:00:14 GMT
-Access-Control-Allow-Origin: *
-Content-Type: application/json;charset=ISO-8859-1
-Content-Language: en-US
-Content-Length: 266
-Connection: close
-
-{
-   "active": true,
-   "scope": "file search visa",
-   "exp": 1418702414,
-   "sub": "{sub\u003d6WZQPpnQxV, iss\u003dhttps://idp-p.example.com/}",
-   "client_id": "e71fb72a-974f-4001-bcb7-e67c2bc0037f",
-   "token_type": "Bearer"
-}
-</pre><a href="#section-3.6.1-8" class="pilcrow">¶</a>
-</div>
-<p id="section-3.6.1-9">
+<p id="section-3.6.1-5">
                         Authorization servers MUST require authentication of resource servers
                         for the introspection endpoint using either private_key_jwt or Mutual-TLS
                         methods as described for clients in
                         <a href="#RequestsToTokenEndpoint" class="auto internal xref">Section 2.6.2</a>. Authorization servers MUST NOT allow clients to
-                        use token introspection endpoints.<a href="#section-3.6.1-9" class="pilcrow">¶</a></p>
+                        use token introspection endpoints.<a href="#section-3.6.1-5" class="pilcrow">¶</a></p>
 </section>
 </section>
 </section>
@@ -2890,22 +2598,24 @@ Connection: close
                     parameter or query parameter methods.<a href="#section-4.1-3" class="pilcrow">¶</a></p>
 <p id="section-4.1-4">Protected resources MUST define and document which scopes are
                     required for access to the resource and any authentication strength or recency requirements for each scope.<a href="#section-4.1-4" class="pilcrow">¶</a></p>
-<p id="section-4.1-5"> If a client <span><a href="#RFC8705" class="internal xref">mTLS</a> [<a href="#RFC8705" class="cite xref">RFC8705</a>]</span> to sender-constrain tokens, the protected resource
+<p id="section-4.1-5"> If a client uses <span><a href="#RFC8705" class="internal xref">mTLS</a> [<a href="#RFC8705" class="cite xref">RFC8705</a>]</span> to sender-constrain tokens, the protected resource
                 MUST verify that the certificate matches the certificate associated with the
                 access token. If they do not match, the resource access attempt MUST be denied.<a href="#section-4.1-5" class="pilcrow">¶</a></p>
-<p id="section-4.1-6">Protected resources MAY use authentication context or step up authentication to implement access controls.<a href="#section-4.1-6" class="pilcrow">¶</a></p>
-<p id="section-4.1-7">If the authentication event associated with the access token does not satisfy the requirements of the resource server for the given request,
+<p id="section-4.1-6"> If a client uses <span><a href="#RFC9449" class="internal xref">DPoP</a> [<a href="#RFC9449" class="cite xref">RFC9449</a>]</span> to sender constrain tokens, the protected resource
+                MUST validate the htm and htu claims, check for replay, and validate the dpop_jkt parameter.<a href="#section-4.1-6" class="pilcrow">¶</a></p>
+<p id="section-4.1-7">Protected resources MAY use authentication context or step up authentication to implement access controls.<a href="#section-4.1-7" class="pilcrow">¶</a></p>
+<p id="section-4.1-8">If the authentication event associated with the access token does not satisfy the requirements of the resource server for the given request,
                 the protected resource MUST return a 401 Unauthorized status code along with a WWW-Authenticate header as defined in <span><a href="#RFC9470" class="internal xref">OAuth
                 2.0 Step Up Authentication Challenge Protocol</a> [<a href="#RFC9470" class="cite xref">RFC9470</a>]</span>. This header MUST include the insufficient_user_authentication error code to indicate that the
-                presented access token is inadequate.<a href="#section-4.1-7" class="pilcrow">¶</a></p>
-<p id="section-4.1-8">Additionally, the response MUST include the acr_values and/or max_age auth-params to communicate the necessary authentication context
+                presented access token is inadequate.<a href="#section-4.1-8" class="pilcrow">¶</a></p>
+<p id="section-4.1-9">Additionally, the response MUST include the acr_values and/or max_age auth-params to communicate the necessary authentication context
                 class reference values and the allowable elapsed time since the last active authentication event, respectively. The acr_values parameter
                 should list the required authentication context class reference values in order of preference, while the max_age parameter should indicate
-                the maximum permissible time in seconds since the last user authentication.<a href="#section-4.1-8" class="pilcrow">¶</a></p>
-<p id="section-4.1-9">The mechanisms by which the protected resource determines whether the authentication requirements are met are outside the scope of this profile.<a href="#section-4.1-9" class="pilcrow">¶</a></p>
-<p id="section-4.1-10">Furthermore, protected resources MAY include both acr_values and max_age if both are relevant.<a href="#section-4.1-10" class="pilcrow">¶</a></p>
-<p id="section-4.1-11">Protected resources MAY include the scope parameter if additional scopes are required to access the resource, as per Section 3.1 of
-                <span><a href="#RFC6750" class="internal xref">The OAuth 2.0 Authorization Framework: Bearer Token Usage</a> [<a href="#RFC6750" class="cite xref">RFC6750</a>]</span>.<a href="#section-4.1-11" class="pilcrow">¶</a></p>
+                the maximum permissible time in seconds since the last user authentication.<a href="#section-4.1-9" class="pilcrow">¶</a></p>
+<p id="section-4.1-10">The mechanisms by which the protected resource determines whether the authentication requirements are met are outside the scope of this profile.<a href="#section-4.1-10" class="pilcrow">¶</a></p>
+<p id="section-4.1-11">Furthermore, protected resources MAY include both acr_values and max_age if both are relevant.<a href="#section-4.1-11" class="pilcrow">¶</a></p>
+<p id="section-4.1-12">Protected resources MAY include the scope parameter if additional scopes are required to access the resource, as per Section 3.1 of
+                <span><a href="#RFC6750" class="internal xref">The OAuth 2.0 Authorization Framework: Bearer Token Usage</a> [<a href="#RFC6750" class="cite xref">RFC6750</a>]</span>.<a href="#section-4.1-12" class="pilcrow">¶</a></p>
 </section>
 <div id="ProtectingResources">
 <section id="section-4.2">
@@ -2921,7 +2631,7 @@ Connection: close
 <p id="section-4.2-2">Protected resources MAY use <span><a href="#RFC9470" class="internal xref">OAuth 2.0 Step Up Authentication Challenge Protocol</a> [<a href="#RFC9470" class="cite xref">RFC9470</a>]</span> to implement access controls.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
 <p id="section-4.2-3"> If a protected resources requires a higher end-user authentication trust
                     level to access certain resources, the protected resource MUST associate those resources with a
-                    unique scope and MUST associate acceptable acr values for each scope as descibed in
+                    unique scope and MUST associate acceptable acr values for each scope as described in
                     <span><a href="#RFC9470" class="internal xref">OAuth 2.0 Step Up Authentication Challenge Protocol</a> [<a href="#RFC9470" class="cite xref">RFC9470</a>]</span>.
                     Protected Resources may also specify a max_age for each scope.<a href="#section-4.2-3" class="pilcrow">¶</a></p>
 <p id="section-4.2-4">Protected resources MAY include the scope parameter if additional scopes are required to access the resource, as per Section 3.1 of
@@ -2932,11 +2642,15 @@ Connection: close
         <h3 id="name-connections-with-authorizat">
 <a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-connections-with-authorizat" class="section-name selfRef">Connections with Authorization Servers</a>
         </h3>
-<p id="section-4.3-1">Protected resources MUST provide a JWKS URI endpoint to distribute public keys to support signing, encryption, and
-                authentication to authorization server revocation and introspection endpoints. <span><a href="#RFC9728" class="internal xref">OAuth 2.0 Protected Resource Metadata</a> [<a href="#RFC9728" class="cite xref">RFC9728</a>]</span>
-                defines a metadata format that a client or authorization server can use to obtain the information needed to interact with a protected resource.
-                This metadata facilitates enhanced interoperability and security, including advertisement and discovery of a protected
-                resource's public key via its jwks_uri.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
+<p id="section-4.3-1">Protected resources MUST provide a JWKS URI endpoint to distribute public keys to support
+                    signing, encryption, and authentication to authorization server revocation and introspection
+                    endpoints. This can be achieved by registering the resource server as a client in the AS,
+                    and using the mechanism outlined in section "client authentication". As an alternative
+                    mechanism the Resource Server could implement OAuth 2.0 Protected Resource Metadata [RFC9728].
+                    It defines a metadata format that a client or authorization server can use to obtain the
+                    information needed to interact with a protected resource. This metadata facilitates
+                    enhanced interoperability and security including advertisement and discovery of a protected
+                    resource's public key via its jwks_uri.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
 <p id="section-4.3-2">Protected resources calling the
                 introspection endpoint MUST use
                 credentials distinct from any other
@@ -2984,7 +2698,7 @@ Connection: close
 <a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-best-practices" class="section-name selfRef">Best Practices</a>
         </h3>
 <p id="section-5.2-1">Authorization server, client, and protected resource implementations SHOULD consider including requirements from
-                    <span><a href="#BCP240" class="internal xref">Best Current Practice for OAuth 2.0 Security</a> [<a href="#BCP240" class="cite xref">BCP240</a>]</span>,
+                    <span><a href="#RFC9700" class="internal xref">Best Current Practice for OAuth 2.0 Security</a> [<a href="#RFC9700" class="cite xref">RFC9700</a>]</span>,
                     <span><a href="#RFC8725" class="internal xref">JSON Web Token Best Current Practices</a> [<a href="#RFC8725" class="cite xref">RFC8725</a>]</span> and
                     <span><a href="#RFC9068" class="internal xref">JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens</a> [<a href="#RFC9068" class="cite xref">RFC9068</a>]</span> that are not
                     explicitly mentioned in this profile.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
@@ -3023,7 +2737,7 @@ Connection: close
 <p id="section-6-1">This profile addresses the privacy threats identified in <span><a href="#RFC6973" class="internal xref">Privacy Considerations for Internet Protocols</a> [<a href="#RFC6973" class="cite xref">RFC6973</a>]</span> with normative
                 language throughout the document. In particular, this profile requires the use of TLS for all network connections, PKCE, and sender constrained tokens
                 to mitigate the threats in <span>[<a href="#RFC6973" class="cite xref">RFC6973</a>]</span><a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">In OpenID Connect implementations, cilents and servers SHOULD implement the privacy threat mitigations in Section 17 of
+<p id="section-6-2">In OpenID Connect implementations, clients and servers SHOULD implement the privacy threat mitigations in Section 17 of
                 <span><a href="#OpenID.Core" class="internal xref">OpenID Connect Core 1.0</a> [<a href="#OpenID.Core" class="cite xref">OpenID.Core</a>]</span>.<a href="#section-6-2" class="pilcrow">¶</a></p>
 </section>
 <section id="section-7">
@@ -3031,17 +2745,9 @@ Connection: close
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
       </h2>
 <dl class="references">
-<dt id="BCP195">[BCP195]</dt>
-      <dd>
-<span class="refAuthor">Sheffer, Y.</span>, <span class="refAuthor">Holz, R.</span>, and <span class="refAuthor">P. Saint-Andre</span>, <span class="refTitle">"Recommendations for Secure Use of Transport Layer Security (TLS) and Datagram Transport Layer Security (DTLS)"</span>, <span class="seriesInfo">BCP 195</span>, <span class="seriesInfo">RFC 7525</span>, <span class="seriesInfo">DOI 10.17487/RFC7525</span>, <time datetime="2015-05" class="refDate">May 2015</time>, <span>&lt;<a href="http://www.rfc-editor.org/info/bcp195">http://www.rfc-editor.org/info/bcp195</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="BCP240">[BCP240]</dt>
-      <dd>
-<span class="refAuthor">Lodderstedt, T.</span>, <span class="refAuthor">Bradley, J.</span>, <span class="refAuthor">Labunets, A.</span>, and <span class="refAuthor">D. Fett</span>, <span class="refTitle">"Best Current Practice for OAuth 2.0 Security"</span>, <span class="seriesInfo">BCP 240</span>, <span class="seriesInfo">RFC 9700</span>, <span class="seriesInfo">DOI 10.17487/RFC9700</span>, <time datetime="2025-01" class="refDate">January 2025</time>, <span>&lt;<a href="http://www.rfc-editor.org/info/bcp240">http://www.rfc-editor.org/info/bcp240</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="browser-based-apps">[browser-based-apps]</dt>
       <dd>
-<span class="refAuthor">Parecki, A.</span>, <span class="refAuthor">Waite, D.</span>, and <span class="refAuthor">P. De Ryck</span>, <span class="refTitle">"OAuth 2.0 for Browser-Based Applications"</span>, <time datetime="2025-01-17" class="refDate">17 January 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps">https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps</a>&gt;</span>. </dd>
+<span class="refAuthor">Parecki, A.</span>, <span class="refAuthor">Waite, D.</span>, and <span class="refAuthor">P. De Ryck</span>, <span class="refTitle">"OAuth 2.0 for Browser-Based Applications"</span>, <time datetime="2025-12-04" class="refDate">4 December 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps">https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="ECDHE.MLKEM">[ECDHE.MLKEM]</dt>
       <dd>
@@ -3053,11 +2759,11 @@ Connection: close
 <dd class="break"></dd>
 <dt id="OpenID.Core">[OpenID.Core]</dt>
       <dd>
-<span class="refAuthor">Sakimura, N.</span>, <span class="refAuthor">Bradley, J.</span>, <span class="refAuthor">Jones, M.B.</span>, <span class="refAuthor">de Medeiros, B.</span>, and <span class="refAuthor">C. Mortimore</span>, <span class="refTitle">"OpenID Connect Core 1.0"</span>, <time datetime="2015-08-03" class="refDate">3 August 2015</time>, <span>&lt;<a href="http://openid.net/specs/openid-connect-core-1_0.html">http://openid.net/specs/openid-connect-core-1_0.html</a>&gt;</span>. </dd>
+<span class="refAuthor">Sakimura, N.</span>, <span class="refAuthor">Bradley, J.</span>, <span class="refAuthor">Jones, M.B.</span>, <span class="refAuthor">de Medeiros, B.</span>, and <span class="refAuthor">C. Mortimore</span>, <span class="refTitle">"OpenID Connect Core 1.0 incorporating errata set 2"</span>, <time datetime="2023-12-15" class="refDate">15 December 2023</time>, <span>&lt;<a href="http://openid.net/specs/openid-connect-core-1_0.html">http://openid.net/specs/openid-connect-core-1_0.html</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="OpenID.Discovery">[OpenID.Discovery]</dt>
       <dd>
-<span class="refAuthor">Sakimura, N.</span>, <span class="refAuthor">Bradley, J.</span>, <span class="refAuthor">Jones, M.B.</span>, and <span class="refAuthor">E. Jay</span>, <span class="refTitle">"OpenID Connect Discovery 1.0"</span>, <time datetime="2015-08-03" class="refDate">3 August 2015</time>, <span>&lt;<a href="http://openid.net/specs/openid-connect-discovery-1_0.html">http://openid.net/specs/openid-connect-discovery-1_0.html</a>&gt;</span>. </dd>
+<span class="refAuthor">Sakimura, N.</span>, <span class="refAuthor">Bradley, J.</span>, <span class="refAuthor">Jones, M.B.</span>, and <span class="refAuthor">E. Jay</span>, <span class="refTitle">"OpenID Connect Discovery 1.0 incorporating errata set 2"</span>, <time datetime="2023-12-15" class="refDate">15 December 2023</time>, <span>&lt;<a href="http://openid.net/specs/openid-connect-discovery-1_0.html">http://openid.net/specs/openid-connect-discovery-1_0.html</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="OpenID.iGov">[OpenID.iGov]</dt>
       <dd>
@@ -3151,9 +2857,17 @@ Connection: close
       <dd>
 <span class="refAuthor">Sheffer, Y.</span>, <span class="refAuthor">Hardt, D.</span>, and <span class="refAuthor">M. Jones</span>, <span class="refTitle">"JSON Web Token Best Current Practices"</span>, <span class="seriesInfo">BCP 225</span>, <span class="seriesInfo">RFC 8725</span>, <span class="seriesInfo">DOI 10.17487/RFC8725</span>, <time datetime="2020-02" class="refDate">February 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8725">https://www.rfc-editor.org/info/rfc8725</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC8996">[RFC8996]</dt>
+      <dd>
+<span class="refAuthor">Moriarty, K.</span> and <span class="refAuthor">S. Farrell</span>, <span class="refTitle">"Deprecating TLS 1.0 and TLS 1.1"</span>, <span class="seriesInfo">BCP 195</span>, <span class="seriesInfo">RFC 8996</span>, <span class="seriesInfo">DOI 10.17487/RFC8996</span>, <time datetime="2021-03" class="refDate">March 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8996">https://www.rfc-editor.org/info/rfc8996</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC9068">[RFC9068]</dt>
       <dd>
 <span class="refAuthor">Bertocci, V.</span>, <span class="refTitle">"JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens"</span>, <span class="seriesInfo">RFC 9068</span>, <span class="seriesInfo">DOI 10.17487/RFC9068</span>, <time datetime="2021-10" class="refDate">October 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9068">https://www.rfc-editor.org/info/rfc9068</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9325">[RFC9325]</dt>
+      <dd>
+<span class="refAuthor">Sheffer, Y.</span>, <span class="refAuthor">Saint-Andre, P.</span>, and <span class="refAuthor">T. Fossati</span>, <span class="refTitle">"Recommendations for Secure Use of Transport Layer Security (TLS) and Datagram Transport Layer Security (DTLS)"</span>, <span class="seriesInfo">BCP 195</span>, <span class="seriesInfo">RFC 9325</span>, <span class="seriesInfo">DOI 10.17487/RFC9325</span>, <time datetime="2022-11" class="refDate">November 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9325">https://www.rfc-editor.org/info/rfc9325</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9364">[RFC9364]</dt>
       <dd>
@@ -3166,6 +2880,10 @@ Connection: close
 <dt id="RFC9470">[RFC9470]</dt>
       <dd>
 <span class="refAuthor">Bertocci, V.</span> and <span class="refAuthor">B. Campbell</span>, <span class="refTitle">"OAuth 2.0 Step Up Authentication Challenge Protocol"</span>, <span class="seriesInfo">RFC 9470</span>, <span class="seriesInfo">DOI 10.17487/RFC9470</span>, <time datetime="2023-09" class="refDate">September 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9470">https://www.rfc-editor.org/info/rfc9470</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9700">[RFC9700]</dt>
+      <dd>
+<span class="refAuthor">Lodderstedt, T.</span>, <span class="refAuthor">Bradley, J.</span>, <span class="refAuthor">Labunets, A.</span>, and <span class="refAuthor">D. Fett</span>, <span class="refTitle">"Best Current Practice for OAuth 2.0 Security"</span>, <span class="seriesInfo">BCP 240</span>, <span class="seriesInfo">RFC 9700</span>, <span class="seriesInfo">DOI 10.17487/RFC9700</span>, <time datetime="2025-01" class="refDate">January 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9700">https://www.rfc-editor.org/info/rfc9700</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9728">[RFC9728]</dt>
       <dd>
@@ -3225,129 +2943,177 @@ Connection: close
       </h2>
 <p id="appendix-C-1">[[ To be removed from the final specification ]]<a href="#appendix-C-1" class="pilcrow">¶</a></p>
 <p id="appendix-C-2">
-    -09<a href="#appendix-C-2" class="pilcrow">¶</a></p>
+    -10<a href="#appendix-C-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-3.1">
           <p id="appendix-C-3.1.1">
-        Revised Global Requirements for cryptography to emphasize crypto-agility and align with FAPI<a href="#appendix-C-3.1.1" class="pilcrow">¶</a></p>
+        Addressed editorial comments by Matt Topper<a href="#appendix-C-3.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-3.2">
           <p id="appendix-C-3.2.1">
-        Revised Post-Quantum guidance with NIST references and ECDHE-MLKEM draft<a href="#appendix-C-3.2.1" class="pilcrow">¶</a></p>
+        Section 2.1: added text to state that a separate iGov OAuth 2.0 Profile for public clients may be developed in the future<a href="#appendix-C-3.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-3.3">
           <p id="appendix-C-3.3.1">
-        Eliminated RS256 requirements throughout and partially updated examples with PS256<a href="#appendix-C-3.3.1" class="pilcrow">¶</a></p>
+        Section 1.4: dded that RS256 MAY be used for backwards compatability<a href="#appendix-C-3.3.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-3.4">
           <p id="appendix-C-3.4.1">
-        Fixed typos and eliminated redundant or orphaned requirements<a href="#appendix-C-3.4.1" class="pilcrow">¶</a></p>
+        Section 3.1.3: clarified text to prevent Clients from using Dynamic Client Registration in high-assurance government environments, even though is it required to be supported by Authorization Servers<a href="#appendix-C-3.4.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-3.5">
           <p id="appendix-C-3.5.1">
-        Changed date, version, and document history<a href="#appendix-C-3.5.1" class="pilcrow">¶</a></p>
+        Section 2.3: added text from RFC9449 DPoP that every request MUST validate the htm, htu, check for replay, and check the dpop_jkt<a href="#appendix-C-3.5.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-3.6">
+          <p id="appendix-C-3.6.1">
+        Section 3.3: removed "Clients MUST check for reuse of jti values and reject all tokens issued with duplicate jti values." as this may put too much burden on Clients"<a href="#appendix-C-3.6.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-3.7">
+          <p id="appendix-C-3.7.1">
+        Section 1.4: changed "All network connections MUST be made using TLS 1.3 or above" to "All network connections MUST be made using TLS 1.2 or above" to avoid conflicting language<a href="#appendix-C-3.7.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-3.8">
+          <p id="appendix-C-3.8.1">
+        Sectino 2.7.1: changed "bearer" to "sender constrained"<a href="#appendix-C-3.8.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-3.9">
+          <p id="appendix-C-3.9.1">
+        Removed examples and fixed typos<a href="#appendix-C-3.9.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-3.10">
+          <p id="appendix-C-3.10.1">
+        Updated references<a href="#appendix-C-3.10.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-3.11">
+          <p id="appendix-C-3.11.1">
+        Changed date, version, and document history<a href="#appendix-C-3.11.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="appendix-C-4">
-    -08<a href="#appendix-C-4" class="pilcrow">¶</a></p>
+    -09<a href="#appendix-C-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-5.1">
           <p id="appendix-C-5.1.1">
-        Added description of resource server requirements for authentication context and step-up<a href="#appendix-C-5.1.1" class="pilcrow">¶</a></p>
+        Revised Global Requirements for cryptography to emphasize crypto-agility and align with FAPI<a href="#appendix-C-5.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-5.2">
           <p id="appendix-C-5.2.1">
-        Restructured the document so the text flows better<a href="#appendix-C-5.2.1" class="pilcrow">¶</a></p>
+        Revised Post-Quantum guidance with NIST references and ECDHE-MLKEM draft<a href="#appendix-C-5.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-5.3">
           <p id="appendix-C-5.3.1">
-        Added a method to securely discover or declare JWKS-URI for PR/RS<a href="#appendix-C-5.3.1" class="pilcrow">¶</a></p>
+        Eliminated RS256 requirements throughout and partially updated examples with PS256<a href="#appendix-C-5.3.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-5.4">
           <p id="appendix-C-5.4.1">
-        Removed public clients to align with FAPI<a href="#appendix-C-5.4.1" class="pilcrow">¶</a></p>
+        Fixed typos and eliminated redundant or orphaned requirements<a href="#appendix-C-5.4.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-5.5">
           <p id="appendix-C-5.5.1">
-        Moved requirements to correct section<a href="#appendix-C-5.5.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-5.6">
-          <p id="appendix-C-5.6.1">
-        Realigned requirements among AS, client, and PR/RS<a href="#appendix-C-5.6.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-5.7">
-          <p id="appendix-C-5.7.1">
-        Changed date, version, and document history<a href="#appendix-C-5.7.1" class="pilcrow">¶</a></p>
+        Changed date, version, and document history<a href="#appendix-C-5.5.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="appendix-C-6">
-    -06-07<a href="#appendix-C-6" class="pilcrow">¶</a></p>
+    -08<a href="#appendix-C-6" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-7.1">
           <p id="appendix-C-7.1.1">
-        Addressed comments from WGLC request Jan 31, 2025<a href="#appendix-C-7.1.1" class="pilcrow">¶</a></p>
+        Added description of resource server requirements for authentication context and step-up<a href="#appendix-C-7.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-7.2">
+          <p id="appendix-C-7.2.1">
+        Restructured the document so the text flows better<a href="#appendix-C-7.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-7.3">
+          <p id="appendix-C-7.3.1">
+        Added a method to securely discover or declare JWKS-URI for PR/RS<a href="#appendix-C-7.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-7.4">
+          <p id="appendix-C-7.4.1">
+        Removed public clients to align with FAPI<a href="#appendix-C-7.4.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-7.5">
+          <p id="appendix-C-7.5.1">
+        Moved requirements to correct section<a href="#appendix-C-7.5.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-7.6">
+          <p id="appendix-C-7.6.1">
+        Realigned requirements among AS, client, and PR/RS<a href="#appendix-C-7.6.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-7.7">
+          <p id="appendix-C-7.7.1">
+        Changed date, version, and document history<a href="#appendix-C-7.7.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="appendix-C-8">
-    -05<a href="#appendix-C-8" class="pilcrow">¶</a></p>
+    -06-07<a href="#appendix-C-8" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-9.1">
           <p id="appendix-C-9.1.1">
-        Updated BCP mitigations, aligned with FAPI<a href="#appendix-C-9.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-9.2">
-          <p id="appendix-C-9.2.1">
-        Harmonized cryptography, sender constrained tokens with FAPI<a href="#appendix-C-9.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-9.3">
-          <p id="appendix-C-9.3.1">
-        Added requirement and optionality for authentication context and support for Step-up (RFC 9470)<a href="#appendix-C-9.3.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-9.4">
-          <p id="appendix-C-9.4.1">
-        Added Privacy Considerations (RFC 6973)<a href="#appendix-C-9.4.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-9.5">
-          <p id="appendix-C-9.5.1">
-        Added optionality to support enterprise tailoring, especially RFC 8705 mTLS with PKI<a href="#appendix-C-9.5.1" class="pilcrow">¶</a></p>
+        Addressed comments from WGLC request Jan 31, 2025<a href="#appendix-C-9.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="appendix-C-10">
-    -04<a href="#appendix-C-10" class="pilcrow">¶</a></p>
+    -05<a href="#appendix-C-10" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-11.1">
           <p id="appendix-C-11.1.1">
-        Enable building with https://author-tools.ietf.org/.<a href="#appendix-C-11.1.1" class="pilcrow">¶</a></p>
+        Updated BCP mitigations, aligned with FAPI<a href="#appendix-C-11.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-11.2">
           <p id="appendix-C-11.2.1">
-        Applied OpenID specification conventions.<a href="#appendix-C-11.2.1" class="pilcrow">¶</a></p>
+        Harmonized cryptography, sender constrained tokens with FAPI<a href="#appendix-C-11.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-11.3">
+          <p id="appendix-C-11.3.1">
+        Added requirement and optionality for authentication context and support for Step-up (RFC 9470)<a href="#appendix-C-11.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-11.4">
+          <p id="appendix-C-11.4.1">
+        Added Privacy Considerations (RFC 6973)<a href="#appendix-C-11.4.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-11.5">
+          <p id="appendix-C-11.5.1">
+        Added optionality to support enterprise tailoring, especially RFC 8705 mTLS with PKI<a href="#appendix-C-11.5.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="appendix-C-12">
-    -03<a href="#appendix-C-12" class="pilcrow">¶</a></p>
+    -04<a href="#appendix-C-12" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-13.1">
           <p id="appendix-C-13.1.1">
-        First Implementer's Draft<a href="#appendix-C-13.1.1" class="pilcrow">¶</a></p>
+        Enable building with https://author-tools.ietf.org/.<a href="#appendix-C-13.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-13.2">
+          <p id="appendix-C-13.2.1">
+        Applied OpenID specification conventions.<a href="#appendix-C-13.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-14">-2017-06-01<a href="#appendix-C-14" class="pilcrow">¶</a></p>
+<p id="appendix-C-14">
+    -03<a href="#appendix-C-14" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-15.1">
-          <p id="appendix-C-15.1.1">Aligned with prior version of iGov.<a href="#appendix-C-15.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-15.2">
-          <p id="appendix-C-15.2.1">Added guidance text around using scopes and refresh_tokens to protect sensitive resources.<a href="#appendix-C-15.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-15.3">
-          <p id="appendix-C-15.3.1">Removed ACR reference.<a href="#appendix-C-15.3.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-15.1.1">
+        First Implementer's Draft<a href="#appendix-C-15.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-16">-2018-05-07<a href="#appendix-C-16" class="pilcrow">¶</a></p>
+<p id="appendix-C-16">-2017-06-01<a href="#appendix-C-16" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-17.1">
-          <p id="appendix-C-17.1.1">Imported content from HEART OAuth profile.<a href="#appendix-C-17.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-17.1.1">Aligned with prior version of iGov.<a href="#appendix-C-17.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-17.2">
+          <p id="appendix-C-17.2.1">Added guidance text around using scopes and refresh_tokens to protect sensitive resources.<a href="#appendix-C-17.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-17.3">
+          <p id="appendix-C-17.3.1">Removed ACR reference.<a href="#appendix-C-17.3.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="appendix-C-18">-2018-05-07<a href="#appendix-C-18" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-C-19.1">
+          <p id="appendix-C-19.1.1">Imported content from HEART OAuth profile.<a href="#appendix-C-19.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
