@@ -1223,7 +1223,6 @@
                 <t> If a client uses <xref target="RFC9449">DPoP</xref> to sender constrain tokens, the protected resource 
                 MUST validate the htm and htu claims, check for replay, and validate the dpop_jkt parameter.</t>
 
-                <t> 
                 <t>Protected resources MAY use authentication context or step up authentication to implement access controls.
 </t>
 
