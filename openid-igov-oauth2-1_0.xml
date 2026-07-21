@@ -1162,9 +1162,6 @@ https://https://client.example.org/cb?
                             bits
                             of entropy. This value MUST NOT be re-used in another
                             token.
-                            Clients MUST check for reuse of jti values and reject all
-                            tokens
-                            issued with duplicate jti values.
                         </t>
 
                         <t hangText="sub">The identifier of the end-user that authorized
