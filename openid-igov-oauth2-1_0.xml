@@ -736,6 +736,7 @@
                             </t>
 
                         </list>
+                        </t>
                         
                         <t>It is NOT RECOMMENDED that authorization servers use IP address or email address to identify
                         authenticating clients. It is also NOT RECOMMENDED that authorization servers use tls_client_auth_san_ip or tls_client_auth_san_email metadata values
