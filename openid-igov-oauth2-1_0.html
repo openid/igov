@@ -37,7 +37,7 @@
     wcwidth 0.8.2
     weasyprint 69.0
 -->
-<link href="2026-07-21_openid-igov-oauth2-1_0.xml" rel="alternate" type="application/rfc+xml">
+<link href="openid-igov-openid-connect-1_0.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
 <style type="text/css">/*
 
@@ -1226,7 +1226,7 @@ li > p:last-of-type:only-child {
 <thead><tr>
 <td class="left"></td>
 <td class="center">iGov OAuth 2.0</td>
-<td class="right">May 2026</td>
+<td class="right">July 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Burgin &amp; Clancy</td>
@@ -1241,7 +1241,7 @@ li > p:last-of-type:only-child {
 <dd class="workgroup">OpenID iGov Working Group</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-05-25" class="published">25 May 2026</time>
+<time datetime="2026-07-25" class="published">25 July 2026</time>
     </dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
@@ -1359,10 +1359,10 @@ li > p:last-of-type:only-child {
                     <p id="section-toc.1-1.3.2.1.2.4.1"><a href="#section-3.1.4" class="auto internal xref">3.1.4</a>.  <a href="#name-client-approval" class="internal xref">Client Approval</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1.2.5">
-                    <p id="section-toc.1-1.3.2.1.2.5.1"><a href="#section-3.1.5" class="auto internal xref">3.1.5</a>.  <a href="#name-sender-constrained-tokens-2" class="internal xref">Sender-constrained Tokens</a></p>
+                    <p id="section-toc.1-1.3.2.1.2.5.1"><a href="#section-3.1.5" class="auto internal xref">3.1.5</a>.  <a href="#name-discovery" class="internal xref">Discovery</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1.2.6">
-                    <p id="section-toc.1-1.3.2.1.2.6.1"><a href="#section-3.1.6" class="auto internal xref">3.1.6</a>.  <a href="#name-discovery" class="internal xref">Discovery</a></p>
+                    <p id="section-toc.1-1.3.2.1.2.6.1"><a href="#section-3.1.6" class="auto internal xref">3.1.6</a>.  <a href="#name-sender-constrained-tokens-2" class="internal xref">Sender-constrained Tokens</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1.2.7">
                     <p id="section-toc.1-1.3.2.1.2.7.1"><a href="#section-3.1.7" class="auto internal xref">3.1.7</a>.  <a href="#name-revocation" class="internal xref">Revocation</a></p>
@@ -1878,6 +1878,36 @@ li > p:last-of-type:only-child {
                         <span><a href="#RFC7523" class="internal xref">JWT Profile for OAuth 2.0 Client Authentication and Authorization Grants</a> [<a href="#RFC7523" class="cite xref">RFC7523</a>]</span>. The JWT assertion MUST be signed
                         by the client using the client's private key.
                         If using <span><a href="#RFC8705" class="internal xref">mTLS</a> [<a href="#RFC8705" class="cite xref">RFC8705</a>]</span>, the request MUST be made over a mutually authenticated TLS channel.<a href="#section-2.6.2-2" class="pilcrow">¶</a></p>
+<p id="section-2.6.2-3">If a client uses <span><a href="#RFC8705" class="internal xref">OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens</a> [<a href="#RFC8705" class="cite xref">RFC8705</a>]</span> for
+                        client authentication, exactly one authentication method value MUST be included in the client's metadata parameters.<a href="#section-2.6.2-3" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-2.6.2-4">
+            <dt id="section-2.6.2-4.1">tls_client_auth</dt>
+            <dd style="margin-left: 1.5em" id="section-2.6.2-4.2">Indicates that client authentication to the authorization server will occur with mutual TLS
+                                utilizing the PKI method of associating a certificate to a client.<a href="#section-2.6.2-4.2" class="pilcrow">¶</a>
+</dd>
+            <dd class="break"></dd>
+<dt id="section-2.6.2-4.3">self_signed_tls_client_auth</dt>
+            <dd style="margin-left: 1.5em" id="section-2.6.2-4.4">Indicates that client authentication to the authorization server will occur using mutual TLS
+                                with the client utilizing a self-signed certificate.<a href="#section-2.6.2-4.4" class="pilcrow">¶</a>
+</dd>
+          <dd class="break"></dd>
+</dl>
+<p id="section-2.6.2-5"> A client using the tls_client_auth authentication method MUST use exactly one of the below metadata parameters to indicate the certificate
+                        subject value that the authorization server is to expect when authenticating the respective client:<a href="#section-2.6.2-5" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-2.6.2-6">
+            <dt id="section-2.6.2-6.1">tls_client_auth_subject_dn</dt>
+            <dd style="margin-left: 1.5em" id="section-2.6.2-6.2">String value specifying the expected subject DN of the client certificate.<a href="#section-2.6.2-6.2" class="pilcrow">¶</a>
+</dd>
+            <dd class="break"></dd>
+<dt id="section-2.6.2-6.3">tls_client_auth_san_dns</dt>
+            <dd style="margin-left: 1.5em" id="section-2.6.2-6.4">String value specifying the expected dNSName SAN entry in the client certificate.<a href="#section-2.6.2-6.4" class="pilcrow">¶</a>
+</dd>
+            <dd class="break"></dd>
+<dt id="section-2.6.2-6.5">tls_client_auth_san_uri</dt>
+            <dd style="margin-left: 1.5em" id="section-2.6.2-6.6">String value specifying the expected uniformResourceIdentifier SAN entry in the client certificate.<a href="#section-2.6.2-6.6" class="pilcrow">¶</a>
+</dd>
+          <dd class="break"></dd>
+</dl>
 </section>
 </div>
 <section id="section-2.6.3">
@@ -1928,7 +1958,7 @@ li > p:last-of-type:only-child {
 <a href="#section-2.7.1" class="section-number selfRef">2.7.1. </a><a href="#name-requests-to-the-protected-r" class="section-name selfRef">Requests to the Protected Resource</a>
           </h4>
 <p id="section-2.7.1-1">
-                        Clients MUST use the authorization request header field mechanism to send bearer tokens as defined by
+                        Clients MUST use the authorization request header field mechanism to send sender-constrained tokens as defined by
                         <span>[<a href="#RFC6750" class="cite xref">RFC6750</a>]</span>.<a href="#section-2.7.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -2086,26 +2116,8 @@ li > p:last-of-type:only-child {
 </dd>
           <dd class="break"></dd>
 </dl>
-<p id="section-3.1.3-4">
-                        A client using the tls_client_auth authentication method MUST use exactly one of the below metadata parameters to indicate the certificate
-                        subject value that the authorization server is to expect when authenticating the respective client:<a href="#section-3.1.3-4" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlParallel" id="section-3.1.3-5">
-            <dt id="section-3.1.3-5.1">tls_client_auth_subject_dn</dt>
-            <dd style="margin-left: 1.5em" id="section-3.1.3-5.2">String value specifying the expected subject DN of the client certificate.<a href="#section-3.1.3-5.2" class="pilcrow">¶</a>
-</dd>
-            <dd class="break"></dd>
-<dt id="section-3.1.3-5.3">tls_client_auth_san_dns</dt>
-            <dd style="margin-left: 1.5em" id="section-3.1.3-5.4">String value specifying the expected dNSName SAN entry in the client certificate.<a href="#section-3.1.3-5.4" class="pilcrow">¶</a>
-</dd>
-            <dd class="break"></dd>
-<dt id="section-3.1.3-5.5">tls_client_auth_san_uri</dt>
-            <dd style="margin-left: 1.5em" id="section-3.1.3-5.6">String value specifying the expected uniformResourceIdentifier SAN entry in the client certificate.<a href="#section-3.1.3-5.6" class="pilcrow">¶</a>
-</dd>
-          <dd class="break"></dd>
-</dl>
-<p id="section-3.1.3-6">
-                        It is NOT RECOMMENDED that authorization servers use IP address or email address to identify
-                        authenticating clients. It is also NOT RECOMMENDED that authorization servers use tls_client_auth_san_ip or tls_client_auth_san_email metadata values<a href="#section-3.1.3-6" class="pilcrow">¶</a></p>
+<p id="section-3.1.3-4">It is NOT RECOMMENDED that authorization servers use IP address or email address to identify
+                        authenticating clients. It is also NOT RECOMMENDED that authorization servers use tls_client_auth_san_ip or tls_client_auth_san_email metadata values<a href="#section-3.1.3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="ClientApproval">
@@ -2136,131 +2148,147 @@ li > p:last-of-type:only-child {
                      sharing sensitive information.<a href="#section-3.1.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
-<section id="section-3.1.5">
-          <h4 id="name-sender-constrained-tokens-2">
-<a href="#section-3.1.5" class="section-number selfRef">3.1.5. </a><a href="#name-sender-constrained-tokens-2" class="section-name selfRef">Sender-constrained Tokens</a>
-          </h4>
-<p id="section-3.1.5-1"> The authorization server MUST support and verify sender-constrained tokens.<a href="#section-3.1.5-1" class="pilcrow">¶</a></p>
-<p id="section-3.1.5-2">The Authorization Server MUST NOT issue the client an access token if the client included the
-                    <code>tls_client_certificate_bound_access_tokens</code>
-                    parameter in its registration metadata and makes a request to the token endpoint over connection not secured by TLS.<a href="#section-3.1.5-2" class="pilcrow">¶</a></p>
-<p id="section-3.1.5-3"> If a client uses <span><a href="#RFC9449" class="internal xref">DPoP</a> [<a href="#RFC9449" class="cite xref">RFC9449</a>]</span> to sender constrain tokens, the authorization server
-                MUST validate the htm and htu claims, check for replay, and validate the dpop_jkt parameter.<a href="#section-3.1.5-3" class="pilcrow">¶</a></p>
-</section>
 <div id="Discovery">
-<section id="section-3.1.6">
+<section id="section-3.1.5">
           <h4 id="name-discovery">
-<a href="#section-3.1.6" class="section-number selfRef">3.1.6. </a><a href="#name-discovery" class="section-name selfRef">Discovery</a>
+<a href="#section-3.1.5" class="section-number selfRef">3.1.5. </a><a href="#name-discovery" class="section-name selfRef">Discovery</a>
           </h4>
-<p id="section-3.1.6-1">
-                        The authorization server MUST provide an
-                        <span><a href="#OpenID.Discovery" class="internal xref">OpenID Connect service discovery</a> [<a href="#OpenID.Discovery" class="cite xref">OpenID.Discovery</a>]</span>
-                        endpoint listing the components relevant to the OAuth 2.0 protocol:<a href="#section-3.1.6-1" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlParallel" id="section-3.1.6-2">
-            <dt id="section-3.1.6-2.1">issuer</dt>
-            <dd style="margin-left: 1.5em" id="section-3.1.6-2.2"> REQUIRED. The fully qualified issuer URL of the
-                                server<a href="#section-3.1.6-2.2" class="pilcrow">¶</a>
+<p id="section-3.1.5-1">
+                        The authorization server MUST provide a JSON document that declares its endpoint locations and authorization server
+                        capabilities at a well-known URI as described in Section 3 of
+                        <span><a href="#RFC8414" class="internal xref">OAuth 2.0 Authorization Server Metadata</a> [<a href="#RFC8414" class="cite xref">RFC8414</a>]</span>. This authorization server metadata
+                        MUST include the following values defined in <span><a href="#OpenID.Discovery" class="internal xref">OpenID Connect service discovery</a> [<a href="#OpenID.Discovery" class="cite xref">OpenID.Discovery</a>]</span>.<a href="#section-3.1.5-1" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-3.1.5-2">
+            <dt id="section-3.1.5-2.1">issuer</dt>
+            <dd style="margin-left: 1.5em" id="section-3.1.5-2.2"> The fully qualified issuer URL of the
+                                server<a href="#section-3.1.5-2.2" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
-<dt id="section-3.1.6-2.3">authorization_endpoint</dt>
-            <dd style="margin-left: 1.5em" id="section-3.1.6-2.4">
-                                REQUIRED. The fully qualified URL of
+<dt id="section-3.1.5-2.3">authorization_endpoint</dt>
+            <dd style="margin-left: 1.5em" id="section-3.1.5-2.4">
+                                The fully qualified URL of
                                 the server's authorization endpoint
                                 defined by
-                                <span><a href="#RFC6749" class="internal xref">OAuth 2.0</a> [<a href="#RFC6749" class="cite xref">RFC6749</a>]</span><a href="#section-3.1.6-2.4" class="pilcrow">¶</a>
+                                <span><a href="#RFC6749" class="internal xref">OAuth 2.0</a> [<a href="#RFC6749" class="cite xref">RFC6749</a>]</span><a href="#section-3.1.5-2.4" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
-<dt id="section-3.1.6-2.5">token_endpoint</dt>
-            <dd style="margin-left: 1.5em" id="section-3.1.6-2.6">
-                                REQUIRED. The fully qualified URL of the
+<dt id="section-3.1.5-2.5">token_endpoint</dt>
+            <dd style="margin-left: 1.5em" id="section-3.1.5-2.6">
+                                The fully qualified URL of the
                                 server's token endpoint defined by
                                 <span><a href="#RFC6749" class="internal xref">OAuth
-                                    2.0</a> [<a href="#RFC6749" class="cite xref">RFC6749</a>]</span><a href="#section-3.1.6-2.6" class="pilcrow">¶</a>
+                                    2.0</a> [<a href="#RFC6749" class="cite xref">RFC6749</a>]</span><a href="#section-3.1.5-2.6" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
-<dt id="section-3.1.6-2.7">token_endpoint_auth_methods_supported</dt>
-            <dd style="margin-left: 1.5em" id="section-3.1.6-2.8">
-                                REQUIRED. String of values corresponding to permitted methods for client authentication to the authorization server
+<dt id="section-3.1.5-2.7">jwks_uri</dt>
+            <dd style="margin-left: 1.5em" id="section-3.1.5-2.8">
+                                The fully qualified URI of the server's
+                                JWK as defined in
+                                <span><a href="#RFC8414" class="internal xref">OAuth 2.0 Authorization Server Metadata</a> [<a href="#RFC8414" class="cite xref">RFC8414</a>]</span>.
+                                If the self_signed_tls_auth method is used, a jwks_uri MUST be registered and MUST include a certificate.<a href="#section-3.1.5-2.8" class="pilcrow">¶</a>
+</dd>
+            <dd class="break"></dd>
+<dt id="section-3.1.5-2.9">registration_endpoint</dt>
+            <dd style="margin-left: 1.5em" id="section-3.1.5-2.10">
+                                The fully qualified URI of the server's
+                                URL of the authorization server's <span><a href="#RFC7591" class="internal xref">OAuth 2.0 Dynamic Client Registration Protocol</a> [<a href="#RFC7591" class="cite xref">RFC7591</a>]</span>
+                                endpoint.<a href="#section-3.1.5-2.10" class="pilcrow">¶</a>
+</dd>
+            <dd class="break"></dd>
+<dt id="section-3.1.5-2.11">token_endpoint_auth_methods_supported</dt>
+            <dd style="margin-left: 1.5em" id="section-3.1.5-2.12">
+                            JSON array containing a list of client authentication methods supported by the token endpoint.
+                            Within this profile, the server MUST provide one or more of the following values: "private_key_jwt", "tls_client_auth",
+                                and "self_signed_tls_auth".<a href="#section-3.1.5-2.12" class="pilcrow">¶</a>
+</dd>
+            <dd class="break"></dd>
+<dt id="section-3.1.5-2.13">token_endpoint_auth_methods_supported</dt>
+            <dd style="margin-left: 1.5em" id="section-3.1.5-2.14">
+                                String of values corresponding to permitted methods for client authentication to the authorization server
                                 as defined in <span><a href="#RFC7591" class="internal xref">OAuth 2.0 Dynamic Client Registration Protocol</a> [<a href="#RFC7591" class="cite xref">RFC7591</a>]</span>.
                                 Within this profile, the server MUST provide one or more of the following values: "private_key_jwt", "tls_client_auth",
-                                and "self_signed_tls_client_auth".<a href="#section-3.1.6-2.8" class="pilcrow">¶</a>
+                                and "self_signed_tls_client_auth".<a href="#section-3.1.5-2.14" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
-<dt id="section-3.1.6-2.9">introspection_endpoint</dt>
-            <dd style="margin-left: 1.5em" id="section-3.1.6-2.10">
-                                OPTIONAL. The fully qualified URL of
-                                the server's introspection endpoint
-                                defined by
-                                <span><a href="#RFC7662" class="internal xref">OAuth Token Introspection</a> [<a href="#RFC7662" class="cite xref">RFC7662</a>]</span><a href="#section-3.1.6-2.10" class="pilcrow">¶</a>
-</dd>
-            <dd class="break"></dd>
-<dt id="section-3.1.6-2.11">revocation_endpoint</dt>
-            <dd style="margin-left: 1.5em" id="section-3.1.6-2.12">
-                                OPTIONAL. The fully qualified URL of the
+<dt id="section-3.1.5-2.15">revocation_endpoint</dt>
+            <dd style="margin-left: 1.5em" id="section-3.1.5-2.16">
+                                The fully qualified URL of the
                                 server's revocation endpoint
                                 defined by
-                                <span><a href="#RFC7009" class="internal xref">OAuth 2.0 Token Revocation</a> [<a href="#RFC7009" class="cite xref">RFC7009</a>]</span><a href="#section-3.1.6-2.12" class="pilcrow">¶</a>
+                                <span><a href="#RFC7009" class="internal xref">OAuth 2.0 Token Revocation</a> [<a href="#RFC7009" class="cite xref">RFC7009</a>]</span><a href="#section-3.1.5-2.16" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
-<dt id="section-3.1.6-2.13">mtls_endpoint_aliases</dt>
-            <dd style="margin-left: 1.5em" id="section-3.1.6-2.14">
-                                OPTIONAL. A JSON object containing alternative
+<dt id="section-3.1.5-2.17">introspection_endpoint</dt>
+            <dd style="margin-left: 1.5em" id="section-3.1.5-2.18">
+                                The fully qualified URL of
+                                the server's introspection endpoint
+                                defined in
+                                <span><a href="#RFC7662" class="internal xref">OAuth 2.0 Token Introspection</a> [<a href="#RFC7662" class="cite xref">RFC7662</a>]</span><a href="#section-3.1.5-2.18" class="pilcrow">¶</a>
+</dd>
+            <dd class="break"></dd>
+<dt id="section-3.1.5-2.19">tls_client_certificate_bound_access_tokens</dt>
+            <dd style="margin-left: 1.5em" id="section-3.1.5-2.20">
+                            Boolean value indicating server support for mutual-TLS client certificate-bound
+                            access tokens as defined in <span><a href="#RFC8705" class="internal xref">OAuth 2.0 Mutual-TLS Client
+                            Authentication and Certificate-Bound Access Tokens</a> [<a href="#RFC8705" class="cite xref">RFC8705</a>]</span>. If omitted, the default value is false.<a href="#section-3.1.5-2.20" class="pilcrow">¶</a>
+</dd>
+            <dd class="break"></dd>
+<dt id="section-3.1.5-2.21">mtls_endpoint_aliases</dt>
+            <dd style="margin-left: 1.5em" id="section-3.1.5-2.22">
+                                A JSON object (a map of key-value pairs) containing alternative
                                 authorization server endpoints that, when present, an OAuth client intending to perform
                                 mutual TLS uses in preference to the conventional endpoints. Use of this parameter enables isolation
                                 of mTLS behavior to only clients intending to use mTLS for authentication or sender-constraining tokens.
                                 Usage of the parameter is specified in
-                                <span><a href="#RFC8705" class="internal xref">OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens</a> [<a href="#RFC8705" class="cite xref">RFC8705</a>]</span><a href="#section-3.1.6-2.14" class="pilcrow">¶</a>
+                                <span><a href="#RFC8705" class="internal xref">OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens</a> [<a href="#RFC8705" class="cite xref">RFC8705</a>]</span><a href="#section-3.1.5-2.22" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
-<dt id="section-3.1.6-2.15">jwks_uri</dt>
-            <dd style="margin-left: 1.5em" id="section-3.1.6-2.16">
-                                REQUIRED. The fully qualified URI of the server's
-                                JWK as defined in
-                                <span><a href="#RFC8414" class="internal xref">OAuth 2.0 Authorization Server Metadata</a> [<a href="#RFC8414" class="cite xref">RFC8414</a>]</span>.
-                                If the self_signed_tls_client_auth method is used, a jwks_uri MUST be registered and MUST include a certificate.<a href="#section-3.1.6-2.16" class="pilcrow">¶</a>
+<dt id="section-3.1.5-2.23">dpop_signing_alg_values_supported</dt>
+            <dd style="margin-left: 1.5em" id="section-3.1.5-2.24">
+                            A JSON array containing a list of the JWS alg values supported by the authorization server for DPoP proof JWTs.
+                            If omitted, the default value is false.<a href="#section-3.1.5-2.24" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 </dl>
-<p id="section-3.1.6-3">If a client uses <span><a href="#RFC8705" class="internal xref">OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens</a> [<a href="#RFC8705" class="cite xref">RFC8705</a>]</span>S for
-                    client authentication, exactly one authentication method metadata value MUST be included.<a href="#section-3.1.6-3" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlParallel" id="section-3.1.6-4">
-            <dt id="section-3.1.6-4.1">tls_client_auth</dt>
-            <dd style="margin-left: 1.5em" id="section-3.1.6-4.2">Indicates that client authentication to the authorization server will occur with mutual TLS
-                                utilizing the PKI method of associating a certificate to a client.<a href="#section-3.1.6-4.2" class="pilcrow">¶</a>
-</dd>
-            <dd class="break"></dd>
-<dt id="section-3.1.6-4.3">self_signed_tls_client_auth</dt>
-            <dd style="margin-left: 1.5em" id="section-3.1.6-4.4">Indicates that client authentication to the authorization server will occur using mutual TLS
-                                with the client utilizing a self-signed certificate.<a href="#section-3.1.6-4.4" class="pilcrow">¶</a>
-</dd>
-          <dd class="break"></dd>
-</dl>
-<p id="section-3.1.6-5">If the authorization server is also an OpenID Connect Provider,
+<p id="section-3.1.5-3"> If the tls_client_certificate_bound_access_tokens metadata parameter is set to "false", then the authorization
+                    server MUST include at least one DPoP signing algorithm in the dpop_signing_alg_values_supported metadata oaremeter.<a href="#section-3.1.5-3" class="pilcrow">¶</a></p>
+<p id="section-3.1.5-4">If the authorization server is also an OpenID Connect Provider,
                         it MUST provide a discovery endpoint meeting the requirements
                         listed
-                        in Section 3.6 of <span><a href="#OpenID.Core" class="internal xref">OpenID Connect Core 1.0</a> [<a href="#OpenID.Core" class="cite xref">OpenID.Core</a>]</span>.<a href="#section-3.1.6-5" class="pilcrow">¶</a></p>
-<p id="section-3.1.6-6">It is RECOMMENDED that authorization servers provide cache information through HTTP headers and make the cache valid for at
-                    least one week. This allows clients and protected resources to cache the discovery information.<a href="#section-3.1.6-6" class="pilcrow">¶</a></p>
-<p id="section-3.1.6-7">The authorization server MUST provide its public key in JWK Set format. The
+                        in Section 3.6 of <span><a href="#OpenID.Core" class="internal xref">OpenID Connect Core 1.0</a> [<a href="#OpenID.Core" class="cite xref">OpenID.Core</a>]</span>.<a href="#section-3.1.5-4" class="pilcrow">¶</a></p>
+<p id="section-3.1.5-5">It is RECOMMENDED that authorization servers provide cache information through HTTP headers and make the cache valid for at
+                    least one week. This allows clients and protected resources to cache the discovery information.<a href="#section-3.1.5-5" class="pilcrow">¶</a></p>
+<p id="section-3.1.5-6">The authorization server MUST provide its public key in JWK Set format. The
                         key
-                        MUST contain the following fields:<a href="#section-3.1.6-7" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlParallel" id="section-3.1.6-8">
-            <dt id="section-3.1.6-8.1">kid</dt>
-            <dd style="margin-left: 1.5em" id="section-3.1.6-8.2">The key ID of the key pair used to sign this
-                                token<a href="#section-3.1.6-8.2" class="pilcrow">¶</a>
+                        MUST contain the following fields:<a href="#section-3.1.5-6" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-3.1.5-7">
+            <dt id="section-3.1.5-7.1">kid</dt>
+            <dd style="margin-left: 1.5em" id="section-3.1.5-7.2">The key ID of the key pair used to sign this
+                                token<a href="#section-3.1.5-7.2" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
-<dt id="section-3.1.6-8.3">kty</dt>
-            <dd style="margin-left: 1.5em" id="section-3.1.6-8.4">The key type<a href="#section-3.1.6-8.4" class="pilcrow">¶</a>
+<dt id="section-3.1.5-7.3">kty</dt>
+            <dd style="margin-left: 1.5em" id="section-3.1.5-7.4">The key type<a href="#section-3.1.5-7.4" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
-<dt id="section-3.1.6-8.5">alg</dt>
-            <dd style="margin-left: 1.5em" id="section-3.1.6-8.6">The default algorithm used for this key<a href="#section-3.1.6-8.6" class="pilcrow">¶</a>
+<dt id="section-3.1.5-7.5">alg</dt>
+            <dd style="margin-left: 1.5em" id="section-3.1.5-7.6">The default algorithm used for this key<a href="#section-3.1.5-7.6" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 </dl>
 </section>
 </div>
+<section id="section-3.1.6">
+          <h4 id="name-sender-constrained-tokens-2">
+<a href="#section-3.1.6" class="section-number selfRef">3.1.6. </a><a href="#name-sender-constrained-tokens-2" class="section-name selfRef">Sender-constrained Tokens</a>
+          </h4>
+<p id="section-3.1.6-1"> The authorization server MUST support and verify sender-constrained tokens.<a href="#section-3.1.6-1" class="pilcrow">¶</a></p>
+<p id="section-3.1.6-2">The Authorization Server MUST NOT issue the client an access token if the client included the
+                    <code>tls_client_certificate_bound_access_tokens</code>
+                    parameter in its registration metadata and makes a request to the token endpoint over connection not secured by TLS.<a href="#section-3.1.6-2" class="pilcrow">¶</a></p>
+<p id="section-3.1.6-3"> If a client uses <span><a href="#RFC9449" class="internal xref">DPoP</a> [<a href="#RFC9449" class="cite xref">RFC9449</a>]</span> to sender constrain tokens, the authorization server
+                MUST validate the htm and htu claims, check for replay, and validate the dpop_jkt parameter.<a href="#section-3.1.6-3" class="pilcrow">¶</a></p>
+</section>
 <section id="section-3.1.7">
           <h4 id="name-revocation">
 <a href="#section-3.1.7" class="section-number selfRef">3.1.7. </a><a href="#name-revocation" class="section-name selfRef">Revocation</a>
