@@ -43,8 +43,8 @@ The iGov WG continues to evolve and refine its work, driven by the needs of the 
 ## Current Focus
 
 The iGov WG has been focused on updating the OAuth 2.0 profile specification to create a Implementer's Draft #2, which was approved April 13, 2026.
-[iGov OAuth 2.0 profile Implementer's Draft #2](https://openid.net/specs/openid-igov-oauth2-1_0-ID2.html)
-[Blog post](https://openid.net/implementers-draft-of-international-government-assurance-igov-profile-for-oauth-2-0-approved/)
++ [iGov OAuth 2.0 profile Implementer's Draft #2](https://openid.net/specs/openid-igov-oauth2-1_0-ID2.html)
++ [Blog post](https://openid.net/implementers-draft-of-international-government-assurance-igov-profile-for-oauth-2-0-approved/)
 
 ## Get Involved
 
