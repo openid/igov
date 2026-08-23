@@ -1646,7 +1646,7 @@ Appendix C.  Document History
       Profile for public clients may be developed in the future
 
    *  Section 1.4: dded that RS256 MAY be used for backwards
-      compatability
+      compatibility
 
    *  Section 3.1.3: clarified text to prevent Clients from using
       Dynamic Client Registration in high-assurance government
