@@ -2,9 +2,9 @@
 # <?xml version="1.0" encoding="US-ASCII"?>
 # <!DOCTYPE rfc PUBLIC "-//IETF//DTD RFC 2629//EN" "http://xml2rfc.tools.ietf.org/authoring/rfc2629.dtd">
 # <?xml-stylesheet type='text/xsl' href='http://xml2rfc.tools.ietf.org/authoring/rfc2629.xslt' ?>
-# <!-- NOTE: This XML file is input used to produce the authoritative copy
+# <!-- NOTE: This MD file is input used to produce the authoritative copy
 #     of an OpenID Foundation specification. The authoritative copy is the HTML
-#     output. This XML source file is not authoritative. The statement ipr="none"
+#     output. This MD source file is not authoritative. The statement ipr="none"
 #     is present only to satisfy the document compilation tool and is not indicative
 #     of the IPR status of this specification. The IPR for this specification is
 #     described in the "Notices" section. This is a public OpenID Foundation document
