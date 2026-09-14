@@ -1166,7 +1166,7 @@ proprietary rights that may cover technology that may be required to practice th
 * Addressed editorial comments by Matt Topper
 * Section 2.1: added text to state that a separate iGov OAuth 2.0 Profile for public clients may be
   developed in the future
-* Section 1.4: dded that RS256 MAY be used for backwards compatability
+* Section 1.4: added that RS256 MAY be used for backwards compatibility
 * Section 3.1.3: clarified text to prevent Clients from using Dynamic Client Registration in
   high-assurance government environments, even though is it required to be supported by
   Authorization Servers
