@@ -513,7 +513,7 @@ of the client's registered jwks\_uri document and verify that it contains a JWK 
 ### Requests to the Protected Resource {#RequestsToProtectedResource}
 
 Clients MUST use the authorization request header field mechanism to send sender-constrained tokens
-as defined by {{RFC6750}}.
+as defined by either {{RFC9449}} or {{RFC8705}}.
 
 <!-- End of Connections to Protected Resource section -->
 
