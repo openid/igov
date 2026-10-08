@@ -449,7 +449,7 @@ max\_age
 Furthermore, if the authorization request is a follow-up to a prior request that did not meet the
 resource server's initial or subsequent authentication strength or recency requirements, the client
 should include the acr\_values and/or max\_age values sent by the resource server with the
-insuffient\_user\_authentication error code that specify expected strength and recency requirements
+insufficient\_user\_authentication error code that specify expected strength and recency requirements
 to be provided to the authentication provider, such as the OpenID Provider, in a new authentication
 request.
 
