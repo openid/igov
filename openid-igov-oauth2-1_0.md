@@ -189,7 +189,7 @@ purposes:
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT",
 "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as
-described in [RFC 2119](#RFC2119) .
+described in {{RFC 2119}}.
 
 All uses of [JSON Web Signature (JWS)](#RFC7515) and [JSON Web Encryption (JWE)](#RFC7516) data
 structures in this specification utilize the JWS Compact Serialization or the JWE Compact
