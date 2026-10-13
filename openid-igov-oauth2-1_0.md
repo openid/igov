@@ -579,7 +579,7 @@ access has expired without requiring an additional user authentication/authoriza
 Dynamic Registration allows for authorized Clients to on-board programmatically without
 administrative intervention. This is particularly important in ecosystems with many potential
 Clients, including Mobile Apps acting as independent Clients. Authorization servers MUST support
-dynamic client registration, and clients MAY register using the
+dynamic client registration, and clients MAY register dynamically using the
 [Dynamic Client Registration Protocol](#RFC7591) for authorization code grant types. Authorization
 servers MAY limit the scopes available to dynamically registered clients.
 
