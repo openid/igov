@@ -1080,7 +1080,36 @@ mitigations in Section 17 of [OpenID Connect Core 1.0](#OpenID.Core).
 
 --- normative-
 
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.2119"/>
+normative:
+  RFC6749:
+  RFC6750:
+  RFC6797:
+  RFC6819:
+  RFC6973:
+  RFC7009:
+  RFC7515:
+  RFC7516:
+  RFC7517:
+  RFC7519:
+  RFC7523:
+  RFC7591:
+  RFC7636:
+  RFC7662:
+  RFC7638:
+  RFC7800:
+  RFC8414:
+  RFC8252:
+  RFC8705:
+  RFC8725:
+  RFC8996:
+  RFC9068:
+  RFC9325:
+  RFC9364:
+  RFC9449:
+  RFC9470:
+  RFC9700:
+  RFC9728:
+  RFC9864:
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6749"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6797"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6819"/>
