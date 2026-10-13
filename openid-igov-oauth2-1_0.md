@@ -1082,7 +1082,6 @@ mitigations in Section 17 of [OpenID Connect Core 1.0](#OpenID.Core).
 
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.2119"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6749"/>
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6750"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6797"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6819"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6973"/>
