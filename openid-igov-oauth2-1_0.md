@@ -668,7 +668,6 @@ registration\_endpoint
 :   The fully qualified URI of the server's URL of the authorization server's
     [OAuth 2.0 Dynamic Client Registration Protocol](#RFC7591) endpoint.
 
-token\_endpoint\_auth\_methods\_supported
 :   JSON array containing a list of client authentication methods supported by the token endpoint.
     Within this profile, the server MUST provide one or more of the following values:
     "private\_key\_jwt", "tls\_client\_auth", and "self\_signed\_tls\_auth".
