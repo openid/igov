@@ -583,7 +583,7 @@ dynamic client registration, and clients MAY register dynamically using the
 [Dynamic Client Registration Protocol](#RFC7591) for authorization code grant types. Authorization
 servers MAY limit the scopes available to dynamically registered clients.
 
-Authorization <!-- Should we make this a MUST? --> servers MAY protect their Dynamic Registration
+Authorization servers MUST protect their Dynamic Registration
 endpoints by requiring clients to present credentials that the authorization server would recognize
 as authorized participants. Authorization servers MAY accept signed software statements as described
 in {{RFC7591}} issued to client software developers from a trusted registration entity. The software
