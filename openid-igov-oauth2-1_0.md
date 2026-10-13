@@ -855,7 +855,7 @@ cnf
 
 :   When [OAuth 2.0 Demonstrating Proof of Possession (DPoP)](#RFC9449) is used, the confirmation
     claim value MUST be computed using the [JWK SHA-256 Thumbprint](#RFC7638) of the DPoP public key
-    and include conformation method value jkt.
+    and include confirmation method value jkt.
 
 In order to support backwards compatibility, AS MAY include the azp claim while resource servers
 modernize.
