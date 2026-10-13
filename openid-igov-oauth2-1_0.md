@@ -706,7 +706,7 @@ dpop\_signing\_alg\_values\_supported
 
 If the tls\_client\_certificate\_bound\_access\_tokens metadata parameter is set to "false", then
 the authorization server MUST include at least one DPoP signing algorithm in the
-dpop\_signing\_alg\_values\_supported metadata oaremeter.
+dpop\_signing\_alg\_values\_supported metadata parameter.
 
 If the authorization server is also an OpenID Connect Provider, it MUST provide a discovery endpoint
 meeting the requirements listed in Section 3.6 of [OpenID Connect Core 1.0](#OpenID.Core).
