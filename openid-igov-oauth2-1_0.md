@@ -218,21 +218,22 @@ The specification also defines features for interaction between these components
 * Client to authorization server.
 * Protected resource to authorization server.
 
-When an iGov-compliant component is interacting with other iGov-compliant components, in any valid
-combination, all components MUST fully conform to the features and requirements of this
-specification. All interaction with non-iGov components is outside the scope of this specification.
+An iGov-compliant component MUST satisfy the requirements applicable to its
+role and to the protocol mechanisms it supports or uses. A requirement to
+support a mechanism does not require its use in every transaction when this
+specification makes that use optional.
 
-An iGov-compliant OAuth 2.0 authorization server MUST support all features as described in this
-specification. A general-purpose authorization server MAY support additional features for use with
-non-iGov clients and protected resources.
+Clients, authorization servers, and protected resources MUST use a mutually
+supported sender-constraining mechanism for each access token. This profile
+permits either mTLS certificate-bound access tokens or DPoP-bound access
+tokens; it does not require every component to support both mechanisms.
+Components MUST NOT fall back to unconstrained access tokens when a common
+sender-constraining mechanism is unavailable.
 
-An iGov-compliant OAuth 2.0 client MUST use all functions as described in this specification. A
-general-purpose client library MAY support additional features for use with non-iGov authorization
-servers and protected resources.
-
-An iGov-compliant OAuth 2.0 protected resource MUST use all functions as described in this
-specification. A general-purpose protected resource library MAY support additional features for use
-with non-iGov authorization servers and clients.
+General-purpose implementations MAY support additional features for
+interactions outside this profile. Such support MUST NOT relax the
+requirements for interactions conducted under this profile. Interactions
+with non-iGov components are outside the scope of this specification.
 
 ## Global Requirements {#global-requirements}
 
@@ -278,6 +279,35 @@ downgraded using TLS Stripping attacks. Protected resources MAY implement an HTT
 Security policy as defined in [HTTP Strict Transport Security (HSTS)](#RFC6797) to mitigate these
 attacks. Protected resources SHOULD consider registering web domain names with browsers that offer
 browser-side ("preload") HSTS policy enforcement to further mitigate TLS downgrade attacks.
+
+### DPoP Proof Validation and Replay Prevention {#DPoPValidation}
+
+Authorization servers and protected resources processing DPoP requests MUST
+perform the applicable proof checks in Section 4.3 of {{RFC9449}}, together
+with the requirements for the endpoint receiving the request.
+
+A validator MUST accept proofs only within a bounded validity period. Its
+proof-freshness policy MUST document the acceptance window, permitted clock
+skew, and any nonce-validity rules that affect that period.
+
+A validator MUST reject reuse of a previously accepted DPoP proof for the
+entire period during which that proof would otherwise be accepted,
+including permitted clock skew. For this requirement, proof identity is
+determined by the DPoP public key's JWK SHA-256 thumbprint, the `jti` value,
+and the target URI. Target URI comparison MUST use the same normalization
+and exclusion of query and fragment components as the `htu` check in
+Section 4.3 of {{RFC9449}}.
+
+A validator MUST NOT accept more than one request carrying the same proof
+identity for that target URI during this period. This requirement MUST hold
+for concurrent requests and across all processing instances serving the same
+logical endpoint. It specifies observable behavior and does not prescribe
+a replay-cache design or other implementation architecture.
+
+A valid nonce or an acceptable `iat` value does not, by itself, satisfy
+this replay-prevention requirement. Reuse of an access token with a fresh,
+otherwise valid proof MUST NOT be rejected merely because the access token
+was previously used; all other access-control requirements still apply.
 
 # Client Profiles {#ClientProfiles}
 
@@ -340,16 +370,22 @@ authorization server.
 Client registration MAY be completed by either out-of-band configuration or using the
 [Dynamic Client Registration Protocol](#RFC7591).
 
-If a client uses [mTLS](#RFC8705) for client authentication or to sender-constrain tokens, the
-client MUST include the tls\_client\_certificate\_bound\_access\_tokens parameter in its
-registration metadata.
+A client registered to obtain mTLS certificate-bound access tokens MUST set
+`tls_client_certificate_bound_access_tokens` to the JSON boolean `true` in
+its registration metadata. Use of mTLS for client authentication alone does
+not require this value to be `true`.
 
-If a client uses [DPoP](#RFC9449) to sender constrain tokens, the client MUST include the
-dpop\_bound\_access\_tokens parameter in its registration metadata.
+A client registered to obtain DPoP-bound access tokens MUST set
+`dpop_bound_access_tokens` to the JSON boolean `true` in its registration
+metadata. The corresponding authorization server enforcement requirements
+are specified in {{sender-constrained-tokens}}.
 
-Clients using mTLS for client authentication or to sender-constrain tokens MUST register their TLS
-certificate's subject DN with the authorization server. Clients using self-signed certificate option
-are not guaranteed uniqueness of their certificate fingerprint.
+Client authentication and access-token sender-constraining are separate
+requirements. Clients MUST register the authentication credentials and
+metadata appropriate to their selected authentication method, as specified
+in {{RequestsToTokenEndpoint}} and {{client-keys}}. Merely using a
+certificate to sender-constrain access tokens does not require registering
+that certificate's subject DN as a client-authentication identity.
 
 ### Redirect URI {#RedirectURI}
 
@@ -386,6 +422,28 @@ along with the access token to gain access to protected resources.
 All clients MUST use proof of possession to sender-constrain access tokens using either
 [OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens](#RFC8705) or
 [OAuth 2.0 Demonstrating Proof of Possession (DPoP)](#RFC9449).
+
+### DPoP Client Requirements {#DPoPClientRequirements}
+
+Clients using DPoP MUST construct proofs in accordance with Section 4.2 of
+{{RFC9449}}. Each request carrying a DPoP proof, including a retry, MUST use
+a fresh proof with a new `jti` value. The proof MUST describe the HTTP
+method and target URI of that request.
+
+DPoP clients MUST support both the authorization-server nonce mechanism in
+Section 8 of {{RFC9449}} and the protected-resource nonce mechanism in
+Section 9 of {{RFC9449}}. This includes processing `DPoP-Nonce` response
+headers in successful responses and error responses, retaining nonce state
+for the issuing server, and using the applicable nonce in subsequent
+proofs sent to that server. Clients MUST keep authorization-server and
+protected-resource nonce contexts separate and MUST NOT substitute a nonce
+issued by one server for a nonce required by another.
+
+Clients MUST support retrying a request after a `use_dpop_nonce` challenge
+with a fresh proof containing the supplied nonce. Retrying MUST NOT reuse
+the challenged proof or its `jti` value. These client requirements apply
+whether or not the servers encountered in a particular deployment elect
+to require nonces.
 
 ## Authentication Context and Step-Up Authentication Challenge Protocol Support {#AuthNContext}
 
@@ -429,6 +487,20 @@ Clients that have multiple client types MUST have a separate client ID for each 
 
 Clients MUST include their full redirect URI in the authorization request.
 
+
+A client using DPoP MAY bind an authorization code to its DPoP key by
+including `dpop_jkt` in the authorization request, as specified in Section
+10 of {{RFC9449}}. When pushed authorization requests (PAR) are supported,
+the client MAY instead use either binding mechanism in Section 10.1 of
+{{RFC9449}}. This profile does not require clients to use authorization-code
+binding or to use PAR.
+
+When a client establishes an authorization-code binding, it MUST use the
+bound DPoP key in the proof accompanying redemption of that code. If a PAR
+request contains both `dpop_jkt` and a DPoP proof, they MUST identify the
+same key. Authorization-code binding does not replace PKCE or client
+authentication.
+
 The client MAY specify a strength of authentication and maximum age to the authorization server that
 should be met when issuing an access token for the requesting client by including parameters in the
 authorization request:
@@ -460,10 +532,23 @@ private\_key\_jwt method as defined in [OpenID Connect Core](#OpenID.Core) or th
 mutually-authenticated transport layer security (mTLS) request method defined in
 [OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens](#RFC8705).
 
-If using the private\_key\_jwt method, the request MUST be a JWT assertion as defined by the
-[JWT Profile for OAuth 2.0 Client Authentication and Authorization Grants](#RFC7523). The JWT
-assertion MUST be signed by the client using the client's private key. If using [mTLS](#RFC8705),
-the request MUST be made over a mutually authenticated TLS channel.
+A client using `private_key_jwt` MUST include a signed `client_assertion`
+and the corresponding `client_assertion_type` in the token request, as
+specified in {{RFC7523}}. The assertion MUST be signed with the client's
+authentication key. The token request itself is not a JWT. A client using
+mTLS authentication MUST make the request over a mutually authenticated
+TLS connection in accordance with {{RFC8705}}.
+
+A client requesting a DPoP-bound access token MUST include a valid proof
+in the `DPoP` HTTP request header field. This applies to each supported
+grant type, including `authorization_code`, `refresh_token`, and
+`client_credentials`. The proof supplements, and does not replace, the
+client-authentication requirements above.
+
+The client MUST verify that a successful response to such a request
+identifies the DPoP token type. Otherwise, it MUST discard the response
+and MUST NOT use the returned tokens. Refresh-token key-binding requirements
+are specified in {{refresh-tokens}}.
 
 If a client uses
 [OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens](#RFC8705) for
@@ -494,15 +579,27 @@ tls\_client\_auth\_san\_uri
 
 ### Client Keys {#client-keys}
 
-Confidential clients MUST have a public/private key pair for use in authentication to the token
-endpoint. These clients MUST either send the public key directly in the `jwks` field or register a
-`jwks_uri` that is reachable by the authorization server. It is RECOMMENDED that clients use a
-`jwks_uri` if possible as this allows for key rotation more easily. This applies to both dynamic and
-out-of-band client registration.
+Clients using `private_key_jwt` MUST register their authentication public
+keys using either `jwks` or `jwks_uri`. The value or referenced document
+MUST be a JWK Set as defined in {{RFC7517}}. A `jwks_uri` MUST be reachable
+by the authorization server. Use of `jwks_uri` is RECOMMENDED to facilitate
+key rotation. These requirements apply to dynamic and out-of-band
+registration. A certificate is not required merely because the client
+uses `private_key_jwt`.
 
-The `jwks` field or the content available from the `jwks_uri` of a client MUST contain a public key
-in [JSON Web Key Set (JWK Set)](#RFC7517) format. The authorization server MUST validate the content
-of the client's registered jwks\_uri document and verify that it contains a JWK Set.
+Clients using `self_signed_tls_client_auth` MUST register certificate
+information using `jwks` or `jwks_uri` in accordance with Section 2.2.2 of
+{{RFC8705}}, including the required `x5c` representation. Clients using
+`tls_client_auth` MUST register the expected certificate identity using
+the applicable metadata in {{RequestsToTokenEndpoint}} and Section 2.1.2
+of {{RFC8705}}; this method does not require registration of the
+certificate through `jwks` or `jwks_uri`.
+
+The authorization server MUST validate registered JWK Sets before using
+their keys. DPoP public keys are conveyed in the `jwk` header of DPoP proofs
+and need not be registered as client-authentication keys. A valid DPoP
+proof does not authenticate the client, and the DPoP key need not be the
+client-authentication key.
 
 <!-- End of Client keys -->
 
@@ -512,8 +609,17 @@ of the client's registered jwks\_uri document and verify that it contains a JWK 
 
 ### Requests to the Protected Resource {#RequestsToProtectedResource}
 
-Clients MUST use the authorization request header field mechanism to send sender-constrained tokens
-as defined by either {{RFC9449}} or {{RFC8705}}.
+Clients MUST send access tokens in the `Authorization` HTTP request header
+field. DPoP-bound access tokens MUST use the `DPoP` authorization scheme
+and MUST be accompanied by a DPoP proof in the `DPoP` header field, as
+specified in Section 7.1 of {{RFC9449}}. That proof MUST contain the `ath`
+claim for the access token presented in the request.
+
+mTLS certificate-bound access tokens MUST use the `Bearer` authorization
+scheme described in Section 2.1 of {{RFC6750}}, together with the mutually
+authenticated TLS connection and certificate-binding requirements in
+Section 3 of {{RFC8705}}. The client MUST demonstrate possession of the
+private key for the certificate to which that access token is bound.
 
 <!-- End of Connections to Protected Resource section -->
 
@@ -545,15 +651,19 @@ in [OpenID Connect Core](#OpenID.Core) or the mutually-authenticated transport l
 request method defined in
 [OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens](#RFC8705).
 
-If the client authenticates with the private\_key\_jwt method, the client request MUST be a JWT
-assertion as defined in
-[JWT Profile for OAuth 2.0 Client Authentication and Authorization Grants](#RFC7523). The JWT
-assertion MUST be signed by the client using the client's private key. If using [mTLS](#RFC8705),
-the request MUST be made over a mutually authenticated TLS channel.
+For `private_key_jwt`, the authorization server MUST validate the
+`client_assertion` and `client_assertion_type` in accordance with
+{{RFC7523}}, using the public keys registered for that client. For mTLS
+client authentication, it MUST authenticate the client in accordance with
+the selected method in Section 2 of {{RFC8705}}.
 
-The authorization server MUST validate all redirect URIs for authorization code grant types.
+The authorization server MUST validate redirect URIs for the authorization
+code grant against the client's registered redirect URIs.
 
-The authorization server MUST confirm thumbprints of client keys.
+Client authentication, PKCE validation, and DPoP proof validation are
+separate checks. Successful DPoP validation MUST NOT substitute for client
+authentication or PKCE validation. DPoP key-binding checks MUST be performed
+as specified in {{sender-constrained-tokens}} and {{refresh-tokens}}.
 
 Authorization servers MUST only grant access to higher level scope resources to clients that have
 permission to request these scope levels. Authorization servers MUST reject client authorization
@@ -588,41 +698,48 @@ endpoints by requiring clients to present credentials that the authorization ser
 as authorized participants. Authorization servers MAY accept signed software statements as described
 in {{RFC7591}} issued to client software developers from a trusted registration entity. The software
 statement can be used to tie together many instances of the same client software that will be run,
-dynamically registered, and authorized separately at runtime. The software statement MUST include
-the following client metadata parameters:
+dynamically registered, and authorized separately at runtime. When a
+software statement is used, it MUST include the following client metadata,
+subject to the applicability conditions specified below:
 
 redirect\_uris
-:   array of redirect URIs used by the client; subject to the requirements listed in {{RedirectURI}}
+:   REQUIRED for clients using the authorization code grant. A JSON array
+    of redirect URIs meeting the requirements in {{RedirectURI}}.
 
 grant\_types
-:   grant type used by the client; must be "authorization\_code" or "client\_credentials"
+:   REQUIRED. A JSON array of grant types used by the client. Values under
+    this profile are `authorization_code`, `client_credentials`, and
+    `refresh_token`. Clients that use refresh tokens MUST include
+    `refresh_token` in addition to the applicable initial grant type.
 
 client\_name
-:   human-readable name of the client
+:   REQUIRED. A human-readable name for the client.
 
 client\_uri
-:   URL of a web page containing further information about the client
+:   REQUIRED. The URL of a web page providing information about the client.
+
+token\_endpoint\_auth\_method
+:   REQUIRED. The client's authentication method: `private_key_jwt`,
+    `tls_client_auth`, or `self_signed_tls_client_auth`. The selected
+    method MUST be supported by the authorization server.
 
 tls\_client\_certificate\_bound\_access\_tokens
-:   REQUIRED. Boolean value indicating server support for mutual-TLS client certificate-bound access
-    tokens.
+:   REQUIRED with the JSON boolean value `true` for clients registered to
+    obtain mTLS certificate-bound access tokens. This is client metadata,
+    not a declaration of authorization-server capabilities.
 
-acr\_values\_supported
-:   OPTIONAL. Indicates the client will include the acr\_values and max\_age parameters in
-    authorization requests, and send insufficient\_user\_authentication error messages in
-    conformance with [OAuth 2.0 Step Up Authentication Challenge Protocol](#RFC9470).
-
-dpop\_signing\_alg\_values\_supported
-:   REQUIRED. A JSON array containing a list of the JWS alg values supported by the client for DPoP
-    proof JWTs.
+dpop\_bound\_access\_tokens
+:   REQUIRED with the JSON boolean value `true` for clients registered to
+    obtain DPoP-bound access tokens, as specified in Section 5.2 of
+    {{RFC9449}}.
 
 jwks\_uri or jwks
-:   client's public key in a JWK Set \[RFC7517\], or if jwks\_uri is used it MUST be reachable by
-    the Authorization Server and point to the client's public key set. If the PKI/tls\_client\_auth
-    method is used, the public key must be issued by a trusted Certificate Authority. If either the
-    self-signed mTLS method or private\_key\_jwt method for client authentication is used, the jwks
-    MUST include a certificate.
-
+:   REQUIRED for `private_key_jwt` and `self_signed_tls_client_auth`, with
+    contents meeting {{client-keys}}. Clients MUST NOT register both
+    parameters. Clients using `tls_client_auth` MUST instead supply the
+    applicable certificate-identity metadata described in
+    {{RequestsToTokenEndpoint}}.
+    
 It is NOT RECOMMENDED that authorization servers use IP address or email address to identify
 authenticating clients. It is also NOT RECOMMENDED that authorization servers use
 tls\_client\_auth\_san\_ip or tls\_client\_auth\_san\_email metadata values
@@ -645,10 +762,12 @@ information.
 
 ### Discovery {#Discovery}
 
-The authorization server MUST provide a JSON document that declares its endpoint locations and
-authorization server capabilities at a well-known URI as described in Section 3 of
-[OAuth 2.0 Authorization Server Metadata](#RFC8414). This authorization server metadata MUST include
-the following values defined in [OpenID Connect service discovery](#OpenID.Discovery).
+The authorization server MUST publish its endpoint locations and
+capabilities in a JSON metadata document at the well-known location
+specified in Section 3 of {{RFC8414}}. The document MUST satisfy the
+applicable requirements of {{RFC8414}} and the metadata requirements
+below. Entries identified as conditional are required only when their
+stated conditions apply; entries identified as optional remain optional.
 
 issuer
 :   The fully qualified issuer URL of the server
@@ -660,23 +779,34 @@ token\_endpoint
 :   The fully qualified URL of the server's token endpoint defined by [OAuth 2.0](#RFC6749)
 
 jwks\_uri
-:   The fully qualified URI of the server's JWK as defined in
-    [OAuth 2.0 Authorization Server Metadata](#RFC8414). If the self\_signed\_tls\_auth method is
-    used, a jwks\_uri MUST be registered and MUST include a certificate.
+:   The HTTPS URL of the authorization server's public JWK Set, as defined
+    in {{RFC8414}}. The set MUST contain the public keys needed to validate
+    access-token signatures. Registration of client certificates for
+    `self_signed_tls_client_auth` is governed by {{client-keys}}, not by
+    this authorization-server metadata parameter.
 
 registration\_endpoint
 :   The fully qualified URI of the server's URL of the authorization server's
     [OAuth 2.0 Dynamic Client Registration Protocol](#RFC7591) endpoint.
 
-:   JSON array containing a list of client authentication methods supported by the token endpoint.
-    Within this profile, the server MUST provide one or more of the following values:
-    "private\_key\_jwt", "tls\_client\_auth", and "self\_signed\_tls\_auth".
-
 token\_endpoint\_auth\_methods\_supported
-:   String of values corresponding to permitted methods for client authentication to the
-    authorization server as defined in [OAuth 2.0 Dynamic Client Registration Protocol](#RFC7591).
-    Within this profile, the server MUST provide one or more of the following values:
-    "private\_key\_jwt", "tls\_client\_auth", and "self\_signed\_tls\_client\_auth".
+:   A JSON array of authentication methods supported by the token endpoint.
+    It MUST include at least one of `private_key_jwt`, `tls_client_auth`,
+    or `self_signed_tls_client_auth` for use under this profile.
+
+token\_endpoint\_auth\_signing\_alg\_values\_supported
+:   REQUIRED when `private_key_jwt` is supported. A nonempty JSON array of
+    supported assertion-signing algorithms, in accordance with {{RFC8414}}
+    and the algorithm requirements in {{global-requirements}}.
+
+response\_types\_supported
+:   A JSON array of supported authorization response types. It MUST include
+    `code` for the authorization code flow required by this profile.
+
+grant\_types\_supported
+:   A JSON array of supported grant types. It MUST include
+    `authorization_code`, and MUST include `refresh_token` when refresh
+    tokens are issued and `client_credentials` when that grant is supported.
 
 revocation\_endpoint
 :   The fully qualified URL of the server's revocation endpoint defined by
@@ -701,12 +831,22 @@ mtls\_endpoint\_aliases
     [OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens](#RFC8705)
 
 dpop\_signing\_alg\_values\_supported
-:   A JSON array containing a list of the JWS alg values supported by the authorization server for
-    DPoP proof JWTs. If omitted, the default value is false.
+:   REQUIRED when DPoP is supported. A nonempty JSON array of JWS algorithm
+    identifiers supported for DPoP proofs, as defined in Section 5.1 of
+    {{RFC9449}}. Algorithms used under this profile MUST satisfy
+    {{global-requirements}}. This parameter has no boolean default value.
 
-If the tls\_client\_certificate\_bound\_access\_tokens metadata parameter is set to "false", then
-the authorization server MUST include at least one DPoP signing algorithm in the
-dpop\_signing\_alg\_values\_supported metadata parameter.
+acr\_values\_supported
+:   OPTIONAL authorization-server metadata describing supported
+    authentication context class references, with the meaning specified
+    in Section 7 of {{RFC9470}}. This is not client-registration metadata.
+
+Authorization servers MUST support at least one sender-constraining
+mechanism permitted by this profile. If
+`tls_client_certificate_bound_access_tokens` is `false` or omitted, the
+server MUST support DPoP and publish
+`dpop_signing_alg_values_supported` as specified above. A server supporting
+both mechanisms MUST advertise both capabilities.
 
 If the authorization server is also an OpenID Connect Provider, it MUST provide a discovery endpoint
 meeting the requirements listed in Section 3.6 of [OpenID Connect Core 1.0](#OpenID.Core).
@@ -729,14 +869,44 @@ alg
 
 ### Sender-constrained Tokens {#sender-constrained-tokens}
 
-The authorization server MUST support and verify sender-constrained tokens.
+The authorization server MUST issue access tokens bound using the
+sender-constraining mechanism selected for the client. It MUST NOT issue
+an unconstrained access token under this profile.
 
-The Authorization Server MUST NOT issue the client an access token if the client included the
-`tls_client_certificate_bound_access_tokens` parameter in its registration metadata and makes a
-request to the token endpoint over connection not secured by TLS.
+When `tls_client_certificate_bound_access_tokens` is `true` in the client's
+registration, the authorization server MUST require proof of possession
+of the client certificate's private key through mutual TLS and MUST bind
+the issued access token to that certificate in accordance with Section 3
+of {{RFC8705}}. A TLS connection without the required client-certificate
+proof is insufficient.
 
-If a client uses [DPoP](#RFC9449) to sender constrain tokens, the authorization server MUST validate
-the htm and htu claims, check for replay, and validate the dpop\_jkt parameter.
+For a DPoP access-token request, the authorization server MUST process the
+request according to Section 5 of {{RFC9449}} and MUST validate the proof
+according to {{DPoPValidation}}. When `dpop_bound_access_tokens` is `true`
+in the client's registration, a token request without a DPoP proof MUST
+be rejected. A successful DPoP request MUST result in an access token
+bound to the public key of the validated proof and a response identifying
+`DPoP` as the `token_type`. The JWT access token MUST carry the
+corresponding `cnf.jkt` value. These requirements apply to all supported
+grant types, including refresh-token requests.
+
+Authorization servers supporting DPoP MUST support authorization-code
+binding as specified in Section 10 of {{RFC9449}}. Client use is OPTIONAL.
+An otherwise valid request MUST NOT be rejected solely because the client
+did not establish a DPoP authorization-code binding.
+
+When an authorization code has been bound to a DPoP key, the authorization
+server MUST reject redemption unless the token request contains a valid
+DPoP proof whose public-key thumbprint matches the binding recorded for
+that code. Authorization servers supporting both PAR and DPoP MUST support
+both binding mechanisms in Section 10.1 of {{RFC9449}}. If a PAR request
+contains both `dpop_jkt` and a DPoP proof identifying different keys, the
+request MUST be rejected. This requirement does not mandate PAR support.
+
+The authorization server MAY require a DPoP nonce. When it does, it MUST
+follow Section 8 of {{RFC9449}}, including the `DPoP-Nonce` header and the
+HTTP 400 `use_dpop_nonce` error response when a required nonce is absent or
+unacceptable. Nonce use does not replace {{DPoPValidation}}.
 
 ### Revocation {#revocation}
 
@@ -755,16 +925,19 @@ Authorization servers MUST NOT allow a client to use a token after it is revoked
 
 ### PKCE {#pkce}
 
-Authorization servers MUST require use of PKCE
-([Proof Key for Code Exchange by OAuth Public Clients](#RFC7636)) by all clients and reject requests
-to the authorization endpoint from clients that do not contain a code challenge.
+Authorization servers MUST require PKCE for every authorization code flow.
+They MUST reject authorization requests without a code challenge and MUST
+validate the corresponding code verifier when the code is redeemed, as
+specified in {{RFC7636}}.
 
 Authorization servers MUST support the S256 code challenge method. Authorization servers MUST NOT
 allow a client to use the plain code challenge method.
 
 The PKCE code\_verifier value MUST contain at least 128 bits of entropy.
 
-Authorization servers MUST confirm thumbprints of client keys.
+PKCE validation MUST be performed independently of client authentication
+and any DPoP authorization-code binding. A successful check of one MUST
+NOT substitute for either of the others when applicable.
 
 ### Redirect URIs {#redirect-uris}
 
@@ -776,7 +949,39 @@ with an invalid or missing redirect URI.
 
 ### Refresh Tokens {#refresh-tokens}
 
-Authorization servers MAY issue refresh tokens to clients.
+Authorization servers MAY issue refresh tokens to clients. An authorization
+server that issues refresh tokens MUST support the `refresh_token` grant
+for their use. Each refresh-token request MUST authenticate the client,
+and the authorization server MUST verify that the refresh token was issued
+to that client.
+
+For confidential clients, this profile permits additional DPoP key binding
+of refresh tokens as a deployment policy. This is an additional restriction
+beyond the confidential-client refresh-token behavior described in Section
+5 of {{RFC9449}}; it is not required merely because DPoP is used for access
+tokens. The binding policy and its key-rotation implications MUST be made
+known to the client through registration or deployment configuration.
+
+Refresh tokens MAY be bound to the DPoP key used when they are issued and
+MAY remain bound to that original key, including when replacement refresh
+tokens are issued through refresh-token rotation. While such a binding is
+in effect, the client MUST present a fresh DPoP proof for the bound key
+when using the refresh token. The authorization server MUST validate that
+proof according to {{DPoPValidation}} and MUST reject the request if the
+proof is absent or its public-key thumbprint does not match the binding.
+Client authentication remains REQUIRED.
+
+A proof signed by a different key MUST NOT, by itself, cause an existing
+refresh-token binding to be replaced or removed. Refresh-token rotation
+and DPoP-key rotation are distinct operations. This profile does not define
+an in-band mechanism to rebind an existing refresh token to a new DPoP key.
+
+When a refresh token is not DPoP-key-bound, the client MAY use a different
+DPoP key in a subsequent refresh request. Subject to the other requirements
+of this profile, the authorization server MUST NOT reject that request
+solely because the DPoP key differs from one used previously. The newly
+issued DPoP-bound access token MUST be bound to the key in the validated
+proof accompanying that refresh request.
 
 ## Response to Authorization Requests {#response-to-authorization-requests}
 
@@ -796,15 +1001,15 @@ PKCE parameters MUST be associated with the authorization code as per Section 4.
 
 ## JSON Web Tokens (JWT) {#JWTokens}
 
-Authorization servers MUST issue cryptographically signed sender-constrained tokens in the JSON Web
-Token (JWT) format as defined in
-[JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens](#RFC9068). The information carried in the
-JWT is intended to allow a protected resource to quickly test the integrity of the token without
-additional network calls, and to allow the protected resource to determine which authorization
-server issued the token. The protected resource MAY use the authorization server token introspection
-service to retrieve additional security information about the token.
+Authorization servers MUST issue signed, sender-constrained access tokens
+in JWT format in accordance with {{RFC9068}}. Protected resources MAY
+validate these tokens locally, use token introspection, or combine the two
+as specified in {{protected-resource-profile}}. The JWT-format requirement
+in this paragraph applies to access tokens; it does not require refresh
+tokens to use the same format or claims.
 
-The server MUST issue tokens as JWTs with, at minimum, the following claims:
+Each JWT access token MUST contain the claims required by {{RFC9068}} and,
+at minimum, the following claims required by this profile:
 
 iss
 :   The issuer URL of the server that issued the token
@@ -821,17 +1026,19 @@ jti
     another token.
 
 sub
-:   The identifier of the end-user that authorized this client, or the client id of a client acting
-    on its own behalf (such as a bulk transfer). Since this information could potentially leak
-    private user information, it should be used only when needed. End-user identifiers SHOULD be
-    pairwise anonymous identifiers unless the audience requires otherwise.
+:   REQUIRED. The subject identifier specified in {{RFC9068}}: the resource
+    owner when acting on that owner's behalf, or the client identifier
+    when the client acts on its own behalf. End-user identifiers SHOULD
+    be pairwise pseudonymous unless the intended audience requires
+    otherwise. Privacy considerations do not permit omission of this
+    required claim.
 
 aud
-:   The audience of the token, an array containing the identifier(s) of protected resource(s) for
-    which the token is valid, if this information is known. The aud claim may contain multiple
-    values if the token is valid for multiple protected resources. Note that at runtime, the
-    authorization server may not know the identifiers of all possible protected resources at which a
-    token may be used.
+:   REQUIRED. A nonempty JSON array identifying the protected resources
+    for which the access token is intended. The authorization server MUST
+    determine the intended audience before issuing the token, as described
+    in Section 3 of {{RFC9068}}. Lack of an explicitly requested resource
+    does not permit omission of this claim.
 
 scope
 :   The value of the scope claim is a JSON string containing a space-separated list of scopes
@@ -843,19 +1050,19 @@ iat
     used to determine the age of the JWT. Its value MUST be a number containing a NumericDate value.
 
 cnf
-:   The confirmation claim, as defined in
-    [Proof-of-Possession Key Semantics for JSON Web Tokens (JWTs)](#RFC7800) and
-    [OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens](#RFC8705) is
-    used in a JWT to contain members used to identify the proof-of-possession key.
+:   REQUIRED. A JSON object identifying the proof-of-possession key or
+    certificate to which the access token is bound, using the confirmation
+    methods defined in {{RFC7800}}, {{RFC8705}}, and {{RFC9449}}.
 
-:   When
-    [OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound Access Tokens](#RFC8705)is
-    used, the confirmation claim value MUST be computed using the X.509 Certificate SHA-256
-    Thumbprint and include confirmation method value "x5t#256".
+    For an mTLS certificate-bound access token, the object MUST contain
+    `x5t#S256` with the base64url-encoded SHA-256 digest of the DER-encoded
+    client certificate, as specified in Section 3.1 of {{RFC8705}}.
 
-:   When [OAuth 2.0 Demonstrating Proof of Possession (DPoP)](#RFC9449) is used, the confirmation
-    claim value MUST be computed using the [JWK SHA-256 Thumbprint](#RFC7638) of the DPoP public key
-    and include confirmation method value jkt.
+    For a DPoP-bound access token, the object MUST contain `jkt` with the
+    base64url-encoded JWK SHA-256 thumbprint of the public key from the
+    validated token-request proof, as specified in Section 6.1 of
+    {{RFC9449}} and {{RFC7638}}. The authorization-request parameter
+    `dpop_jkt` is not an access-token confirmation member.
 
 In order to support backwards compatibility, AS MAY include the azp claim while resource servers
 modernize.
@@ -866,15 +1073,17 @@ fields:
 kid
 :   The key ID of the key pair used to sign this token
 
-Refresh tokens SHOULD be signed with [JWS](#RFC7515) using the same private key and contain the same
-set of claims as the access tokens.
+Refresh tokens SHOULD be signed with {{RFC7515}} using the authorization
+server's access-token signing key. They need not contain the same claims
+as access tokens. The authorization server MUST distinguish refresh tokens
+from access tokens when validating them, in accordance with {{RFC8725}}.
+Any confirmation information in a refresh token MUST represent the actual
+refresh-token binding policy in {{refresh-tokens}}, rather than an
+assumption that the access-token binding also applies to the refresh token.
 
 The authorization server MAY encrypt access tokens and refresh tokens using [JWE](#RFC7516) .
 Encrypted access tokens MUST be encrypted using the public key of the protected resource. Encrypted
 refresh tokens MUST be encrypted using the authorization server's public key.
-
-The client SHOULD use a certificate to sender-constrain tokens that is distinct from the certificate
-used to connect to the protected resource.
 
 ## Token Lifetimes {#TokenLifetimes}
 
@@ -903,33 +1112,57 @@ Refer to {{ClientApproval}} for further information about displaying scopes to e
 
 ### Introspection {#introspection}
 
-Token introspection allows a protected resource to make a request over a mutually authenticated TLS
-connection to the authorization server for metadata about a token. Authorization servers MUST NOT
-allow clients to use token introspection endpoints.
+Token introspection allows a protected resource to obtain access-token
+status and metadata from the authorization server over TLS, using the
+resource-server authentication requirements below. mTLS is required for
+an mTLS authentication method; it is not additionally required merely
+because the protected resource uses `private_key_jwt`.
 
-The client assertion parameter is structured as described in {{RequestsToTokenEndpoint}}.
-
-Authorization servers respond to an introspection request with a JSON object containing the
-following fields as defined in [OAuth 2.0 Token Introspection](#RFC7662).
+Introspection responses MUST follow {{RFC7662}}. Every response MUST
+contain `active`. When `active` is `false`, additional token metadata
+SHOULD NOT be returned. When `active` is `true`, this profile requires the
+following fields so that the protected resource can validate both the
+access token and its sender constraint:
 
 active
-:   Boolean value indicating whether or not this token is currently active at this authorization
-    server. Tokens that have been revoked, have expired, or were not issued by this authorization
-    server are considered non-active.
+:   A JSON boolean indicating whether the token is currently active.
 
 scope
-:   Space-separated list of OAuth 2.0 scope values represented as a single string.
+:   The token's granted scopes, represented as a space-separated string.
 
 exp
-:   Timestamp of when this token expires (integer number of seconds since from 1970-01-01T00:00:00Z
-    UTC)
+:   The token's expiration time as a NumericDate value.
 
 sub
-:   An opaque string that uniquely identifies the user who authorized this token at this
-    authorization server (if applicable). This string MAY be diversified per client.
+:   The subject identifier associated with the token, consistent with the
+    access token's `sub` claim.
 
 client\_id
-:   An opaque string that uniquely identifies the OAuth 2.0 client that requested this token
+:   The identifier of the client to which the token was issued.
+
+iss
+:   The identifier of the authorization server that issued the token.
+
+aud
+:   The intended audience, consistent with the access token's `aud` claim.
+
+token\_type
+:   `DPoP` for a DPoP-bound access token, or `Bearer` for an mTLS
+    certificate-bound access token. The latter value does not remove the
+    certificate-binding requirement.
+
+cnf
+:   The token's confirmation information: `jkt` for a DPoP-bound access
+    token, as specified in Section 6.2 of {{RFC9449}}, or `x5t#S256` for an
+    mTLS certificate-bound access token, as specified in Section 3.2 of
+    {{RFC8705}}.
+
+The protected resource remains responsible for validating the proof or
+client certificate presented with the resource request against this
+confirmation information. An `active` value of `true` does not establish
+that the requester possesses the bound key. The protected resource MUST
+NOT forward the client's resource-request DPoP proof to the introspection
+endpoint as a substitute for performing its own proof validation.
 
 Authorization servers MUST require authentication of resource servers for the introspection endpoint
 using either private\_key\_jwt or Mutual-TLS methods as described for clients in
@@ -943,22 +1176,51 @@ endpoints.
 Protected resources MUST interpret access tokens using either JWT, token introspection, or a
 combination of the two
 
-Protected resources MUST check the `aud` (audience) claim in tokens to ensure that it includes the
-protected resource's identifier.
+Protected resources MUST validate access tokens using local JWT validation
+in accordance with Section 4 of {{RFC9068}}, authenticated token
+introspection in accordance with {{introspection}}, or both. When introspection is used,
+the response MUST contain `active` with the value `true` before the token
+is accepted. The protected resource MUST establish that the token has a trusted issuer,
+has not expired, and includes the protected resource's identifier in its
+`aud` value. When both validation methods are used, the protected resource MUST reject
+the token if either method indicates that it is invalid.
 
-Protected resources MUST accept tokens passed in the authorization header as described in
-{{RFC6750}}. A protected resource MUST NOT accept tokens passed in the form parameter or query
-parameter methods.
+Protected resources MUST require access tokens in the `Authorization`
+HTTP request header field and MUST NOT accept them in query or form
+parameters. DPoP-bound tokens MUST use the `DPoP` authorization scheme and
+an accompanying `DPoP` proof header. mTLS certificate-bound tokens MUST use
+the `Bearer` authorization scheme in Section 2.1 of {{RFC6750}}, together
+with the requirements of {{RFC8705}}. A DPoP-bound token presented using
+the `Bearer` scheme MUST be rejected.
 
 Protected resources MUST define and document which scopes are required for access to the resource
 and any authentication strength or recency requirements for each scope.
 
-If a client uses [mTLS](#RFC8705) to sender-constrain tokens, the protected resource MUST verify
-that the certificate matches the certificate associated with the access token. If they do not match,
-the resource access attempt MUST be denied.
+For mTLS certificate-bound access tokens, the protected resource MUST
+require mutual TLS and MUST verify that the client certificate presented
+for the request has the SHA-256 thumbprint identified by `cnf.x5t#S256`,
+obtained from the validated access token or authenticated introspection
+response. A missing or mismatched certificate MUST cause access to be
+denied.
 
-If a client uses [DPoP](#RFC9449) to sender constrain tokens, the protected resource MUST validate
-the htm and htu claims, check for replay, and validate the dpop\_jkt parameter.
+For DPoP-bound access tokens, the protected resource MUST validate the
+proof according to {{DPoPValidation}} and Section 7.1 of {{RFC9449}}. It
+MUST verify both that the JWK SHA-256 thumbprint of the proof's public key
+matches `cnf.jkt` and that the proof's `ath` value matches the hash of the
+access token presented in that request. Confirmation information MUST come
+from the validated access token or authenticated introspection response.
+The protected resource does not validate the authorization-request
+parameter `dpop_jkt`.
+
+A protected resource MAY require a DPoP nonce. When it does, it MUST follow
+Section 9 of {{RFC9449}}, including the `DPoP-Nonce` header and the HTTP 401
+response with a `WWW-Authenticate: DPoP` challenge carrying the
+`use_dpop_nonce` error when a required nonce is absent or unacceptable.
+Nonce use does not replace {{DPoPValidation}}.
+
+The protected resource MUST deny access unless access-token validation,
+sender-constraint validation, and the applicable authorization checks all
+succeed.
 
 Protected resources MAY use authentication context or step up authentication to implement access
 controls.
