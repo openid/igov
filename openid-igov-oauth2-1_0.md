@@ -159,6 +159,36 @@ normative:
       initials: P.
       surname: De Ryck
     date: '2025-12-04'
+  RFC2119:
+  RFC6749:
+  RFC6750:
+  RFC6797:
+  RFC6819:
+  RFC6973:
+  RFC7009:
+  RFC7515:
+  RFC7516:
+  RFC7517:
+  RFC7519:
+  RFC7523:
+  RFC7591:
+  RFC7636:
+  RFC7662:
+  RFC7638:
+  RFC7800:
+  RFC8414:
+  RFC8252:
+  RFC8705:
+  RFC8725:
+  RFC8996:
+  RFC9068:
+  RFC9325:
+  RFC9364:
+  RFC9449:
+  RFC9470:
+  RFC9700:
+  RFC9728:
+  RFC9864:
 
 --- abstract
 
@@ -189,7 +219,7 @@ purposes:
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT",
 "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as
-described in {{RFC 2119}}.
+described in {{RFC2119}}.
 
 All uses of [JSON Web Signature (JWS)](#RFC7515) and [JSON Web Encryption (JWE)](#RFC7516) data
 structures in this specification utilize the JWS Compact Serialization or the JWE Compact
@@ -259,7 +289,7 @@ X25519MLKEM768 is broadly supported at the time of writing.
 Authorization servers, clients, and resource servers, when creating or processing JWTs
 
 {: empty="true"}
-* 1\. MUST adhere to \[RFC8725\]
+* 1\. MUST adhere to {{RFC8725}}
 * 2\. MUST use PS256, ES256, or Ed25519 (referred to as EdDSA in JOSE)
 * 3\. MUST NOT use or accept the `none` algorithm.
 
@@ -1273,7 +1303,7 @@ Protected resources MUST provide a JWKS URI endpoint to distribute public keys t
 encryption, and authentication to authorization server revocation and introspection endpoints. This
 can be achieved by registering the resource server as a client in the AS, and using the mechanism
 outlined in section "client authentication". As an alternative mechanism the Resource Server could
-implement OAuth 2.0 Protected Resource Metadata \[RFC9728\]. It defines a metadata format that a
+implement OAuth 2.0 Protected Resource Metadata {{RFC9728}}. It defines a metadata format that a
 client or authorization server can use to obtain the information needed to interact with a protected
 resource. This metadata facilitates enhanced interoperability and security including advertisement
 and discovery of a protected resource's public key via its jwks\_uri.
@@ -1339,39 +1369,6 @@ sender constrained tokens to mitigate the threats in {{RFC6973}}
 
 In OpenID Connect implementations, clients and servers SHOULD implement the privacy threat
 mitigations in Section 17 of [OpenID Connect Core 1.0](#OpenID.Core).
-
---- normative-
-
-normative:
-  RFC6749:
-  RFC6750:
-  RFC6797:
-  RFC6819:
-  RFC6973:
-  RFC7009:
-  RFC7515:
-  RFC7516:
-  RFC7517:
-  RFC7519:
-  RFC7523:
-  RFC7591:
-  RFC7636:
-  RFC7662:
-  RFC7638:
-  RFC7800:
-  RFC8414:
-  RFC8252:
-  RFC8705:
-  RFC8725:
-  RFC8996:
-  RFC9068:
-  RFC9325:
-  RFC9364:
-  RFC9449:
-  RFC9470:
-  RFC9700:
-  RFC9728:
-  RFC9864:
 
 --- back
 
