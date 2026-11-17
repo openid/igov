@@ -215,6 +215,10 @@ purposes:
 2. Identify optional, advanced security controls for sensitive use cases where increased risk
    justifies more stringent controls.
 
+The companion iGov OpenID Connect profile {{OpenID.iGov}} specifies
+additional requirements for federated authentication and the exchange
+of end-user identity information using OpenID Connect.
+
 ## Requirements Notation and Conventions {#rnc}
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT",
@@ -271,9 +275,11 @@ iGov implementations SHOULD be crypto-agile, enabling rapid substitution of algo
 services remain secure as threats and standards evolve. Implementers of this profile SHOULD monitor
 the progress of specifications of post-quantum cryptography.
 
-All network connections MUST be made using TLS 1.2 or above. Each originator of a TLS connection
-MUST verify the destination's certificate. If TLS 1.2 is used, only the following four TLS 1.2
-cipher suites MAY be used when interoperability is required:
+Connections MUST negotiate TLS 1.2 or a later version. TLS 1.0 and
+TLS 1.1 MUST NOT be used, as specified in {{RFC8996}}.  
+Each originator of a TLS connection MUST verify the destination's certificate. 
+The following TLS 1.2 cipher suites are recommended in Section 4.2
+of {{RFC9325}}:
 
 {: empty="true"}
 * TLS\_ECDHE\_RSA\_WITH\_AES\_128\_GCM\_SHA256
@@ -290,19 +296,19 @@ Authorization servers, clients, and resource servers, when creating or processin
 
 {: empty="true"}
 * 1\. MUST adhere to {{RFC8725}}
-* 2\. MUST use PS256, ES256, or Ed25519 (referred to as EdDSA in JOSE)
+* 2\. MUST use `PS256`, `ES256`, or `Ed25519` as the JOSE `alg`
+  value. The `Ed25519` algorithm identifier is defined in {{RFC9864}}.
 * 3\. MUST NOT use or accept the `none` algorithm.
 
 RSA keys MUST have a minimum length of 2048 bits.
 
 Elliptic curve keys MUST have a minimum length of 224 bits.
 
-For the authorization\_endpoint, the authorization server MAY allow additional cipher suites that
-are permitted by the latest version of [Deprecating TLS 1.0 and TLS 1.1](#RFC8996), if necessary to
-allow sufficient interoperability with users' web browsers or as required by local regulations.
-
-NOTE: Permitted cipher suites are those listed in [Deprecating TLS 1.0 and TLS 1.1](#RFC8996) that
-do not explicitly say MUST NOT use.
+For the authorization endpoint, the authorization server MAY support
+additional TLS 1.2 cipher suites when necessary for browser
+interoperability or local regulatory requirements. Such use MUST
+conform to the applicable cipher-suite requirements and recommendations
+in Section 4 of {{RFC9325}}.
 
 Endpoints for use by web browsers MUST use mechanisms to ensure that connections cannot be
 downgraded using TLS Stripping attacks. Protected resources MAY implement an HTTP Strict Transport
@@ -878,8 +884,9 @@ server MUST support DPoP and publish
 `dpop_signing_alg_values_supported` as specified above. A server supporting
 both mechanisms MUST advertise both capabilities.
 
-If the authorization server is also an OpenID Connect Provider, it MUST provide a discovery endpoint
-meeting the requirements listed in Section 3.6 of [OpenID Connect Core 1.0](#OpenID.Core).
+If the authorization server is also an OpenID Provider, it MUST publish
+OpenID Provider metadata and make its configuration information available
+in accordance with Sections 3 and 4 of {{OpenID.Discovery}}.
 
 It is RECOMMENDED that authorization servers provide cache information through HTTP headers and make
 the cache valid for at least one week. This allows clients and protected resources to cache the
