@@ -14,7 +14,7 @@
 title: International Government Assurance Profile (iGov) for OAuth 2.0 - draft 10
 abbrev: iGov OAuth 2.0
 docname: openid-igov-oauth2-1_10
-date: '2026-07-25'
+date: '2026-11-16'
 category: std
 ipr: none
 submissiontype: IETF
